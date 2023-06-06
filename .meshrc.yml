@@ -1,0 +1,8 @@
+sources:
+  - name: Weatherbit.io
+    handler:
+      openapi:
+        source: https://sunstone-app-alpha.q.uniphorecloud.com/v3/api-docs
+        baseUrl: https://sunstone-app-alpha.q.uniphorecloud.com
+        operationHeaders:
+          Authorization: "Bearer <bearer>"

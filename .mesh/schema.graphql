@@ -1,0 +1,5207 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  """
+  
+  
+  Equivalent to GET /auth/accessToken
+  """
+  accessTokenForAuthenticatedUser: JSON
+  """
+  
+  
+  Equivalent to GET /usales/keyword/keyphrase/fetch-expert/{tagId}
+  """
+  fetchKeyPhraseExpert(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    tagId: Float!
+  ): [KeyPhraseExpertResponseDTO]
+  """
+  
+  
+  Equivalent to GET /cq/token/access
+  """
+  generateAccessToken: JSON
+  """
+  
+  
+  Equivalent to GET /cq/token/refresh
+  """
+  generateRefreshToken: JSON
+  """
+  
+  
+  Equivalent to GET /usales/companyprofile/access-consent
+  """
+  getAccessConsent: Boolean
+  """
+  
+  
+  Equivalent to GET /usales/accounts/{id}
+  """
+  getAccountById(id: Float!): AccountResponseDTO
+  """
+  
+  
+  Equivalent to GET /usales/accounts/{id}/oppty
+  """
+  getAccountOpptyByAccount(
+    id: Float!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [OpptyDTO]
+  """
+  
+  
+  Equivalent to GET /usales/accounts/{id}/team
+  """
+  getAccountTeamByAccount(id: Float!): AccountTeamResponse
+  """
+  
+  
+  Equivalent to GET /usales/accounts
+  """
+  getAccounts(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [AccountResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/conv/metrics/{id}
+  """
+  getAggrConvMetrics(
+    id: Float!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [AggrConvMetrics]
+  """
+  
+  
+  Equivalent to GET /usales/convs/{id}/metrics
+  """
+  getAggrConvMetricsByParticipant(
+    id: Float!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    participantId: String!
+  ): [AggrConvMetrics]
+  """
+  
+  
+  Equivalent to GET /usales/alerts/{id}
+  """
+  getAlertById(id: Float!): AlertResponseDTO
+  """
+  
+  
+  Equivalent to GET /usales/alerts
+  """
+  getAlertByUser(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    status: String
+  ): [AlertResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/company-params
+  """
+  getAllCompanyParams(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [CompanyParamResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/configprops
+  """
+  getAllCurrentSystemProp(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [ConfigPropResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/convs/{id}/participantsWithMetrics
+  """
+  getAttendees(id: Float!): ConversationAttendeesResponse
+  """
+  
+  
+  Equivalent to GET /auth/google/callback
+  """
+  getAuthCodeAndGenerateToken1: JSON
+  """
+  
+  
+  Equivalent to GET /slack/authurl
+  """
+  getAuthUrl3: String
+  """
+  
+  
+  Equivalent to GET /auth/social
+  """
+  getAuthUrl4: String
+  """
+  
+  
+  Equivalent to GET /auth/outlook
+  """
+  getAuthUrl5: String
+  """
+  
+  
+  Equivalent to GET /auth/google
+  """
+  getAuthUrl6: String
+  """
+  
+  
+  Equivalent to GET /usales/bookmarks/convs/{convId}
+  """
+  getBookmarksByConvId(
+    convId: Float!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [ConvBookmarkResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/bookmarks/keymoments/{convKeyMomentId}
+  """
+  getBookmarksByConvKeyMomentId(
+    convKeyMomentId: Float!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [ConvBookmarkResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/convs/{convId}/comments
+  """
+  getCommentByConvId(
+    convId: Float!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [CommentResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/keymoments/{convKeyMomentId}/comments
+  """
+  getCommentByConvKeyMomentId(
+    convKeyMomentId: Float!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [CommentResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/companyprofile/businesscategs
+  """
+  getCompanyCategAndSubCateg(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [KeywordCategResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/companyprofile
+  """
+  getCompanyProfile: CompanyProfileDTO
+  """
+  
+  
+  Equivalent to GET /usales/analytics/company/slide-first
+  """
+  getCompanySlideFirst: CompanySlideFirstResponse
+  """
+  
+  
+  Equivalent to GET /cq/opportunity/{crmOpportunityId}/contact/{crmContactId}/eq
+  """
+  getContactEQForOppty(
+    crmContactId: String!
+    crmOpportunityId: String!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [Contact]
+  """
+  
+  
+  Equivalent to GET /usales/contacts/{contact}/emails/count
+  """
+  getContactEmailsCount(contactId: Float!): Int
+  """
+  
+  
+  Equivalent to GET /usales/contact/metrics/{contactId}
+  """
+  getContactMetrics(contactId: Float!, ganularity: String, opptyId: Float!): ContactMetricsResponse
+  """
+  
+  
+  Equivalent to GET /cq/opportunity/{crmOpportunityId}/contact/eq
+  """
+  getContactsEQForOppty(
+    crmOpportunityId: String!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [Contact]
+  """
+  
+  
+  Equivalent to GET /usales/convs/attendees
+  """
+  getConvAttendeeTeam(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [ConvAttendeeResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/convs/attendees/{id}
+  """
+  getConvAttendeeTeamById(id: Float!): ConvAttendeeResponseDTO
+  """
+  
+  
+  Equivalent to GET /usales/conv/metrics/aggr/{id}
+  """
+  getConvMetrics(id: Float!): ConvMetricsResponse
+  """
+  
+  
+  Equivalent to GET /conv/mod/{convId}
+  """
+  getConvModLog(
+    convId: Float!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [ConversationAttributionLogRsp]
+  """
+  
+  
+  Equivalent to GET /usales/accounts/promises
+  """
+  getConvPromises(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    userIds: String
+  ): [AccountPromisesResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/convs/status
+  """
+  getConvStatus: [String]
+  """
+  
+  
+  Equivalent to GET /usales/conv-topic-episodes/{id}
+  """
+  getConvTopicEpisodeById(id: Float!): ConvTopicEpisodeResponseDTO
+  """
+  
+  
+  Equivalent to GET /usales/deals/{opptyId}/convtrends
+  """
+  getConvTrends(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    opptyId: Float!
+  ): [ConvEQResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/convs
+  """
+  getConversation(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [ConversationRequest]
+  """
+  
+  
+  Equivalent to GET /usales/convs/{id}
+  """
+  getConversationById(id: Float!): ConversationRequest
+  """
+  
+  
+  Equivalent to GET /usales/convs/{id}/details
+  """
+  getConversationDetail(id: Float!, type: String): ConversationDetailResponse
+  """
+  
+  
+  Equivalent to GET /usales/convs/{id}/preview
+  """
+  getConversationPreviewByConversation(id: Float!): ConversationDetailResponse
+  """
+  
+  
+  Equivalent to GET /usales/metrics/convs/{convId}/convostats
+  """
+  getConvostats(convId: Float!): ConvoStatResponse
+  """
+  
+  
+  Equivalent to GET /usales/mindtickle/coursesbyemail/{email}
+  """
+  getCoursesForUserEmail(email: String!): String
+  """
+  
+  
+  Equivalent to GET /usales/company-param
+  """
+  getCurrentCompanyProp(prop: String!): String
+  """
+  
+  
+  Equivalent to GET /cq/contact/{crmContactId}/eq
+  """
+  getCurrentEQForContact(crmContactId: String!): String
+  """
+  
+  
+  Equivalent to GET /cq/opportunity/{crmOpportunityId}/current
+  """
+  getCurrentEQForOppty(crmOpportunityId: String!, days: Float): CurrentEQForOpptyResponse
+  """
+  
+  
+  Equivalent to GET /cq/account/{crmAccountId}/current
+  """
+  getCurrentEqForAccount(crmAccountId: String!, days: Float): DealDetailResponse
+  """
+  
+  
+  Equivalent to GET /usales/sys
+  """
+  getCurrentSystemProp(prop: String!): String
+  """
+  
+  
+  Equivalent to GET /usales/users/me
+  """
+  getCurrentUserDetail: User
+  """
+  
+  
+  Equivalent to GET /usales/custweblinks
+  """
+  getCustWebLinks(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [CustWebLinkResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/mindtickle/querybyuri/{url}
+  """
+  getDataByUri(uri: String!): String
+  """
+  
+  
+  Equivalent to GET /usales/oppty/{id}/trend
+  """
+  getDealByIdTrend(id: Float!, key: String, type: String): DealSummaryTrendResponse
+  """
+  
+  
+  Equivalent to GET /usales/oppty/{id}/details
+  """
+  getDealDetailsByMode(id: Float!, mode: String, tz: String): DealSummaryDetailResponse
+  """
+  
+  
+  Equivalent to GET /usales/deals/{opptyId}/eqscore
+  """
+  getDealEQScore(opptyId: Float!): JSON
+  """
+  
+  
+  Equivalent to GET /usales/deals/stages
+  """
+  getDealStageList: [String]
+  """
+  
+  
+  Equivalent to GET /usales/oppty/summary/{id}
+  """
+  getDealSummaryById(id: Float!): DealSummaryResponse
+  """
+  
+  
+  Equivalent to GET /usales/diarization/{conv_id}
+  """
+  getDiarization(convId: Float!): Diarization
+  """
+  
+  
+  Equivalent to GET /usales/accounts/{accountId}/convtrends
+  """
+  getEQbyAccount(accountId: Float!): ConvEQResponseDTO
+  """
+  
+  
+  Equivalent to GET /usales/deals/{opptyId}/contacts/{contactId}/eqscore
+  """
+  getEQbyContact(contactId: Float!, opptyId: Float!): JSON
+  """
+  
+  
+  Equivalent to GET /usales/convs/{convId}/eqscore
+  """
+  getEQbyConv(convId: Float!): ConvEQResponseDTO
+  """
+  
+  
+  Equivalent to GET /usales/convs/{convId}/contact_eqscore
+  """
+  getEQbyConv1(contact: String!, convId: Float!): JSON
+  """
+  
+  
+  Equivalent to GET /usales/emleqs
+  """
+  getEmlEqByEmailObj(
+    emlObjId: Float
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [EmlEqResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/emleqs/{id}
+  """
+  getEmlEqById(id: Float!): JSON
+  """
+  
+  
+  Equivalent to GET /usales/empathyandhesitationturns/get/conv
+  """
+  getEmpathyTurns(convId: Float!): EmpathyAndHesitationTurnsReport
+  """
+  
+  
+  Equivalent to GET /usales/events/{id}
+  """
+  getEventById(id: Float!): CalendarEvent
+  """
+  
+  
+  Equivalent to GET /usales/convs/{id}/keyPhrases
+  """
+  getKeyMomentsForConvId(id: Float!): KeyPhraseResponse
+  """
+  
+  
+  Equivalent to GET /usales/keyword/categ
+  """
+  getKeywordCategories: [String]
+  """
+  
+  
+  Equivalent to GET /usales/keyword/categ/{category}
+  """
+  getKeywordCategories1(
+    category: String!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [KeywordCategResponseDTO]
+  """
+  
+  
+  Equivalent to GET /cq/manager/{managerEmailId}/{startMMddyyyy}/eq
+  """
+  getManagerEQ(managerEmailId: String!, startMMddyyyy: String!): TeamOpptyUsersStats
+  """
+  
+  
+  Equivalent to GET /usales/mediaclip/{id}
+  """
+  getMediaClipById(id: Float!): MediaClipResponseDTO
+  """
+  
+  
+  Equivalent to GET /usales/mediaClip/param/{mediaClipId}
+  """
+  getMediaClipParamsByMediaClipId1(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    mediaClipId: Float!
+    name: String!
+  ): [MediaClipParamResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/playlists/sharedwithme
+  """
+  getMediaClipPlaylistSharedWithUser: JSON
+  """
+  
+  
+  Equivalent to GET /usales/convs/summary/{id}
+  """
+  getMeeting(id: Float!): ConversationSummaryResponse
+  """
+  
+  
+  Equivalent to GET /usales/users/{receiverUserId}/comments
+  """
+  getMentionedUserComments(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    userId: Float!
+  ): [CommentResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/mediaclip/myclips
+  """
+  getMyMediaClips(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [MediaClipResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/oppty/{id}
+  """
+  getOpptyById(id: Float!): OpptyDTO
+  """
+  
+  
+  Equivalent to GET /usales/{oppty_stage}/eqscore
+  """
+  getOpptyEqbyStage(opptyStage: String!): OpptyEqbyStageResponseDTO
+  """
+  
+  
+  Equivalent to GET /usales/oppty/keyMoments
+  """
+  getOpptyKeyMoments(granularity: String, keyTag: String, opptyId: Float, period: String, type: String): OpptyDTO
+  """
+  
+  
+  Equivalent to GET /usales/oppty/{opptyId}/promises
+  """
+  getOpptyPromises(opptyId: Float!): OpptyDTO
+  """
+  
+  
+  Equivalent to GET /usales/oppty/teams
+  """
+  getOpptyTeam(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [OpptyTeamResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/oppty/teams/{id}
+  """
+  getOpptyTeamById(id: Float!): OpptyTeamResponseDTO
+  """
+  
+  
+  Equivalent to GET /usales/oppty
+  """
+  getOpptys(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [OpptyDTO]
+  """
+  
+  
+  Equivalent to GET /usales/playlists/{id}
+  """
+  getPlaylistById(id: Float!): PlaylistResponseDTO
+  """
+  
+  
+  Equivalent to GET /usales/playlist/param/{playlistId}
+  """
+  getPlaylistParamsByPlaylistId1(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    name: String!
+    playlistId: Float!
+  ): [PlaylistParamResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/playlists/shared-members
+  """
+  getPlaylistSharedMembers(
+    history: Boolean
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    playlistId: Float!
+  ): [SharedMemberDTO]
+  """
+  
+  
+  Equivalent to GET /usales/playlists/myplaylists
+  """
+  getPlaylists(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [PlaylistResponseDTO]
+  """
+  
+  
+  Equivalent to GET /usales/preferences/mine
+  """
+  getPreferences1(type: String!): JSON
+  """
+  
+  
+  Equivalent to GET /cq/seller/{sellerEmailId}/{days}/eq
+  """
+  getSellerEQ1(days: Int!, sellerEmailId: String!): TeamOpptyUsersStats
+  """
+  
+  
+  Equivalent to GET /cq/seller/{sellerEmailId}/eq
+  """
+  getSellerEQ2(sellerEmailId: String!): TeamOpptyUsersStats
+  """
+  
+  
+  Equivalent to GET /usales/sharedviewdata-conv/{conv_id}
+  """
+  getSharedViewData(
+    convId: Float!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [ConvSharedViewData]
+  """
+  
+  
+  Equivalent to GET /usales/convs/{id}/slide-first
+  """
+  getSlideFirstByConversation(id: Float!): ConvSlideFirstResponse
+  """
+  
+  
+  Equivalent to GET /usales/reports/summary
+  """
+  getSummary: SummaryReportDTO
+  """
+  
+  
+  Equivalent to GET /usales/users/team/{usersId}
+  """
+  getTeamMembers(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    usersId: Float!
+  ): [User]
+  """
+  
+  
+  Equivalent to GET /usales/timeline/{conv_id}
+  """
+  getTimeline(convId: Float!): ConvTimeline
+  """
+  
+  
+  Equivalent to GET /usales/sharedviewdata-name/{name}
+  """
+  getTimeline1(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    name: String!
+  ): [ConvSharedViewData]
+  """
+  
+  
+  Equivalent to GET /cq/opportunity/{crmOpportunityId}/trend
+  """
+  getTrendEQForOppty(crmOpportunityId: String!, days: Float): TrendEQForOpptyResponse
+  """
+  
+  
+  Equivalent to GET /cq/account/{crmAccountId}/trend
+  """
+  getTrendEqForAccount(
+    crmAccountId: String!
+    days: Float
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [DealDetailResponse]
+  """
+  
+  
+  Equivalent to GET /usales/users/me/emails/count
+  """
+  getUserEmailsCount: Int
+  """
+  
+  
+  Equivalent to GET /usales/users/{usersId}/proxy
+  """
+  getUserProxy(usersId: Float!): UserDelegateResponseDTO
+  """
+  
+  
+  Equivalent to GET /usales/users
+  """
+  getUsersCount: Float
+  """
+  
+  
+  Equivalent to GET /v1/transcript/populate/{convId}
+  """
+  populate1(convId: String!): String
+  """
+  
+  
+  Equivalent to GET /slack/redirect
+  """
+  redirectMethod(code: String!, state: String!): JSON
+  """
+  
+  
+  Equivalent to GET /usales/re/{code}
+  """
+  redirectUrl(code: String!): JSON
+  """
+  
+  
+  Equivalent to GET /cq/token/revoke/access
+  """
+  revokeAccessToken: String
+  """
+  
+  
+  Equivalent to GET /auth/revoke/{provider}
+  """
+  revokeAuth(provider: String!): String
+  """
+  
+  
+  Equivalent to GET /cq/token/revoke/refresh
+  """
+  revokeRefreshToken: String
+  """
+  
+  
+  Equivalent to GET /usales/contact/summary/{contactId}
+  """
+  searchContact1(contactId: Float!): ContactResponse
+}
+
+"""The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."""
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+type KeyPhraseExpertResponseDTO {
+  email: String
+  engagement: Float
+  fullName: String
+  sentiment: Float
+  userId: Float
+}
+
+type AccountResponseDTO {
+  accountTeamID: IdNameDTO
+  contacts: [ContactActivity]
+  conversations: [ConversationRequest]
+  crmAccountId: String
+  domain: String
+  id: Float
+  insertTime: String
+  name: String
+  oppties: [Oppty2]
+  orgId: Float
+  score: [Score4]
+  source: String
+  standing: String
+  status: String
+  sticker: String
+  subtype: String
+  type: String
+  url: String
+  version: String
+}
+
+type IdNameDTO {
+  id: Float
+  name: String
+}
+
+type ContactActivity {
+  conversation: Conversation2
+  conversations: Int
+  email: String
+  emails: Int
+  id: Float
+  jobTitle: String
+  lastActivityDate: String
+  lastActivityType: String
+  lastActivityTypeId: Float
+  name: String
+  role: String
+  score: [Score4]
+  type: String
+}
+
+type Conversation2 {
+  data: [ConversationData]
+  mode: String
+}
+
+type ConversationData {
+  convIds: [[Float]]
+  conversations: Int
+  emailIds: [[Float]]
+  emails: Int
+  endDate: String
+}
+
+type Score4 {
+  trend: String
+  type: String
+  value: String
+}
+
+type ConversationRequest {
+  accountID: ConvAccountDTO
+  aiViewVideoMediaLink: String
+  attendees: [Attendee]
+  audioMediaLink: String
+  confidential: Boolean
+  contentViewVideoMediaLink: String
+  cvProcDone: Boolean
+  dataFusionProcDone: Boolean
+  description: String
+  entity: String
+  externalConvId: String
+  externalMeetingId: String
+  galleryViewVideoMediaLink: String
+  hasClips: Boolean
+  hasComments: Boolean
+  hostID: ConvUsersDTO
+  id: Float
+  insertTime: String
+  isShared: Boolean
+  keyMoments: [KeyMoment]
+  lastChunk: Float
+  meetingEndTime: String
+  meetingStartTime: String
+  meetingTopic: String
+  opptyID: IdNameDTO
+  orgId: Float
+  processedFlag: String
+  promises: [ConvPromiseResponseDTO]
+  recordingStartTime: String
+  score: [Score4]
+  source: String
+  speakerTimelineLink: String
+  speakerViewVideoMediaLink: String
+  status: String
+  subtype: String
+  textKmProcDone: Boolean
+  textMediaLink: String
+  textSentProcDone: Boolean
+  thumbnail: String
+  tonalProcDone: Boolean
+  transcriptLink: String
+  type: String
+  uuid: String
+  version: String
+  videoMediaLink: String
+  views: Float
+}
+
+type ConvAccountDTO {
+  domain: String
+  id: Float
+  name: String
+  url: String
+}
+
+type Attendee {
+  contactId: Float
+  description: String
+  empathy: Float
+  hesitation: Float
+  hostImage: String
+  id: Float
+  jobTitle: String
+  metrics: [AttendeeMetric]
+  name: String
+  politeness: Float
+  rank: Int
+  role: String
+  score: UniScore
+  speakingPace: Float
+  talkRatio: Float
+  timeline: [[Float]]
+  type: Type12
+  wonOver: Boolean
+}
+
+type AttendeeMetric {
+  time: String
+  type: Type13
+  value: Float
+}
+
+enum Type13 {
+  POSITIVE
+  NEGATIVE
+  NEUTRAL
+}
+
+type UniScore {
+  score: [Score4]
+  trends: Trends
+  wonOver: Boolean
+}
+
+type Trends {
+  t1: UniScore
+  t2: UniScore
+  t3: UniScore
+  t4: UniScore
+  t5: UniScore
+  t6: UniScore
+  t7: UniScore
+  t8: UniScore
+}
+
+enum Type12 {
+  CUSTOMER
+  EMPLOYEE
+}
+
+type ConvUsersDTO {
+  fullname: String
+  id: Float
+  username: String
+}
+
+type KeyMoment {
+  bookmarks: [ConvBookmarkResponseDTO]
+  contentImages: String
+  contributedBy: [String]
+  criticality: String
+  downVote: Float
+  downVoteUser: String
+  endOffset: Float
+  highlightText: String
+  id: Float
+  insertTime: String
+  keyCategory: KeyCategory
+  keyMomentScore: String
+  keyMomentTexts: [KeyMomentText]
+  keyTags: [KeyTag]
+  kmEndOffset: String
+  kmStartOffset: String
+  polarity: String
+  score: Float
+  startOffset: Float
+  subtype: String
+  text: String
+  time: String
+  type: String
+  upVote: Float
+  upVoteUser: String
+}
+
+type ConvBookmarkResponseDTO {
+  convID: ConvDTO
+  createdBy: ConvUsersDTO
+  description: String
+  id: Float
+  insertTime: String
+  keyMomentId: Float
+  orgId: Float
+  source: String
+  status: String
+  subtype: String
+  timeEnd: Float
+  timeStart: Float
+  type: String
+  version: String
+}
+
+type ConvDTO {
+  confidential: Boolean
+  description: String
+  hostId: Float
+  id: Float
+  meetingTopic: String
+  status: String
+}
+
+enum KeyCategory {
+  CUSTOMER_PAIN_POINTS
+  CUSTOMER_OBJECTIONS
+  BUDGET
+  PROJECT_METRICS_OF_SUCCESS
+  COMPETITORS
+  PRODUCT_FEATURES
+  PRICING
+  DECISION_CRITERIA
+}
+
+type KeyMomentText {
+  id: Float
+  line: String
+  type: String
+  username: String
+}
+
+type KeyTag {
+  category: String
+  id: Float
+  subtype: String
+  type: String
+  value: String
+}
+
+type ConvPromiseResponseDTO {
+  actionStatus: String
+  classification: String
+  confidential: Boolean
+  convId: Float
+  hostId: Float
+  id: Float
+  orgId: Float
+  promiseEndTime: String
+  promiseNextAction: String
+  promiseStartTime: String
+  promiseText: String
+  score: Float
+  speaker: String
+  speakerUsersId: Float
+  status: String
+  subtype: String
+  type: String
+}
+
+type Oppty2 {
+  account: Account
+  amount: Float
+  crmOpptyId: String
+  id: Float
+  insertBy: Float
+  insertTime: String
+  listOfConversation: [Conversation2]
+  listOfMeetingMetadata: [MeetingMetadata]
+  listOfOpptyContactRel: [OpptyContactRel]
+  name: String
+  opptyAmount: Float
+  opptyCloseDate: String
+  opptyCreateDate: String
+  opptySource: String
+  opptyStage: String
+  opptyStatus: String
+  opptyTeam: OpptyTeam
+  orgId: Float
+  setOfOpptyParam: [OpptyParam]
+  source: String
+  subtype: String
+  type: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type Account {
+  name: String
+}
+
+type MeetingMetadata {
+  account: Account
+  audioMediaLink: String
+  contact: Contact
+  description: String
+  externalMeetingId: String
+  id: Float
+  insertBy: Float
+  insertTime: String
+  meetingTopic: String
+  oppty: Oppty2
+  orgId: Float
+  setOfMeetingMetadataParam: [MeetingMetadataParam]
+  source: String
+  status: String
+  subtype: String
+  textMediaLink: String
+  type: String
+  updateBy: Float
+  updateTime: String
+  version: String
+  videoMediaLink: String
+}
+
+type Contact {
+  avatar: String
+  id: Float
+  name: String
+}
+
+type MeetingMetadataParam {
+  id: Float
+  insertBy: Float
+  insertTime: String
+  meetingMetadata: MeetingMetadata
+  orgId: Float
+  source: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type OpptyContactRel {
+  contact: Contact
+  crmRelId: String
+  id: Float
+  insertBy: Float
+  insertTime: String
+  oppty: Oppty2
+  orgId: Float
+  source: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type OpptyTeam {
+  crmRelId: String
+  endDate: String
+  id: Float
+  insertBy: Float
+  insertTime: String
+  listOfOppty: [Oppty2]
+  name: String
+  oppty: Oppty2
+  orgId: Float
+  role: String
+  setOfOpptyTeamParam: [OpptyTeamParam]
+  source: String
+  startDate: String
+  updateBy: Float
+  updateTime: String
+  users3: Users2
+  version: String
+}
+
+type OpptyTeamParam {
+  id: Float
+  insertBy: Float
+  insertTime: String
+  members: Int
+  opptyTeam: OpptyTeam
+  orgId: Float
+  source: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type Users2 {
+  alertList: [Alert]
+  crmUserId: String
+  customerDomainWhiteList: [CustomerDomainWhiteList2]
+  email: String
+  expired: Boolean
+  firstTimeLogin: Boolean
+  firstname: String
+  fullname: String
+  id: Float
+  insertBy: Float
+  insertTime: String
+  inviteSent: String
+  invitedAt: String
+  lastname: String
+  listOfAccountTeam3: [AccountTeam]
+  listOfOpptyTeam3: [OpptyTeam]
+  listOfUserRoles: [UsersRoleRel]
+  listOfUserUiPreference3: [UserUiPreference]
+  managerId: Float
+  orgId: Float
+  orgType: String
+  password: String
+  provider: String
+  providerId: String
+  qenabled: Boolean
+  source: String
+  status: String
+  updateBy: Float
+  updateTime: String
+  userType: String
+  username: String
+  version: String
+  zoomHostId: String
+  zoomToken: String
+}
+
+type Alert {
+  archive: Boolean
+  description: String
+  exp: Float
+  id: Float
+  insertBy: Float
+  insertTime: String
+  objId: Float
+  objSubId: Float
+  objType: String
+  orgId: Float
+  source: String
+  status: String
+  subtype: String
+  type: String
+  updateBy: Float
+  updateTime: String
+  users: Users2
+  version: String
+}
+
+type CustomerDomainWhiteList2 {
+  id: Float
+  insertBy: Float
+  insertTime: String
+  orgId: Float
+  setOfCustomerDomainWhiteListParam: [CustomerDomainWhiteListParam]
+  source: String
+  updateBy: Float
+  updateTime: String
+  users: Users2
+  version: String
+}
+
+type CustomerDomainWhiteListParam {
+  customerDomainWhiteList: CustomerDomainWhiteList2
+  domain: String
+  id: Float
+  insertBy: Float
+  insertTime: String
+  orgId: Float
+  source: String
+  subject: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type AccountTeam {
+  account: Account
+  crmRelId: String
+  endDate: String
+  id: Float
+  insertBy: Float
+  insertTime: String
+  listOfAccount: [Account]
+  name: String
+  orgId: Float
+  role: String
+  setOfAccountTeamParam: [AccountTeamParam]
+  source: String
+  startDate: String
+  updateBy: Float
+  updateTime: String
+  users3: Users2
+  version: String
+}
+
+type AccountTeamParam {
+  accountTeam: AccountTeam
+  id: Float
+  insertBy: Float
+  insertTime: String
+  members: Int
+  orgId: Float
+  source: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type UsersRoleRel {
+  id: Float
+  insertBy: Float
+  insertTime: String
+  orgId: Float
+  roleId: Float
+  source: String
+  updateBy: Float
+  updateTime: String
+  users: Users2
+  version: String
+}
+
+type UserUiPreference {
+  id: Float
+  insertBy: Float
+  insertTime: String
+  orgId: Float
+  preferenceType: String
+  savedJson: String
+  setOfUserUiPreferenceParam: [UserUiPreferenceParam]
+  source: String
+  updateBy: Float
+  updateTime: String
+  users: Users2
+  version: String
+}
+
+type UserUiPreferenceParam {
+  description: String
+  id: Float
+  insertBy: Float
+  insertTime: String
+  name: String
+  orgId: Float
+  source: String
+  status: String
+  subtype: String
+  type: String
+  updateBy: Float
+  updateTime: String
+  userUiPreference: UserUiPreference
+  value: String
+  version: String
+}
+
+type OpptyParam {
+  id: Float
+  insertBy: Float
+  insertTime: String
+  name: String
+  oppty: Oppty2
+  orgId: Float
+  probability: Float
+  product: String
+  score: Float
+  source: String
+  subtype: String
+  timespent: Float
+  type: String
+  updateBy: Float
+  updateTime: String
+  value: String
+  version: String
+}
+
+type OpptyDTO {
+  accountID: IdNameDTO
+  amount: Float
+  contact: Float
+  conversation: [ConversationRequest]
+  crmOpptyId: String
+  id: Float
+  insertTime: String
+  metrics: JSON
+  name: String
+  opptyAmount: Float
+  opptyCloseDate: String
+  opptyCreateDate: String
+  opptySource: String
+  opptyStage: String
+  opptyStatus: String
+  opptyTeamID: IdNameDTO
+  orgId: Float
+  score: [Score4]
+  source: String
+  status: String
+  subtype: String
+  type: String
+  version: String
+}
+
+type AccountTeamResponse {
+  current: [AccountTeamDTO]
+  last: [AccountTeamDTO]
+}
+
+type AccountTeamDTO {
+  endDate: String
+  id: Float
+  insertTime: String
+  lastActivityDate: String
+  manager: String
+  name: String
+  role: String
+  seller: String
+  source: String
+  startDate: String
+  status: String
+  subtype: String
+  timeOnAccount: String
+  type: String
+  version: String
+}
+
+type AggrConvMetrics {
+  convId: Float
+  engagement: Float
+  engagementSmooth: Float
+  isSpeaker: Boolean
+  offset: Float
+  offsetTimestamp: String
+  participantId: String
+  sentiment: Float
+  sentimentSmooth: Float
+}
+
+type AlertResponseDTO {
+  archive: Boolean
+  description: String
+  digitalSource: String
+  exp: Float
+  id: Float
+  insertBy: Float
+  insertTime: String
+  objId: Float
+  objSubId: Float
+  objType: String
+  source: String
+  status: String
+  subtype: String
+  type: String
+  user: User
+  version: String
+}
+
+type User {
+  companyProfileDTO: CompanyProfileDTO
+  email: String
+  expired: Boolean
+  externalIdToken: [JSON]
+  firstTimeLogin: Boolean
+  firstname: String
+  fullname: String
+  id: Float
+  invited: Boolean
+  invitedAt: String
+  isBlueJeansAuthorized: Boolean
+  isCalendarAuthorized: Boolean
+  isEmailAuthorized: Boolean
+  isGmailAuthorized: Boolean
+  isGoogleCalendarAuthorized: Boolean
+  isOutlookAuthorized: Boolean
+  isOutlookCalendarAuthorized: Boolean
+  isPasswordResetRequired: Boolean
+  isPasswordSet: Boolean
+  isSlackAuthorized: Boolean
+  isSsoLogin: Boolean
+  isTeamAuthorized: Boolean
+  isWebexAuthorized: Boolean
+  isZoomAuthorized: Boolean
+  lastname: String
+  manager: UserManagerDTO
+  orgId: Float
+  orgType: String
+  qEnabled: Boolean
+  role: [IdNameDTO]
+  scopes: String
+  source: String
+  status: String
+  userType: String
+  username: String
+  zoomToken: String
+}
+
+type CompanyProfileDTO {
+  companyName: String
+  description: String
+  externalId: Float
+  id: Float
+  insertTime: String
+  orgId: Float
+  status: String
+  subtype: String
+  type: String
+}
+
+type UserManagerDTO {
+  email: String
+  firstname: String
+  id: Float
+  lastname: String
+}
+
+type CompanyParamResponseDTO {
+  description: String
+  id: Float
+  name: String
+  source: String
+  status: String
+  subtype: String
+  type: String
+  value: String
+}
+
+type ConfigPropResponseDTO {
+  configPropset: IdNameDTO
+  defaultValue: String
+  defaultValueInt: Int
+  description: String
+  id: Float
+  isVisible: String
+  name: String
+  source: String
+  status: String
+  subtype: String
+  type: String
+}
+
+type ConversationAttendeesResponse {
+  attendees: [Attendee]
+  endDate: String
+  id: String
+  startDate: String
+  type: String
+}
+
+type CommentResponseDTO {
+  comment: String
+  convID: ConvDTO
+  endTime: Float
+  id: Float
+  insertTime: String
+  keyMomentId: Float
+  mentions: String
+  name: String
+  orgId: Float
+  source: String
+  startTime: Float
+  status: String
+  subtype: String
+  type: String
+  updateTime: String
+  user: User
+  version: String
+}
+
+type KeywordCategResponseDTO {
+  description: String
+  id: Float
+  insertTime: String
+  keywordCategName: String
+  keywordTags: [KeywordTagResponseDTO]
+  orgId: Float
+  source: String
+  status: String
+  subtype: String
+  type: String
+}
+
+type KeywordTagResponseDTO {
+  description: String
+  id: Float
+  insertTime: String
+  keywordCateg: KeywordCategResponseDTO
+  keywordTagVal: String
+  orgId: Float
+  source: String
+  status: String
+  subtype: String
+  type: String
+  version: String
+}
+
+type CompanySlideFirstResponse {
+  companyName: String
+  description: String
+  high: [SlideFirst]
+  id: Float
+  low: [SlideFirst]
+}
+
+type SlideFirst {
+  accountID: ConvAccountDTO
+  contentStartTime: String
+  contentViewVideoMediaLink: String
+  convId: Float
+  convList: [SlideFirst]
+  galleryViewVideoMediaLink: String
+  kmEndTime: String
+  kmId: Float
+  kmStartTime: String
+  kmText: String
+  kmUsername: String
+  meetingEndTime: String
+  meetingName: String
+  meetingStartTime: String
+  sentiment: Float
+  type: String
+  url: String
+}
+
+type ContactMetricsResponse {
+  avatarUrl: String
+  contactMethods: [ContactMethodDTO]
+  firstName: String
+  id: String
+  jobTitle: String
+  lastName: String
+  metrics: JSON
+  name: String
+  oppty: [OpptyDTO]
+  role: String
+  score: [Score4]
+}
+
+type ContactMethodDTO {
+  contactId: Float
+  emailAddress: String
+  id: Float
+  insertBy: Float
+  insertTime: String
+  orgId: Float
+  phoneNumber: String
+  preference: String
+  setOfContactMethodParam: [ContactMethodParam]
+  social: String
+  source: String
+  type: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type ContactMethodParam {
+  contactMethod: ContactMethod
+  id: Float
+  insertBy: Float
+  insertTime: String
+  orgId: Float
+  preference: String
+  source: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type ContactMethod {
+  contact: Contact
+  emailAddress2: String
+  id: Float
+  insertBy: Float
+  insertTime: String
+  orgId: Float
+  phoneNumber2: String
+  preference: String
+  setOfContactMethodParam: [ContactMethodParam]
+  social: String
+  source: String
+  type: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type ConvAttendeeResponseDTO {
+  attendeeEmail: String
+  attendeeName: String
+  convID: IdNameDTO
+  description: String
+  employeeOrContactInd: String
+  id: Float
+  insertTime: String
+  orgId: Float
+  source: String
+  status: String
+  subtype: String
+  type: String
+  version: String
+}
+
+type ConvMetricsResponse {
+  attendees: [AttendeeMetric]
+  desc: String
+  id: String
+  videoLink: String
+}
+
+type ConversationAttributionLogRsp {
+  allowEdit: Boolean
+  convId: Float
+  id: Float
+  newAccountCrmId: String
+  newAccountId: Float
+  newOpptyCrmId: String
+  newOpptyId: Float
+  oldAccountCrmId: String
+  oldAccountId: Float
+  oldOpptyCrmId: String
+  oldOpptyId: Float
+}
+
+type AccountPromisesResponseDTO {
+  account: Account
+  dateTime: String
+  promises: [Promise]
+}
+
+type Promise {
+  classification: String
+  conv: ConvInfo
+  deal: DealInfo
+  id: Float
+  promiseEndTime: String
+  promiseNextAction: String
+  promiseStartTime: String
+  promiseText: String
+  score: Float
+  status: String
+  subtype: String
+  type: String
+}
+
+type ConvInfo {
+  confidential: Boolean
+  endTime: String
+  hostId: Float
+  id: Float
+  meetingTopic: String
+  startTime: String
+  status: String
+}
+
+type DealInfo {
+  amount: Float
+  amountNumber: String
+  closeDate: String
+  createDate: String
+  id: Float
+  name: String
+}
+
+type ConvTopicEpisodeResponseDTO {
+  conversation: Float
+  endTime: Float
+  id: Float
+  insertBy: Float
+  insertTime: String
+  keytopicCount1: Float
+  keytopicCount2: Float
+  keytopicCount3: Float
+  keytopicCount4: Float
+  keytopicId1: String
+  keytopicId2: String
+  keytopicId3: String
+  keytopicId4: String
+  orgId: Float
+  source: String
+  startTime: Float
+  status: String
+  subtype: String
+  type: String
+  unsupervisedCount1: Float
+  unsupervisedCount2: Float
+  unsupervisedCount3: Float
+  unsupervisedCount4: Float
+  unsupervisedTopic1: String
+  unsupervisedTopic2: String
+  unsupervisedTopic3: String
+  unsupervisedTopic4: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type ConvEQResponseDTO {
+  accountId: Float
+  convEndTime: String
+  convId: Float
+  convStartTime: String
+  eqScore: String
+  id: Float
+  insertTime: String
+  meetingEngagement: Float
+  meetingSentiment: Float
+  numberOfAttendees: Float
+  opptyId: Float
+  orgId: Float
+  source: String
+  stage: String
+  status: String
+  subtype: String
+  type: String
+  updateTime: String
+  vRankSum: Float
+  version: String
+  vrankSum: Float
+}
+
+type ConversationDetailResponse {
+  accountID: DealAccount
+  actionItems: [ConvPromiseResponseDTO]
+  aiViewVideoMediaLink: String
+  attendees: [Attendee]
+  audioMediaLink: String
+  bookmarks: [ConvBookmarkResponseDTO]
+  confidential: Boolean
+  contentViewVideoMediaLink: String
+  cvProcDone: Boolean
+  dataFusionProcDone: Boolean
+  description: String
+  endDate: String
+  externalMeetingId: String
+  freezeImage: String
+  galleryVideoLink: String
+  galleryViewVideoMediaLink: String
+  hostId: Float
+  hostName: String
+  id: String
+  keyMoments2: [KeyMoment]
+  maskVideoLink: String
+  meetingTopic: String
+  nextActions: [ConvNextAction]
+  opportunities: DealSummaryDetailResponse
+  opptyID: DealOppty
+  orgId: Float
+  recordingDate: String
+  score: [Score4]
+  shareCount: Float
+  source: String
+  speakerTimelineLink: String
+  speakerViewVideoMediaLink: String
+  startDate: String
+  status: String
+  subtype: String
+  textKmProcDone: Boolean
+  textMediaLink: String
+  textSentProcDone: Boolean
+  tonalProcDone: Boolean
+  topics: [ConvTopicEpisodeResponseDTO]
+  transcriptLink: String
+  type: String
+  videoMediaLink: String
+}
+
+type DealAccount {
+  domain: String
+  id: Float
+  name: String
+  url: String
+}
+
+type ConvNextAction {
+  description: String
+  rank: Int
+}
+
+type DealSummaryDetailResponse {
+  account: Account
+  accountId: Float
+  amount: Float
+  contact: Contact
+  contactId: Float
+  contacts: [ContactActivity]
+  conversations: [ConversationRequest]
+  crmOpptyId: String
+  id: Float
+  metrics: JSON
+  name: String
+  opptyAmount: Int
+  opptyCloseDate: String
+  opptyCreateDate: String
+  opptyName: Int
+  opptySource: String
+  opptyStage: String
+  opptyStatus: String
+  opptyTeamId: Float
+  orgId: Float
+  score: [Score4]
+  sellers: [UserActivity]
+  source: String
+  subtype: String
+  type: String
+}
+
+type UserActivity {
+  conversation: Conversation2
+  email: String
+  emails: Int
+  id: Float
+  jobTitle: String
+  lastActivityDate: String
+  lastActivityType: String
+  name: String
+  role: String
+  score: [Score4]
+  type: String
+}
+
+type DealOppty {
+  closeDate: String
+  id: Float
+  name: String
+  value: String
+}
+
+type ConvoStatResponse {
+  accountId: Float
+  aiViewVideoMediaLink: String
+  attendees: [Attendee]
+  audioMediaLink: String
+  contentViewVideoMediaLink: String
+  convoStats: ConvoStats
+  customer: String
+  description: String
+  endDate: String
+  externalMeetingId: String
+  freezeImage: String
+  galleryVideoLink: String
+  galleryViewVideoMediaLink: String
+  host: String
+  hostId: Float
+  id: String
+  keyMoments: [KeyMoment]
+  maskVideoLink: String
+  meetingTopic: String
+  nextActions: [ConvNextAction]
+  opptyId: Float
+  orgId: Float
+  recordingDate: String
+  score: [Score4]
+  source: String
+  speakerTimelineLink: String
+  speakerViewVideoMediaLink: String
+  startDate: String
+  status: String
+  subtype: String
+  textMediaLink: String
+  transcriptLink: String
+  type: String
+  videoMediaLink: String
+}
+
+type ConvoStats {
+  averageEmpathy: Float
+  averagePoliteness: Float
+  averagespeakingPace: Float
+  hesitation: Float
+  longestCustomerMonologue: Int
+  longestRepMonologue: Int
+  talkRatio: Float
+  teamMembers: [Attendee]
+}
+
+type CurrentEQForOpptyResponse {
+  deals: DealSummaryDetailResponse
+}
+
+type DealDetailResponse {
+  searchResult: DealSearchResult
+  totalCount: Float
+}
+
+type DealSearchResult {
+  entities: [DealEntity]
+  resultCount: Float
+  userId: Float
+}
+
+type DealEntity {
+  data: [DealData]
+  type: String
+}
+
+type DealData {
+  account: DealAccount
+  accountOpptyEQ: AccountOpptyEQResponseDTO
+  amount: Float
+  contact: [Contact]
+  conversations: [ConversationRequest]
+  id: Float
+  metrics: JSON
+  name: String
+  nextAction: DealNextAction
+  opptyAmount: Float
+  opptyCloseDate: String
+  opptyCreateDate: String
+  opptyStage: String
+  opptyStatus: String
+  pastActivity: String
+  pendingPromisesCount: Int
+  score: [Score4]
+  totalPromisesCount: Int
+}
+
+type AccountOpptyEQResponseDTO {
+  accountId: Float
+  accountName: String
+  accountUrl: String
+  amount: Float
+  empathy: Float
+  engagement: Float
+  id: Float
+  opptyAmount: Float
+  opptyId: Float
+  opptyName: String
+  opptyRisk: OpptyRisk
+  opptyStage: String
+  opptyState: String
+  orgId: Float
+  sentiment: Float
+}
+
+enum OpptyRisk {
+  AT_RISK
+  ON_TRACK
+  EXCEED
+}
+
+type DealNextAction {
+  date: String
+  email: Boolean
+  video: Boolean
+}
+
+type CustWebLinkResponseDTO {
+  company: String
+  companyProfile: CompanyProfileDTO
+  id: Float
+  orgId: Float
+  url: String
+  usersId: Float
+}
+
+type DealSummaryTrendResponse {
+  convostats: [DealConvoStat]
+  engagement: Stages
+  id: Float
+  sentiment: Stages
+  stage: String
+  status: String
+  wonOppty: DealStat
+}
+
+type DealConvoStat {
+  stages: JSON
+  type: String
+}
+
+type Stages {
+  stages: JSON
+}
+
+type DealStat {
+  convostats: [DealConvoStat]
+  engagement: Stages
+  sentiment: Stages
+}
+
+type DealSummaryResponse {
+  account: Account
+  accountId: Float
+  accountUrl: String
+  amount: Float
+  contact: Contact
+  contactId: Float
+  crmOpptyId: String
+  id: Float
+  name: String
+  opptyAmount: Int
+  opptyCloseDate: String
+  opptyCreateDate: String
+  opptyName: Int
+  opptySource: String
+  opptyStage: String
+  opptyStatus: String
+  opptyTeamId: Float
+  orgId: Float
+  source: String
+  subtype: String
+  topicCoverageStatus: String
+  type: String
+}
+
+type Diarization {
+  tasks: [Task]
+}
+
+type Task {
+  name: String
+  options: Option
+}
+
+type Option {
+  activate: Boolean
+  data: JSON
+}
+
+type EmlEqResponseDTO {
+  emlObj: EmlObjResponseDTO
+  empathy: Float
+  id: Float
+  senderName: String
+  senderUser: User
+  sentiment: Float
+}
+
+type EmlObjResponseDTO {
+  conversation: ConvDTO
+  emlBody: [EmlBody2]
+  emlMetadata: [EmlMetadata]
+  emlObjParam: [EmlObjParam]
+  info: Float
+  insertBy: Float
+  insertTime: String
+  orgId: Float
+  source: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type EmlBody2 {
+  body: String
+  emlObj: EmlObj
+  id: Float
+  insertBy: Float
+  insertTime: String
+  orgId: Float
+  setOfEmlBodyParam: [EmlBodyParam]
+  source: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type EmlObj {
+  cc: String
+  conversation: Conversation2
+  emlEqs: [EmlEq]
+  from: String
+  id: Float
+  insertBy: Float
+  insertTime: String
+  listOfEmlBody: [EmlBody2]
+  listOfEmlMetadata: [EmlMetadata]
+  orgId: Float
+  sendDatetime: String
+  setOfEmlObjParam: [EmlObjParam]
+  source: String
+  subject: String
+  threadId: String
+  to: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type EmlEq {
+  emlObj: EmlObj
+  empathy: Float
+  id: Float
+  insertBy: Float
+  insertTime: String
+  orgId: Float
+  rawMetrics: String
+  senderName: String
+  senderUser: Float
+  sentiment: Float
+  source: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type EmlMetadata {
+  emlObj: EmlObj
+  id: Float
+  insertBy: Float
+  insertTime: String
+  orgId: Float
+  setOfEmlMetadataParam: [EmlMetadataParam]
+  source: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type EmlMetadataParam {
+  emlMetadata: EmlMetadata
+  id: Float
+  insertBy: Float
+  insertTime: String
+  orgId: Float
+  source: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type EmlObjParam {
+  emlObj: EmlObj
+  id: Float
+  insertBy: Float
+  insertTime: String
+  orgId: Float
+  source: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type EmlBodyParam {
+  emlBody: EmlBody2
+  id: Float
+  insertBy: Float
+  insertTime: String
+  orgId: Float
+  source: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type EmpathyAndHesitationTurnsReport {
+  convId: Float
+  empathyChangeDetailsList: [EmpathyChangeDetails]
+  empathyScore: Float
+  hesitationChangeDetailsList: [HesitationChangeDetails]
+  hesitationScore: Float
+}
+
+type EmpathyChangeDetails {
+  averageEmpathy2: Float
+  convId2: Float
+  convOffset: Float
+  id: Float
+  polarity: String
+  prevContactNameOnTurn: String
+  source: String
+  type: String
+  userId2: Float
+  userName: String
+}
+
+type HesitationChangeDetails {
+  averageHesitation: Float
+  convId3: Float
+  convOffset: Float
+  prevContactNameOnTurn: String
+  userId3: Float
+  userName: String
+}
+
+type CalendarEvent {
+  account: IdNameDTO
+  botInstrFromCalendar: Boolean
+  calUid: Boolean
+  description: String
+  eventAttendees: [CalendarEventAttendee]
+  eventEndTime: String
+  eventStartTime: String
+  id: Float
+  lastMeeting: ConversationDetailResponse
+  oppty: [IdNameDTO]
+  opptyDetail: DealSummaryDetailResponse
+  subjectLine: String
+  subtype: String
+  type: String
+  userId: Float
+}
+
+type CalendarEventAttendee {
+  email: String
+  id: Float
+  name: String
+}
+
+type KeyPhraseResponse {
+  id: Float
+  keyMoments3: [KeyMoment]
+}
+
+type TeamOpptyUsersStats {
+  idealConvEQ: IdealConvEQ
+  overAll: [TeamUsersStat]
+  teamOpptyUsersStats: [TeamOpptyUsersStat]
+  unattributed: [TeamUnattributedUsersStat]
+}
+
+type IdealConvEQ {
+  empathy: Float
+  engagement: Float
+  sentiment: Float
+  talkRatio: Float
+}
+
+type TeamUsersStat {
+  customerEngagement: Float
+  customerSentiment: Float
+  empathy: Float
+  engagement: Float
+  hesitation: Float
+  politeness: Float
+  sentiment: Float
+  speakingRate: Float
+  talkRatio: Float
+  talkSpeed: Float
+  user: User
+  usersStats: [UsersStat]
+}
+
+type UsersStat {
+  accountID: ConvAccountDTO
+  convEndTime: String
+  convId: Float
+  convStartTime: String
+  convStatus: String
+  convType: String
+  empathy: Float
+  engagement: Float
+  hesitation: Float
+  orgId: Float
+  participantName: String
+  politeness: Float
+  sentiment: Float
+  speakingRate: Float
+  talkRatio: Float
+  talkSpeed: Float
+  userId: Float
+}
+
+type TeamOpptyUsersStat {
+  comments: [CommentResponseDTO]
+  conversations: [ConversationRequest]
+  oppty: OpptyDTO
+  usersStats: [TeamUsersStat]
+}
+
+type TeamUnattributedUsersStat {
+  comments: [CommentResponseDTO]
+  conversations: [ConversationRequest]
+  user: TeamUsersStat
+}
+
+type MediaClipResponseDTO {
+  accountID: ConvAccountDTO
+  audioMediaLink: String
+  comments: [CommentResponseDTO]
+  convID: ConvDTO
+  description: String
+  endTime: Float
+  galleryViewVideoMediaLink: String
+  id: Float
+  insertTime: String
+  keyMoment: ConvKeyMomentResponseDTO
+  keytags: [KeywordTagResponseDTO]
+  mediaClipRelId: Float
+  meetingTime: String
+  meetingTopic: String
+  opptyID: ConvOpptyDTO
+  opptyName: String
+  orgId: Float
+  polarity: String
+  position: Float
+  shared: Float
+  source: String
+  startTime: Float
+  status: String
+  subtype: String
+  thumbnail: String
+  title: String
+  transcript: String
+  type: String
+  userID: ConvUsersDTO
+  usersViewed: String
+  version: String
+  views: Float
+}
+
+type ConvKeyMomentResponseDTO {
+  contentImages: String
+  convId: Float
+  downVote: Float
+  downVoteUser: String
+  endOffset: Float
+  id: Float
+  insertTime: String
+  keywordTagId1: Float
+  keywordTagId2: Float
+  keywordTagId3: Float
+  keywordTagId4: Float
+  kmEndTime: String
+  kmStartTime: String
+  line: String
+  polarity: String
+  score: Float
+  startOffset: Float
+  type: String
+  upVote: Float
+  upVoteUser: String
+  updateTime: String
+  username: String
+}
+
+type ConvOpptyDTO {
+  id: Float
+  name: String
+}
+
+type MediaClipParamResponseDTO {
+  description: String
+  id: Float
+  mediaClipId: Float
+  name: String
+  source: String
+  status: String
+  subtype: String
+  type: String
+  value: String
+  version: String
+}
+
+type ConversationSummaryResponse {
+  data: [Datum]
+  userId: String
+}
+
+type Datum {
+  account: IdNameDTO
+  aiViewVideoMediaLink: String
+  attendees: [ConvAttendeeAttr]
+  audioMediaLink: String
+  confidential: Boolean
+  contentViewVideoMediaLink: String
+  cvProcDone: Boolean
+  dataFusionProcDone: Boolean
+  description: String
+  endDate: String
+  externalMeetingId: String
+  galleryViewVideoMediaLink: String
+  host: String
+  hostId: Float
+  hostImage: String
+  id: Float
+  keyTopics: [KeyTag]
+  lastChunk: Float
+  mediaLink: String
+  mediaThumbnail: String
+  name: String
+  opportunity: Opportunity
+  orgId: Float
+  pendingPromisesCount: Int
+  processedFlag: String
+  score: [Score4]
+  sharedDate: String
+  sharedUser: String
+  source: String
+  speakerTimelineLink: String
+  speakerViewVideoMediaLink: String
+  startDate: String
+  status: String
+  subtype: String
+  textKmProcDone: Boolean
+  textMediaLink: String
+  textSentProcDone: Boolean
+  thumbnail: String
+  tonalProcDone: Boolean
+  totalPromisesCount: Int
+  transcriptLink: String
+  type: String
+  uuid: String
+  videoMediaLink: String
+}
+
+type ConvAttendeeAttr {
+  convId: Float
+  email: String
+  name: String
+}
+
+type Opportunity {
+  amount: Float
+  closeDate: String
+  createDate: String
+  id: Float
+  name: String
+  opptyAmount: Float
+  stage: String
+  status: String
+}
+
+type OpptyEqbyStageResponseDTO {
+  emotionalScore: String
+  emotionalStage: String
+  id: Float
+  numberOfAttendees2: Float
+  opptyId: Float
+  stage: String
+  stageEndDate: String
+  stageStartDate: String
+}
+
+type OpptyTeamResponseDTO {
+  endDate: String
+  id: Float
+  insertTime: String
+  name: String
+  orgId: Float
+  source: String
+  startDate: String
+  usersId: ConvUsersDTO
+  version: String
+}
+
+type PlaylistResponseDTO {
+  clips: [MediaClipResponseDTO]
+  description: String
+  id: Float
+  insertTime: String
+  isPublic: Boolean
+  orgId: Float
+  permission: String
+  shared: Float
+  source: String
+  status: String
+  subtype: String
+  title: String
+  type: String
+  updateTime: String
+  userID: ConvUsersDTO
+  usersViewed: String
+  version: String
+  views: Float
+}
+
+type PlaylistParamResponseDTO {
+  description: String
+  id: Float
+  name: String
+  playlistId: Float
+  source: String
+  status: String
+  subtype: String
+  type: String
+  value: String
+  version: String
+}
+
+type SharedMemberDTO {
+  email: String
+  firstname: String
+  id: Float
+  lastname: String
+  permission: String
+  shareTime: String
+  videoSharingHistoryId: Float
+}
+
+type ConvSharedViewData {
+  convId: Float
+  endTime: Float
+  name: String
+  startTime: Float
+}
+
+type ConvSlideFirstResponse {
+  high: [SlideFirst]
+  low: [SlideFirst]
+}
+
+type SummaryReportDTO {
+  amountImpacted: Float
+  hrsProcessed: Float
+  numOfConversations: Float
+  uniqueContacts: Float
+  uniqueDeals: Float
+  uniqueKeyMoments: Float
+}
+
+type ConvTimeline {
+  convId4: Float
+  data: JSON
+}
+
+type TrendEQForOpptyResponse {
+  deals: DealSummaryDetailResponse
+  keyMoments4: OpptyDTO
+}
+
+type UserDelegateResponseDTO {
+  proxyOwners: [User]
+  proxyUsers: [User]
+}
+
+type ContactResponse {
+  accounts: [[JSON]]
+  avatarUrl: String
+  contactMethods: [ContactMethodDTO]
+  firstName: String
+  id: Float
+  jobTitle: String
+  keyMoments5: [KeyMoment]
+  lastConv: LastConv
+  lastName: String
+  metrics: JSON
+  name: String
+  nextConv: NextConv
+  openOppty: [OpptyDTO]
+  role: String
+  score: [Score4]
+  timezone: String
+  title: String
+}
+
+type LastConv {
+  id: Float
+  name: String
+  startTime: String
+}
+
+type NextConv {
+  id: Float
+  name: String
+  startTime: String
+}
+
+type Mutation {
+  """
+  
+  
+  Equivalent to PUT /usales/playlists/media-clip-rel-bulk
+  """
+  addBulkPlaylistMediaClipRel(usalesPlaylistsMediaClipRelBulkInput: [PlaylistMediaClipRelRequestDTOInput]!): JSON
+  """
+  
+  
+  Equivalent to POST /auth/login
+  """
+  authenticateUser(loginRequestInput: LoginRequestInput!): JSON
+  """
+  
+  
+  Equivalent to POST /auth/login2
+  """
+  authenticateUser2(loginRequestInput: LoginRequestInput!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/analytics/keyphrase/occurrences
+  """
+  companyKeyPhraseOccurrences(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [KeyPhraseOccurenceContentResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/analytics/keyphrase/sentiment
+  """
+  companyKeyPhraseOccurrencesBySentiment(advSearchRequestInput: AdvSearchRequestInput!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/timeline/{conv_id}
+  """
+  convert(convId: Float!, usalesTimelineInput: UsalesTimelineInput!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/alerts
+  """
+  createAlert(alertRequestDTOInput: AlertRequestDTOInput!): AlertResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/conv-topic-episodes
+  """
+  createConvTopicEpisode(convTopicEpisodeRequestDTOInput: ConvTopicEpisodeRequestDTOInput!): ConvTopicEpisodeResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/emleqs
+  """
+  createEmlEq(emlEqRequestDTOInput: EmlEqRequestDTOInput!): EmlEqResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/custweblinks
+  """
+  createOrUpdate(custWebLinkRequestDTOInput: CustWebLinkRequestDTOInput!): CustWebLinkResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/comments
+  """
+  createOrUpdate1(commentRequestDTOInput: CommentRequestDTOInput!): CommentResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/clips
+  """
+  createOrUpdate2(videoCutterRequestInput: VideoCutterRequestInput!): VideoSharingHistoryDTO
+  """
+  
+  
+  Equivalent to POST /usales/bookmarks
+  """
+  createOrUpdate3(convBookmarkRequestDTOInput: ConvBookmarkRequestDTOInput!): ConvBookmarkResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/accounts
+  """
+  createOrUpdateAccount(accountRequestDTOInput: AccountRequestDTOInput!): AccountResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/convs/attendees
+  """
+  createOrUpdateConvAttendee(convAttendeeRequestDTOInput: ConvAttendeeRequestDTOInput!, id: Float!): ConvAttendeeResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/conv/attendees/{id}
+  """
+  createOrUpdateConvAttendee1(convAttendeeRequestDTOInput: ConvAttendeeRequestDTOInput!, id: Float!): ConvAttendeeResponseDTO
+  """
+  
+  
+  Equivalent to PUT /usales/keyword/categ
+  """
+  createOrUpdateKeywordCateg(keywordCategRequestDTOInput: KeywordCategRequestDTOInput!): KeywordCategResponseDTO
+  """
+  
+  
+  Equivalent to PUT /usales/keyword/tag
+  """
+  createOrUpdateKeywordTag(keywordTagRequestDTOInput: KeywordTagRequestDTOInput!): KeywordTagResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/oppty/{opptyId}
+  """
+  createOrUpdateOppty(id: Float!, opptyRequestDTOInput: OpptyRequestDTOInput!): OpptyDTO
+  """
+  
+  
+  Equivalent to POST /usales/oppty
+  """
+  createOrUpdateOppty1(id: Float!, opptyRequestDTOInput: OpptyRequestDTOInput!): OpptyDTO
+  """
+  
+  
+  Equivalent to POST /usales/oppty/teams
+  """
+  createOrUpdateOpptyTeam(opptyTeamRequestDTOInput: OpptyTeamRequestDTOInput!): OpptyTeamResponseDTO
+  """
+  
+  
+  Equivalent to PUT /usales/preferences
+  """
+  createOrUpdatePreference(userUiPreferenceRequestDtoInput: UserUiPreferenceRequestDtoInput!): UserUiPreferenceResponseDto
+  """
+  
+  
+  Equivalent to POST /usales/empathy-moment-recommendation
+  """
+  createOrUpdateRecommendation(empathyMomentRecommendationDTOInput: EmpathyMomentRecommendationDTOInput!): EmpathyMomentRecommendationDTO
+  """
+  
+  
+  Equivalent to POST /usales/users
+  """
+  createOrUpdateUser(userRequestDTOInput: UserRequestDTOInput!): User
+  """
+  
+  
+  Equivalent to DELETE /usales/zoommeetingwhitelist
+  """
+  delete(usalesZoommeetingwhitelistInput: [String]!): JSON
+  """
+  
+  
+  Equivalent to DELETE /usales/emleqs/{id}
+  """
+  delete1(id: Float!): JSON
+  """
+  
+  
+  Equivalent to DELETE /usales/custweblinks/{id}
+  """
+  delete2(id: Float!): JSON
+  """
+  
+  
+  Equivalent to DELETE /usales/conv-topic-episodes/{id}
+  """
+  delete3(id: Float!): JSON
+  """
+  
+  
+  Equivalent to DELETE /usales/comments/{id}
+  """
+  delete4(id: Float!): JSON
+  """
+  
+  
+  Equivalent to DELETE /usales/bookmarks/{id}
+  """
+  delete5(id: Float!): JSON
+  """
+  
+  
+  Equivalent to DELETE /usales/alerts/{id}
+  """
+  delete6(id: Float!): JSON
+  """
+  
+  
+  Equivalent to PUT /usales/playlists/delete-media-clip-rel
+  """
+  deletePlaylistMediaClipRel(usalesPlaylistsDeleteMediaClipRelInput: [PlaylistMediaClipRelRequestDTOInput]!): JSON
+  """
+  
+  
+  Equivalent to DELETE /usales/keyword/tags
+  """
+  deleteTags(ids: String!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/keyword/keyphrase/custom/trending
+  """
+  findCustomKeyphraseTrendingTopicCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/oppty/{id}/details
+  """
+  findDealDetailsByMode(advSearchRequestInput: AdvSearchRequestInput!, id: Float!, mode: String, tz: String): DealSummaryDetailResponse
+  """
+  
+  
+  Equivalent to POST /usales/keyword/keyphrase/trending
+  """
+  findKeyphraseTrendingTopicCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/timeline/generate/{conv_id}
+  """
+  generateTimeline(convId: Float!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/teams/usersstat
+  """
+  getAccountTeamsUsersStats(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [TeamUsersStat]
+  """
+  
+  
+  Equivalent to POST /usales/teams/account/userstat
+  """
+  getAccountUsersStat(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [TeamAccountUsersStat]
+  """
+  
+  
+  Equivalent to POST /usales/analytics/usage/active-users
+  """
+  getAllActiveUsers(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [QUsageUserPageVisitDto]
+  """
+  
+  
+  Equivalent to POST /usales/teams/userstat
+  """
+  getAllTeamsUserStats(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [TeamsAccountOpptyUsersStat]
+  """
+  
+  
+  Equivalent to POST /usales/company/assessments
+  """
+  getAssessmentByCompany(advSearchRequestInput: AdvSearchRequestInput!): String
+  """
+  
+  
+  Equivalent to POST /usales/users/assessments
+  """
+  getAssessments(advSearchRequestInput: AdvSearchRequestInput!): JSON
+  """
+  
+  
+  Equivalent to PUT /usales/convs/meeting-attendee
+  """
+  getAttendeeByMeetingTranscript(usalesConvsMeetingAttendeeInput: UsalesConvsMeetingAttendeeInput): [String]
+  """
+  
+  
+  Equivalent to POST /auth/outlook/callback
+  """
+  getAuthCodeAndGenerateToken(code: String!, idToken: String!, state: String!): JSON
+  """
+  
+  
+  Equivalent to POST /auth/social
+  """
+  getAuthUrl(authRequestInput: AuthRequestInput!): String
+  """
+  
+  
+  Equivalent to POST /auth/outlook
+  """
+  getAuthUrl1(authRequestInput: AuthRequestInput!): String
+  """
+  
+  
+  Equivalent to POST /auth/google
+  """
+  getAuthUrl2(authRequestInput: AuthRequestInput!): String
+  """
+  
+  
+  Equivalent to POST /usales/analytics/customer-pulse/closed-deals
+  """
+  getClosedDealDetails(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [AnalyticsCustomerPulseDealResponse]
+  """
+  
+  
+  Equivalent to POST /usales/analytics/company/deals
+  """
+  getCompanyDeals(advSearchRequestInput: AdvSearchRequestInput!): DealDetailResponse
+  """
+  
+  
+  Equivalent to POST /usales/account-oppty-eq/company
+  """
+  getCompanyDealsEQOnRiskScale(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [AccountOpptyEQResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/analytics/usage/meetingstat
+  """
+  getCompanyMeetingStats(advSearchRequestInput: AdvSearchRequestInput!): OverallMeetingStatsResponse
+  """
+  
+  
+  Equivalent to POST /usales/company-params
+  """
+  getCompanyParams(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    usalesCompanyParams2Input: [String]!
+  ): [CompanyParamResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/analytics/usage/companystat
+  """
+  getCompanyQUsage(advSearchRequestInput: AdvSearchRequestInput!): OverallQUsageResponse
+  """
+  
+  
+  Equivalent to POST /usales/analytics/contacts
+  """
+  getContacts(advSearchRequestInput: AdvSearchRequestInput!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/accounts/{id}/activities
+  """
+  getConversationByAccount(advSearchRequestInput: AdvSearchRequestInput!, id: Float!): AccountActivityResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/convs/userstat
+  """
+  getConversationUserStat(advSearchRequestInput: AdvSearchRequestInput!): ConvUserStatDTO
+  """
+  
+  
+  Equivalent to POST /usales/analytics/customer-pulse
+  """
+  getCustomerPulse(usalesAnalyticsCustomerPulseInput: JSON!): DealSellerPerformanceResponse
+  """
+  
+  
+  Equivalent to POST /usales/oppty/{id}/activities
+  """
+  getDealActivities(
+    advSearchRequestInput: AdvSearchRequestInput!
+    id: Float!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [DealActivitiesSummaryResponse]
+  """
+  
+  
+  Equivalent to POST /usales/accounts/deals
+  """
+  getDealCountByAccounts(
+    accountDealRequestInput: AccountDealRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [AccountDealResponse]
+  """
+  
+  
+  Equivalent to POST /usales/account-oppty-eq
+  """
+  getDealEQOnRiskScale(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [AccountOpptyEQResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/oppty/topics
+  """
+  getDealTopics(advSearchRequestInput: AdvSearchRequestInput!): DealTopicCoverageResponse
+  """
+  
+  
+  Equivalent to POST /usales/deals
+  """
+  getDeals(advSearchRequestInput: AdvSearchRequestInput!): DealDetailResponse
+  """
+  
+  
+  Equivalent to POST /usales/emails/{emlObjId}
+  """
+  getEmailByEmlObjId(emlObjId: Float!): EmlResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/emails
+  """
+  getEmails(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    usalesEmailsInput: JSON!
+  ): [EmlResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/empathyandhesitationturns/getforuserandrange
+  """
+  getEmpathyAndHesitationTurns(empathyAndHesitationSearchCriterionInput: EmpathyAndHesitationSearchCriterionInput!): EmpathyAndHesitationTurnsReportForConvList
+  """
+  
+  
+  Equivalent to POST /usales/preferences/favorite-meeting
+  """
+  getFavoriteMeeting(advSearchRequestInput: AdvSearchRequestInput!): UserUiPreferenceResponseDto
+  """
+  
+  
+  Equivalent to POST /usales/analytics/usage/invited-users
+  """
+  getInvitedUsers(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [User]
+  """
+  
+  
+  Equivalent to POST /usales/convs/lastmeeting
+  """
+  getLastMeeting(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    usalesConvsLastmeetingInput: [Float]!
+  ): [ConversationRequest]
+  """
+  
+  
+  Equivalent to POST /usales/mediaclip/search/count
+  """
+  getMediaClipCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/mediaclip/stats
+  """
+  getMediaClipStats(advSearchRequestInput: AdvSearchRequestInput!): MediaClipStatsResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/analytics/usage/meetings
+  """
+  getMeetingListBasedOnType(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [ConversationRequest]
+  """
+  
+  
+  Equivalent to POST /usales/analytics/meeting/sentiments
+  """
+  getMeetingSentiments(advSearchRequestInput: AdvSearchRequestInput!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/users/meetings/sharedwithme
+  """
+  getMeetingsSharedWithUser(advSearchRequestInput: AdvSearchRequestInput!): AdvSearchResponse
+  """
+  
+  
+  Equivalent to POST /usales/convs/{id}/keyword/search
+  """
+  getMomentsHavingKeyword(criterionInput: CriterionInput!, id: Float!): ConversationKeywordSearchResponse
+  """
+  
+  
+  Equivalent to POST /usales/analytics/keytopics/popular
+  """
+  getMostPopularKeymoments(advSearchRequestInput: AdvSearchRequestInput!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/analytics/meeting/most-shared
+  """
+  getMostSharedMeetings(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [MostSharedConvAttr]
+  """
+  
+  
+  Equivalent to POST /usales/analytics/meeting/mostviewed
+  """
+  getMostViewedMeeting(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [MostViewedConvAttr]
+  """
+  
+  
+  Equivalent to POST /usales/teams/oppty/userstat
+  """
+  getOpptyUsersStat(advSearchRequestInput: AdvSearchRequestInput!): TeamOpptyUsersStats
+  """
+  
+  
+  Equivalent to POST /usales/playlists/stats
+  """
+  getPlaylistStats(advSearchRequestInput: AdvSearchRequestInput!): PlaylistStatsResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/playlists/search/count
+  """
+  getPlaylistsCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
+  """
+  
+  
+  Equivalent to DELETE /usales/playlists/{id}
+  """
+  getPlaylistsCount1(id: Float!): JSON
+  """
+  
+  
+  Equivalent to DELETE /usales/mediaclip/{id}
+  """
+  getPlaylistsCount2(id: Float!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/analytics/sellereq
+  """
+  getSellerEQ(usalesAnalyticsSellereqInput: JSON!): DealSellerPerformanceResponse
+  """
+  
+  
+  Equivalent to POST /usales/configprops
+  """
+  getSystemProps(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    usalesConfigprops2Input: [String]!
+  ): [ConfigPropResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/analytics/usage/page-visits
+  """
+  getTopPageVisitDetails(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [PageVisitsDto]
+  """
+  
+  
+  Equivalent to POST /usales/analytics/users/calldetails
+  """
+  getUserCallMetr(advSearchRequestInput: AdvSearchRequestInput!): String
+  """
+  
+  
+  Equivalent to POST /usales/analytics/users/callmetrics
+  """
+  getUserCallMetrics(advSearchRequestInput: AdvSearchRequestInput!): String
+  """
+  
+  
+  Equivalent to POST /usales/analytics/usage/users-auth
+  """
+  getUsersAuth(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [User]
+  """
+  
+  
+  Equivalent to POST /usales/teams/convostat
+  """
+  getUsersConvoStat(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [TeamUsersStat]
+  """
+  
+  
+  Equivalent to POST /usales/keyword/keyphrase/topic/count
+  """
+  keyPhras1eOccurences(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [KeyphraseTotalCountAttrDTO]
+  """
+  
+  
+  Equivalent to POST /usales/keyword/keyphrase/occurences
+  """
+  keyPhraseOccurences(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [KeyPhraseOccurenceResponseDTO]
+  """
+  
+  
+  Equivalent to POST /auth/logout
+  """
+  logout: String
+  """
+  
+  
+  Equivalent to POST /v1/transcript/populate
+  """
+  populate(eSPopulateRequestInput: ESPopulateRequestInput!, pegasusJobKey: String): String
+  """
+  
+  
+  Equivalent to POST /usales/mindtickle/query
+  """
+  postDataByUri(mindTickleReqInput: MindTickleReqInput!): String
+  """
+  
+  
+  Equivalent to PUT /usales/keyword/keyphrases
+  """
+  resetKeyPhrases: String
+  """
+  
+  
+  Equivalent to POST /auth/users/details
+  """
+  revoke(
+    authUsersDetailsInput: [Float]!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [User]
+  """
+  
+  
+  Equivalent to POST /auth/revoke/{provider}
+  """
+  revoke1(authRevoke2Input: [Float]!, provider: String!): [String]
+  """
+  
+  
+  Equivalent to POST /usales/meeting/custom-disclaimer
+  """
+  saveMessage(usalesMeetingCustomDisclaimerInput: String!): String
+  """
+  
+  
+  Equivalent to POST /cspviolations
+  """
+  saveReport(cspViolationReqInput: CspViolationReqInput!): JSON
+  """
+  
+  
+  Equivalent to POST /v1/transcript/search
+  """
+  search(eSSearchInput: ESSearchInput!): String
+  """
+  
+  
+  Equivalent to POST /usales/zoommeetingwhitelist/search
+  """
+  search1(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [ZoomMeetingWhitelistDTO]
+  """
+  
+  
+  Equivalent to POST /usales/playlists/search
+  """
+  search2(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [PlaylistResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/mediaclip/search
+  """
+  search3(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [MediaClipResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/keymoments/search
+  """
+  search4(advSearchRequestInput: AdvSearchRequestInput!): KeyMomentResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/emails/search
+  """
+  search5(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [EmlResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/custweblinks/search
+  """
+  search6(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [CustWebLinkResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/convs/promise/search
+  """
+  search7(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [ConvPromiseResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/conv-topic-episodes/search
+  """
+  search8(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [ConvTopicEpisodeResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/comments/search
+  """
+  search9(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [CommentResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/contacts/search
+  """
+  searchAccountAndContact(advSearchRequestInput: AdvSearchRequestInput!): AccountContactSearchResponse
+  """
+  
+  
+  Equivalent to POST /usales/contacts/search/count
+  """
+  searchAccountAndContactCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/accounts/search
+  """
+  searchAccounts(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [AccountResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/accounts/search/count
+  """
+  searchAccountsCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/alerts/search
+  """
+  searchAlerts(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [AlertResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/contact/search
+  """
+  searchContact(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [ContactSearchResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/emails/search-summary
+  """
+  searchEmailSummary(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [EmailSummaryResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/events/search
+  """
+  searchEvents(advSearchRequestInput: AdvSearchRequestInput!): CalenderEventSearchResponse
+  """
+  
+  
+  Equivalent to POST /usales/events/search/count
+  """
+  searchEventsCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/keyword/categ/search
+  """
+  searchKeywordCateg(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [KeywordCategResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/keyword/categ/search/count
+  """
+  searchKeywordCategCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/keyword/categ/search/notags
+  """
+  searchKeywordCategWithoutTags(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [KeywordCategResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/keyword/tag/search
+  """
+  searchKeywordTag(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [KeywordTagResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/keyword/tag/search/count
+  """
+  searchKeywordTagCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/advSearch
+  """
+  searchMeetings(advSearchRequestInput: AdvSearchRequestInput!): AdvSearchResponse
+  """
+  
+  
+  Equivalent to POST /usales/search/meetings
+  """
+  searchMeetingsByAccountOrOppty(advSearchRequestInput: AdvSearchRequestInput!): AdvSearchResponse
+  """
+  
+  
+  Equivalent to POST /usales/advSearch/count
+  """
+  searchMeetingsCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/empathy-moment-recommendation/search
+  """
+  searchMoments(advSearchRequestInput: AdvSearchRequestInput!): EmpathyChangeMomentResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/preferences/search
+  """
+  searchPreference(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [UserUiPreferenceResponseDto]
+  """
+  
+  
+  Equivalent to POST /usales/emails/team-activity
+  """
+  searchTeamActivity(advSearchRequestInput: AdvSearchRequestInput!): TeamEmailActivityResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/users/search
+  """
+  searchUsers(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [User]
+  """
+  
+  
+  Equivalent to PUT /usales/companyprofile/keyword-categ-select
+  """
+  selectCompanyKeywordCategory(advSearchRequestInput: AdvSearchRequestInput!): String
+  """
+  
+  
+  Equivalent to POST /slack/sendmessage
+  """
+  sendMessage(messageRequestDTOInput: MessageRequestDTOInput!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/shares/share-clip-external
+  """
+  shareClipExternalUser(shareClipDTOInput: ShareClipDTOInput!): String
+  """
+  
+  
+  Equivalent to POST /usales/shares/share-meeting-external
+  """
+  shareMeetingExternalUser(shareMeetingDTOInput: ShareMeetingDTOInput!): String
+  """
+  
+  
+  Equivalent to POST /usales/shares/share-meeting-internal/{type}
+  """
+  shareMeetingInternalUser(shareMeetingDTOInput: ShareMeetingDTOInput!, type: String!): String
+  """
+  
+  
+  Equivalent to POST /usales/shares/playlist
+  """
+  sharePlaylist(shareMeetingDTOInput: ShareMeetingDTOInput!): String
+  """
+  
+  
+  Equivalent to POST /usales/emails/threadcount
+  """
+  threadCount(
+    advSearchRequestInput: AdvSearchRequestInput!
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+  ): [ThreadCountResponse]
+  """
+  
+  
+  Equivalent to PUT /usales/companyprofile/access-consent
+  """
+  updateAccessConsent(consent: Boolean!): String
+  """
+  
+  
+  Equivalent to PUT /usales/account-oppty-eq
+  """
+  updateAccountOpptyEQ(pegasusJobKey: String): String
+  """
+  
+  
+  Equivalent to PUT /usales/account-oppty-eq-1
+  """
+  updateAccountOpptyEQ1: String
+  """
+  
+  
+  Equivalent to PUT /usales/alerts
+  """
+  updateAlert(alertRequestDTOInput: AlertRequestDTOInput!): AlertResponseDTO
+  """
+  
+  
+  Equivalent to PUT /usales/events
+  """
+  updateCalendarEvent(calendarEventRequestDTOInput: CalendarEventRequestDTOInput!): CalendarEvent
+  """
+  
+  
+  Equivalent to PUT /usales/conv-topic-episodes
+  """
+  updateConvTopicEpisode(convTopicEpisodeRequestDTOInput: ConvTopicEpisodeRequestDTOInput!): ConvTopicEpisodeResponseDTO
+  """
+  
+  
+  Equivalent to PUT /usales/convs
+  """
+  updateConversation(conversationDTOInput: ConversationDTOInput!): ConversationRequest
+  """
+  
+  
+  Equivalent to PUT /usales/emleqs
+  """
+  updateEmlEq(emlEqRequestDTOInput: EmlEqRequestDTOInput!): EmlEqResponseDTO
+  """
+  
+  
+  Equivalent to PUT /usales/keymoments
+  """
+  updateKeyMoment(convKeyMomentRequestDTOInput: ConvKeyMomentRequestDTOInput!): ConvKeyMomentResponseDTO
+  """
+  
+  
+  Equivalent to PUT /usales/playlists/media-clip-rel
+  """
+  updatePlaylistMediaClipRel(playlistMediaClipRelRequestDTOInput: PlaylistMediaClipRelRequestDTOInput!): JSON
+  """
+  
+  
+  Equivalent to POST /usales/users/enable
+  """
+  updateQDetails(all: Boolean, usalesUsersEnableInput: [UserRequestDTOInput]): JSON
+  """
+  
+  
+  Equivalent to PUT /usales/keyword/tag/update-status
+  """
+  updateStatusByIds(usalesKeywordTagUpdateStatusInput: JSON!): JSON
+  """
+  
+  
+  Equivalent to PUT /auth/teams
+  """
+  updateTeamAccess(enable: Boolean!): String
+  """
+  
+  
+  Equivalent to POST /usales/users/{managerId}/team
+  """
+  updateTeamMembersManagerDetails(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    managerId: Float!
+    usalesUserTeamInput: [Float]!
+  ): [User]
+  """
+  
+  
+  Equivalent to POST /usales/users/proxy
+  """
+  updateUserProxy(userDelegateRequestDTOInput: UserDelegateRequestDTOInput!): UserDelegateResponseDTO
+  """
+  
+  
+  Equivalent to PUT /usales/zoommeetingwhitelist/invoke-bot
+  """
+  updateZoomMeetingInvokeBot(zoomMeetingWhitelistRequestInput: ZoomMeetingWhitelistRequestInput!): JSON
+  """
+  
+  
+  Equivalent to PUT /usales/zoommeetingwhitelist/update
+  """
+  updateZoomMeetingWhitelist: String
+  """
+  
+  
+  Equivalent to PUT /usales/convs/external-meeting
+  """
+  uploadExternalMeeting(usalesConvsExternalMeetingInput: UsalesConvsExternalMeetingInput): JSON
+  """
+  
+  
+  Equivalent to POST /usales/playlists
+  """
+  upsert(playlistRequestDTOInput: PlaylistRequestDTOInput!): PlaylistResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/playlist/param
+  """
+  upsert1(playlistParamRequestDTOInput: PlaylistParamRequestDTOInput!): PlaylistParamResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/mediaclip
+  """
+  upsert2(mediaClipRequestDTOInput: MediaClipRequestDTOInput!): MediaClipResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/mediaClip/param
+  """
+  upsert3(mediaClipParamRequestDTOInput: MediaClipParamRequestDTOInput!): MediaClipParamResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/convs/promise
+  """
+  upsert4(convPromiseRequestDTOInput: ConvPromiseRequestDTOInput!): ConvPromiseResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/convs/param
+  """
+  upsert5(convParamRequestDTOInput: ConvParamRequestDTOInput!): ConvParamResponseDTO
+  """
+  
+  
+  Equivalent to PUT /usales/company-param
+  """
+  upsertCompanyParam(companyParamRequestDTOInput: CompanyParamRequestDTOInput!): CompanyParamResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/companyprofile
+  """
+  upsertCompanyProfile(companyProfileDTOInput: CompanyProfileDTOInput!): CompanyProfileDTO
+  """
+  
+  
+  Equivalent to POST /usales/companyprofile/businesscategs
+  """
+  upsertCompanyProfileWithKeywordCategRel(companyProfileKeywordCategRelDTOInput: CompanyProfileKeywordCategRelDTOInput!): CompanyProfileKeywordCategRelDTO
+  """
+  
+  
+  Equivalent to PUT /usales/configprops
+  """
+  upsertConfigProp(configPropRequestDTOInput: ConfigPropRequestDTOInput!): ConfigPropResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/convs/{convId}/viewed
+  """
+  upsertExternal(convId: Float!): ConvParamResponseDTO
+  """
+  
+  
+  Equivalent to POST /usales/playlist/param/last-viewed
+  """
+  upsertLastViewed(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    playlistParamRequestDTOInput: PlaylistParamRequestDTOInput!
+  ): [PlaylistParamResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/mediaClip/param/last-viewed
+  """
+  upsertLastViewed1(
+    """Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list"""
+    limit: Int
+    mediaClipParamRequestDTOInput: MediaClipParamRequestDTOInput!
+  ): [MediaClipParamResponseDTO]
+  """
+  
+  
+  Equivalent to POST /usales/convs/param/last-viewed
+  """
+  upsertLastViewed2(convParamRequestDTOInput: ConvParamRequestDTOInput!): ConvParamResponseDTO
+}
+
+input PlaylistMediaClipRelRequestDTOInput {
+  mediaClipId: Float
+  mediaClipRelId: Float
+  playlistId: Float
+  pos: Int
+}
+
+input LoginRequestInput {
+  email: String!
+  password: String!
+}
+
+type KeyPhraseOccurenceContentResponseDTO {
+  count: Float
+  keywordTagId: Float
+  keywordTagVal: String
+  sentiment: Float
+  subType: String
+  trend: String
+  type: String
+}
+
+input AdvSearchRequestInput {
+  criteria: [CriterionInput]
+  durationFlag: String
+  entity: String
+  pagination: PaginationInput
+  searchString: String
+  sort: SortInput
+}
+
+input CriterionInput {
+  name: String
+  operator: String
+  value: String
+  valueType: String
+}
+
+input PaginationInput {
+  page: Int
+  size: Int
+}
+
+input SortInput {
+  asc: Boolean
+  name: String
+}
+
+input UsalesTimelineInput {
+  timeline: [TimelineDataInput]
+}
+
+input TimelineDataInput {
+  ts: Float
+  users: [UserInput]
+}
+
+input UserInput {
+  companyProfileDTO: CompanyProfileDTOInput
+  email: String
+  expired: Boolean
+  externalIdToken: [JSON]
+  firstTimeLogin: Boolean
+  firstname: String
+  fullname: String
+  id: Float
+  invited: Boolean
+  invitedAt: String
+  isBlueJeansAuthorized: Boolean
+  isCalendarAuthorized: Boolean
+  isEmailAuthorized: Boolean
+  isGmailAuthorized: Boolean
+  isGoogleCalendarAuthorized: Boolean
+  isOutlookAuthorized: Boolean
+  isOutlookCalendarAuthorized: Boolean
+  isPasswordResetRequired: Boolean
+  isPasswordSet: Boolean
+  isSlackAuthorized: Boolean
+  isSsoLogin: Boolean
+  isTeamAuthorized: Boolean
+  isWebexAuthorized: Boolean
+  isZoomAuthorized: Boolean
+  lastname: String
+  manager: UserManagerDTOInput
+  orgId: Float
+  orgType: String
+  qEnabled: Boolean
+  role: [IdNameDTOInput]
+  scopes: String
+  source: String
+  status: String
+  userType: String
+  username: String
+  zoomToken: String
+}
+
+input CompanyProfileDTOInput {
+  companyName: String
+  description: String
+  externalId: Float
+  id: Float
+  insertTime: String
+  orgId: Float
+  status: String
+  subtype: String
+  type: String
+}
+
+input UserManagerDTOInput {
+  email: String
+  firstname: String
+  id: Float
+  lastname: String
+}
+
+input IdNameDTOInput {
+  id: Float
+  name: String
+}
+
+input AlertRequestDTOInput {
+  archive: Boolean
+  description: String
+  exp: Float
+  id: Float
+  objId: Float
+  objSubId: Float
+  objType: String
+  source: String
+  status: String
+  subtype: String
+  type: String
+  updateBy: Float
+  userId: Float
+  version: String
+}
+
+input ConvTopicEpisodeRequestDTOInput {
+  conversation: Float
+  endTime: Float
+  id: Float
+  insertBy: Float
+  insertTime: String
+  keytopicCount1: Float
+  keytopicCount2: Float
+  keytopicCount3: Float
+  keytopicCount4: Float
+  keytopicId1: String
+  keytopicId2: String
+  keytopicId3: String
+  keytopicId4: String
+  orgId: Float
+  source: String
+  startTime: Float
+  status: String
+  subtype: String
+  type: String
+  unsupervisedCount1: Float
+  unsupervisedCount2: Float
+  unsupervisedCount3: Float
+  unsupervisedCount4: Float
+  unsupervisedTopic1: String
+  unsupervisedTopic2: String
+  unsupervisedTopic3: String
+  unsupervisedTopic4: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+input EmlEqRequestDTOInput {
+  emlObjId: Float
+  empathy: Float
+  id: Float
+  senderName: String
+  sentiment: Float
+}
+
+input CustWebLinkRequestDTOInput {
+  company: String
+  companyProfileId: Float
+  id: Float
+  orgId: Float
+  url: String
+  usersId: Float
+}
+
+input CommentRequestDTOInput {
+  comment: String
+  convID: Float
+  endTime: Float
+  id: Float
+  keyMomentId: Float
+  mentions: String
+  source: String
+  startTime: Float
+  status: String
+  subtype: String
+  type: String
+  version: String
+}
+
+type VideoSharingHistoryDTO {
+  clipEndTimeInSeconds: Int
+  clipStartTimeInSeconds: Int
+  convId: Float
+  convKeymomentId: Float
+  fromUserId: Float
+  id: Float
+  orgId: Float
+  outputFileLocation: String
+  outputTinyUrl: String
+  sourceFileLocation: String
+  toUserId: Float
+}
+
+input VideoCutterRequestInput {
+  convId: Float
+  inputFile: String
+  keyMomentId: Float
+  videoLength: Int
+  videoStartTime: Int
+}
+
+input ConvBookmarkRequestDTOInput {
+  convID: Float
+  description: String
+  id: Float
+  keyMomentId: Float
+  orgId: Float
+  source: String
+  status: String
+  subtype: String
+  timeEnd: Float
+  timeStart: Float
+  type: String
+  version: String
+}
+
+input AccountRequestDTOInput {
+  accountTeam: Float
+  crmAccountId: String
+  domain: String
+  id: Float
+  insertTime: String
+  name: String
+  orgId: Float
+  source: String
+  status: String
+  sticker: String
+  subtype: String
+  type: String
+  url: String
+  version: String
+}
+
+input ConvAttendeeRequestDTOInput {
+  attendeeEmail: String
+  attendeeName: String
+  conv: Float
+  description: String
+  employeeOrContactInd: String
+  id: Float
+  insertTime: String
+  orgId: Float
+  source: String
+  status: String
+  subtype: String
+  type: String
+  version: String
+}
+
+input KeywordCategRequestDTOInput {
+  description: String
+  id: Float
+  keywordCategName2: String
+  orgId: Float
+  source: String
+  status: String
+  subtype: String
+  type: String
+  version: String
+}
+
+input KeywordTagRequestDTOInput {
+  description: String
+  id: Float
+  keywordCateg: Float
+  keywordTagVal: String
+  orgId: Float
+  source: String
+  status: String
+  subtype: String
+  type: String
+  version: String
+}
+
+input OpptyRequestDTOInput {
+  account: Float
+  amount: Float
+  contact: Float
+  crmOpptyId: String
+  id: Float
+  insertTime: String
+  name: String
+  opptyAmount: Float
+  opptyCloseDate: String
+  opptyCreateDate: String
+  opptySource: String
+  opptyStage: String
+  opptyStatus: String
+  opptyTeam: Float
+  orgId: Float
+  source: String
+  status: String
+  subtype: String
+  type: String
+  version: String
+}
+
+input OpptyTeamRequestDTOInput {
+  endDate: String
+  id: Float
+  insertTime: String
+  name: String
+  orgId: Float
+  source: String
+  startDate: String
+  usersId: Float
+  version: String
+}
+
+type UserUiPreferenceResponseDto {
+  favoriteMeetings: AdvSearchResponse
+  id: Float
+  preferenceType: String
+  savedJson: String
+  uiPreferenceParamMap: JSON
+  user: User
+}
+
+type AdvSearchResponse {
+  searchResults: [SearchResult]
+  totalCount: Float
+}
+
+type SearchResult {
+  entities: [JSON]
+  resultCount: Int
+  userId: String
+}
+
+input UserUiPreferenceRequestDtoInput {
+  id: Float
+  orgId: Float
+  preferenceType: String
+  savedJson: String
+  uiPreferenceParamMap: JSON
+  userId: Float
+}
+
+type EmpathyMomentRecommendationDTO {
+  convId: Float
+  description: String
+  detectedBehaviour: String
+  empathyMomentId: Float
+  id: Float
+  insertTime: String
+  orgId: Float
+  originalUtterance: String
+  recommendation: String
+  source: String
+  status: String
+  subtype: String
+  suggestedType: String
+  suggestedUtterance: String
+  type: String
+  updateTime: String
+  version: String
+}
+
+input EmpathyMomentRecommendationDTOInput {
+  convId: Float
+  description: String
+  detectedBehaviour: String
+  empathyMomentId: Float
+  id: Float
+  insertTime: String
+  orgId: Float
+  originalUtterance: String
+  recommendation: String
+  source: String
+  status: String
+  subtype: String
+  suggestedType: String
+  suggestedUtterance: String
+  type: String
+  updateTime: String
+  version: String
+}
+
+input UserRequestDTOInput {
+  email: String
+  expired: Boolean
+  externalIdToken: JSON
+  firstTimeLogin: Boolean
+  firstname: String
+  fullname: String
+  id: Float
+  lastname: String
+  managerId: Float
+  orgId: Float
+  orgType: String
+  qenabled: Boolean
+  role: [Float]
+  source: String
+  status: String
+  userType: String
+  username: String
+  zoomToken: String
+}
+
+type TeamAccountUsersStat {
+  account: AccountResponseDTO
+  comments: [CommentResponseDTO]
+  conversations: [ConversationRequest]
+  oppties: [OpptyDTO]
+  usersStats: [TeamUsersStat]
+}
+
+type QUsageUserPageVisitDto {
+  avgUsageTime: Float
+  daysActive: Int
+  lastVisit: String
+  noOfVisits: Int
+  usageTimePerDay: Float
+  usageTrending: Int
+  user: User
+}
+
+type TeamsAccountOpptyUsersStat {
+  account: AccountResponseDTO
+  deals: [TeamOpptyUsersStat]
+}
+
+input UsalesConvsMeetingAttendeeInput {
+  payload: MeetingRequestInput!
+  transcript: String!
+}
+
+input MeetingRequestInput {
+  attendeeList: [AttendeeRequestInput]
+  doNotProcess: Boolean
+  externalMeetingId: String
+  meetingStartTime: String
+  name: String
+  recordingStartTime: String
+  type: String
+}
+
+input AttendeeRequestInput {
+  attendeeType: String
+  description: String
+  email: String
+  name: String
+}
+
+input AuthRequestInput {
+  scopes: [String]
+}
+
+type AnalyticsCustomerPulseDealResponse {
+  accountId: ConvAccountDTO
+  amount: Float
+  opptyCloseDate: String
+  opptyId: Float
+  opptyStatus: String
+  sentiment: Float
+  trend: [ConvEQAttr]
+}
+
+type ConvEQAttr {
+  accountId: Float
+  convId: Float
+  emotionalScore2: String
+  meetingEndTime: String
+  meetingEngagement: Float
+  meetingSentiment: Float
+  meetingStartTime: String
+  opptyId: Float
+}
+
+type OverallMeetingStatsResponse {
+  cvmResponse: String
+  externallySharedCount: Float
+  fullyProcessedCount: Float
+  fullyProcessedVennData: [VennDiagramData]
+  internalMeetingsCount: Float
+  otherMeetingsCount: Float
+  pausedOrRemovedCount: Float
+  playedCount: Float
+  reviewedCount: Float
+}
+
+type VennDiagramData {
+  name: String
+  sets: [String]
+  value: Int
+}
+
+type OverallQUsageResponse {
+  activeUsersCount: Float
+  activeUsersTrend: String
+  activeUsersTrendPercentage: Float
+  authorizationTrend: String
+  authorizationTrendPercentage: Float
+  averageUsageTime: Float
+  averageUsageTimeTrend: String
+  averageUsageTimeTrendPercentage: Float
+  averageVisits: Float
+  averageVisitsTrend: String
+  averageVisitsTrendPercentage: Float
+  calendarAuthorizationCount: Float
+  currentUsersCount: Float
+  emailAuthorizationCount: Float
+  gmailAuthorizationCount: Float
+  googleCalendarAuthorizationCount: Float
+  invitedUsersCount: Float
+  invitedUsersTrend: String
+  invitedUsersTrendPercentage: Float
+  outlookAuthorizationCount: Float
+  outlookCalendarAuthorizationCount: Float
+  passwordResetRequiredUsersCount: Int
+  realTimeUsersCount: Float
+  realTimeUsersTrend: String
+  realTimeUsersTrendPercentage: Float
+  teamsAuthorizationCount: Float
+  usersCount: Float
+  usersTrend: String
+  usersTrendPercentage: Float
+  webexAuthorizationCount: Float
+  zoomAuthorizationCount: Float
+}
+
+type AccountActivityResponseDTO {
+  accountTeamID: IdNameDTO
+  contacts: [ContactActivity]
+  conversation: Int
+  conversations: [ConversationResponseDTO]
+  crmAccountId: String
+  domain: String
+  email: Int
+  id: Float
+  insertTime: String
+  name: String
+  oppties: [Oppty2]
+  orgId: Float
+  score: [Score4]
+  source: String
+  standing: String
+  status: String
+  sticker: String
+  subtype: String
+  type: String
+  url: String
+  version: String
+}
+
+type ConversationResponseDTO {
+  accountID: ConvAccountDTO
+  aiViewVideoMediaLink: String
+  attendees: [Attendee]
+  audioMediaLink: String
+  confidential: Boolean
+  contentViewVideoMediaLink: String
+  cvProcDone: Boolean
+  dataFusionProcDone: Boolean
+  description: String
+  entity: String
+  externalConvId: String
+  externalMeetingId: String
+  galleryViewVideoMediaLink: String
+  hostID: ConvUsersDTO
+  id: Float
+  insertTime: String
+  keyMoments: [KeyMoment]
+  lastChunk: Float
+  meetingEndTime: String
+  meetingStartTime: String
+  meetingTopic: String
+  opptyID: IdNameDTO
+  orgId: Float
+  processedFlag: String
+  promises: [ConvPromiseResponseDTO]
+  recordingStartTime: String
+  score: [Score4]
+  source: String
+  speakerTimelineLink: String
+  speakerViewVideoMediaLink: String
+  status: String
+  subtype: String
+  textKmProcDone: Boolean
+  textMediaLink: String
+  textSentProcDone: Boolean
+  thumbnail: String
+  tonalProcDone: Boolean
+  transcriptLink: String
+  type: String
+  uuid: String
+  version: String
+  videoMediaLink: String
+}
+
+type ConvUserStatDTO {
+  allMeetingCount: Int
+  favoriteMeetingCount: Int
+  meetingAttendedCount: Int
+  meetingSharedWithMeCount: Int
+}
+
+type DealSellerPerformanceResponse {
+  dealValueImpactedByQ: Float
+  dealsImpactedByQ: Int
+  lostAmount: Float
+  lostCount: Int
+  performance: [Performance4]
+  wonAmount: Float
+  wonCount: Int
+}
+
+type Performance4 {
+  amount: Float
+  dealCycle: Float
+  lostDeals: [Float]
+  sellerPerformanceScore: Float
+  sellerSentiment: Float
+  sentiment: Float
+  sentimentRange: [Float]
+  wonDeals: [Float]
+  wonPercentage: Float
+}
+
+type DealActivitiesSummaryResponse {
+  activityDate: String
+  attendees: [String]
+  attendeesName: [String]
+  convId: Float
+  type: String
+}
+
+type AccountDealResponse {
+  accountId: Float
+  dealCount: Int
+  deals: [Float]
+}
+
+input AccountDealRequestInput {
+  accounts: [Float]
+}
+
+type DealTopicCoverageResponse {
+  oppty: DealSummaryResponse
+  suggestions: [String]
+  topics: [DealTopicData]
+}
+
+type DealTopicData {
+  conversations: [ConvTopicsResponse]
+  currentDealTopicCoveragePercentage: Float
+  currentDealTopicCoverageValue: Float
+  idealDealStageWiningPercentage: Float
+  idealDealStageWiningValue: Float
+  idealDealWinningPercentage: Float
+  idealDealWinningValue: Float
+  topic: String
+  unit: String
+}
+
+type ConvTopicsResponse {
+  convId: Float
+  description: String
+  endDate: String
+  hostedBy: String
+  startDate: String
+  title: String
+  topic: String
+  totalDuration: Float
+}
+
+type EmlResponseDTO {
+  body: String
+  contactId: Float
+  from: String
+  id: Float
+  insertBy: Float
+  insertTime: String
+  orgId: Float
+  sendDatetime: String
+  sentiment: Float
+  source: String
+  subject: String
+  threadId: String
+  to: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type EmpathyAndHesitationTurnsReportForConvList {
+  empathyAndHesitationTurnsReportMap: JSON
+}
+
+input EmpathyAndHesitationSearchCriterionInput {
+  meetingEndTime: String
+  meetingStartTime: String
+  userId: Float
+}
+
+type MediaClipStatsResponseDTO {
+  createdCount: Float
+  stats: [MediaClipStatsAttr]
+}
+
+type MediaClipStatsAttr {
+  convId: Float
+  description: String
+  mediaClipId: Float
+  meetingTopic: String
+  shared: Int
+  title: String
+  views: Int
+}
+
+type ConversationKeywordSearchResponse {
+  searchResult: SearchResult
+}
+
+type MostSharedConvAttr {
+  accountId: Float
+  accountName: String
+  accountUrl: String
+  amount: Float
+  convId: Float
+  convStatus: String
+  count: Float
+  description: String
+  meetingSentiment: Float
+  meetingStartTime: String
+  meetingTopic: String
+  opptyCloseDate: String
+  opptyId: Float
+  opptyName: String
+}
+
+type MostViewedConvAttr {
+  accountId: Float
+  accountName: String
+  accountUrl: String
+  amount: Float
+  convId: Float
+  convStatus: String
+  count: Float
+  description: String
+  meetingSentiment: Float
+  meetingStartTime: String
+  meetingTopic: String
+  opptyCloseDate: String
+  opptyId: Float
+  opptyName: String
+}
+
+type PlaylistStatsResponseDTO {
+  createdCount: Float
+  stats: [PlaylistStatsAttr]
+}
+
+type PlaylistStatsAttr {
+  description: String
+  firstName: String
+  fullName: String
+  lastName: String
+  playlistId: Float
+  shared: Float
+  title: String
+  userId: Float
+  username: String
+  views: Float
+}
+
+type PageVisitsDto {
+  noOfVisits: Int
+  pageName: String
+  qUsersUsage: [QUsageUserPageVisitDto]
+  rank: Int
+}
+
+type KeyphraseTotalCountAttrDTO {
+  keywordTagId: Float
+  score: Float
+  subtype: String
+  tagvalue: String
+  totalCount: Float
+  type: String
+}
+
+type KeyPhraseOccurenceResponseDTO {
+  companyAvgSentiment: Float
+  companyKeyPhraseIdealValue: Float
+  companyKeyPhraseTotalCount: Float
+  keywordTagId: Float
+  keywordTagVal: String
+  subType: String
+  teamAvgSentiment: Float
+  teamKeyPhraseIdealValue: Float
+  teamKeyPhraseTotalCount: Float
+  type: String
+  users: [KeyPhraseUser]
+}
+
+type KeyPhraseUser {
+  avgSentiment: Float
+  conversationId: [Float]
+  firstName: String
+  lastName: String
+  occurences: [KeyPhraseOccurence]
+  roleName: String
+  totalCount: Float
+  userId: Float
+}
+
+type KeyPhraseOccurence {
+  conversationId: Float
+  count: Float
+  sentiment: Float
+}
+
+input ESPopulateRequestInput {
+  daysToProcess: Int
+  startDate: String
+}
+
+input MindTickleReqInput {
+  filter: String
+  format: String
+  uri: String
+}
+
+input CspViolationReqInput {
+  cspReport: CspReportInput
+}
+
+input CspReportInput {
+  blockedUri: String
+  columnNumber: String
+  disposition: String
+  documentUri: String
+  effectiveDirective: String
+  lineNumber: String
+  originalPolicy: String
+  referrer: String
+  scriptSample: String
+  sourceFile: String
+  statusCode: String
+  violatedDirective: String
+}
+
+input ESSearchInput {
+  criteria: String
+}
+
+type ZoomMeetingWhitelistDTO {
+  authorizedForTeams: Boolean
+  authorizedForWebex: Boolean
+  id: Float
+  insertBy: Float
+  insertTime: String
+  invokeBot: Boolean
+  orgId: Float
+  source: String
+  status: String
+  subtype: String
+  type: String
+  updateBy: Float
+  updateTime: String
+  user: User
+  version: String
+  zoomHostEmail: String
+  zoomHostId: String
+  zoomMeetingId: String
+}
+
+type KeyMomentResponseDTO {
+  convKeyMoments: [ConvKeyMoments2]
+}
+
+type ConvKeyMoments2 {
+  convID: ConversationDTO
+  keyMoments6: [KeyMoment]
+}
+
+type ConversationDTO {
+  accountId: Float
+  aiViewVideoMediaLink: String
+  audioMediaLink: String
+  confidential: Boolean
+  contentViewVideoMediaLink: String
+  description: String
+  entity: String
+  externalConvId: String
+  externalMeetingId: String
+  galleryViewVideoMediaLink: String
+  hostId: Float
+  id: Float
+  insertTime: String
+  meetingEndTime: String
+  meetingStartTime: String
+  meetingTopic: String
+  opptyId: Float
+  orgId: Float
+  recordingStartTime: String
+  source: String
+  speakerTimelineLink: String
+  speakerViewVideoMediaLink: String
+  status: String
+  subtype: String
+  textMediaLink: String
+  transcriptLink: String
+  type: String
+  version: String
+  videoMediaLink: String
+}
+
+type AccountContactSearchResponse {
+  account: [AccountContactResponse]
+}
+
+type AccountContactResponse {
+  accountTeamID: IdNameDTO
+  contact: [ContactResponse]
+  crmAccountId: String
+  domain: String
+  id: Float
+  insertTime: String
+  name: String
+  opptyTeam: OpptyTeam
+  orgId: Float
+  source: String
+  status: String
+  sticker: String
+  subtype: String
+  type: String
+  url: String
+  version: String
+}
+
+type ContactSearchResponseDTO {
+  account: Account
+  contacts: [Contact]
+  insertBy: Float
+  insertTime: String
+  oppty: Oppty2
+  orgId: Float
+  source: String
+  updateBy: Float
+  updateTime: String
+  version: String
+}
+
+type EmailSummaryResponseDTO {
+  from: String
+  id: Float
+  sendDatetime: String
+  sentiment: Float
+  subject: String
+  threadId: String
+  to: String
+}
+
+type CalenderEventSearchResponse {
+  searchResult: SearchResult
+}
+
+type EmpathyChangeMomentResponseDTO {
+  convEmpathyChangeMoments: [ConvEmpathyChangeMoments2]
+}
+
+type ConvEmpathyChangeMoments2 {
+  convID: ConversationDTO
+  empathyChangeMoments: [EmpathyChangeMoment]
+}
+
+type EmpathyChangeMoment {
+  averageEmpathy: Float
+  convId: Float
+  convStartOffset: Float
+  empathyMomentRecs: [EmpathyMomentRec]
+  momentId: Float
+  polarity: String
+  source: String
+  type: String
+  username: String
+  usersId: Float
+}
+
+type EmpathyMomentRec {
+  description: String
+  detectedBehaviour: String
+  id: Float
+  momentId: Float
+  originalUtterance: String
+  recommendation: String
+  status: String
+  subtype: String
+  suggestedType: String
+  suggestedUtterance: String
+  type: String
+}
+
+type TeamEmailActivityResponseDTO {
+  dates: [String]
+  emails: [Int]
+}
+
+input MessageRequestDTOInput {
+  clip: ClipRequestInput
+  description: String
+  emailList: [String]
+  fullVideo: Boolean
+  keyMomentText: String
+  mediaClipId: Float
+  meetingUrl: String
+  subject: String
+  type: String
+}
+
+input ClipRequestInput {
+  convId: Float
+  keymomentId: Float
+  startInSeconds: Float
+  stopInSeconds: Float
+}
+
+input ShareClipDTOInput {
+  clipLength: Int
+  clipStartTime: Int
+  clipTitle: String
+  convId: Float
+  currtime: Float
+  description: String
+  duration: Float
+  password: String
+  recipients: [String]
+}
+
+input ShareMeetingDTOInput {
+  convId: Float
+  currtime: Float
+  description: String
+  duration: Float
+  mediaClipId: Float
+  password: String
+  permission: String
+  playlistId: Float
+  recipients: [String]
+  videoSharingHistoryId: Float
+}
+
+type ThreadCountResponse {
+  email: String
+  threadCount: String
+}
+
+input CalendarEventRequestDTOInput {
+  accountId: Float
+  botInstrFromCalendar: Boolean
+  calUid: String
+  id: Float
+  opptyId: Float
+  source: String
+  subtype: String
+  type: String
+}
+
+input ConversationDTOInput {
+  accountId: Float
+  aiViewVideoMediaLink: String
+  audioMediaLink: String
+  confidential: Boolean
+  contentViewVideoMediaLink: String
+  description: String
+  entity: String
+  externalConvId: String
+  externalMeetingId: String
+  galleryViewVideoMediaLink: String
+  hostId: Float
+  id: Float
+  insertTime: String
+  meetingEndTime: String
+  meetingStartTime: String
+  meetingTopic: String
+  opptyId: Float
+  orgId: Float
+  recordingStartTime: String
+  source: String
+  speakerTimelineLink: String
+  speakerViewVideoMediaLink: String
+  status: String
+  subtype: String
+  textMediaLink: String
+  transcriptLink: String
+  type: String
+  version: String
+  videoMediaLink: String
+}
+
+input ConvKeyMomentRequestDTOInput {
+  contentImages: String
+  conversation: Float
+  downVote: Float
+  downVoteUser: String
+  endTime: Float
+  id: Float
+  keywordTagId1: Float
+  keywordTagId2: Float
+  keywordTagId3: Float
+  keywordTagId4: Float
+  kmEndTime: String
+  kmEndUtteranceId: Float
+  kmStartTime: String
+  kmStartUtteranceId: Float
+  polarity: String
+  score: Float
+  startTime: Float
+  status: String
+  subtype: String
+  time: String
+  type: String
+  upVote: Float
+  upVoteUser: String
+}
+
+input UserDelegateRequestDTOInput {
+  proxyOwner: Float
+  proxyUsers: [Float]
+}
+
+input ZoomMeetingWhitelistRequestInput {
+  meetingWhiteLists: [MeetingWhiteListInput]
+}
+
+input MeetingWhiteListInput {
+  invokeBot: Boolean
+  userId: Float
+}
+
+input UsalesConvsExternalMeetingInput {
+  file: String!
+  payload: MeetingRequestInput!
+  transcript: String
+}
+
+input PlaylistRequestDTOInput {
+  description: String
+  id: Float
+  insertTime: String
+  isPublic: Boolean
+  orgId: Float
+  source: String
+  status: String
+  subtype: String
+  title: String
+  type: String
+  updateTime: String
+  version: String
+}
+
+input PlaylistParamRequestDTOInput {
+  description: String
+  id: Float
+  name: String
+  playlistId: Float
+  source: String
+  status: String
+  subtype: String
+  type: String
+  value: String
+  version: String
+}
+
+input MediaClipRequestDTOInput {
+  convId: Float
+  convKeymomentId: Float
+  description: String
+  endTime: Float
+  id: Float
+  insertTime: String
+  orgId: Float
+  source: String
+  startTime: Float
+  status: String
+  subtype: String
+  title: String
+  transcript: String
+  type: String
+  updateTime: String
+  userId: Float
+  version: String
+}
+
+input MediaClipParamRequestDTOInput {
+  description: String
+  id: Float
+  mediaClipId: Float
+  name: String
+  source: String
+  status: String
+  subtype: String
+  type: String
+  value: String
+  version: String
+}
+
+input ConvPromiseRequestDTOInput {
+  actionStatus: String
+  classification: String
+  convId: Float
+  id: Float
+  orgId: Float
+  promiseEndTime: String
+  promiseNextAction: String
+  promiseStartTime: String
+  promiseText: String
+  score: String
+  speaker: String
+  speakerUsersId: Float
+  status: String
+  subtype: String
+  type: String
+}
+
+type ConvParamResponseDTO {
+  agentSpoken: String
+  convId: Float
+  custSpoken: String
+  description: String
+  duration: Float
+  engagement: String
+  externalMeetingId: String
+  frame: String
+  id: Float
+  introVideoMediaLink: String
+  messages: String
+  name: String
+  orgId: Float
+  performance: String
+  probability: String
+  questions: String
+  score: String
+  sentiment: String
+  silences: String
+  spoken: String
+  status: String
+  subtype: String
+  type: String
+  value: String
+  version: String
+}
+
+input ConvParamRequestDTOInput {
+  agentSpoken: String
+  convId: Float
+  custSpoken: String
+  description: String
+  duration: Float
+  engagement: String
+  externalMeetingId: String
+  frame: String
+  id: Float
+  introVideoMediaLink: String
+  messages: String
+  name: String
+  orgId: Float
+  performance: String
+  probability: String
+  questions: String
+  score: String
+  sentiment: String
+  silences: String
+  spoken: String
+  status: String
+  subtype: String
+  type: String
+  value: String
+  version: String
+}
+
+input CompanyParamRequestDTOInput {
+  description: String
+  id: Float
+  name: String
+  source: String
+  status: String
+  subtype: String
+  type: String
+  value: String
+}
+
+type CompanyProfileKeywordCategRelDTO {
+  companyProfileId: Float
+  id: Float
+  insertTime: String
+  keywordCategId: Float
+  orgId: Float
+}
+
+input CompanyProfileKeywordCategRelDTOInput {
+  companyProfileId: Float
+  id: Float
+  insertTime: String
+  keywordCategId: Float
+  orgId: Float
+}
+
+input ConfigPropRequestDTOInput {
+  description: String
+  id: Float
+  name: String
+  setId: Float
+  setName: String
+  source: String
+  type: String
+  value: String
+}
