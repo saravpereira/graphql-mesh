@@ -1,4 +1,5 @@
-module.exports = [
+// @ts-nocheck
+export default [
   {
     "openapi": "3.0.1",
     "info": {
@@ -15273,16 +15274,11 @@ module.exports = [
               "type": "integer",
               "format": "int64"
             },
-            "playlistId": {
-              "type": "integer",
-              "format": "int64"
+            "username": {
+              "type": "string"
             },
             "description": {
               "type": "string"
-            },
-            "shared": {
-              "type": "integer",
-              "format": "int64"
             },
             "firstName": {
               "type": "string"
@@ -15294,8 +15290,13 @@ module.exports = [
               "type": "integer",
               "format": "int64"
             },
-            "username": {
-              "type": "string"
+            "playlistId": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "shared": {
+              "type": "integer",
+              "format": "int64"
             },
             "title": {
               "type": "string"
@@ -15822,23 +15823,23 @@ module.exports = [
               "type": "integer",
               "format": "int32"
             },
-            "description": {
-              "type": "string"
-            },
             "convId": {
               "type": "integer",
               "format": "int64"
+            },
+            "description": {
+              "type": "string"
             },
             "mediaClipId": {
               "type": "integer",
               "format": "int64"
             },
+            "meetingTopic": {
+              "type": "string"
+            },
             "shared": {
               "type": "integer",
               "format": "int32"
-            },
-            "meetingTopic": {
-              "type": "string"
             },
             "title": {
               "type": "string"
@@ -17969,16 +17970,26 @@ module.exports = [
               "type": "integer",
               "format": "int64"
             },
-            "opptyCloseDate": {
-              "type": "string",
-              "format": "date-time"
-            },
-            "description": {
+            "convStatus": {
               "type": "string"
             },
             "convId": {
               "type": "integer",
               "format": "int64"
+            },
+            "description": {
+              "type": "string"
+            },
+            "opptyId": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "amount": {
+              "type": "number",
+              "format": "double"
+            },
+            "accountName": {
+              "type": "string"
             },
             "meetingStartTime": {
               "type": "string",
@@ -17994,25 +18005,15 @@ module.exports = [
               "type": "integer",
               "format": "int64"
             },
-            "opptyId": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "amount": {
-              "type": "number",
-              "format": "double"
-            },
-            "accountName": {
-              "type": "string"
-            },
-            "accountUrl": {
-              "type": "string"
-            },
             "meetingSentiment": {
               "type": "number",
               "format": "double"
             },
-            "convStatus": {
+            "opptyCloseDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "accountUrl": {
               "type": "string"
             }
           }
@@ -18024,16 +18025,26 @@ module.exports = [
               "type": "integer",
               "format": "int64"
             },
-            "opptyCloseDate": {
-              "type": "string",
-              "format": "date-time"
-            },
-            "description": {
+            "convStatus": {
               "type": "string"
             },
             "convId": {
               "type": "integer",
               "format": "int64"
+            },
+            "description": {
+              "type": "string"
+            },
+            "opptyId": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "amount": {
+              "type": "number",
+              "format": "double"
+            },
+            "accountName": {
+              "type": "string"
             },
             "meetingStartTime": {
               "type": "string",
@@ -18049,25 +18060,15 @@ module.exports = [
               "type": "integer",
               "format": "int64"
             },
-            "opptyId": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "amount": {
-              "type": "number",
-              "format": "double"
-            },
-            "accountName": {
-              "type": "string"
-            },
-            "accountUrl": {
-              "type": "string"
-            },
             "meetingSentiment": {
               "type": "number",
               "format": "double"
             },
-            "convStatus": {
+            "opptyCloseDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "accountUrl": {
               "type": "string"
             }
           }
@@ -18206,6 +18207,10 @@ module.exports = [
               "type": "integer",
               "format": "int64"
             },
+            "opptyId": {
+              "type": "integer",
+              "format": "int64"
+            },
             "meetingEndTime": {
               "type": "string",
               "format": "date-time"
@@ -18215,10 +18220,6 @@ module.exports = [
               "format": "date-time"
             },
             "accountId": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "opptyId": {
               "type": "integer",
               "format": "int64"
             },
@@ -19413,12 +19414,12 @@ module.exports = [
             "name": {
               "type": "string"
             },
-            "email": {
-              "type": "string"
-            },
             "convId": {
               "type": "integer",
               "format": "int64"
+            },
+            "email": {
+              "type": "string"
             }
           }
         },
@@ -19981,4 +19982,4 @@ module.exports = [
       }
     }
   }
-]
+] as any;
