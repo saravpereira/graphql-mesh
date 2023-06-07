@@ -1,227 +1,411 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
 type Query {
-  "\n\nEquivalent to GET /usales/accounts/{id}"
+  """
+  
+  
+  Equivalent to GET /usales/accounts/{id}
+  """
   accountResponseDTO(id: Float!): AccountResponseDTO
-
-  "\n\nEquivalent to GET /usales/accounts/{id}/team"
+  """
+  
+  
+  Equivalent to GET /usales/accounts/{id}/team
+  """
   accountTeamResponse(id: Float!): AccountTeamResponse
-
-  "\n\nEquivalent to GET /usales/alerts/{id}"
+  """
+  
+  
+  Equivalent to GET /usales/alerts/{id}
+  """
   alertResponseDTO(id: Float!): AlertResponseDTO
-
-  "\n\nEquivalent to GET /auth/accessToken"
+  """
+  
+  
+  Equivalent to GET /auth/accessToken
+  """
   authAccessToken: JSON
-
-  "\n\nEquivalent to GET /auth/google"
+  """
+  
+  
+  Equivalent to GET /auth/google
+  """
   authGoogle: String
-
-  "\n\nEquivalent to GET /auth/google/callback"
+  """
+  
+  
+  Equivalent to GET /auth/google/callback
+  """
   authGoogleCallback: JSON
-
-  "\n\nEquivalent to GET /auth/outlook"
+  """
+  
+  
+  Equivalent to GET /auth/outlook
+  """
   authOutlook: String
-
-  "\n\nEquivalent to GET /auth/revoke/{provider}"
+  """
+  
+  
+  Equivalent to GET /auth/revoke/{provider}
+  """
   authRevoke(provider: String!): String
-
-  "\n\nEquivalent to GET /auth/social"
+  """
+  
+  
+  Equivalent to GET /auth/social
+  """
   authSocial: String
-
-  "\n\nEquivalent to GET /usales/events/{id}"
+  """
+  
+  
+  Equivalent to GET /usales/events/{id}
+  """
   calendarEvent(id: Float!): CalendarEvent
-
-  "\n\nEquivalent to GET /usales/companyprofile"
+  """
+  
+  
+  Equivalent to GET /usales/companyprofile
+  """
   companyProfileDTO: CompanyProfileDTO
-
-  "\n\nEquivalent to GET /usales/analytics/company/slide-first"
+  """
+  
+  
+  Equivalent to GET /usales/analytics/company/slide-first
+  """
   companySlideFirstResponse: CompanySlideFirstResponse
-
-  "\n\nEquivalent to GET /usales/contact/metrics/{contactId}"
+  """
+  
+  
+  Equivalent to GET /usales/contact/metrics/{contactId}
+  """
   contactMetricsResponse(contactId: Float!, ganularity: String, opptyId: Float!): ContactMetricsResponse
-
-  "\n\nEquivalent to GET /usales/contact/summary/{contactId}"
+  """
+  
+  
+  Equivalent to GET /usales/contact/summary/{contactId}
+  """
   contactResponse(contactId: Float!): ContactResponse
-
-  "\n\nEquivalent to GET /usales/convs/attendees/{id}"
+  """
+  
+  
+  Equivalent to GET /usales/convs/attendees/{id}
+  """
   convAttendeeResponseDTO(id: Float!): ConvAttendeeResponseDTO
-
-  "\n\nEquivalent to GET /usales/convs/{convId}/eqscore"
+  """
+  
+  
+  Equivalent to GET /usales/convs/{convId}/eqscore
+  """
   convEQResponseDTO(convId: Float!): ConvEQResponseDTO
-
-  "\n\nEquivalent to GET /usales/conv/metrics/aggr/{id}"
+  """
+  
+  
+  Equivalent to GET /usales/conv/metrics/aggr/{id}
+  """
   convMetricsResponse(id: Float!): ConvMetricsResponse
-
-  "\n\nEquivalent to GET /conv/mod/{convId}"
+  """
+  
+  
+  Equivalent to GET /conv/mod/{convId}
+  """
   convMod(
     convId: Float!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [ConversationAttributionLogRsp]
-
-  "\n\nEquivalent to GET /usales/convs/{id}/slide-first"
+  """
+  
+  
+  Equivalent to GET /usales/convs/{id}/slide-first
+  """
   convSlideFirstResponse(id: Float!): ConvSlideFirstResponse
-
-  "\n\nEquivalent to GET /usales/timeline/{conv_id}"
+  """
+  
+  
+  Equivalent to GET /usales/timeline/{conv_id}
+  """
   convTimeline(convId: Float!): ConvTimeline
-
-  "\n\nEquivalent to GET /usales/conv-topic-episodes/{id}"
+  """
+  
+  
+  Equivalent to GET /usales/conv-topic-episodes/{id}
+  """
   convTopicEpisodeResponseDTO(id: Float!): ConvTopicEpisodeResponseDTO
-
-  "\n\nEquivalent to GET /usales/convs/{id}/participantsWithMetrics"
+  """
+  
+  
+  Equivalent to GET /usales/convs/{id}/participantsWithMetrics
+  """
   conversationAttendeesResponse(id: Float!): ConversationAttendeesResponse
-
-  "\n\nEquivalent to GET /usales/convs/{id}/preview"
+  """
+  
+  
+  Equivalent to GET /usales/convs/{id}/preview
+  """
   conversationDetailResponse(id: Float!): ConversationDetailResponse
-
-  "\n\nEquivalent to GET /usales/convs/{id}"
+  """
+  
+  
+  Equivalent to GET /usales/convs/{id}
+  """
   conversationRequest(id: Float!): ConversationRequest
-
-  "\n\nEquivalent to GET /usales/convs/summary/{id}"
+  """
+  
+  
+  Equivalent to GET /usales/convs/summary/{id}
+  """
   conversationSummaryResponse(id: Float!): ConversationSummaryResponse
-
-  "\n\nEquivalent to GET /usales/metrics/convs/{convId}/convostats"
+  """
+  
+  
+  Equivalent to GET /usales/metrics/convs/{convId}/convostats
+  """
   convoStatResponse(convId: Float!): ConvoStatResponse
-
-  "\n\nEquivalent to GET /cq/account/{crmAccountId}/trend"
+  """
+  
+  
+  Equivalent to GET /cq/account/{crmAccountId}/trend
+  """
   cqAccountTrend(
     crmAccountId: String!
     days: Float
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [DealDetailResponse]
-
-  "\n\nEquivalent to GET /cq/contact/{crmContactId}/eq"
+  """
+  
+  
+  Equivalent to GET /cq/contact/{crmContactId}/eq
+  """
   cqContactEq(crmContactId: String!): String
-
-  "\n\nEquivalent to GET /cq/opportunity/{crmOpportunityId}/contact/{crmContactId}/eq"
+  """
+  
+  
+  Equivalent to GET /cq/opportunity/{crmOpportunityId}/contact/{crmContactId}/eq
+  """
   cqOpportunityContactEq(
     crmContactId: String!
     crmOpportunityId: String!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [Contact]
-
-  "\n\nEquivalent to GET /cq/token/access"
+  """
+  
+  
+  Equivalent to GET /cq/token/access
+  """
   cqTokenAccess: JSON
-
-  "\n\nEquivalent to GET /cq/token/refresh"
+  """
+  
+  
+  Equivalent to GET /cq/token/refresh
+  """
   cqTokenRefresh: JSON
-
-  "\n\nEquivalent to GET /cq/token/revoke/access"
+  """
+  
+  
+  Equivalent to GET /cq/token/revoke/access
+  """
   cqTokenRevokeAccess: String
-
-  "\n\nEquivalent to GET /cq/token/revoke/refresh"
+  """
+  
+  
+  Equivalent to GET /cq/token/revoke/refresh
+  """
   cqTokenRevokeRefresh: String
-
-  "\n\nEquivalent to GET /cq/opportunity/{crmOpportunityId}/current"
+  """
+  
+  
+  Equivalent to GET /cq/opportunity/{crmOpportunityId}/current
+  """
   currentEQForOpptyResponse(crmOpportunityId: String!, days: Float): CurrentEQForOpptyResponse
-
-  "\n\nEquivalent to GET /cq/account/{crmAccountId}/current"
+  """
+  
+  
+  Equivalent to GET /cq/account/{crmAccountId}/current
+  """
   dealDetailResponse(crmAccountId: String!, days: Float): DealDetailResponse
-
-  "\n\nEquivalent to GET /usales/oppty/{id}/details"
+  """
+  
+  
+  Equivalent to GET /usales/oppty/{id}/details
+  """
   dealSummaryDetailResponse(id: Float!, mode: String, tz: String): DealSummaryDetailResponse
-
-  "\n\nEquivalent to GET /usales/oppty/summary/{id}"
+  """
+  
+  
+  Equivalent to GET /usales/oppty/summary/{id}
+  """
   dealSummaryResponse(id: Float!): DealSummaryResponse
-
-  "\n\nEquivalent to GET /usales/oppty/{id}/trend"
+  """
+  
+  
+  Equivalent to GET /usales/oppty/{id}/trend
+  """
   dealSummaryTrendResponse(id: Float!, key: String, type: String): DealSummaryTrendResponse
-
-  "\n\nEquivalent to GET /usales/diarization/{conv_id}"
+  """
+  
+  
+  Equivalent to GET /usales/diarization/{conv_id}
+  """
   diarization(convId: Float!): Diarization
-
-  "\n\nEquivalent to GET /usales/empathyandhesitationturns/get/conv"
+  """
+  
+  
+  Equivalent to GET /usales/empathyandhesitationturns/get/conv
+  """
   empathyAndHesitationTurnsReport(convId: Float!): EmpathyAndHesitationTurnsReport
-
-  "\n\nEquivalent to GET /cq/opportunity/{crmOpportunityId}/contact/eq"
+  """
+  
+  
+  Equivalent to GET /cq/opportunity/{crmOpportunityId}/contact/eq
+  """
   getContactsEQForOppty(
     crmOpportunityId: String!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [Contact]
-
-  "\n\nEquivalent to GET /usales/convs/{id}/details"
+  """
+  
+  
+  Equivalent to GET /usales/convs/{id}/details
+  """
   getConversationDetail(id: Float!, type: String): ConversationDetailResponse
-
-  "\n\nEquivalent to GET /usales/accounts/{accountId}/convtrends"
+  """
+  
+  
+  Equivalent to GET /usales/accounts/{accountId}/convtrends
+  """
   getEQbyAccount(accountId: Float!): ConvEQResponseDTO
-
-  "\n\nEquivalent to GET /cq/manager/{managerEmailId}/{startMMddyyyy}/eq"
+  """
+  
+  
+  Equivalent to GET /cq/manager/{managerEmailId}/{startMMddyyyy}/eq
+  """
   getManagerEQ(managerEmailId: String!, startMMddyyyy: String!): TeamOpptyUsersStats
-
-  "\n\nEquivalent to GET /usales/oppty/{id}"
+  """
+  
+  
+  Equivalent to GET /usales/oppty/{id}
+  """
   getOpptyById(id: Float!): OpptyDTO
-
-  "\n\nEquivalent to GET /usales/oppty/keyMoments"
+  """
+  
+  
+  Equivalent to GET /usales/oppty/keyMoments
+  """
   getOpptyKeyMoments(granularity: String, keyTag: String, opptyId: Float, period: String, type: String): OpptyDTO
-
-  "\n\nEquivalent to GET /cq/seller/{sellerEmailId}/eq"
+  """
+  
+  
+  Equivalent to GET /cq/seller/{sellerEmailId}/eq
+  """
   getSellerEQ2(sellerEmailId: String!): TeamOpptyUsersStats
-
-  "\n\nEquivalent to GET /usales/convs/{id}/keyPhrases"
+  """
+  
+  
+  Equivalent to GET /usales/convs/{id}/keyPhrases
+  """
   keyPhraseResponse(id: Float!): KeyPhraseResponse
-
-  "\n\nEquivalent to GET /usales/mediaclip/{id}"
+  """
+  
+  
+  Equivalent to GET /usales/mediaclip/{id}
+  """
   mediaClipResponseDTO(id: Float!): MediaClipResponseDTO
-
-  "\n\nEquivalent to GET /usales/oppty/{opptyId}/promises"
+  """
+  
+  
+  Equivalent to GET /usales/oppty/{opptyId}/promises
+  """
   opptyDTO(opptyId: Float!): OpptyDTO
-
-  "\n\nEquivalent to GET /usales/{oppty_stage}/eqscore"
+  """
+  
+  
+  Equivalent to GET /usales/{oppty_stage}/eqscore
+  """
   opptyEqbyStageResponseDTO(opptyStage: String!): OpptyEqbyStageResponseDTO
-
-  "\n\nEquivalent to GET /usales/oppty/teams/{id}"
+  """
+  
+  
+  Equivalent to GET /usales/oppty/teams/{id}
+  """
   opptyTeamResponseDTO(id: Float!): OpptyTeamResponseDTO
-
-  "\n\nEquivalent to GET /usales/playlists/{id}"
+  """
+  
+  
+  Equivalent to GET /usales/playlists/{id}
+  """
   playlistResponseDTO(id: Float!): PlaylistResponseDTO
-
-  "\n\nEquivalent to GET /slack/authurl"
+  """
+  
+  
+  Equivalent to GET /slack/authurl
+  """
   slackAuthurl: String
-
-  "\n\nEquivalent to GET /slack/redirect"
+  """
+  
+  
+  Equivalent to GET /slack/redirect
+  """
   slackRedirect(code: String!, state: String!): JSON
-
-  "\n\nEquivalent to GET /usales/reports/summary"
+  """
+  
+  
+  Equivalent to GET /usales/reports/summary
+  """
   summaryReportDTO: SummaryReportDTO
-
-  "\n\nEquivalent to GET /cq/seller/{sellerEmailId}/{days}/eq"
+  """
+  
+  
+  Equivalent to GET /cq/seller/{sellerEmailId}/{days}/eq
+  """
   teamOpptyUsersStats(days: Int!, sellerEmailId: String!): TeamOpptyUsersStats
-
-  "\n\nEquivalent to GET /cq/opportunity/{crmOpportunityId}/trend"
+  """
+  
+  
+  Equivalent to GET /cq/opportunity/{crmOpportunityId}/trend
+  """
   trendEQForOpptyResponse(crmOpportunityId: String!, days: Float): TrendEQForOpptyResponse
-
-  "\n\nEquivalent to GET /usales/accounts/{id}/oppty"
+  """
+  
+  
+  Equivalent to GET /usales/accounts/{id}/oppty
+  """
   usalesAccountOppty(
     id: Float!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [OpptyDTO]
-
-  "\n\nEquivalent to GET /usales/accounts"
+  """
+  
+  
+  Equivalent to GET /usales/accounts
+  """
   usalesAccounts(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [AccountResponseDTO]
-
-  "\n\nEquivalent to GET /usales/accounts/promises"
+  """
+  
+  
+  Equivalent to GET /usales/accounts/promises
+  """
   usalesAccountsPromises(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
@@ -229,8 +413,11 @@ type Query {
     limit: Int
     userIds: String
   ): [AccountPromisesResponseDTO]
-
-  "\n\nEquivalent to GET /usales/alerts"
+  """
+  
+  
+  Equivalent to GET /usales/alerts
+  """
   usalesAlerts(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
@@ -238,125 +425,174 @@ type Query {
     limit: Int
     status: String
   ): [AlertResponseDTO]
-
-  "\n\nEquivalent to GET /usales/bookmarks/convs/{convId}"
+  """
+  
+  
+  Equivalent to GET /usales/bookmarks/convs/{convId}
+  """
   usalesBookmarksConv(
     convId: Float!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [ConvBookmarkResponseDTO]
-
-  "\n\nEquivalent to GET /usales/bookmarks/keymoments/{convKeyMomentId}"
+  """
+  
+  
+  Equivalent to GET /usales/bookmarks/keymoments/{convKeyMomentId}
+  """
   usalesBookmarksKeymoment(
     convKeyMomentId: Float!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [ConvBookmarkResponseDTO]
-
-  "\n\nEquivalent to GET /usales/company-param"
+  """
+  
+  
+  Equivalent to GET /usales/company-param
+  """
   usalesCompanyParam(prop: String!): String
-
-  "\n\nEquivalent to GET /usales/company-params"
+  """
+  
+  
+  Equivalent to GET /usales/company-params
+  """
   usalesCompanyParams(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [CompanyParamResponseDTO]
-
-  "\n\nEquivalent to GET /usales/companyprofile/access-consent"
+  """
+  
+  
+  Equivalent to GET /usales/companyprofile/access-consent
+  """
   usalesCompanyprofileAccessConsent: Boolean
-
-  "\n\nEquivalent to GET /usales/companyprofile/businesscategs"
+  """
+  
+  
+  Equivalent to GET /usales/companyprofile/businesscategs
+  """
   usalesCompanyprofileBusinesscategs(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [KeywordCategResponseDTO]
-
-  "\n\nEquivalent to GET /usales/configprops"
+  """
+  
+  
+  Equivalent to GET /usales/configprops
+  """
   usalesConfigprops(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [ConfigPropResponseDTO]
-
-  "\n\nEquivalent to GET /usales/contacts/{contact}/emails/count"
+  """
+  
+  
+  Equivalent to GET /usales/contacts/{contact}/emails/count
+  """
   usalesContactEmailsCount(contactId: Float!): Int
-
-  "\n\nEquivalent to GET /usales/convs/{convId}/comments"
+  """
+  
+  
+  Equivalent to GET /usales/convs/{convId}/comments
+  """
   usalesConvComments(
     convId: Float!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [CommentResponseDTO]
-
-  "\n\nEquivalent to GET /usales/convs/{convId}/contact_eqscore"
+  """
+  
+  
+  Equivalent to GET /usales/convs/{convId}/contact_eqscore
+  """
   usalesConvContactEqscore(contact: String!, convId: Float!): JSON
-
-  "\n\nEquivalent to GET /usales/conv/metrics/{id}"
+  """
+  
+  
+  Equivalent to GET /usales/conv/metrics/{id}
+  """
   usalesConvMetric(
     id: Float!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [AggrConvMetrics]
-
-  "\n\nEquivalent to GET /usales/convs/{id}/metrics"
+  """
+  
+  
+  Equivalent to GET /usales/convs/{id}/metrics
+  """
   usalesConvMetrics(
     id: Float!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
     participantId: String!
   ): [AggrConvMetrics]
-
-  "\n\nEquivalent to GET /usales/convs"
+  """
+  
+  
+  Equivalent to GET /usales/convs
+  """
   usalesConvs(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [ConversationRequest]
-
-  "\n\nEquivalent to GET /usales/convs/attendees"
+  """
+  
+  
+  Equivalent to GET /usales/convs/attendees
+  """
   usalesConvsAttendees(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [ConvAttendeeResponseDTO]
-
-  "\n\nEquivalent to GET /usales/convs/status"
+  """
+  
+  
+  Equivalent to GET /usales/convs/status
+  """
   usalesConvsStatus: [String]
-
-  "\n\nEquivalent to GET /usales/custweblinks"
+  """
+  
+  
+  Equivalent to GET /usales/custweblinks
+  """
   usalesCustweblinks(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [CustWebLinkResponseDTO]
-
-  "\n\nEquivalent to GET /usales/deals/{opptyId}/contacts/{contactId}/eqscore"
+  """
+  
+  
+  Equivalent to GET /usales/deals/{opptyId}/contacts/{contactId}/eqscore
+  """
   usalesDealContactEqscore(contactId: Float!, opptyId: Float!): JSON
-
-  "\n\nEquivalent to GET /usales/deals/{opptyId}/convtrends"
+  """
+  
+  
+  Equivalent to GET /usales/deals/{opptyId}/convtrends
+  """
   usalesDealConvtrends(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
@@ -364,50 +600,71 @@ type Query {
     limit: Int
     opptyId: Float!
   ): [ConvEQResponseDTO]
-
-  "\n\nEquivalent to GET /usales/deals/{opptyId}/eqscore"
+  """
+  
+  
+  Equivalent to GET /usales/deals/{opptyId}/eqscore
+  """
   usalesDealEqscore(opptyId: Float!): JSON
-
-  "\n\nEquivalent to GET /usales/deals/stages"
+  """
+  
+  
+  Equivalent to GET /usales/deals/stages
+  """
   usalesDealsStages: [String]
-
-  "\n\nEquivalent to GET /usales/emleqs/{id}"
+  """
+  
+  
+  Equivalent to GET /usales/emleqs/{id}
+  """
   usalesEmleq(id: Float!): JSON
-
-  "\n\nEquivalent to GET /usales/emleqs"
+  """
+  
+  
+  Equivalent to GET /usales/emleqs
+  """
   usalesEmleqs(
     emlObjId: Float
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [EmlEqResponseDTO]
-
-  "\n\nEquivalent to GET /usales/keymoments/{convKeyMomentId}/comments"
+  """
+  
+  
+  Equivalent to GET /usales/keymoments/{convKeyMomentId}/comments
+  """
   usalesKeymomentComments(
     convKeyMomentId: Float!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [CommentResponseDTO]
-
-  "\n\nEquivalent to GET /usales/keyword/categ"
+  """
+  
+  
+  Equivalent to GET /usales/keyword/categ
+  """
   usalesKeywordCateg: [String]
-
-  "\n\nEquivalent to GET /usales/keyword/categ/{category}"
+  """
+  
+  
+  Equivalent to GET /usales/keyword/categ/{category}
+  """
   usalesKeywordCateg2(
     category: String!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [KeywordCategResponseDTO]
-
-  "\n\nEquivalent to GET /usales/keyword/keyphrase/fetch-expert/{tagId}"
+  """
+  
+  
+  Equivalent to GET /usales/keyword/keyphrase/fetch-expert/{tagId}
+  """
   usalesKeywordKeyphraseFetchExpert(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
@@ -415,8 +672,11 @@ type Query {
     limit: Int
     tagId: Float!
   ): [KeyPhraseExpertResponseDTO]
-
-  "\n\nEquivalent to GET /usales/mediaClip/param/{mediaClipId}"
+  """
+  
+  
+  Equivalent to GET /usales/mediaClip/param/{mediaClipId}
+  """
   usalesMediaClipParam(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
@@ -425,38 +685,56 @@ type Query {
     mediaClipId: Float!
     name: String!
   ): [MediaClipParamResponseDTO]
-
-  "\n\nEquivalent to GET /usales/mediaclip/myclips"
+  """
+  
+  
+  Equivalent to GET /usales/mediaclip/myclips
+  """
   usalesMediaclipMyclips(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [MediaClipResponseDTO]
-
-  "\n\nEquivalent to GET /usales/mindtickle/coursesbyemail/{email}"
+  """
+  
+  
+  Equivalent to GET /usales/mindtickle/coursesbyemail/{email}
+  """
   usalesMindtickleCoursesbyemail(email: String!): String
-
-  "\n\nEquivalent to GET /usales/mindtickle/querybyuri/{url}"
+  """
+  
+  
+  Equivalent to GET /usales/mindtickle/querybyuri/{url}
+  """
   usalesMindtickleQuerybyuri(uri: String!): String
-
-  "\n\nEquivalent to GET /usales/oppty"
+  """
+  
+  
+  Equivalent to GET /usales/oppty
+  """
   usalesOppty(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [OpptyDTO]
-
-  "\n\nEquivalent to GET /usales/oppty/teams"
+  """
+  
+  
+  Equivalent to GET /usales/oppty/teams
+  """
   usalesOpptyTeams(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [OpptyTeamResponseDTO]
-
-  "\n\nEquivalent to GET /usales/playlist/param/{playlistId}"
+  """
+  
+  
+  Equivalent to GET /usales/playlist/param/{playlistId}
+  """
   usalesPlaylistParam(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
@@ -465,46 +743,65 @@ type Query {
     name: String!
     playlistId: Float!
   ): [PlaylistParamResponseDTO]
-
-  "\n\nEquivalent to GET /usales/playlists/myplaylists"
+  """
+  
+  
+  Equivalent to GET /usales/playlists/myplaylists
+  """
   usalesPlaylistsMyplaylists(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [PlaylistResponseDTO]
-
-  "\n\nEquivalent to GET /usales/playlists/shared-members"
+  """
+  
+  
+  Equivalent to GET /usales/playlists/shared-members
+  """
   usalesPlaylistsSharedMembers(
     history: Boolean
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
     playlistId: Float!
   ): [SharedMemberDTO]
-
-  "\n\nEquivalent to GET /usales/playlists/sharedwithme"
+  """
+  
+  
+  Equivalent to GET /usales/playlists/sharedwithme
+  """
   usalesPlaylistsSharedwithme: JSON
-
-  "\n\nEquivalent to GET /usales/preferences/mine"
+  """
+  
+  
+  Equivalent to GET /usales/preferences/mine
+  """
   usalesPreferencesMine(type: String!): JSON
-
-  "\n\nEquivalent to GET /usales/re/{code}"
+  """
+  
+  
+  Equivalent to GET /usales/re/{code}
+  """
   usalesRe(code: String!): JSON
-
-  "\n\nEquivalent to GET /usales/sharedviewdata-conv/{conv_id}"
+  """
+  
+  
+  Equivalent to GET /usales/sharedviewdata-conv/{conv_id}
+  """
   usalesSharedviewdataConv(
     convId: Float!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [ConvSharedViewData]
-
-  "\n\nEquivalent to GET /usales/sharedviewdata-name/{name}"
+  """
+  
+  
+  Equivalent to GET /usales/sharedviewdata-name/{name}
+  """
   usalesSharedviewdataName(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
@@ -512,11 +809,17 @@ type Query {
     limit: Int
     name: String!
   ): [ConvSharedViewData]
-
-  "\n\nEquivalent to GET /usales/sys"
+  """
+  
+  
+  Equivalent to GET /usales/sys
+  """
   usalesSys(prop: String!): String
-
-  "\n\nEquivalent to GET /usales/users/{receiverUserId}/comments"
+  """
+  
+  
+  Equivalent to GET /usales/users/{receiverUserId}/comments
+  """
   usalesUserComments(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
@@ -524,14 +827,23 @@ type Query {
     limit: Int
     userId: Float!
   ): [CommentResponseDTO]
-
-  "\n\nEquivalent to GET /usales/users"
+  """
+  
+  
+  Equivalent to GET /usales/users
+  """
   usalesUsers: Float
-
-  "\n\nEquivalent to GET /usales/users/me/emails/count"
+  """
+  
+  
+  Equivalent to GET /usales/users/me/emails/count
+  """
   usalesUsersMeEmailsCount: Int
-
-  "\n\nEquivalent to GET /usales/users/team/{usersId}"
+  """
+  
+  
+  Equivalent to GET /usales/users/team/{usersId}
+  """
   usalesUsersTeam(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
@@ -539,14 +851,23 @@ type Query {
     limit: Int
     usersId: Float!
   ): [User]
-
-  "\n\nEquivalent to GET /usales/users/me"
+  """
+  
+  
+  Equivalent to GET /usales/users/me
+  """
   user: User
-
-  "\n\nEquivalent to GET /usales/users/{usersId}/proxy"
+  """
+  
+  
+  Equivalent to GET /usales/users/{usersId}/proxy
+  """
   userDelegateResponseDTO(usersId: Float!): UserDelegateResponseDTO
-
-  "\n\nEquivalent to GET /v1/transcript/populate/{convId}"
+  """
+  
+  
+  Equivalent to GET /v1/transcript/populate/{convId}
+  """
   v1TranscriptPopulate2(convId: String!): String
 }
 
@@ -2419,212 +2740,365 @@ type UserDelegateResponseDTO {
 }
 
 type Mutation {
-  "\n\nEquivalent to PUT /usales/playlists/media-clip-rel-bulk"
+  """
+  
+  
+  Equivalent to PUT /usales/playlists/media-clip-rel-bulk
+  """
   addBulkPlaylistMediaClipRel(usalesPlaylistsMediaClipRelBulkInput: [PlaylistMediaClipRelRequestDTOInput]!): JSON
-
-  "\n\nEquivalent to POST /auth/login"
+  """
+  
+  
+  Equivalent to POST /auth/login
+  """
   authenticateUser(loginRequestInput: LoginRequestInput!): JSON
-
-  "\n\nEquivalent to POST /auth/login2"
+  """
+  
+  
+  Equivalent to POST /auth/login2
+  """
   authenticateUser2(loginRequestInput: LoginRequestInput!): JSON
-
-  "\n\nEquivalent to POST /usales/analytics/keyphrase/occurrences"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/keyphrase/occurrences
+  """
   companyKeyPhraseOccurrences(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [KeyPhraseOccurenceContentResponseDTO]
-
-  "\n\nEquivalent to POST /usales/analytics/keyphrase/sentiment"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/keyphrase/sentiment
+  """
   companyKeyPhraseOccurrencesBySentiment(advSearchRequestInput: AdvSearchRequestInput!): JSON
-
-  "\n\nEquivalent to POST /usales/timeline/{conv_id}"
+  """
+  
+  
+  Equivalent to POST /usales/timeline/{conv_id}
+  """
   convert(convId: Float!, usalesTimelineInput: UsalesTimelineInput!): JSON
-
-  "\n\nEquivalent to POST /usales/alerts"
+  """
+  
+  
+  Equivalent to POST /usales/alerts
+  """
   createAlert(alertRequestDTOInput: AlertRequestDTOInput!): AlertResponseDTO
-
-  "\n\nEquivalent to POST /usales/conv-topic-episodes"
+  """
+  
+  
+  Equivalent to POST /usales/conv-topic-episodes
+  """
   createConvTopicEpisode(convTopicEpisodeRequestDTOInput: ConvTopicEpisodeRequestDTOInput!): ConvTopicEpisodeResponseDTO
-
-  "\n\nEquivalent to POST /usales/emleqs"
+  """
+  
+  
+  Equivalent to POST /usales/emleqs
+  """
   createEmlEq(emlEqRequestDTOInput: EmlEqRequestDTOInput!): EmlEqResponseDTO
-
-  "\n\nEquivalent to POST /usales/custweblinks"
+  """
+  
+  
+  Equivalent to POST /usales/custweblinks
+  """
   createOrUpdate(custWebLinkRequestDTOInput: CustWebLinkRequestDTOInput!): CustWebLinkResponseDTO
-
-  "\n\nEquivalent to POST /usales/comments"
+  """
+  
+  
+  Equivalent to POST /usales/comments
+  """
   createOrUpdate1(commentRequestDTOInput: CommentRequestDTOInput!): CommentResponseDTO
-
-  "\n\nEquivalent to POST /usales/clips"
+  """
+  
+  
+  Equivalent to POST /usales/clips
+  """
   createOrUpdate2(videoCutterRequestInput: VideoCutterRequestInput!): VideoSharingHistoryDTO
-
-  "\n\nEquivalent to POST /usales/bookmarks"
+  """
+  
+  
+  Equivalent to POST /usales/bookmarks
+  """
   createOrUpdate3(convBookmarkRequestDTOInput: ConvBookmarkRequestDTOInput!): ConvBookmarkResponseDTO
-
-  "\n\nEquivalent to POST /usales/accounts"
+  """
+  
+  
+  Equivalent to POST /usales/accounts
+  """
   createOrUpdateAccount(accountRequestDTOInput: AccountRequestDTOInput!): AccountResponseDTO
-
-  "\n\nEquivalent to POST /usales/convs/attendees"
+  """
+  
+  
+  Equivalent to POST /usales/convs/attendees
+  """
   createOrUpdateConvAttendee(convAttendeeRequestDTOInput: ConvAttendeeRequestDTOInput!, id: Float!): ConvAttendeeResponseDTO
-
-  "\n\nEquivalent to POST /usales/conv/attendees/{id}"
+  """
+  
+  
+  Equivalent to POST /usales/conv/attendees/{id}
+  """
   createOrUpdateConvAttendee1(convAttendeeRequestDTOInput: ConvAttendeeRequestDTOInput!, id: Float!): ConvAttendeeResponseDTO
-
-  "\n\nEquivalent to PUT /usales/keyword/categ"
+  """
+  
+  
+  Equivalent to PUT /usales/keyword/categ
+  """
   createOrUpdateKeywordCateg(keywordCategRequestDTOInput: KeywordCategRequestDTOInput!): KeywordCategResponseDTO
-
-  "\n\nEquivalent to PUT /usales/keyword/tag"
+  """
+  
+  
+  Equivalent to PUT /usales/keyword/tag
+  """
   createOrUpdateKeywordTag(keywordTagRequestDTOInput: KeywordTagRequestDTOInput!): KeywordTagResponseDTO
-
-  "\n\nEquivalent to POST /usales/oppty/{opptyId}"
+  """
+  
+  
+  Equivalent to POST /usales/oppty/{opptyId}
+  """
   createOrUpdateOppty(id: Float!, opptyRequestDTOInput: OpptyRequestDTOInput!): OpptyDTO
-
-  "\n\nEquivalent to POST /usales/oppty"
+  """
+  
+  
+  Equivalent to POST /usales/oppty
+  """
   createOrUpdateOppty1(id: Float!, opptyRequestDTOInput: OpptyRequestDTOInput!): OpptyDTO
-
-  "\n\nEquivalent to POST /usales/oppty/teams"
+  """
+  
+  
+  Equivalent to POST /usales/oppty/teams
+  """
   createOrUpdateOpptyTeam(opptyTeamRequestDTOInput: OpptyTeamRequestDTOInput!): OpptyTeamResponseDTO
-
-  "\n\nEquivalent to PUT /usales/preferences"
+  """
+  
+  
+  Equivalent to PUT /usales/preferences
+  """
   createOrUpdatePreference(userUiPreferenceRequestDtoInput: UserUiPreferenceRequestDtoInput!): UserUiPreferenceResponseDto
-
-  "\n\nEquivalent to POST /usales/empathy-moment-recommendation"
+  """
+  
+  
+  Equivalent to POST /usales/empathy-moment-recommendation
+  """
   createOrUpdateRecommendation(empathyMomentRecommendationDTOInput: EmpathyMomentRecommendationDTOInput!): EmpathyMomentRecommendationDTO
-
-  "\n\nEquivalent to POST /usales/users"
+  """
+  
+  
+  Equivalent to POST /usales/users
+  """
   createOrUpdateUser(userRequestDTOInput: UserRequestDTOInput!): User
-
-  "\n\nEquivalent to DELETE /usales/zoommeetingwhitelist"
+  """
+  
+  
+  Equivalent to DELETE /usales/zoommeetingwhitelist
+  """
   delete(usalesZoommeetingwhitelistInput: [String]!): JSON
-
-  "\n\nEquivalent to DELETE /usales/emleqs/{id}"
+  """
+  
+  
+  Equivalent to DELETE /usales/emleqs/{id}
+  """
   delete1(id: Float!): JSON
-
-  "\n\nEquivalent to DELETE /usales/custweblinks/{id}"
+  """
+  
+  
+  Equivalent to DELETE /usales/custweblinks/{id}
+  """
   delete2(id: Float!): JSON
-
-  "\n\nEquivalent to DELETE /usales/conv-topic-episodes/{id}"
+  """
+  
+  
+  Equivalent to DELETE /usales/conv-topic-episodes/{id}
+  """
   delete3(id: Float!): JSON
-
-  "\n\nEquivalent to DELETE /usales/comments/{id}"
+  """
+  
+  
+  Equivalent to DELETE /usales/comments/{id}
+  """
   delete4(id: Float!): JSON
-
-  "\n\nEquivalent to DELETE /usales/bookmarks/{id}"
+  """
+  
+  
+  Equivalent to DELETE /usales/bookmarks/{id}
+  """
   delete5(id: Float!): JSON
-
-  "\n\nEquivalent to DELETE /usales/alerts/{id}"
+  """
+  
+  
+  Equivalent to DELETE /usales/alerts/{id}
+  """
   delete6(id: Float!): JSON
-
-  "\n\nEquivalent to PUT /usales/playlists/delete-media-clip-rel"
+  """
+  
+  
+  Equivalent to PUT /usales/playlists/delete-media-clip-rel
+  """
   deletePlaylistMediaClipRel(usalesPlaylistsDeleteMediaClipRelInput: [PlaylistMediaClipRelRequestDTOInput]!): JSON
-
-  "\n\nEquivalent to DELETE /usales/keyword/tags"
+  """
+  
+  
+  Equivalent to DELETE /usales/keyword/tags
+  """
   deleteTags(ids: String!): JSON
-
-  "\n\nEquivalent to POST /usales/keyword/keyphrase/custom/trending"
+  """
+  
+  
+  Equivalent to POST /usales/keyword/keyphrase/custom/trending
+  """
   findCustomKeyphraseTrendingTopicCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
-
-  "\n\nEquivalent to POST /usales/oppty/{id}/details"
+  """
+  
+  
+  Equivalent to POST /usales/oppty/{id}/details
+  """
   findDealDetailsByMode(advSearchRequestInput: AdvSearchRequestInput!, id: Float!, mode: String, tz: String): DealSummaryDetailResponse
-
-  "\n\nEquivalent to POST /usales/keyword/keyphrase/trending"
+  """
+  
+  
+  Equivalent to POST /usales/keyword/keyphrase/trending
+  """
   findKeyphraseTrendingTopicCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
-
-  "\n\nEquivalent to POST /usales/timeline/generate/{conv_id}"
+  """
+  
+  
+  Equivalent to POST /usales/timeline/generate/{conv_id}
+  """
   generateTimeline(convId: Float!): JSON
-
-  "\n\nEquivalent to POST /usales/teams/usersstat"
+  """
+  
+  
+  Equivalent to POST /usales/teams/usersstat
+  """
   getAccountTeamsUsersStats(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [TeamUsersStat]
-
-  "\n\nEquivalent to POST /usales/teams/account/userstat"
+  """
+  
+  
+  Equivalent to POST /usales/teams/account/userstat
+  """
   getAccountUsersStat(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [TeamAccountUsersStat]
-
-  "\n\nEquivalent to POST /usales/analytics/usage/active-users"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/usage/active-users
+  """
   getAllActiveUsers(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [QUsageUserPageVisitDto]
-
-  "\n\nEquivalent to POST /usales/teams/userstat"
+  """
+  
+  
+  Equivalent to POST /usales/teams/userstat
+  """
   getAllTeamsUserStats(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [TeamsAccountOpptyUsersStat]
-
-  "\n\nEquivalent to POST /usales/company/assessments"
+  """
+  
+  
+  Equivalent to POST /usales/company/assessments
+  """
   getAssessmentByCompany(advSearchRequestInput: AdvSearchRequestInput!): String
-
-  "\n\nEquivalent to POST /usales/users/assessments"
+  """
+  
+  
+  Equivalent to POST /usales/users/assessments
+  """
   getAssessments(advSearchRequestInput: AdvSearchRequestInput!): JSON
-
-  "\n\nEquivalent to PUT /usales/convs/meeting-attendee"
+  """
+  
+  
+  Equivalent to PUT /usales/convs/meeting-attendee
+  """
   getAttendeeByMeetingTranscript(usalesConvsMeetingAttendeeInput: UsalesConvsMeetingAttendeeInput): [String]
-
-  "\n\nEquivalent to POST /auth/outlook/callback"
+  """
+  
+  
+  Equivalent to POST /auth/outlook/callback
+  """
   getAuthCodeAndGenerateToken(code: String!, idToken: String!, state: String!): JSON
-
-  "\n\nEquivalent to POST /auth/social"
+  """
+  
+  
+  Equivalent to POST /auth/social
+  """
   getAuthUrl(authRequestInput: AuthRequestInput!): String
-
-  "\n\nEquivalent to POST /auth/outlook"
+  """
+  
+  
+  Equivalent to POST /auth/outlook
+  """
   getAuthUrl1(authRequestInput: AuthRequestInput!): String
-
-  "\n\nEquivalent to POST /auth/google"
+  """
+  
+  
+  Equivalent to POST /auth/google
+  """
   getAuthUrl2(authRequestInput: AuthRequestInput!): String
-
-  "\n\nEquivalent to POST /usales/analytics/customer-pulse/closed-deals"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/customer-pulse/closed-deals
+  """
   getClosedDealDetails(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [AnalyticsCustomerPulseDealResponse]
-
-  "\n\nEquivalent to POST /usales/analytics/company/deals"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/company/deals
+  """
   getCompanyDeals(advSearchRequestInput: AdvSearchRequestInput!): DealDetailResponse
-
-  "\n\nEquivalent to POST /usales/account-oppty-eq/company"
+  """
+  
+  
+  Equivalent to POST /usales/account-oppty-eq/company
+  """
   getCompanyDealsEQOnRiskScale(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [AccountOpptyEQResponseDTO]
-
-  "\n\nEquivalent to POST /usales/analytics/usage/meetingstat"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/usage/meetingstat
+  """
   getCompanyMeetingStats(advSearchRequestInput: AdvSearchRequestInput!): OverallMeetingStatsResponse
-
-  "\n\nEquivalent to POST /usales/company-params"
+  """
+  
+  
+  Equivalent to POST /usales/company-params
+  """
   getCompanyParams(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
@@ -2632,63 +3106,96 @@ type Mutation {
     limit: Int
     usalesCompanyParams2Input: [String]!
   ): [CompanyParamResponseDTO]
-
-  "\n\nEquivalent to POST /usales/analytics/usage/companystat"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/usage/companystat
+  """
   getCompanyQUsage(advSearchRequestInput: AdvSearchRequestInput!): OverallQUsageResponse
-
-  "\n\nEquivalent to POST /usales/analytics/contacts"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/contacts
+  """
   getContacts(advSearchRequestInput: AdvSearchRequestInput!): JSON
-
-  "\n\nEquivalent to POST /usales/accounts/{id}/activities"
+  """
+  
+  
+  Equivalent to POST /usales/accounts/{id}/activities
+  """
   getConversationByAccount(advSearchRequestInput: AdvSearchRequestInput!, id: Float!): AccountActivityResponseDTO
-
-  "\n\nEquivalent to POST /usales/convs/userstat"
+  """
+  
+  
+  Equivalent to POST /usales/convs/userstat
+  """
   getConversationUserStat(advSearchRequestInput: AdvSearchRequestInput!): ConvUserStatDTO
-
-  "\n\nEquivalent to POST /usales/analytics/customer-pulse"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/customer-pulse
+  """
   getCustomerPulse(usalesAnalyticsCustomerPulseInput: JSON!): DealSellerPerformanceResponse
-
-  "\n\nEquivalent to POST /usales/oppty/{id}/activities"
+  """
+  
+  
+  Equivalent to POST /usales/oppty/{id}/activities
+  """
   getDealActivities(
     advSearchRequestInput: AdvSearchRequestInput!
     id: Float!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [DealActivitiesSummaryResponse]
-
-  "\n\nEquivalent to POST /usales/accounts/deals"
+  """
+  
+  
+  Equivalent to POST /usales/accounts/deals
+  """
   getDealCountByAccounts(
     accountDealRequestInput: AccountDealRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [AccountDealResponse]
-
-  "\n\nEquivalent to POST /usales/account-oppty-eq"
+  """
+  
+  
+  Equivalent to POST /usales/account-oppty-eq
+  """
   getDealEQOnRiskScale(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [AccountOpptyEQResponseDTO]
-
-  "\n\nEquivalent to POST /usales/oppty/topics"
+  """
+  
+  
+  Equivalent to POST /usales/oppty/topics
+  """
   getDealTopics(advSearchRequestInput: AdvSearchRequestInput!): DealTopicCoverageResponse
-
-  "\n\nEquivalent to POST /usales/deals"
+  """
+  
+  
+  Equivalent to POST /usales/deals
+  """
   getDeals(advSearchRequestInput: AdvSearchRequestInput!): DealDetailResponse
-
-  "\n\nEquivalent to POST /usales/emails/{emlObjId}"
+  """
+  
+  
+  Equivalent to POST /usales/emails/{emlObjId}
+  """
   getEmailByEmlObjId(emlObjId: Float!): EmlResponseDTO
-
-  "\n\nEquivalent to POST /usales/emails"
+  """
+  
+  
+  Equivalent to POST /usales/emails
+  """
   getEmails(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
@@ -2696,24 +3203,35 @@ type Mutation {
     limit: Int
     usalesEmailsInput: JSON!
   ): [EmlResponseDTO]
-
-  "\n\nEquivalent to POST /usales/empathyandhesitationturns/getforuserandrange"
+  """
+  
+  
+  Equivalent to POST /usales/empathyandhesitationturns/getforuserandrange
+  """
   getEmpathyAndHesitationTurns(empathyAndHesitationSearchCriterionInput: EmpathyAndHesitationSearchCriterionInput!): EmpathyAndHesitationTurnsReportForConvList
-
-  "\n\nEquivalent to POST /usales/preferences/favorite-meeting"
+  """
+  
+  
+  Equivalent to POST /usales/preferences/favorite-meeting
+  """
   getFavoriteMeeting(advSearchRequestInput: AdvSearchRequestInput!): UserUiPreferenceResponseDto
-
-  "\n\nEquivalent to POST /usales/analytics/usage/invited-users"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/usage/invited-users
+  """
   getInvitedUsers(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [User]
-
-  "\n\nEquivalent to POST /usales/convs/lastmeeting"
+  """
+  
+  
+  Equivalent to POST /usales/convs/lastmeeting
+  """
   getLastMeeting(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
@@ -2721,74 +3239,119 @@ type Mutation {
     limit: Int
     usalesConvsLastmeetingInput: [Float]!
   ): [ConversationRequest]
-
-  "\n\nEquivalent to POST /usales/mediaclip/search/count"
+  """
+  
+  
+  Equivalent to POST /usales/mediaclip/search/count
+  """
   getMediaClipCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
-
-  "\n\nEquivalent to POST /usales/mediaclip/stats"
+  """
+  
+  
+  Equivalent to POST /usales/mediaclip/stats
+  """
   getMediaClipStats(advSearchRequestInput: AdvSearchRequestInput!): MediaClipStatsResponseDTO
-
-  "\n\nEquivalent to POST /usales/analytics/usage/meetings"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/usage/meetings
+  """
   getMeetingListBasedOnType(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [ConversationRequest]
-
-  "\n\nEquivalent to POST /usales/analytics/meeting/sentiments"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/meeting/sentiments
+  """
   getMeetingSentiments(advSearchRequestInput: AdvSearchRequestInput!): JSON
-
-  "\n\nEquivalent to POST /usales/users/meetings/sharedwithme"
+  """
+  
+  
+  Equivalent to POST /usales/users/meetings/sharedwithme
+  """
   getMeetingsSharedWithUser(advSearchRequestInput: AdvSearchRequestInput!): AdvSearchResponse
-
-  "\n\nEquivalent to POST /usales/convs/{id}/keyword/search"
+  """
+  
+  
+  Equivalent to POST /usales/convs/{id}/keyword/search
+  """
   getMomentsHavingKeyword(criterionInput: CriterionInput!, id: Float!): ConversationKeywordSearchResponse
-
-  "\n\nEquivalent to POST /usales/analytics/keytopics/popular"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/keytopics/popular
+  """
   getMostPopularKeymoments(advSearchRequestInput: AdvSearchRequestInput!): JSON
-
-  "\n\nEquivalent to POST /usales/analytics/meeting/most-shared"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/meeting/most-shared
+  """
   getMostSharedMeetings(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [MostSharedConvAttr]
-
-  "\n\nEquivalent to POST /usales/analytics/meeting/mostviewed"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/meeting/mostviewed
+  """
   getMostViewedMeeting(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [MostViewedConvAttr]
-
-  "\n\nEquivalent to POST /usales/teams/oppty/userstat"
+  """
+  
+  
+  Equivalent to POST /usales/teams/oppty/userstat
+  """
   getOpptyUsersStat(advSearchRequestInput: AdvSearchRequestInput!): TeamOpptyUsersStats
-
-  "\n\nEquivalent to POST /usales/playlists/stats"
+  """
+  
+  
+  Equivalent to POST /usales/playlists/stats
+  """
   getPlaylistStats(advSearchRequestInput: AdvSearchRequestInput!): PlaylistStatsResponseDTO
-
-  "\n\nEquivalent to POST /usales/playlists/search/count"
+  """
+  
+  
+  Equivalent to POST /usales/playlists/search/count
+  """
   getPlaylistsCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
-
-  "\n\nEquivalent to DELETE /usales/playlists/{id}"
+  """
+  
+  
+  Equivalent to DELETE /usales/playlists/{id}
+  """
   getPlaylistsCount1(id: Float!): JSON
-
-  "\n\nEquivalent to DELETE /usales/mediaclip/{id}"
+  """
+  
+  
+  Equivalent to DELETE /usales/mediaclip/{id}
+  """
   getPlaylistsCount2(id: Float!): JSON
-
-  "\n\nEquivalent to POST /usales/analytics/sellereq"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/sellereq
+  """
   getSellerEQ(usalesAnalyticsSellereqInput: JSON!): DealSellerPerformanceResponse
-
-  "\n\nEquivalent to POST /usales/configprops"
+  """
+  
+  
+  Equivalent to POST /usales/configprops
+  """
   getSystemProps(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
@@ -2796,374 +3359,551 @@ type Mutation {
     limit: Int
     usalesConfigprops2Input: [String]!
   ): [ConfigPropResponseDTO]
-
-  "\n\nEquivalent to POST /usales/analytics/usage/page-visits"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/usage/page-visits
+  """
   getTopPageVisitDetails(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [PageVisitsDto]
-
-  "\n\nEquivalent to POST /usales/analytics/users/calldetails"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/users/calldetails
+  """
   getUserCallMetr(advSearchRequestInput: AdvSearchRequestInput!): String
-
-  "\n\nEquivalent to POST /usales/analytics/users/callmetrics"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/users/callmetrics
+  """
   getUserCallMetrics(advSearchRequestInput: AdvSearchRequestInput!): String
-
-  "\n\nEquivalent to POST /usales/analytics/usage/users-auth"
+  """
+  
+  
+  Equivalent to POST /usales/analytics/usage/users-auth
+  """
   getUsersAuth(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [User]
-
-  "\n\nEquivalent to POST /usales/teams/convostat"
+  """
+  
+  
+  Equivalent to POST /usales/teams/convostat
+  """
   getUsersConvoStat(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [TeamUsersStat]
-
-  "\n\nEquivalent to POST /usales/keyword/keyphrase/topic/count"
+  """
+  
+  
+  Equivalent to POST /usales/keyword/keyphrase/topic/count
+  """
   keyPhras1eOccurences(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [KeyphraseTotalCountAttrDTO]
-
-  "\n\nEquivalent to POST /usales/keyword/keyphrase/occurences"
+  """
+  
+  
+  Equivalent to POST /usales/keyword/keyphrase/occurences
+  """
   keyPhraseOccurences(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [KeyPhraseOccurenceResponseDTO]
-
-  "\n\nEquivalent to POST /auth/logout"
+  """
+  
+  
+  Equivalent to POST /auth/logout
+  """
   logout: String
-
-  "\n\nEquivalent to POST /v1/transcript/populate"
+  """
+  
+  
+  Equivalent to POST /v1/transcript/populate
+  """
   populate(eSPopulateRequestInput: ESPopulateRequestInput!, pegasusJobKey: String): String
-
-  "\n\nEquivalent to POST /usales/mindtickle/query"
+  """
+  
+  
+  Equivalent to POST /usales/mindtickle/query
+  """
   postDataByUri(mindTickleReqInput: MindTickleReqInput!): String
-
-  "\n\nEquivalent to PUT /usales/keyword/keyphrases"
+  """
+  
+  
+  Equivalent to PUT /usales/keyword/keyphrases
+  """
   resetKeyPhrases: String
-
-  "\n\nEquivalent to POST /auth/users/details"
+  """
+  
+  
+  Equivalent to POST /auth/users/details
+  """
   revoke(
     authUsersDetailsInput: [Float]!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [User]
-
-  "\n\nEquivalent to POST /auth/revoke/{provider}"
+  """
+  
+  
+  Equivalent to POST /auth/revoke/{provider}
+  """
   revoke1(authRevoke2Input: [Float]!, provider: String!): [String]
-
-  "\n\nEquivalent to POST /usales/meeting/custom-disclaimer"
+  """
+  
+  
+  Equivalent to POST /usales/meeting/custom-disclaimer
+  """
   saveMessage(usalesMeetingCustomDisclaimerInput: String!): String
-
-  "\n\nEquivalent to POST /cspviolations"
+  """
+  
+  
+  Equivalent to POST /cspviolations
+  """
   saveReport(cspViolationReqInput: CspViolationReqInput!): JSON
-
-  "\n\nEquivalent to POST /v1/transcript/search"
+  """
+  
+  
+  Equivalent to POST /v1/transcript/search
+  """
   search(eSSearchInput: ESSearchInput!): String
-
-  "\n\nEquivalent to POST /usales/zoommeetingwhitelist/search"
+  """
+  
+  
+  Equivalent to POST /usales/zoommeetingwhitelist/search
+  """
   search1(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [ZoomMeetingWhitelistDTO]
-
-  "\n\nEquivalent to POST /usales/playlists/search"
+  """
+  
+  
+  Equivalent to POST /usales/playlists/search
+  """
   search2(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [PlaylistResponseDTO]
-
-  "\n\nEquivalent to POST /usales/mediaclip/search"
+  """
+  
+  
+  Equivalent to POST /usales/mediaclip/search
+  """
   search3(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [MediaClipResponseDTO]
-
-  "\n\nEquivalent to POST /usales/keymoments/search"
+  """
+  
+  
+  Equivalent to POST /usales/keymoments/search
+  """
   search4(advSearchRequestInput: AdvSearchRequestInput!): KeyMomentResponseDTO
-
-  "\n\nEquivalent to POST /usales/emails/search"
+  """
+  
+  
+  Equivalent to POST /usales/emails/search
+  """
   search5(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [EmlResponseDTO]
-
-  "\n\nEquivalent to POST /usales/custweblinks/search"
+  """
+  
+  
+  Equivalent to POST /usales/custweblinks/search
+  """
   search6(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [CustWebLinkResponseDTO]
-
-  "\n\nEquivalent to POST /usales/convs/promise/search"
+  """
+  
+  
+  Equivalent to POST /usales/convs/promise/search
+  """
   search7(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [ConvPromiseResponseDTO]
-
-  "\n\nEquivalent to POST /usales/conv-topic-episodes/search"
+  """
+  
+  
+  Equivalent to POST /usales/conv-topic-episodes/search
+  """
   search8(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [ConvTopicEpisodeResponseDTO]
-
-  "\n\nEquivalent to POST /usales/comments/search"
+  """
+  
+  
+  Equivalent to POST /usales/comments/search
+  """
   search9(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [CommentResponseDTO]
-
-  "\n\nEquivalent to POST /usales/contacts/search"
+  """
+  
+  
+  Equivalent to POST /usales/contacts/search
+  """
   searchAccountAndContact(advSearchRequestInput: AdvSearchRequestInput!): AccountContactSearchResponse
-
-  "\n\nEquivalent to POST /usales/contacts/search/count"
+  """
+  
+  
+  Equivalent to POST /usales/contacts/search/count
+  """
   searchAccountAndContactCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
-
-  "\n\nEquivalent to POST /usales/accounts/search"
+  """
+  
+  
+  Equivalent to POST /usales/accounts/search
+  """
   searchAccounts(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [AccountResponseDTO]
-
-  "\n\nEquivalent to POST /usales/accounts/search/count"
+  """
+  
+  
+  Equivalent to POST /usales/accounts/search/count
+  """
   searchAccountsCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
-
-  "\n\nEquivalent to POST /usales/alerts/search"
+  """
+  
+  
+  Equivalent to POST /usales/alerts/search
+  """
   searchAlerts(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [AlertResponseDTO]
-
-  "\n\nEquivalent to POST /usales/contact/search"
+  """
+  
+  
+  Equivalent to POST /usales/contact/search
+  """
   searchContact(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [ContactSearchResponseDTO]
-
-  "\n\nEquivalent to POST /usales/emails/search-summary"
+  """
+  
+  
+  Equivalent to POST /usales/emails/search-summary
+  """
   searchEmailSummary(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [EmailSummaryResponseDTO]
-
-  "\n\nEquivalent to POST /usales/events/search"
+  """
+  
+  
+  Equivalent to POST /usales/events/search
+  """
   searchEvents(advSearchRequestInput: AdvSearchRequestInput!): CalenderEventSearchResponse
-
-  "\n\nEquivalent to POST /usales/events/search/count"
+  """
+  
+  
+  Equivalent to POST /usales/events/search/count
+  """
   searchEventsCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
-
-  "\n\nEquivalent to POST /usales/keyword/categ/search"
+  """
+  
+  
+  Equivalent to POST /usales/keyword/categ/search
+  """
   searchKeywordCateg(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [KeywordCategResponseDTO]
-
-  "\n\nEquivalent to POST /usales/keyword/categ/search/count"
+  """
+  
+  
+  Equivalent to POST /usales/keyword/categ/search/count
+  """
   searchKeywordCategCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
-
-  "\n\nEquivalent to POST /usales/keyword/categ/search/notags"
+  """
+  
+  
+  Equivalent to POST /usales/keyword/categ/search/notags
+  """
   searchKeywordCategWithoutTags(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [KeywordCategResponseDTO]
-
-  "\n\nEquivalent to POST /usales/keyword/tag/search"
+  """
+  
+  
+  Equivalent to POST /usales/keyword/tag/search
+  """
   searchKeywordTag(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [KeywordTagResponseDTO]
-
-  "\n\nEquivalent to POST /usales/keyword/tag/search/count"
+  """
+  
+  
+  Equivalent to POST /usales/keyword/tag/search/count
+  """
   searchKeywordTagCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
-
-  "\n\nEquivalent to POST /usales/advSearch"
+  """
+  
+  
+  Equivalent to POST /usales/advSearch
+  """
   searchMeetings(advSearchRequestInput: AdvSearchRequestInput!): AdvSearchResponse
-
-  "\n\nEquivalent to POST /usales/search/meetings"
+  """
+  
+  
+  Equivalent to POST /usales/search/meetings
+  """
   searchMeetingsByAccountOrOppty(advSearchRequestInput: AdvSearchRequestInput!): AdvSearchResponse
-
-  "\n\nEquivalent to POST /usales/advSearch/count"
+  """
+  
+  
+  Equivalent to POST /usales/advSearch/count
+  """
   searchMeetingsCount(advSearchRequestInput: AdvSearchRequestInput!): JSON
-
-  "\n\nEquivalent to POST /usales/empathy-moment-recommendation/search"
+  """
+  
+  
+  Equivalent to POST /usales/empathy-moment-recommendation/search
+  """
   searchMoments(advSearchRequestInput: AdvSearchRequestInput!): EmpathyChangeMomentResponseDTO
-
-  "\n\nEquivalent to POST /usales/preferences/search"
+  """
+  
+  
+  Equivalent to POST /usales/preferences/search
+  """
   searchPreference(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [UserUiPreferenceResponseDto]
-
-  "\n\nEquivalent to POST /usales/emails/team-activity"
+  """
+  
+  
+  Equivalent to POST /usales/emails/team-activity
+  """
   searchTeamActivity(advSearchRequestInput: AdvSearchRequestInput!): TeamEmailActivityResponseDTO
-
-  "\n\nEquivalent to POST /usales/users/search"
+  """
+  
+  
+  Equivalent to POST /usales/users/search
+  """
   searchUsers(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [User]
-
-  "\n\nEquivalent to PUT /usales/companyprofile/keyword-categ-select"
+  """
+  
+  
+  Equivalent to PUT /usales/companyprofile/keyword-categ-select
+  """
   selectCompanyKeywordCategory(advSearchRequestInput: AdvSearchRequestInput!): String
-
-  "\n\nEquivalent to POST /slack/sendmessage"
+  """
+  
+  
+  Equivalent to POST /slack/sendmessage
+  """
   sendMessage(messageRequestDTOInput: MessageRequestDTOInput!): JSON
-
-  "\n\nEquivalent to POST /usales/shares/share-clip-external"
+  """
+  
+  
+  Equivalent to POST /usales/shares/share-clip-external
+  """
   shareClipExternalUser(shareClipDTOInput: ShareClipDTOInput!): String
-
-  "\n\nEquivalent to POST /usales/shares/share-meeting-external"
+  """
+  
+  
+  Equivalent to POST /usales/shares/share-meeting-external
+  """
   shareMeetingExternalUser(shareMeetingDTOInput: ShareMeetingDTOInput!): String
-
-  "\n\nEquivalent to POST /usales/shares/share-meeting-internal/{type}"
+  """
+  
+  
+  Equivalent to POST /usales/shares/share-meeting-internal/{type}
+  """
   shareMeetingInternalUser(shareMeetingDTOInput: ShareMeetingDTOInput!, type: String!): String
-
-  "\n\nEquivalent to POST /usales/shares/playlist"
+  """
+  
+  
+  Equivalent to POST /usales/shares/playlist
+  """
   sharePlaylist(shareMeetingDTOInput: ShareMeetingDTOInput!): String
-
-  "\n\nEquivalent to POST /usales/emails/threadcount"
+  """
+  
+  
+  Equivalent to POST /usales/emails/threadcount
+  """
   threadCount(
     advSearchRequestInput: AdvSearchRequestInput!
-
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
     """
     limit: Int
   ): [ThreadCountResponse]
-
-  "\n\nEquivalent to PUT /usales/companyprofile/access-consent"
+  """
+  
+  
+  Equivalent to PUT /usales/companyprofile/access-consent
+  """
   updateAccessConsent(consent: Boolean!): String
-
-  "\n\nEquivalent to PUT /usales/account-oppty-eq"
+  """
+  
+  
+  Equivalent to PUT /usales/account-oppty-eq
+  """
   updateAccountOpptyEQ(pegasusJobKey: String): String
-
-  "\n\nEquivalent to PUT /usales/account-oppty-eq-1"
+  """
+  
+  
+  Equivalent to PUT /usales/account-oppty-eq-1
+  """
   updateAccountOpptyEQ1: String
-
-  "\n\nEquivalent to PUT /usales/alerts"
+  """
+  
+  
+  Equivalent to PUT /usales/alerts
+  """
   updateAlert(alertRequestDTOInput: AlertRequestDTOInput!): AlertResponseDTO
-
-  "\n\nEquivalent to PUT /usales/events"
+  """
+  
+  
+  Equivalent to PUT /usales/events
+  """
   updateCalendarEvent(calendarEventRequestDTOInput: CalendarEventRequestDTOInput!): CalendarEvent
-
-  "\n\nEquivalent to PUT /usales/conv-topic-episodes"
+  """
+  
+  
+  Equivalent to PUT /usales/conv-topic-episodes
+  """
   updateConvTopicEpisode(convTopicEpisodeRequestDTOInput: ConvTopicEpisodeRequestDTOInput!): ConvTopicEpisodeResponseDTO
-
-  "\n\nEquivalent to PUT /usales/convs"
+  """
+  
+  
+  Equivalent to PUT /usales/convs
+  """
   updateConversation(conversationDTOInput: ConversationDTOInput!): ConversationRequest
-
-  "\n\nEquivalent to PUT /usales/emleqs"
+  """
+  
+  
+  Equivalent to PUT /usales/emleqs
+  """
   updateEmlEq(emlEqRequestDTOInput: EmlEqRequestDTOInput!): EmlEqResponseDTO
-
-  "\n\nEquivalent to PUT /usales/keymoments"
+  """
+  
+  
+  Equivalent to PUT /usales/keymoments
+  """
   updateKeyMoment(convKeyMomentRequestDTOInput: ConvKeyMomentRequestDTOInput!): ConvKeyMomentResponseDTO
-
-  "\n\nEquivalent to PUT /usales/playlists/media-clip-rel"
+  """
+  
+  
+  Equivalent to PUT /usales/playlists/media-clip-rel
+  """
   updatePlaylistMediaClipRel(playlistMediaClipRelRequestDTOInput: PlaylistMediaClipRelRequestDTOInput!): JSON
-
-  "\n\nEquivalent to POST /usales/users/enable"
+  """
+  
+  
+  Equivalent to POST /usales/users/enable
+  """
   updateQDetails(all: Boolean, usalesUsersEnableInput: [UserRequestDTOInput]): JSON
-
-  "\n\nEquivalent to PUT /usales/keyword/tag/update-status"
+  """
+  
+  
+  Equivalent to PUT /usales/keyword/tag/update-status
+  """
   updateStatusByIds(usalesKeywordTagUpdateStatusInput: JSON!): JSON
-
-  "\n\nEquivalent to PUT /auth/teams"
+  """
+  
+  
+  Equivalent to PUT /auth/teams
+  """
   updateTeamAccess(enable: Boolean!): String
-
-  "\n\nEquivalent to POST /usales/users/{managerId}/team"
+  """
+  
+  
+  Equivalent to POST /usales/users/{managerId}/team
+  """
   updateTeamMembersManagerDetails(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
@@ -3172,53 +3912,101 @@ type Mutation {
     managerId: Float!
     usalesUserTeamInput: [Float]!
   ): [User]
-
-  "\n\nEquivalent to POST /usales/users/proxy"
+  """
+  
+  
+  Equivalent to POST /usales/users/proxy
+  """
   updateUserProxy(userDelegateRequestDTOInput: UserDelegateRequestDTOInput!): UserDelegateResponseDTO
-
-  "\n\nEquivalent to PUT /usales/zoommeetingwhitelist/invoke-bot"
+  """
+  
+  
+  Equivalent to PUT /usales/zoommeetingwhitelist/invoke-bot
+  """
   updateZoomMeetingInvokeBot(zoomMeetingWhitelistRequestInput: ZoomMeetingWhitelistRequestInput!): JSON
-
-  "\n\nEquivalent to PUT /usales/zoommeetingwhitelist/update"
+  """
+  
+  
+  Equivalent to PUT /usales/zoommeetingwhitelist/update
+  """
   updateZoomMeetingWhitelist: String
-
-  "\n\nEquivalent to PUT /usales/convs/external-meeting"
+  """
+  
+  
+  Equivalent to PUT /usales/convs/external-meeting
+  """
   uploadExternalMeeting(usalesConvsExternalMeetingInput: UsalesConvsExternalMeetingInput): JSON
-
-  "\n\nEquivalent to POST /usales/playlists"
+  """
+  
+  
+  Equivalent to POST /usales/playlists
+  """
   upsert(playlistRequestDTOInput: PlaylistRequestDTOInput!): PlaylistResponseDTO
-
-  "\n\nEquivalent to POST /usales/playlist/param"
+  """
+  
+  
+  Equivalent to POST /usales/playlist/param
+  """
   upsert1(playlistParamRequestDTOInput: PlaylistParamRequestDTOInput!): PlaylistParamResponseDTO
-
-  "\n\nEquivalent to POST /usales/mediaclip"
+  """
+  
+  
+  Equivalent to POST /usales/mediaclip
+  """
   upsert2(mediaClipRequestDTOInput: MediaClipRequestDTOInput!): MediaClipResponseDTO
-
-  "\n\nEquivalent to POST /usales/mediaClip/param"
+  """
+  
+  
+  Equivalent to POST /usales/mediaClip/param
+  """
   upsert3(mediaClipParamRequestDTOInput: MediaClipParamRequestDTOInput!): MediaClipParamResponseDTO
-
-  "\n\nEquivalent to POST /usales/convs/promise"
+  """
+  
+  
+  Equivalent to POST /usales/convs/promise
+  """
   upsert4(convPromiseRequestDTOInput: ConvPromiseRequestDTOInput!): ConvPromiseResponseDTO
-
-  "\n\nEquivalent to POST /usales/convs/param"
+  """
+  
+  
+  Equivalent to POST /usales/convs/param
+  """
   upsert5(convParamRequestDTOInput: ConvParamRequestDTOInput!): ConvParamResponseDTO
-
-  "\n\nEquivalent to PUT /usales/company-param"
+  """
+  
+  
+  Equivalent to PUT /usales/company-param
+  """
   upsertCompanyParam(companyParamRequestDTOInput: CompanyParamRequestDTOInput!): CompanyParamResponseDTO
-
-  "\n\nEquivalent to POST /usales/companyprofile"
+  """
+  
+  
+  Equivalent to POST /usales/companyprofile
+  """
   upsertCompanyProfile(companyProfileDTOInput: CompanyProfileDTOInput!): CompanyProfileDTO
-
-  "\n\nEquivalent to POST /usales/companyprofile/businesscategs"
+  """
+  
+  
+  Equivalent to POST /usales/companyprofile/businesscategs
+  """
   upsertCompanyProfileWithKeywordCategRel(companyProfileKeywordCategRelDTOInput: CompanyProfileKeywordCategRelDTOInput!): CompanyProfileKeywordCategRelDTO
-
-  "\n\nEquivalent to PUT /usales/configprops"
+  """
+  
+  
+  Equivalent to PUT /usales/configprops
+  """
   upsertConfigProp(configPropRequestDTOInput: ConfigPropRequestDTOInput!): ConfigPropResponseDTO
-
-  "\n\nEquivalent to POST /usales/convs/{convId}/viewed"
+  """
+  
+  
+  Equivalent to POST /usales/convs/{convId}/viewed
+  """
   upsertExternal(convId: Float!): ConvParamResponseDTO
-
-  "\n\nEquivalent to POST /usales/playlist/param/last-viewed"
+  """
+  
+  
+  Equivalent to POST /usales/playlist/param/last-viewed
+  """
   upsertLastViewed(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
@@ -3226,8 +4014,11 @@ type Mutation {
     limit: Int
     playlistParamRequestDTOInput: PlaylistParamRequestDTOInput!
   ): [PlaylistParamResponseDTO]
-
-  "\n\nEquivalent to POST /usales/mediaClip/param/last-viewed"
+  """
+  
+  
+  Equivalent to POST /usales/mediaClip/param/last-viewed
+  """
   upsertLastViewed1(
     """
     Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
@@ -3235,8 +4026,11 @@ type Mutation {
     limit: Int
     mediaClipParamRequestDTOInput: MediaClipParamRequestDTOInput!
   ): [MediaClipParamResponseDTO]
-
-  "\n\nEquivalent to POST /usales/convs/param/last-viewed"
+  """
+  
+  
+  Equivalent to POST /usales/convs/param/last-viewed
+  """
   upsertLastViewed2(convParamRequestDTOInput: ConvParamRequestDTOInput!): ConvParamResponseDTO
 }
 

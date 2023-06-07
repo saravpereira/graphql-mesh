@@ -1,10 +1,12 @@
+// @ts-nocheck
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-import { DocumentNode } from 'graphql';
+
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -12,539 +14,846 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
 };
 
 export type Query = {
-  /** Equivalent to GET /auth/accessToken */
-  accessTokenForAuthenticatedUser?: Maybe<Scalars['JSON']>;
-  /** Equivalent to GET /usales/keyword/keyphrase/fetch-expert/{tagId} */
-  fetchKeyPhraseExpert?: Maybe<Array<Maybe<KeyPhraseExpertResponseDTO>>>;
-  /** Equivalent to GET /cq/token/access */
-  generateAccessToken?: Maybe<Scalars['JSON']>;
-  /** Equivalent to GET /cq/token/refresh */
-  generateRefreshToken?: Maybe<Scalars['JSON']>;
-  /** Equivalent to GET /usales/companyprofile/access-consent */
-  getAccessConsent?: Maybe<Scalars['Boolean']>;
-  /** Equivalent to GET /usales/accounts/{id} */
-  getAccountById?: Maybe<AccountResponseDTO>;
-  /** Equivalent to GET /usales/accounts/{id}/oppty */
-  getAccountOpptyByAccount?: Maybe<Array<Maybe<OpptyDTO>>>;
-  /** Equivalent to GET /usales/accounts/{id}/team */
-  getAccountTeamByAccount?: Maybe<AccountTeamResponse>;
-  /** Equivalent to GET /usales/accounts */
-  getAccounts?: Maybe<Array<Maybe<AccountResponseDTO>>>;
-  /** Equivalent to GET /usales/conv/metrics/{id} */
-  getAggrConvMetrics?: Maybe<Array<Maybe<AggrConvMetrics>>>;
-  /** Equivalent to GET /usales/convs/{id}/metrics */
-  getAggrConvMetricsByParticipant?: Maybe<Array<Maybe<AggrConvMetrics>>>;
-  /** Equivalent to GET /usales/alerts/{id} */
-  getAlertById?: Maybe<AlertResponseDTO>;
-  /** Equivalent to GET /usales/alerts */
-  getAlertByUser?: Maybe<Array<Maybe<AlertResponseDTO>>>;
-  /** Equivalent to GET /usales/company-params */
-  getAllCompanyParams?: Maybe<Array<Maybe<CompanyParamResponseDTO>>>;
-  /** Equivalent to GET /usales/configprops */
-  getAllCurrentSystemProp?: Maybe<Array<Maybe<ConfigPropResponseDTO>>>;
-  /** Equivalent to GET /usales/convs/{id}/participantsWithMetrics */
-  getAttendees?: Maybe<ConversationAttendeesResponse>;
-  /** Equivalent to GET /auth/google/callback */
-  getAuthCodeAndGenerateToken1?: Maybe<Scalars['JSON']>;
-  /** Equivalent to GET /slack/authurl */
-  getAuthUrl3?: Maybe<Scalars['String']>;
-  /** Equivalent to GET /auth/social */
-  getAuthUrl4?: Maybe<Scalars['String']>;
-  /** Equivalent to GET /auth/outlook */
-  getAuthUrl5?: Maybe<Scalars['String']>;
-  /** Equivalent to GET /auth/google */
-  getAuthUrl6?: Maybe<Scalars['String']>;
-  /** Equivalent to GET /usales/bookmarks/convs/{convId} */
-  getBookmarksByConvId?: Maybe<Array<Maybe<ConvBookmarkResponseDTO>>>;
-  /** Equivalent to GET /usales/bookmarks/keymoments/{convKeyMomentId} */
-  getBookmarksByConvKeyMomentId?: Maybe<Array<Maybe<ConvBookmarkResponseDTO>>>;
-  /** Equivalent to GET /usales/convs/{convId}/comments */
-  getCommentByConvId?: Maybe<Array<Maybe<CommentResponseDTO>>>;
-  /** Equivalent to GET /usales/keymoments/{convKeyMomentId}/comments */
-  getCommentByConvKeyMomentId?: Maybe<Array<Maybe<CommentResponseDTO>>>;
-  /** Equivalent to GET /usales/companyprofile/businesscategs */
-  getCompanyCategAndSubCateg?: Maybe<Array<Maybe<KeywordCategResponseDTO>>>;
-  /** Equivalent to GET /usales/companyprofile */
-  getCompanyProfile?: Maybe<CompanyProfileDTO>;
-  /** Equivalent to GET /usales/analytics/company/slide-first */
-  getCompanySlideFirst?: Maybe<CompanySlideFirstResponse>;
-  /** Equivalent to GET /cq/opportunity/{crmOpportunityId}/contact/{crmContactId}/eq */
-  getContactEQForOppty?: Maybe<Array<Maybe<Contact>>>;
-  /** Equivalent to GET /usales/contacts/{contact}/emails/count */
-  getContactEmailsCount?: Maybe<Scalars['Int']>;
-  /** Equivalent to GET /usales/contact/metrics/{contactId} */
-  getContactMetrics?: Maybe<ContactMetricsResponse>;
-  /** Equivalent to GET /cq/opportunity/{crmOpportunityId}/contact/eq */
+  /**
+   *
+   *
+   * Equivalent to GET /usales/accounts/{id}
+   */
+  accountResponseDTO?: Maybe<AccountResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/accounts/{id}/team
+   */
+  accountTeamResponse?: Maybe<AccountTeamResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/alerts/{id}
+   */
+  alertResponseDTO?: Maybe<AlertResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /auth/accessToken
+   */
+  authAccessToken?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /auth/google
+   */
+  authGoogle?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /auth/google/callback
+   */
+  authGoogleCallback?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /auth/outlook
+   */
+  authOutlook?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /auth/revoke/{provider}
+   */
+  authRevoke?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /auth/social
+   */
+  authSocial?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/events/{id}
+   */
+  calendarEvent?: Maybe<CalendarEvent>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/companyprofile
+   */
+  companyProfileDTO?: Maybe<CompanyProfileDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/analytics/company/slide-first
+   */
+  companySlideFirstResponse?: Maybe<CompanySlideFirstResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/contact/metrics/{contactId}
+   */
+  contactMetricsResponse?: Maybe<ContactMetricsResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/contact/summary/{contactId}
+   */
+  contactResponse?: Maybe<ContactResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/attendees/{id}
+   */
+  convAttendeeResponseDTO?: Maybe<ConvAttendeeResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{convId}/eqscore
+   */
+  convEQResponseDTO?: Maybe<ConvEQResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/conv/metrics/aggr/{id}
+   */
+  convMetricsResponse?: Maybe<ConvMetricsResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /conv/mod/{convId}
+   */
+  convMod?: Maybe<Array<Maybe<ConversationAttributionLogRsp>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{id}/slide-first
+   */
+  convSlideFirstResponse?: Maybe<ConvSlideFirstResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/timeline/{conv_id}
+   */
+  convTimeline?: Maybe<ConvTimeline>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/conv-topic-episodes/{id}
+   */
+  convTopicEpisodeResponseDTO?: Maybe<ConvTopicEpisodeResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{id}/participantsWithMetrics
+   */
+  conversationAttendeesResponse?: Maybe<ConversationAttendeesResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{id}/preview
+   */
+  conversationDetailResponse?: Maybe<ConversationDetailResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{id}
+   */
+  conversationRequest?: Maybe<ConversationRequest>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/summary/{id}
+   */
+  conversationSummaryResponse?: Maybe<ConversationSummaryResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/metrics/convs/{convId}/convostats
+   */
+  convoStatResponse?: Maybe<ConvoStatResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/account/{crmAccountId}/trend
+   */
+  cqAccountTrend?: Maybe<Array<Maybe<DealDetailResponse>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/contact/{crmContactId}/eq
+   */
+  cqContactEq?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/opportunity/{crmOpportunityId}/contact/{crmContactId}/eq
+   */
+  cqOpportunityContactEq?: Maybe<Array<Maybe<Contact>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/token/access
+   */
+  cqTokenAccess?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/token/refresh
+   */
+  cqTokenRefresh?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/token/revoke/access
+   */
+  cqTokenRevokeAccess?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/token/revoke/refresh
+   */
+  cqTokenRevokeRefresh?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/opportunity/{crmOpportunityId}/current
+   */
+  currentEQForOpptyResponse?: Maybe<CurrentEQForOpptyResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/account/{crmAccountId}/current
+   */
+  dealDetailResponse?: Maybe<DealDetailResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty/{id}/details
+   */
+  dealSummaryDetailResponse?: Maybe<DealSummaryDetailResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty/summary/{id}
+   */
+  dealSummaryResponse?: Maybe<DealSummaryResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty/{id}/trend
+   */
+  dealSummaryTrendResponse?: Maybe<DealSummaryTrendResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/diarization/{conv_id}
+   */
+  diarization?: Maybe<Diarization>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/empathyandhesitationturns/get/conv
+   */
+  empathyAndHesitationTurnsReport?: Maybe<EmpathyAndHesitationTurnsReport>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/opportunity/{crmOpportunityId}/contact/eq
+   */
   getContactsEQForOppty?: Maybe<Array<Maybe<Contact>>>;
-  /** Equivalent to GET /usales/convs/attendees */
-  getConvAttendeeTeam?: Maybe<Array<Maybe<ConvAttendeeResponseDTO>>>;
-  /** Equivalent to GET /usales/convs/attendees/{id} */
-  getConvAttendeeTeamById?: Maybe<ConvAttendeeResponseDTO>;
-  /** Equivalent to GET /usales/conv/metrics/aggr/{id} */
-  getConvMetrics?: Maybe<ConvMetricsResponse>;
-  /** Equivalent to GET /conv/mod/{convId} */
-  getConvModLog?: Maybe<Array<Maybe<ConversationAttributionLogRsp>>>;
-  /** Equivalent to GET /usales/accounts/promises */
-  getConvPromises?: Maybe<Array<Maybe<AccountPromisesResponseDTO>>>;
-  /** Equivalent to GET /usales/convs/status */
-  getConvStatus?: Maybe<Array<Maybe<Scalars['String']>>>;
-  /** Equivalent to GET /usales/conv-topic-episodes/{id} */
-  getConvTopicEpisodeById?: Maybe<ConvTopicEpisodeResponseDTO>;
-  /** Equivalent to GET /usales/deals/{opptyId}/convtrends */
-  getConvTrends?: Maybe<Array<Maybe<ConvEQResponseDTO>>>;
-  /** Equivalent to GET /usales/convs */
-  getConversation?: Maybe<Array<Maybe<ConversationRequest>>>;
-  /** Equivalent to GET /usales/convs/{id} */
-  getConversationById?: Maybe<ConversationRequest>;
-  /** Equivalent to GET /usales/convs/{id}/details */
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{id}/details
+   */
   getConversationDetail?: Maybe<ConversationDetailResponse>;
-  /** Equivalent to GET /usales/convs/{id}/preview */
-  getConversationPreviewByConversation?: Maybe<ConversationDetailResponse>;
-  /** Equivalent to GET /usales/metrics/convs/{convId}/convostats */
-  getConvostats?: Maybe<ConvoStatResponse>;
-  /** Equivalent to GET /usales/mindtickle/coursesbyemail/{email} */
-  getCoursesForUserEmail?: Maybe<Scalars['String']>;
-  /** Equivalent to GET /usales/company-param */
-  getCurrentCompanyProp?: Maybe<Scalars['String']>;
-  /** Equivalent to GET /cq/contact/{crmContactId}/eq */
-  getCurrentEQForContact?: Maybe<Scalars['String']>;
-  /** Equivalent to GET /cq/opportunity/{crmOpportunityId}/current */
-  getCurrentEQForOppty?: Maybe<CurrentEQForOpptyResponse>;
-  /** Equivalent to GET /cq/account/{crmAccountId}/current */
-  getCurrentEqForAccount?: Maybe<DealDetailResponse>;
-  /** Equivalent to GET /usales/sys */
-  getCurrentSystemProp?: Maybe<Scalars['String']>;
-  /** Equivalent to GET /usales/users/me */
-  getCurrentUserDetail?: Maybe<User>;
-  /** Equivalent to GET /usales/custweblinks */
-  getCustWebLinks?: Maybe<Array<Maybe<CustWebLinkResponseDTO>>>;
-  /** Equivalent to GET /usales/mindtickle/querybyuri/{url} */
-  getDataByUri?: Maybe<Scalars['String']>;
-  /** Equivalent to GET /usales/oppty/{id}/trend */
-  getDealByIdTrend?: Maybe<DealSummaryTrendResponse>;
-  /** Equivalent to GET /usales/oppty/{id}/details */
-  getDealDetailsByMode?: Maybe<DealSummaryDetailResponse>;
-  /** Equivalent to GET /usales/deals/{opptyId}/eqscore */
-  getDealEQScore?: Maybe<Scalars['JSON']>;
-  /** Equivalent to GET /usales/deals/stages */
-  getDealStageList?: Maybe<Array<Maybe<Scalars['String']>>>;
-  /** Equivalent to GET /usales/oppty/summary/{id} */
-  getDealSummaryById?: Maybe<DealSummaryResponse>;
-  /** Equivalent to GET /usales/diarization/{conv_id} */
-  getDiarization?: Maybe<Diarization>;
-  /** Equivalent to GET /usales/accounts/{accountId}/convtrends */
+  /**
+   *
+   *
+   * Equivalent to GET /usales/accounts/{accountId}/convtrends
+   */
   getEQbyAccount?: Maybe<ConvEQResponseDTO>;
-  /** Equivalent to GET /usales/deals/{opptyId}/contacts/{contactId}/eqscore */
-  getEQbyContact?: Maybe<Scalars['JSON']>;
-  /** Equivalent to GET /usales/convs/{convId}/eqscore */
-  getEQbyConv?: Maybe<ConvEQResponseDTO>;
-  /** Equivalent to GET /usales/convs/{convId}/contact_eqscore */
-  getEQbyConv1?: Maybe<Scalars['JSON']>;
-  /** Equivalent to GET /usales/emleqs */
-  getEmlEqByEmailObj?: Maybe<Array<Maybe<EmlEqResponseDTO>>>;
-  /** Equivalent to GET /usales/emleqs/{id} */
-  getEmlEqById?: Maybe<Scalars['JSON']>;
-  /** Equivalent to GET /usales/empathyandhesitationturns/get/conv */
-  getEmpathyTurns?: Maybe<EmpathyAndHesitationTurnsReport>;
-  /** Equivalent to GET /usales/events/{id} */
-  getEventById?: Maybe<CalendarEvent>;
-  /** Equivalent to GET /usales/convs/{id}/keyPhrases */
-  getKeyMomentsForConvId?: Maybe<KeyPhraseResponse>;
-  /** Equivalent to GET /usales/keyword/categ */
-  getKeywordCategories?: Maybe<Array<Maybe<Scalars['String']>>>;
-  /** Equivalent to GET /usales/keyword/categ/{category} */
-  getKeywordCategories1?: Maybe<Array<Maybe<KeywordCategResponseDTO>>>;
-  /** Equivalent to GET /cq/manager/{managerEmailId}/{startMMddyyyy}/eq */
+  /**
+   *
+   *
+   * Equivalent to GET /cq/manager/{managerEmailId}/{startMMddyyyy}/eq
+   */
   getManagerEQ?: Maybe<TeamOpptyUsersStats>;
-  /** Equivalent to GET /usales/mediaclip/{id} */
-  getMediaClipById?: Maybe<MediaClipResponseDTO>;
-  /** Equivalent to GET /usales/mediaClip/param/{mediaClipId} */
-  getMediaClipParamsByMediaClipId1?: Maybe<Array<Maybe<MediaClipParamResponseDTO>>>;
-  /** Equivalent to GET /usales/playlists/sharedwithme */
-  getMediaClipPlaylistSharedWithUser?: Maybe<Scalars['JSON']>;
-  /** Equivalent to GET /usales/convs/summary/{id} */
-  getMeeting?: Maybe<ConversationSummaryResponse>;
-  /** Equivalent to GET /usales/users/{receiverUserId}/comments */
-  getMentionedUserComments?: Maybe<Array<Maybe<CommentResponseDTO>>>;
-  /** Equivalent to GET /usales/mediaclip/myclips */
-  getMyMediaClips?: Maybe<Array<Maybe<MediaClipResponseDTO>>>;
-  /** Equivalent to GET /usales/oppty/{id} */
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty/{id}
+   */
   getOpptyById?: Maybe<OpptyDTO>;
-  /** Equivalent to GET /usales/{oppty_stage}/eqscore */
-  getOpptyEqbyStage?: Maybe<OpptyEqbyStageResponseDTO>;
-  /** Equivalent to GET /usales/oppty/keyMoments */
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty/keyMoments
+   */
   getOpptyKeyMoments?: Maybe<OpptyDTO>;
-  /** Equivalent to GET /usales/oppty/{opptyId}/promises */
-  getOpptyPromises?: Maybe<OpptyDTO>;
-  /** Equivalent to GET /usales/oppty/teams */
-  getOpptyTeam?: Maybe<Array<Maybe<OpptyTeamResponseDTO>>>;
-  /** Equivalent to GET /usales/oppty/teams/{id} */
-  getOpptyTeamById?: Maybe<OpptyTeamResponseDTO>;
-  /** Equivalent to GET /usales/oppty */
-  getOpptys?: Maybe<Array<Maybe<OpptyDTO>>>;
-  /** Equivalent to GET /usales/playlists/{id} */
-  getPlaylistById?: Maybe<PlaylistResponseDTO>;
-  /** Equivalent to GET /usales/playlist/param/{playlistId} */
-  getPlaylistParamsByPlaylistId1?: Maybe<Array<Maybe<PlaylistParamResponseDTO>>>;
-  /** Equivalent to GET /usales/playlists/shared-members */
-  getPlaylistSharedMembers?: Maybe<Array<Maybe<SharedMemberDTO>>>;
-  /** Equivalent to GET /usales/playlists/myplaylists */
-  getPlaylists?: Maybe<Array<Maybe<PlaylistResponseDTO>>>;
-  /** Equivalent to GET /usales/preferences/mine */
-  getPreferences1?: Maybe<Scalars['JSON']>;
-  /** Equivalent to GET /cq/seller/{sellerEmailId}/{days}/eq */
-  getSellerEQ1?: Maybe<TeamOpptyUsersStats>;
-  /** Equivalent to GET /cq/seller/{sellerEmailId}/eq */
+  /**
+   *
+   *
+   * Equivalent to GET /cq/seller/{sellerEmailId}/eq
+   */
   getSellerEQ2?: Maybe<TeamOpptyUsersStats>;
-  /** Equivalent to GET /usales/sharedviewdata-conv/{conv_id} */
-  getSharedViewData?: Maybe<Array<Maybe<ConvSharedViewData>>>;
-  /** Equivalent to GET /usales/convs/{id}/slide-first */
-  getSlideFirstByConversation?: Maybe<ConvSlideFirstResponse>;
-  /** Equivalent to GET /usales/reports/summary */
-  getSummary?: Maybe<SummaryReportDTO>;
-  /** Equivalent to GET /usales/users/team/{usersId} */
-  getTeamMembers?: Maybe<Array<Maybe<User>>>;
-  /** Equivalent to GET /usales/timeline/{conv_id} */
-  getTimeline?: Maybe<ConvTimeline>;
-  /** Equivalent to GET /usales/sharedviewdata-name/{name} */
-  getTimeline1?: Maybe<Array<Maybe<ConvSharedViewData>>>;
-  /** Equivalent to GET /cq/opportunity/{crmOpportunityId}/trend */
-  getTrendEQForOppty?: Maybe<TrendEQForOpptyResponse>;
-  /** Equivalent to GET /cq/account/{crmAccountId}/trend */
-  getTrendEqForAccount?: Maybe<Array<Maybe<DealDetailResponse>>>;
-  /** Equivalent to GET /usales/users/me/emails/count */
-  getUserEmailsCount?: Maybe<Scalars['Int']>;
-  /** Equivalent to GET /usales/users/{usersId}/proxy */
-  getUserProxy?: Maybe<UserDelegateResponseDTO>;
-  /** Equivalent to GET /usales/users */
-  getUsersCount?: Maybe<Scalars['Float']>;
-  /** Equivalent to GET /v1/transcript/populate/{convId} */
-  populate1?: Maybe<Scalars['String']>;
-  /** Equivalent to GET /slack/redirect */
-  redirectMethod?: Maybe<Scalars['JSON']>;
-  /** Equivalent to GET /usales/re/{code} */
-  redirectUrl?: Maybe<Scalars['JSON']>;
-  /** Equivalent to GET /cq/token/revoke/access */
-  revokeAccessToken?: Maybe<Scalars['String']>;
-  /** Equivalent to GET /auth/revoke/{provider} */
-  revokeAuth?: Maybe<Scalars['String']>;
-  /** Equivalent to GET /cq/token/revoke/refresh */
-  revokeRefreshToken?: Maybe<Scalars['String']>;
-  /** Equivalent to GET /usales/contact/summary/{contactId} */
-  searchContact1?: Maybe<ContactResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{id}/keyPhrases
+   */
+  keyPhraseResponse?: Maybe<KeyPhraseResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/mediaclip/{id}
+   */
+  mediaClipResponseDTO?: Maybe<MediaClipResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty/{opptyId}/promises
+   */
+  opptyDTO?: Maybe<OpptyDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/{oppty_stage}/eqscore
+   */
+  opptyEqbyStageResponseDTO?: Maybe<OpptyEqbyStageResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty/teams/{id}
+   */
+  opptyTeamResponseDTO?: Maybe<OpptyTeamResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/playlists/{id}
+   */
+  playlistResponseDTO?: Maybe<PlaylistResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /slack/authurl
+   */
+  slackAuthurl?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /slack/redirect
+   */
+  slackRedirect?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/reports/summary
+   */
+  summaryReportDTO?: Maybe<SummaryReportDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/seller/{sellerEmailId}/{days}/eq
+   */
+  teamOpptyUsersStats?: Maybe<TeamOpptyUsersStats>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/opportunity/{crmOpportunityId}/trend
+   */
+  trendEQForOpptyResponse?: Maybe<TrendEQForOpptyResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/accounts/{id}/oppty
+   */
+  usalesAccountOppty?: Maybe<Array<Maybe<OpptyDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/accounts
+   */
+  usalesAccounts?: Maybe<Array<Maybe<AccountResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/accounts/promises
+   */
+  usalesAccountsPromises?: Maybe<Array<Maybe<AccountPromisesResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/alerts
+   */
+  usalesAlerts?: Maybe<Array<Maybe<AlertResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/bookmarks/convs/{convId}
+   */
+  usalesBookmarksConv?: Maybe<Array<Maybe<ConvBookmarkResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/bookmarks/keymoments/{convKeyMomentId}
+   */
+  usalesBookmarksKeymoment?: Maybe<Array<Maybe<ConvBookmarkResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/company-param
+   */
+  usalesCompanyParam?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/company-params
+   */
+  usalesCompanyParams?: Maybe<Array<Maybe<CompanyParamResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/companyprofile/access-consent
+   */
+  usalesCompanyprofileAccessConsent?: Maybe<Scalars['Boolean']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/companyprofile/businesscategs
+   */
+  usalesCompanyprofileBusinesscategs?: Maybe<Array<Maybe<KeywordCategResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/configprops
+   */
+  usalesConfigprops?: Maybe<Array<Maybe<ConfigPropResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/contacts/{contact}/emails/count
+   */
+  usalesContactEmailsCount?: Maybe<Scalars['Int']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{convId}/comments
+   */
+  usalesConvComments?: Maybe<Array<Maybe<CommentResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{convId}/contact_eqscore
+   */
+  usalesConvContactEqscore?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/conv/metrics/{id}
+   */
+  usalesConvMetric?: Maybe<Array<Maybe<AggrConvMetrics>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{id}/metrics
+   */
+  usalesConvMetrics?: Maybe<Array<Maybe<AggrConvMetrics>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs
+   */
+  usalesConvs?: Maybe<Array<Maybe<ConversationRequest>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/attendees
+   */
+  usalesConvsAttendees?: Maybe<Array<Maybe<ConvAttendeeResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/status
+   */
+  usalesConvsStatus?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/custweblinks
+   */
+  usalesCustweblinks?: Maybe<Array<Maybe<CustWebLinkResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/deals/{opptyId}/contacts/{contactId}/eqscore
+   */
+  usalesDealContactEqscore?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/deals/{opptyId}/convtrends
+   */
+  usalesDealConvtrends?: Maybe<Array<Maybe<ConvEQResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/deals/{opptyId}/eqscore
+   */
+  usalesDealEqscore?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/deals/stages
+   */
+  usalesDealsStages?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/emleqs/{id}
+   */
+  usalesEmleq?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/emleqs
+   */
+  usalesEmleqs?: Maybe<Array<Maybe<EmlEqResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/keymoments/{convKeyMomentId}/comments
+   */
+  usalesKeymomentComments?: Maybe<Array<Maybe<CommentResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/keyword/categ
+   */
+  usalesKeywordCateg?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/keyword/categ/{category}
+   */
+  usalesKeywordCateg2?: Maybe<Array<Maybe<KeywordCategResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/keyword/keyphrase/fetch-expert/{tagId}
+   */
+  usalesKeywordKeyphraseFetchExpert?: Maybe<Array<Maybe<KeyPhraseExpertResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/mediaClip/param/{mediaClipId}
+   */
+  usalesMediaClipParam?: Maybe<Array<Maybe<MediaClipParamResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/mediaclip/myclips
+   */
+  usalesMediaclipMyclips?: Maybe<Array<Maybe<MediaClipResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/mindtickle/coursesbyemail/{email}
+   */
+  usalesMindtickleCoursesbyemail?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/mindtickle/querybyuri/{url}
+   */
+  usalesMindtickleQuerybyuri?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty
+   */
+  usalesOppty?: Maybe<Array<Maybe<OpptyDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty/teams
+   */
+  usalesOpptyTeams?: Maybe<Array<Maybe<OpptyTeamResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/playlist/param/{playlistId}
+   */
+  usalesPlaylistParam?: Maybe<Array<Maybe<PlaylistParamResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/playlists/myplaylists
+   */
+  usalesPlaylistsMyplaylists?: Maybe<Array<Maybe<PlaylistResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/playlists/shared-members
+   */
+  usalesPlaylistsSharedMembers?: Maybe<Array<Maybe<SharedMemberDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/playlists/sharedwithme
+   */
+  usalesPlaylistsSharedwithme?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/preferences/mine
+   */
+  usalesPreferencesMine?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/re/{code}
+   */
+  usalesRe?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/sharedviewdata-conv/{conv_id}
+   */
+  usalesSharedviewdataConv?: Maybe<Array<Maybe<ConvSharedViewData>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/sharedviewdata-name/{name}
+   */
+  usalesSharedviewdataName?: Maybe<Array<Maybe<ConvSharedViewData>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/sys
+   */
+  usalesSys?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/users/{receiverUserId}/comments
+   */
+  usalesUserComments?: Maybe<Array<Maybe<CommentResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/users
+   */
+  usalesUsers?: Maybe<Scalars['Float']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/users/me/emails/count
+   */
+  usalesUsersMeEmailsCount?: Maybe<Scalars['Int']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/users/team/{usersId}
+   */
+  usalesUsersTeam?: Maybe<Array<Maybe<User>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/users/me
+   */
+  user?: Maybe<User>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/users/{usersId}/proxy
+   */
+  userDelegateResponseDTO?: Maybe<UserDelegateResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /v1/transcript/populate/{convId}
+   */
+  v1TranscriptPopulate2?: Maybe<Scalars['String']>;
 };
 
 
-export type QueryfetchKeyPhraseExpertArgs = {
-  limit?: Maybe<Scalars['Int']>;
-  tagId: Scalars['Float'];
-};
-
-
-export type QuerygetAccountByIdArgs = {
+export type QueryaccountResponseDTOArgs = {
   id: Scalars['Float'];
 };
 
 
-export type QuerygetAccountOpptyByAccountArgs = {
-  id: Scalars['Float'];
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerygetAccountTeamByAccountArgs = {
+export type QueryaccountTeamResponseArgs = {
   id: Scalars['Float'];
 };
 
 
-export type QuerygetAccountsArgs = {
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerygetAggrConvMetricsArgs = {
-  id: Scalars['Float'];
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerygetAggrConvMetricsByParticipantArgs = {
-  id: Scalars['Float'];
-  limit?: Maybe<Scalars['Int']>;
-  participantId: Scalars['String'];
-};
-
-
-export type QuerygetAlertByIdArgs = {
+export type QueryalertResponseDTOArgs = {
   id: Scalars['Float'];
 };
 
 
-export type QuerygetAlertByUserArgs = {
-  limit?: Maybe<Scalars['Int']>;
-  status?: Maybe<Scalars['String']>;
+export type QueryauthRevokeArgs = {
+  provider: Scalars['String'];
 };
 
 
-export type QuerygetAllCompanyParamsArgs = {
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerygetAllCurrentSystemPropArgs = {
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerygetAttendeesArgs = {
+export type QuerycalendarEventArgs = {
   id: Scalars['Float'];
 };
 
 
-export type QuerygetBookmarksByConvIdArgs = {
+export type QuerycontactMetricsResponseArgs = {
+  contactId: Scalars['Float'];
+  ganularity?: InputMaybe<Scalars['String']>;
+  opptyId: Scalars['Float'];
+};
+
+
+export type QuerycontactResponseArgs = {
+  contactId: Scalars['Float'];
+};
+
+
+export type QueryconvAttendeeResponseDTOArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryconvEQResponseDTOArgs = {
   convId: Scalars['Float'];
-  limit?: Maybe<Scalars['Int']>;
 };
 
 
-export type QuerygetBookmarksByConvKeyMomentIdArgs = {
-  convKeyMomentId: Scalars['Float'];
-  limit?: Maybe<Scalars['Int']>;
+export type QueryconvMetricsResponseArgs = {
+  id: Scalars['Float'];
 };
 
 
-export type QuerygetCommentByConvIdArgs = {
+export type QueryconvModArgs = {
   convId: Scalars['Float'];
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
-export type QuerygetCommentByConvKeyMomentIdArgs = {
-  convKeyMomentId: Scalars['Float'];
-  limit?: Maybe<Scalars['Int']>;
+export type QueryconvSlideFirstResponseArgs = {
+  id: Scalars['Float'];
 };
 
 
-export type QuerygetCompanyCategAndSubCategArgs = {
-  limit?: Maybe<Scalars['Int']>;
+export type QueryconvTimelineArgs = {
+  convId: Scalars['Float'];
 };
 
 
-export type QuerygetContactEQForOpptyArgs = {
+export type QueryconvTopicEpisodeResponseDTOArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryconversationAttendeesResponseArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryconversationDetailResponseArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryconversationRequestArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryconversationSummaryResponseArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryconvoStatResponseArgs = {
+  convId: Scalars['Float'];
+};
+
+
+export type QuerycqAccountTrendArgs = {
+  crmAccountId: Scalars['String'];
+  days?: InputMaybe<Scalars['Float']>;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QuerycqContactEqArgs = {
+  crmContactId: Scalars['String'];
+};
+
+
+export type QuerycqOpportunityContactEqArgs = {
   crmContactId: Scalars['String'];
   crmOpportunityId: Scalars['String'];
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
-export type QuerygetContactEmailsCountArgs = {
-  contactId: Scalars['Float'];
+export type QuerycurrentEQForOpptyResponseArgs = {
+  crmOpportunityId: Scalars['String'];
+  days?: InputMaybe<Scalars['Float']>;
 };
 
 
-export type QuerygetContactMetricsArgs = {
-  contactId: Scalars['Float'];
-  ganularity?: Maybe<Scalars['String']>;
-  opptyId: Scalars['Float'];
+export type QuerydealDetailResponseArgs = {
+  crmAccountId: Scalars['String'];
+  days?: InputMaybe<Scalars['Float']>;
+};
+
+
+export type QuerydealSummaryDetailResponseArgs = {
+  id: Scalars['Float'];
+  mode?: InputMaybe<Scalars['String']>;
+  tz?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QuerydealSummaryResponseArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QuerydealSummaryTrendResponseArgs = {
+  id: Scalars['Float'];
+  key?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QuerydiarizationArgs = {
+  convId: Scalars['Float'];
+};
+
+
+export type QueryempathyAndHesitationTurnsReportArgs = {
+  convId: Scalars['Float'];
 };
 
 
 export type QuerygetContactsEQForOpptyArgs = {
   crmOpportunityId: Scalars['String'];
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerygetConvAttendeeTeamArgs = {
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerygetConvAttendeeTeamByIdArgs = {
-  id: Scalars['Float'];
-};
-
-
-export type QuerygetConvMetricsArgs = {
-  id: Scalars['Float'];
-};
-
-
-export type QuerygetConvModLogArgs = {
-  convId: Scalars['Float'];
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerygetConvPromisesArgs = {
-  limit?: Maybe<Scalars['Int']>;
-  userIds?: Maybe<Scalars['String']>;
-};
-
-
-export type QuerygetConvTopicEpisodeByIdArgs = {
-  id: Scalars['Float'];
-};
-
-
-export type QuerygetConvTrendsArgs = {
-  limit?: Maybe<Scalars['Int']>;
-  opptyId: Scalars['Float'];
-};
-
-
-export type QuerygetConversationArgs = {
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerygetConversationByIdArgs = {
-  id: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type QuerygetConversationDetailArgs = {
   id: Scalars['Float'];
-  type?: Maybe<Scalars['String']>;
-};
-
-
-export type QuerygetConversationPreviewByConversationArgs = {
-  id: Scalars['Float'];
-};
-
-
-export type QuerygetConvostatsArgs = {
-  convId: Scalars['Float'];
-};
-
-
-export type QuerygetCoursesForUserEmailArgs = {
-  email: Scalars['String'];
-};
-
-
-export type QuerygetCurrentCompanyPropArgs = {
-  prop: Scalars['String'];
-};
-
-
-export type QuerygetCurrentEQForContactArgs = {
-  crmContactId: Scalars['String'];
-};
-
-
-export type QuerygetCurrentEQForOpptyArgs = {
-  crmOpportunityId: Scalars['String'];
-  days?: Maybe<Scalars['Float']>;
-};
-
-
-export type QuerygetCurrentEqForAccountArgs = {
-  crmAccountId: Scalars['String'];
-  days?: Maybe<Scalars['Float']>;
-};
-
-
-export type QuerygetCurrentSystemPropArgs = {
-  prop: Scalars['String'];
-};
-
-
-export type QuerygetCustWebLinksArgs = {
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerygetDataByUriArgs = {
-  uri: Scalars['String'];
-};
-
-
-export type QuerygetDealByIdTrendArgs = {
-  id: Scalars['Float'];
-  key?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-};
-
-
-export type QuerygetDealDetailsByModeArgs = {
-  id: Scalars['Float'];
-  mode?: Maybe<Scalars['String']>;
-  tz?: Maybe<Scalars['String']>;
-};
-
-
-export type QuerygetDealEQScoreArgs = {
-  opptyId: Scalars['Float'];
-};
-
-
-export type QuerygetDealSummaryByIdArgs = {
-  id: Scalars['Float'];
-};
-
-
-export type QuerygetDiarizationArgs = {
-  convId: Scalars['Float'];
+  type?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QuerygetEQbyAccountArgs = {
   accountId: Scalars['Float'];
-};
-
-
-export type QuerygetEQbyContactArgs = {
-  contactId: Scalars['Float'];
-  opptyId: Scalars['Float'];
-};
-
-
-export type QuerygetEQbyConvArgs = {
-  convId: Scalars['Float'];
-};
-
-
-export type QuerygetEQbyConv1Args = {
-  contact: Scalars['String'];
-  convId: Scalars['Float'];
-};
-
-
-export type QuerygetEmlEqByEmailObjArgs = {
-  emlObjId?: Maybe<Scalars['Float']>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerygetEmlEqByIdArgs = {
-  id: Scalars['Float'];
-};
-
-
-export type QuerygetEmpathyTurnsArgs = {
-  convId: Scalars['Float'];
-};
-
-
-export type QuerygetEventByIdArgs = {
-  id: Scalars['Float'];
-};
-
-
-export type QuerygetKeyMomentsForConvIdArgs = {
-  id: Scalars['Float'];
-};
-
-
-export type QuerygetKeywordCategories1Args = {
-  category: Scalars['String'];
-  limit?: Maybe<Scalars['Int']>;
 };
 
 
@@ -554,105 +863,17 @@ export type QuerygetManagerEQArgs = {
 };
 
 
-export type QuerygetMediaClipByIdArgs = {
-  id: Scalars['Float'];
-};
-
-
-export type QuerygetMediaClipParamsByMediaClipId1Args = {
-  limit?: Maybe<Scalars['Int']>;
-  mediaClipId: Scalars['Float'];
-  name: Scalars['String'];
-};
-
-
-export type QuerygetMeetingArgs = {
-  id: Scalars['Float'];
-};
-
-
-export type QuerygetMentionedUserCommentsArgs = {
-  limit?: Maybe<Scalars['Int']>;
-  userId: Scalars['Float'];
-};
-
-
-export type QuerygetMyMediaClipsArgs = {
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
 export type QuerygetOpptyByIdArgs = {
   id: Scalars['Float'];
 };
 
 
-export type QuerygetOpptyEqbyStageArgs = {
-  opptyStage: Scalars['String'];
-};
-
-
 export type QuerygetOpptyKeyMomentsArgs = {
-  granularity?: Maybe<Scalars['String']>;
-  keyTag?: Maybe<Scalars['String']>;
-  opptyId?: Maybe<Scalars['Float']>;
-  period?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-};
-
-
-export type QuerygetOpptyPromisesArgs = {
-  opptyId: Scalars['Float'];
-};
-
-
-export type QuerygetOpptyTeamArgs = {
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerygetOpptyTeamByIdArgs = {
-  id: Scalars['Float'];
-};
-
-
-export type QuerygetOpptysArgs = {
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerygetPlaylistByIdArgs = {
-  id: Scalars['Float'];
-};
-
-
-export type QuerygetPlaylistParamsByPlaylistId1Args = {
-  limit?: Maybe<Scalars['Int']>;
-  name: Scalars['String'];
-  playlistId: Scalars['Float'];
-};
-
-
-export type QuerygetPlaylistSharedMembersArgs = {
-  history?: Maybe<Scalars['Boolean']>;
-  limit?: Maybe<Scalars['Int']>;
-  playlistId: Scalars['Float'];
-};
-
-
-export type QuerygetPlaylistsArgs = {
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerygetPreferences1Args = {
-  type: Scalars['String'];
-};
-
-
-export type QuerygetSellerEQ1Args = {
-  days: Scalars['Int'];
-  sellerEmailId: Scalars['String'];
+  granularity?: InputMaybe<Scalars['String']>;
+  keyTag?: InputMaybe<Scalars['String']>;
+  opptyId?: InputMaybe<Scalars['Float']>;
+  period?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -661,84 +882,297 @@ export type QuerygetSellerEQ2Args = {
 };
 
 
-export type QuerygetSharedViewDataArgs = {
-  convId: Scalars['Float'];
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerygetSlideFirstByConversationArgs = {
+export type QuerykeyPhraseResponseArgs = {
   id: Scalars['Float'];
 };
 
 
-export type QuerygetTeamMembersArgs = {
-  limit?: Maybe<Scalars['Int']>;
-  usersId: Scalars['Float'];
+export type QuerymediaClipResponseDTOArgs = {
+  id: Scalars['Float'];
 };
 
 
-export type QuerygetTimelineArgs = {
-  convId: Scalars['Float'];
+export type QueryopptyDTOArgs = {
+  opptyId: Scalars['Float'];
 };
 
 
-export type QuerygetTimeline1Args = {
-  limit?: Maybe<Scalars['Int']>;
-  name: Scalars['String'];
+export type QueryopptyEqbyStageResponseDTOArgs = {
+  opptyStage: Scalars['String'];
 };
 
 
-export type QuerygetTrendEQForOpptyArgs = {
-  crmOpportunityId: Scalars['String'];
-  days?: Maybe<Scalars['Float']>;
+export type QueryopptyTeamResponseDTOArgs = {
+  id: Scalars['Float'];
 };
 
 
-export type QuerygetTrendEqForAccountArgs = {
-  crmAccountId: Scalars['String'];
-  days?: Maybe<Scalars['Float']>;
-  limit?: Maybe<Scalars['Int']>;
+export type QueryplaylistResponseDTOArgs = {
+  id: Scalars['Float'];
 };
 
 
-export type QuerygetUserProxyArgs = {
-  usersId: Scalars['Float'];
-};
-
-
-export type Querypopulate1Args = {
-  convId: Scalars['String'];
-};
-
-
-export type QueryredirectMethodArgs = {
+export type QueryslackRedirectArgs = {
   code: Scalars['String'];
   state: Scalars['String'];
 };
 
 
-export type QueryredirectUrlArgs = {
-  code: Scalars['String'];
+export type QueryteamOpptyUsersStatsArgs = {
+  days: Scalars['Int'];
+  sellerEmailId: Scalars['String'];
 };
 
 
-export type QueryrevokeAuthArgs = {
-  provider: Scalars['String'];
+export type QuerytrendEQForOpptyResponseArgs = {
+  crmOpportunityId: Scalars['String'];
+  days?: InputMaybe<Scalars['Float']>;
 };
 
 
-export type QuerysearchContact1Args = {
+export type QueryusalesAccountOpptyArgs = {
+  id: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesAccountsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesAccountsPromisesArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  userIds?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryusalesAlertsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryusalesBookmarksConvArgs = {
+  convId: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesBookmarksKeymomentArgs = {
+  convKeyMomentId: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesCompanyParamArgs = {
+  prop: Scalars['String'];
+};
+
+
+export type QueryusalesCompanyParamsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesCompanyprofileBusinesscategsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesConfigpropsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesContactEmailsCountArgs = {
   contactId: Scalars['Float'];
 };
 
 
-export type KeyPhraseExpertResponseDTO = {
-  email?: Maybe<Scalars['String']>;
-  engagement?: Maybe<Scalars['Float']>;
-  fullName?: Maybe<Scalars['String']>;
-  sentiment?: Maybe<Scalars['Float']>;
-  userId?: Maybe<Scalars['Float']>;
+export type QueryusalesConvCommentsArgs = {
+  convId: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesConvContactEqscoreArgs = {
+  contact: Scalars['String'];
+  convId: Scalars['Float'];
+};
+
+
+export type QueryusalesConvMetricArgs = {
+  id: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesConvMetricsArgs = {
+  id: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+  participantId: Scalars['String'];
+};
+
+
+export type QueryusalesConvsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesConvsAttendeesArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesCustweblinksArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesDealContactEqscoreArgs = {
+  contactId: Scalars['Float'];
+  opptyId: Scalars['Float'];
+};
+
+
+export type QueryusalesDealConvtrendsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  opptyId: Scalars['Float'];
+};
+
+
+export type QueryusalesDealEqscoreArgs = {
+  opptyId: Scalars['Float'];
+};
+
+
+export type QueryusalesEmleqArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryusalesEmleqsArgs = {
+  emlObjId?: InputMaybe<Scalars['Float']>;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesKeymomentCommentsArgs = {
+  convKeyMomentId: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesKeywordCateg2Args = {
+  category: Scalars['String'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesKeywordKeyphraseFetchExpertArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  tagId: Scalars['Float'];
+};
+
+
+export type QueryusalesMediaClipParamArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  mediaClipId: Scalars['Float'];
+  name: Scalars['String'];
+};
+
+
+export type QueryusalesMediaclipMyclipsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesMindtickleCoursesbyemailArgs = {
+  email: Scalars['String'];
+};
+
+
+export type QueryusalesMindtickleQuerybyuriArgs = {
+  uri: Scalars['String'];
+};
+
+
+export type QueryusalesOpptyArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesOpptyTeamsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesPlaylistParamArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  name: Scalars['String'];
+  playlistId: Scalars['Float'];
+};
+
+
+export type QueryusalesPlaylistsMyplaylistsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesPlaylistsSharedMembersArgs = {
+  history?: InputMaybe<Scalars['Boolean']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  playlistId: Scalars['Float'];
+};
+
+
+export type QueryusalesPreferencesMineArgs = {
+  type: Scalars['String'];
+};
+
+
+export type QueryusalesReArgs = {
+  code: Scalars['String'];
+};
+
+
+export type QueryusalesSharedviewdataConvArgs = {
+  convId: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesSharedviewdataNameArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  name: Scalars['String'];
+};
+
+
+export type QueryusalesSysArgs = {
+  prop: Scalars['String'];
+};
+
+
+export type QueryusalesUserCommentsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  userId: Scalars['Float'];
+};
+
+
+export type QueryusalesUsersTeamArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  usersId: Scalars['Float'];
+};
+
+
+export type QueryuserDelegateResponseDTOArgs = {
+  usersId: Scalars['Float'];
+};
+
+
+export type Queryv1TranscriptPopulate2Args = {
+  convId: Scalars['String'];
 };
 
 export type AccountResponseDTO = {
@@ -886,11 +1320,10 @@ export type AttendeeMetric = {
   value?: Maybe<Scalars['Float']>;
 };
 
-export enum Type13 {
-  POSITIVE = 'POSITIVE',
-  NEGATIVE = 'NEGATIVE',
-  NEUTRAL = 'NEUTRAL'
-}
+export type Type13 =
+  | 'POSITIVE'
+  | 'NEGATIVE'
+  | 'NEUTRAL';
 
 export type UniScore = {
   score?: Maybe<Array<Maybe<Score4>>>;
@@ -909,10 +1342,9 @@ export type Trends = {
   t8?: Maybe<UniScore>;
 };
 
-export enum Type12 {
-  CUSTOMER = 'CUSTOMER',
-  EMPLOYEE = 'EMPLOYEE'
-}
+export type Type12 =
+  | 'CUSTOMER'
+  | 'EMPLOYEE';
 
 export type ConvUsersDTO = {
   fullname?: Maybe<Scalars['String']>;
@@ -974,16 +1406,15 @@ export type ConvDTO = {
   status?: Maybe<Scalars['String']>;
 };
 
-export enum KeyCategory {
-  CUSTOMER_PAIN_POINTS = 'Customer Pain Points',
-  CUSTOMER_OBJECTIONS = 'Customer Objections',
-  BUDGET = 'Budget',
-  PROJECT_METRICS_OF_SUCCESS = 'Project Metrics of Success',
-  COMPETITORS = 'Competitors',
-  PRODUCT_FEATURES = 'Product Features',
-  PRICING = 'Pricing',
-  DECISION_CRITERIA = 'Decision Criteria'
-}
+export type KeyCategory =
+  | 'CUSTOMER_PAIN_POINTS'
+  | 'CUSTOMER_OBJECTIONS'
+  | 'BUDGET'
+  | 'PROJECT_METRICS_OF_SUCCESS'
+  | 'COMPETITORS'
+  | 'PRODUCT_FEATURES'
+  | 'PRICING'
+  | 'DECISION_CRITERIA';
 
 export type KeyMomentText = {
   id?: Maybe<Scalars['Float']>;
@@ -1325,32 +1756,6 @@ export type OpptyParam = {
   version?: Maybe<Scalars['String']>;
 };
 
-export type OpptyDTO = {
-  accountID?: Maybe<IdNameDTO>;
-  amount?: Maybe<Scalars['Float']>;
-  contact?: Maybe<Scalars['Float']>;
-  conversation?: Maybe<Array<Maybe<ConversationRequest>>>;
-  crmOpptyId?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  metrics?: Maybe<Scalars['JSON']>;
-  name?: Maybe<Scalars['String']>;
-  opptyAmount?: Maybe<Scalars['Float']>;
-  opptyCloseDate?: Maybe<Scalars['String']>;
-  opptyCreateDate?: Maybe<Scalars['String']>;
-  opptySource?: Maybe<Scalars['String']>;
-  opptyStage?: Maybe<Scalars['String']>;
-  opptyStatus?: Maybe<Scalars['String']>;
-  opptyTeamID?: Maybe<IdNameDTO>;
-  orgId?: Maybe<Scalars['Float']>;
-  score?: Maybe<Array<Maybe<Score4>>>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
-};
-
 export type AccountTeamResponse = {
   current?: Maybe<Array<Maybe<AccountTeamDTO>>>;
   last?: Maybe<Array<Maybe<AccountTeamDTO>>>;
@@ -1372,18 +1777,6 @@ export type AccountTeamDTO = {
   timeOnAccount?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
   version?: Maybe<Scalars['String']>;
-};
-
-export type AggrConvMetrics = {
-  convId?: Maybe<Scalars['Float']>;
-  engagement?: Maybe<Scalars['Float']>;
-  engagementSmooth?: Maybe<Scalars['Float']>;
-  isSpeaker?: Maybe<Scalars['Boolean']>;
-  offset?: Maybe<Scalars['Float']>;
-  offsetTimestamp?: Maybe<Scalars['String']>;
-  participantId?: Maybe<Scalars['String']>;
-  sentiment?: Maybe<Scalars['Float']>;
-  sentimentSmooth?: Maybe<Scalars['Float']>;
 };
 
 export type AlertResponseDTO = {
@@ -1463,309 +1856,28 @@ export type UserManagerDTO = {
   lastname?: Maybe<Scalars['String']>;
 };
 
-export type CompanyParamResponseDTO = {
+export type CalendarEvent = {
+  account?: Maybe<IdNameDTO>;
+  botInstrFromCalendar?: Maybe<Scalars['Boolean']>;
+  calUid?: Maybe<Scalars['Boolean']>;
   description?: Maybe<Scalars['String']>;
+  eventAttendees?: Maybe<Array<Maybe<CalendarEventAttendee>>>;
+  eventEndTime?: Maybe<Scalars['String']>;
+  eventStartTime?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  lastMeeting?: Maybe<ConversationDetailResponse>;
+  oppty?: Maybe<Array<Maybe<IdNameDTO>>>;
+  opptyDetail?: Maybe<DealSummaryDetailResponse>;
+  subjectLine?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['Float']>;
+};
+
+export type CalendarEventAttendee = {
+  email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Float']>;
   name?: Maybe<Scalars['String']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  value?: Maybe<Scalars['String']>;
-};
-
-export type ConfigPropResponseDTO = {
-  configPropset?: Maybe<IdNameDTO>;
-  defaultValue?: Maybe<Scalars['String']>;
-  defaultValueInt?: Maybe<Scalars['Int']>;
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  isVisible?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-};
-
-export type ConversationAttendeesResponse = {
-  attendees?: Maybe<Array<Maybe<Attendee>>>;
-  endDate?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  startDate?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-};
-
-export type CommentResponseDTO = {
-  comment?: Maybe<Scalars['String']>;
-  convID?: Maybe<ConvDTO>;
-  endTime?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  keyMomentId?: Maybe<Scalars['Float']>;
-  mentions?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  startTime?: Maybe<Scalars['Float']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  updateTime?: Maybe<Scalars['String']>;
-  user?: Maybe<User>;
-  version?: Maybe<Scalars['String']>;
-};
-
-export type KeywordCategResponseDTO = {
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  keywordCategName?: Maybe<Scalars['String']>;
-  keywordTags?: Maybe<Array<Maybe<KeywordTagResponseDTO>>>;
-  orgId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-};
-
-export type KeywordTagResponseDTO = {
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  keywordCateg?: Maybe<KeywordCategResponseDTO>;
-  keywordTagVal?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
-};
-
-export type CompanySlideFirstResponse = {
-  companyName?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  high?: Maybe<Array<Maybe<SlideFirst>>>;
-  id?: Maybe<Scalars['Float']>;
-  low?: Maybe<Array<Maybe<SlideFirst>>>;
-};
-
-export type SlideFirst = {
-  accountID?: Maybe<ConvAccountDTO>;
-  contentStartTime?: Maybe<Scalars['String']>;
-  contentViewVideoMediaLink?: Maybe<Scalars['String']>;
-  convId?: Maybe<Scalars['Float']>;
-  convList?: Maybe<Array<Maybe<SlideFirst>>>;
-  galleryViewVideoMediaLink?: Maybe<Scalars['String']>;
-  kmEndTime?: Maybe<Scalars['String']>;
-  kmId?: Maybe<Scalars['Float']>;
-  kmStartTime?: Maybe<Scalars['String']>;
-  kmText?: Maybe<Scalars['String']>;
-  kmUsername?: Maybe<Scalars['String']>;
-  meetingEndTime?: Maybe<Scalars['String']>;
-  meetingName?: Maybe<Scalars['String']>;
-  meetingStartTime?: Maybe<Scalars['String']>;
-  sentiment?: Maybe<Scalars['Float']>;
-  type?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-};
-
-export type ContactMetricsResponse = {
-  avatarUrl?: Maybe<Scalars['String']>;
-  contactMethods?: Maybe<Array<Maybe<ContactMethodDTO>>>;
-  firstName?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  jobTitle?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
-  metrics?: Maybe<Scalars['JSON']>;
-  name?: Maybe<Scalars['String']>;
-  oppty?: Maybe<Array<Maybe<OpptyDTO>>>;
-  role?: Maybe<Scalars['String']>;
-  score?: Maybe<Array<Maybe<Score4>>>;
-};
-
-export type ContactMethodDTO = {
-  contactId?: Maybe<Scalars['Float']>;
-  emailAddress?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  insertBy?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  phoneNumber?: Maybe<Scalars['String']>;
-  preference?: Maybe<Scalars['String']>;
-  setOfContactMethodParam?: Maybe<Array<Maybe<ContactMethodParam>>>;
-  social?: Maybe<Scalars['String']>;
-  source?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  updateBy?: Maybe<Scalars['Float']>;
-  updateTime?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
-};
-
-export type ContactMethodParam = {
-  contactMethod?: Maybe<ContactMethod>;
-  id?: Maybe<Scalars['Float']>;
-  insertBy?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  preference?: Maybe<Scalars['String']>;
-  source?: Maybe<Scalars['String']>;
-  updateBy?: Maybe<Scalars['Float']>;
-  updateTime?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
-};
-
-export type ContactMethod = {
-  contact?: Maybe<Contact>;
-  emailAddress2?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  insertBy?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  phoneNumber2?: Maybe<Scalars['String']>;
-  preference?: Maybe<Scalars['String']>;
-  setOfContactMethodParam?: Maybe<Array<Maybe<ContactMethodParam>>>;
-  social?: Maybe<Scalars['String']>;
-  source?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  updateBy?: Maybe<Scalars['Float']>;
-  updateTime?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
-};
-
-export type ConvAttendeeResponseDTO = {
-  attendeeEmail?: Maybe<Scalars['String']>;
-  attendeeName?: Maybe<Scalars['String']>;
-  convID?: Maybe<IdNameDTO>;
-  description?: Maybe<Scalars['String']>;
-  employeeOrContactInd?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
-};
-
-export type ConvMetricsResponse = {
-  attendees?: Maybe<Array<Maybe<AttendeeMetric>>>;
-  desc?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  videoLink?: Maybe<Scalars['String']>;
-};
-
-export type ConversationAttributionLogRsp = {
-  allowEdit?: Maybe<Scalars['Boolean']>;
-  convId?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  newAccountCrmId?: Maybe<Scalars['String']>;
-  newAccountId?: Maybe<Scalars['Float']>;
-  newOpptyCrmId?: Maybe<Scalars['String']>;
-  newOpptyId?: Maybe<Scalars['Float']>;
-  oldAccountCrmId?: Maybe<Scalars['String']>;
-  oldAccountId?: Maybe<Scalars['Float']>;
-  oldOpptyCrmId?: Maybe<Scalars['String']>;
-  oldOpptyId?: Maybe<Scalars['Float']>;
-};
-
-export type AccountPromisesResponseDTO = {
-  account?: Maybe<Account>;
-  dateTime?: Maybe<Scalars['String']>;
-  promises?: Maybe<Array<Maybe<Promise>>>;
-};
-
-export type Promise = {
-  classification?: Maybe<Scalars['String']>;
-  conv?: Maybe<ConvInfo>;
-  deal?: Maybe<DealInfo>;
-  id?: Maybe<Scalars['Float']>;
-  promiseEndTime?: Maybe<Scalars['String']>;
-  promiseNextAction?: Maybe<Scalars['String']>;
-  promiseStartTime?: Maybe<Scalars['String']>;
-  promiseText?: Maybe<Scalars['String']>;
-  score?: Maybe<Scalars['Float']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-};
-
-export type ConvInfo = {
-  confidential?: Maybe<Scalars['Boolean']>;
-  endTime?: Maybe<Scalars['String']>;
-  hostId?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  meetingTopic?: Maybe<Scalars['String']>;
-  startTime?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-};
-
-export type DealInfo = {
-  amount?: Maybe<Scalars['Float']>;
-  amountNumber?: Maybe<Scalars['String']>;
-  closeDate?: Maybe<Scalars['String']>;
-  createDate?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type ConvTopicEpisodeResponseDTO = {
-  conversation?: Maybe<Scalars['Float']>;
-  endTime?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  insertBy?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  keytopicCount1?: Maybe<Scalars['Float']>;
-  keytopicCount2?: Maybe<Scalars['Float']>;
-  keytopicCount3?: Maybe<Scalars['Float']>;
-  keytopicCount4?: Maybe<Scalars['Float']>;
-  keytopicId1?: Maybe<Scalars['String']>;
-  keytopicId2?: Maybe<Scalars['String']>;
-  keytopicId3?: Maybe<Scalars['String']>;
-  keytopicId4?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  startTime?: Maybe<Scalars['Float']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  unsupervisedCount1?: Maybe<Scalars['Float']>;
-  unsupervisedCount2?: Maybe<Scalars['Float']>;
-  unsupervisedCount3?: Maybe<Scalars['Float']>;
-  unsupervisedCount4?: Maybe<Scalars['Float']>;
-  unsupervisedTopic1?: Maybe<Scalars['String']>;
-  unsupervisedTopic2?: Maybe<Scalars['String']>;
-  unsupervisedTopic3?: Maybe<Scalars['String']>;
-  unsupervisedTopic4?: Maybe<Scalars['String']>;
-  updateBy?: Maybe<Scalars['Float']>;
-  updateTime?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
-};
-
-export type ConvEQResponseDTO = {
-  accountId?: Maybe<Scalars['Float']>;
-  convEndTime?: Maybe<Scalars['String']>;
-  convId?: Maybe<Scalars['Float']>;
-  convStartTime?: Maybe<Scalars['String']>;
-  eqScore?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  meetingEngagement?: Maybe<Scalars['Float']>;
-  meetingSentiment?: Maybe<Scalars['Float']>;
-  numberOfAttendees?: Maybe<Scalars['Float']>;
-  opptyId?: Maybe<Scalars['Float']>;
-  orgId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  stage?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  updateTime?: Maybe<Scalars['String']>;
-  vRankSum?: Maybe<Scalars['Float']>;
-  version?: Maybe<Scalars['String']>;
-  vrankSum?: Maybe<Scalars['Float']>;
 };
 
 export type ConversationDetailResponse = {
@@ -1875,6 +1987,336 @@ export type DealOppty = {
   value?: Maybe<Scalars['String']>;
 };
 
+export type ConvTopicEpisodeResponseDTO = {
+  conversation?: Maybe<Scalars['Float']>;
+  endTime?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  keytopicCount1?: Maybe<Scalars['Float']>;
+  keytopicCount2?: Maybe<Scalars['Float']>;
+  keytopicCount3?: Maybe<Scalars['Float']>;
+  keytopicCount4?: Maybe<Scalars['Float']>;
+  keytopicId1?: Maybe<Scalars['String']>;
+  keytopicId2?: Maybe<Scalars['String']>;
+  keytopicId3?: Maybe<Scalars['String']>;
+  keytopicId4?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['Float']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  unsupervisedCount1?: Maybe<Scalars['Float']>;
+  unsupervisedCount2?: Maybe<Scalars['Float']>;
+  unsupervisedCount3?: Maybe<Scalars['Float']>;
+  unsupervisedCount4?: Maybe<Scalars['Float']>;
+  unsupervisedTopic1?: Maybe<Scalars['String']>;
+  unsupervisedTopic2?: Maybe<Scalars['String']>;
+  unsupervisedTopic3?: Maybe<Scalars['String']>;
+  unsupervisedTopic4?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type CompanySlideFirstResponse = {
+  companyName?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  high?: Maybe<Array<Maybe<SlideFirst>>>;
+  id?: Maybe<Scalars['Float']>;
+  low?: Maybe<Array<Maybe<SlideFirst>>>;
+};
+
+export type SlideFirst = {
+  accountID?: Maybe<ConvAccountDTO>;
+  contentStartTime?: Maybe<Scalars['String']>;
+  contentViewVideoMediaLink?: Maybe<Scalars['String']>;
+  convId?: Maybe<Scalars['Float']>;
+  convList?: Maybe<Array<Maybe<SlideFirst>>>;
+  galleryViewVideoMediaLink?: Maybe<Scalars['String']>;
+  kmEndTime?: Maybe<Scalars['String']>;
+  kmId?: Maybe<Scalars['Float']>;
+  kmStartTime?: Maybe<Scalars['String']>;
+  kmText?: Maybe<Scalars['String']>;
+  kmUsername?: Maybe<Scalars['String']>;
+  meetingEndTime?: Maybe<Scalars['String']>;
+  meetingName?: Maybe<Scalars['String']>;
+  meetingStartTime?: Maybe<Scalars['String']>;
+  sentiment?: Maybe<Scalars['Float']>;
+  type?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+export type ContactMetricsResponse = {
+  avatarUrl?: Maybe<Scalars['String']>;
+  contactMethods?: Maybe<Array<Maybe<ContactMethodDTO>>>;
+  firstName?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  jobTitle?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  metrics?: Maybe<Scalars['JSON']>;
+  name?: Maybe<Scalars['String']>;
+  oppty?: Maybe<Array<Maybe<OpptyDTO>>>;
+  role?: Maybe<Scalars['String']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+};
+
+export type ContactMethodDTO = {
+  contactId?: Maybe<Scalars['Float']>;
+  emailAddress?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  phoneNumber?: Maybe<Scalars['String']>;
+  preference?: Maybe<Scalars['String']>;
+  setOfContactMethodParam?: Maybe<Array<Maybe<ContactMethodParam>>>;
+  social?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type ContactMethodParam = {
+  contactMethod?: Maybe<ContactMethod>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  preference?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type ContactMethod = {
+  contact?: Maybe<Contact>;
+  emailAddress2?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  phoneNumber2?: Maybe<Scalars['String']>;
+  preference?: Maybe<Scalars['String']>;
+  setOfContactMethodParam?: Maybe<Array<Maybe<ContactMethodParam>>>;
+  social?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type OpptyDTO = {
+  accountID?: Maybe<IdNameDTO>;
+  amount?: Maybe<Scalars['Float']>;
+  contact?: Maybe<Scalars['Float']>;
+  conversation?: Maybe<Array<Maybe<ConversationRequest>>>;
+  crmOpptyId?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  metrics?: Maybe<Scalars['JSON']>;
+  name?: Maybe<Scalars['String']>;
+  opptyAmount?: Maybe<Scalars['Float']>;
+  opptyCloseDate?: Maybe<Scalars['String']>;
+  opptyCreateDate?: Maybe<Scalars['String']>;
+  opptySource?: Maybe<Scalars['String']>;
+  opptyStage?: Maybe<Scalars['String']>;
+  opptyStatus?: Maybe<Scalars['String']>;
+  opptyTeamID?: Maybe<IdNameDTO>;
+  orgId?: Maybe<Scalars['Float']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type ContactResponse = {
+  accounts?: Maybe<Array<Maybe<Array<Maybe<Scalars['JSON']>>>>>;
+  avatarUrl?: Maybe<Scalars['String']>;
+  contactMethods?: Maybe<Array<Maybe<ContactMethodDTO>>>;
+  firstName?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  jobTitle?: Maybe<Scalars['String']>;
+  keyMoments3?: Maybe<Array<Maybe<KeyMoment>>>;
+  lastConv?: Maybe<LastConv>;
+  lastName?: Maybe<Scalars['String']>;
+  metrics?: Maybe<Scalars['JSON']>;
+  name?: Maybe<Scalars['String']>;
+  nextConv?: Maybe<NextConv>;
+  openOppty?: Maybe<Array<Maybe<OpptyDTO>>>;
+  role?: Maybe<Scalars['String']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+  timezone?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+export type LastConv = {
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['String']>;
+};
+
+export type NextConv = {
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['String']>;
+};
+
+export type ConvAttendeeResponseDTO = {
+  attendeeEmail?: Maybe<Scalars['String']>;
+  attendeeName?: Maybe<Scalars['String']>;
+  convID?: Maybe<IdNameDTO>;
+  description?: Maybe<Scalars['String']>;
+  employeeOrContactInd?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type ConvEQResponseDTO = {
+  accountId?: Maybe<Scalars['Float']>;
+  convEndTime?: Maybe<Scalars['String']>;
+  convId?: Maybe<Scalars['Float']>;
+  convStartTime?: Maybe<Scalars['String']>;
+  eqScore?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  meetingEngagement?: Maybe<Scalars['Float']>;
+  meetingSentiment?: Maybe<Scalars['Float']>;
+  numberOfAttendees?: Maybe<Scalars['Float']>;
+  opptyId?: Maybe<Scalars['Float']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  stage?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updateTime?: Maybe<Scalars['String']>;
+  vRankSum?: Maybe<Scalars['Float']>;
+  version?: Maybe<Scalars['String']>;
+  vrankSum?: Maybe<Scalars['Float']>;
+};
+
+export type ConvMetricsResponse = {
+  attendees?: Maybe<Array<Maybe<AttendeeMetric>>>;
+  desc?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  videoLink?: Maybe<Scalars['String']>;
+};
+
+export type ConversationAttributionLogRsp = {
+  allowEdit?: Maybe<Scalars['Boolean']>;
+  convId?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  newAccountCrmId?: Maybe<Scalars['String']>;
+  newAccountId?: Maybe<Scalars['Float']>;
+  newOpptyCrmId?: Maybe<Scalars['String']>;
+  newOpptyId?: Maybe<Scalars['Float']>;
+  oldAccountCrmId?: Maybe<Scalars['String']>;
+  oldAccountId?: Maybe<Scalars['Float']>;
+  oldOpptyCrmId?: Maybe<Scalars['String']>;
+  oldOpptyId?: Maybe<Scalars['Float']>;
+};
+
+export type ConvSlideFirstResponse = {
+  high?: Maybe<Array<Maybe<SlideFirst>>>;
+  low?: Maybe<Array<Maybe<SlideFirst>>>;
+};
+
+export type ConvTimeline = {
+  convId2?: Maybe<Scalars['Float']>;
+  data?: Maybe<Scalars['JSON']>;
+};
+
+export type ConversationAttendeesResponse = {
+  attendees?: Maybe<Array<Maybe<Attendee>>>;
+  endDate?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type ConversationSummaryResponse = {
+  data?: Maybe<Array<Maybe<Datum>>>;
+  userId?: Maybe<Scalars['String']>;
+};
+
+export type Datum = {
+  account?: Maybe<IdNameDTO>;
+  aiViewVideoMediaLink?: Maybe<Scalars['String']>;
+  attendees?: Maybe<Array<Maybe<ConvAttendeeAttr>>>;
+  audioMediaLink?: Maybe<Scalars['String']>;
+  confidential?: Maybe<Scalars['Boolean']>;
+  contentViewVideoMediaLink?: Maybe<Scalars['String']>;
+  cvProcDone?: Maybe<Scalars['Boolean']>;
+  dataFusionProcDone?: Maybe<Scalars['Boolean']>;
+  description?: Maybe<Scalars['String']>;
+  endDate?: Maybe<Scalars['String']>;
+  externalMeetingId?: Maybe<Scalars['String']>;
+  galleryViewVideoMediaLink?: Maybe<Scalars['String']>;
+  host?: Maybe<Scalars['String']>;
+  hostId?: Maybe<Scalars['Float']>;
+  hostImage?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  keyTopics?: Maybe<Array<Maybe<KeyTag>>>;
+  lastChunk?: Maybe<Scalars['Float']>;
+  mediaLink?: Maybe<Scalars['String']>;
+  mediaThumbnail?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  opportunity?: Maybe<Opportunity>;
+  orgId?: Maybe<Scalars['Float']>;
+  pendingPromisesCount?: Maybe<Scalars['Int']>;
+  processedFlag?: Maybe<Scalars['String']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+  sharedDate?: Maybe<Scalars['String']>;
+  sharedUser?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  speakerTimelineLink?: Maybe<Scalars['String']>;
+  speakerViewVideoMediaLink?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  textKmProcDone?: Maybe<Scalars['Boolean']>;
+  textMediaLink?: Maybe<Scalars['String']>;
+  textSentProcDone?: Maybe<Scalars['Boolean']>;
+  thumbnail?: Maybe<Scalars['String']>;
+  tonalProcDone?: Maybe<Scalars['Boolean']>;
+  totalPromisesCount?: Maybe<Scalars['Int']>;
+  transcriptLink?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  uuid?: Maybe<Scalars['String']>;
+  videoMediaLink?: Maybe<Scalars['String']>;
+};
+
+export type ConvAttendeeAttr = {
+  convId?: Maybe<Scalars['Float']>;
+  email?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type Opportunity = {
+  amount?: Maybe<Scalars['Float']>;
+  closeDate?: Maybe<Scalars['String']>;
+  createDate?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  opptyAmount?: Maybe<Scalars['Float']>;
+  stage?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+};
+
 export type ConvoStatResponse = {
   accountId?: Maybe<Scalars['Float']>;
   aiViewVideoMediaLink?: Maybe<Scalars['String']>;
@@ -1921,10 +2363,6 @@ export type ConvoStats = {
   longestRepMonologue?: Maybe<Scalars['Int']>;
   talkRatio?: Maybe<Scalars['Float']>;
   teamMembers?: Maybe<Array<Maybe<Attendee>>>;
-};
-
-export type CurrentEQForOpptyResponse = {
-  deals?: Maybe<DealSummaryDetailResponse>;
 };
 
 export type DealDetailResponse = {
@@ -1982,11 +2420,10 @@ export type AccountOpptyEQResponseDTO = {
   sentiment?: Maybe<Scalars['Float']>;
 };
 
-export enum OpptyRisk {
-  AT_RISK = 'AT_RISK',
-  ON_TRACK = 'ON_TRACK',
-  EXCEED = 'EXCEED'
-}
+export type OpptyRisk =
+  | 'AT_RISK'
+  | 'ON_TRACK'
+  | 'EXCEED';
 
 export type DealNextAction = {
   date?: Maybe<Scalars['String']>;
@@ -1994,38 +2431,8 @@ export type DealNextAction = {
   video?: Maybe<Scalars['Boolean']>;
 };
 
-export type CustWebLinkResponseDTO = {
-  company?: Maybe<Scalars['String']>;
-  companyProfile?: Maybe<CompanyProfileDTO>;
-  id?: Maybe<Scalars['Float']>;
-  orgId?: Maybe<Scalars['Float']>;
-  url?: Maybe<Scalars['String']>;
-  usersId?: Maybe<Scalars['Float']>;
-};
-
-export type DealSummaryTrendResponse = {
-  convostats?: Maybe<Array<Maybe<DealConvoStat>>>;
-  engagement?: Maybe<Stages>;
-  id?: Maybe<Scalars['Float']>;
-  sentiment?: Maybe<Stages>;
-  stage?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  wonOppty?: Maybe<DealStat>;
-};
-
-export type DealConvoStat = {
-  stages?: Maybe<Scalars['JSON']>;
-  type?: Maybe<Scalars['String']>;
-};
-
-export type Stages = {
-  stages?: Maybe<Scalars['JSON']>;
-};
-
-export type DealStat = {
-  convostats?: Maybe<Array<Maybe<DealConvoStat>>>;
-  engagement?: Maybe<Stages>;
-  sentiment?: Maybe<Stages>;
+export type CurrentEQForOpptyResponse = {
+  deals?: Maybe<DealSummaryDetailResponse>;
 };
 
 export type DealSummaryResponse = {
@@ -2053,6 +2460,31 @@ export type DealSummaryResponse = {
   type?: Maybe<Scalars['String']>;
 };
 
+export type DealSummaryTrendResponse = {
+  convostats?: Maybe<Array<Maybe<DealConvoStat>>>;
+  engagement?: Maybe<Stages>;
+  id?: Maybe<Scalars['Float']>;
+  sentiment?: Maybe<Stages>;
+  stage?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  wonOppty?: Maybe<DealStat>;
+};
+
+export type DealConvoStat = {
+  stages?: Maybe<Scalars['JSON']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type Stages = {
+  stages?: Maybe<Scalars['JSON']>;
+};
+
+export type DealStat = {
+  convostats?: Maybe<Array<Maybe<DealConvoStat>>>;
+  engagement?: Maybe<Stages>;
+  sentiment?: Maybe<Stages>;
+};
+
 export type Diarization = {
   tasks?: Maybe<Array<Maybe<Task>>>;
 };
@@ -2065,6 +2497,359 @@ export type Task = {
 export type Option = {
   activate?: Maybe<Scalars['Boolean']>;
   data?: Maybe<Scalars['JSON']>;
+};
+
+export type EmpathyAndHesitationTurnsReport = {
+  convId?: Maybe<Scalars['Float']>;
+  empathyChangeDetailsList?: Maybe<Array<Maybe<EmpathyChangeDetails>>>;
+  empathyScore?: Maybe<Scalars['Float']>;
+  hesitationChangeDetailsList?: Maybe<Array<Maybe<HesitationChangeDetails>>>;
+  hesitationScore?: Maybe<Scalars['Float']>;
+};
+
+export type EmpathyChangeDetails = {
+  averageEmpathy2?: Maybe<Scalars['Float']>;
+  convId3?: Maybe<Scalars['Float']>;
+  convOffset?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  polarity?: Maybe<Scalars['String']>;
+  prevContactNameOnTurn?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  userId2?: Maybe<Scalars['Float']>;
+  userName?: Maybe<Scalars['String']>;
+};
+
+export type HesitationChangeDetails = {
+  averageHesitation?: Maybe<Scalars['Float']>;
+  convId4?: Maybe<Scalars['Float']>;
+  convOffset?: Maybe<Scalars['Float']>;
+  prevContactNameOnTurn?: Maybe<Scalars['String']>;
+  userId3?: Maybe<Scalars['Float']>;
+  userName?: Maybe<Scalars['String']>;
+};
+
+export type TeamOpptyUsersStats = {
+  idealConvEQ?: Maybe<IdealConvEQ>;
+  overAll?: Maybe<Array<Maybe<TeamUsersStat>>>;
+  teamOpptyUsersStats?: Maybe<Array<Maybe<TeamOpptyUsersStat>>>;
+  unattributed?: Maybe<Array<Maybe<TeamUnattributedUsersStat>>>;
+};
+
+export type IdealConvEQ = {
+  empathy?: Maybe<Scalars['Float']>;
+  engagement?: Maybe<Scalars['Float']>;
+  sentiment?: Maybe<Scalars['Float']>;
+  talkRatio?: Maybe<Scalars['Float']>;
+};
+
+export type TeamUsersStat = {
+  customerEngagement?: Maybe<Scalars['Float']>;
+  customerSentiment?: Maybe<Scalars['Float']>;
+  empathy?: Maybe<Scalars['Float']>;
+  engagement?: Maybe<Scalars['Float']>;
+  hesitation?: Maybe<Scalars['Float']>;
+  politeness?: Maybe<Scalars['Float']>;
+  sentiment?: Maybe<Scalars['Float']>;
+  speakingRate?: Maybe<Scalars['Float']>;
+  talkRatio?: Maybe<Scalars['Float']>;
+  talkSpeed?: Maybe<Scalars['Float']>;
+  user?: Maybe<User>;
+  usersStats?: Maybe<Array<Maybe<UsersStat>>>;
+};
+
+export type UsersStat = {
+  accountID?: Maybe<ConvAccountDTO>;
+  convEndTime?: Maybe<Scalars['String']>;
+  convId?: Maybe<Scalars['Float']>;
+  convStartTime?: Maybe<Scalars['String']>;
+  convStatus?: Maybe<Scalars['String']>;
+  convType?: Maybe<Scalars['String']>;
+  empathy?: Maybe<Scalars['Float']>;
+  engagement?: Maybe<Scalars['Float']>;
+  hesitation?: Maybe<Scalars['Float']>;
+  orgId?: Maybe<Scalars['Float']>;
+  participantName?: Maybe<Scalars['String']>;
+  politeness?: Maybe<Scalars['Float']>;
+  sentiment?: Maybe<Scalars['Float']>;
+  speakingRate?: Maybe<Scalars['Float']>;
+  talkRatio?: Maybe<Scalars['Float']>;
+  talkSpeed?: Maybe<Scalars['Float']>;
+  userId?: Maybe<Scalars['Float']>;
+};
+
+export type TeamOpptyUsersStat = {
+  comments?: Maybe<Array<Maybe<CommentResponseDTO>>>;
+  conversations?: Maybe<Array<Maybe<ConversationRequest>>>;
+  oppty?: Maybe<OpptyDTO>;
+  usersStats?: Maybe<Array<Maybe<TeamUsersStat>>>;
+};
+
+export type CommentResponseDTO = {
+  comment?: Maybe<Scalars['String']>;
+  convID?: Maybe<ConvDTO>;
+  endTime?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  keyMomentId?: Maybe<Scalars['Float']>;
+  mentions?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['Float']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updateTime?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type TeamUnattributedUsersStat = {
+  comments?: Maybe<Array<Maybe<CommentResponseDTO>>>;
+  conversations?: Maybe<Array<Maybe<ConversationRequest>>>;
+  user?: Maybe<TeamUsersStat>;
+};
+
+export type KeyPhraseResponse = {
+  id?: Maybe<Scalars['Float']>;
+  keyMoments4?: Maybe<Array<Maybe<KeyMoment>>>;
+};
+
+export type MediaClipResponseDTO = {
+  accountID?: Maybe<ConvAccountDTO>;
+  audioMediaLink?: Maybe<Scalars['String']>;
+  comments?: Maybe<Array<Maybe<CommentResponseDTO>>>;
+  convID?: Maybe<ConvDTO>;
+  description?: Maybe<Scalars['String']>;
+  endTime?: Maybe<Scalars['Float']>;
+  galleryViewVideoMediaLink?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  keyMoment?: Maybe<ConvKeyMomentResponseDTO>;
+  keytags?: Maybe<Array<Maybe<KeywordTagResponseDTO>>>;
+  mediaClipRelId?: Maybe<Scalars['Float']>;
+  meetingTime?: Maybe<Scalars['String']>;
+  meetingTopic?: Maybe<Scalars['String']>;
+  opptyID?: Maybe<ConvOpptyDTO>;
+  opptyName?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  polarity?: Maybe<Scalars['String']>;
+  position?: Maybe<Scalars['Float']>;
+  shared?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['Float']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  thumbnail?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  transcript?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  userID?: Maybe<ConvUsersDTO>;
+  usersViewed?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  views?: Maybe<Scalars['Float']>;
+};
+
+export type ConvKeyMomentResponseDTO = {
+  contentImages?: Maybe<Scalars['String']>;
+  convId?: Maybe<Scalars['Float']>;
+  downVote?: Maybe<Scalars['Float']>;
+  downVoteUser?: Maybe<Scalars['String']>;
+  endOffset?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  keywordTagId1?: Maybe<Scalars['Float']>;
+  keywordTagId2?: Maybe<Scalars['Float']>;
+  keywordTagId3?: Maybe<Scalars['Float']>;
+  keywordTagId4?: Maybe<Scalars['Float']>;
+  kmEndTime?: Maybe<Scalars['String']>;
+  kmStartTime?: Maybe<Scalars['String']>;
+  line?: Maybe<Scalars['String']>;
+  polarity?: Maybe<Scalars['String']>;
+  score?: Maybe<Scalars['Float']>;
+  startOffset?: Maybe<Scalars['Float']>;
+  type?: Maybe<Scalars['String']>;
+  upVote?: Maybe<Scalars['Float']>;
+  upVoteUser?: Maybe<Scalars['String']>;
+  updateTime?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
+};
+
+export type KeywordTagResponseDTO = {
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  keywordCateg?: Maybe<KeywordCategResponseDTO>;
+  keywordTagVal?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type KeywordCategResponseDTO = {
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  keywordCategName?: Maybe<Scalars['String']>;
+  keywordTags?: Maybe<Array<Maybe<KeywordTagResponseDTO>>>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type ConvOpptyDTO = {
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type OpptyEqbyStageResponseDTO = {
+  emotionalScore?: Maybe<Scalars['String']>;
+  emotionalStage?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  numberOfAttendees2?: Maybe<Scalars['Float']>;
+  opptyId?: Maybe<Scalars['Float']>;
+  stage?: Maybe<Scalars['String']>;
+  stageEndDate?: Maybe<Scalars['String']>;
+  stageStartDate?: Maybe<Scalars['String']>;
+};
+
+export type OpptyTeamResponseDTO = {
+  endDate?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['String']>;
+  usersId?: Maybe<ConvUsersDTO>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type PlaylistResponseDTO = {
+  clips?: Maybe<Array<Maybe<MediaClipResponseDTO>>>;
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+  orgId?: Maybe<Scalars['Float']>;
+  permission?: Maybe<Scalars['String']>;
+  shared?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updateTime?: Maybe<Scalars['String']>;
+  userID?: Maybe<ConvUsersDTO>;
+  usersViewed?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  views?: Maybe<Scalars['Float']>;
+};
+
+export type SummaryReportDTO = {
+  amountImpacted?: Maybe<Scalars['Float']>;
+  hrsProcessed?: Maybe<Scalars['Float']>;
+  numOfConversations?: Maybe<Scalars['Float']>;
+  uniqueContacts?: Maybe<Scalars['Float']>;
+  uniqueDeals?: Maybe<Scalars['Float']>;
+  uniqueKeyMoments?: Maybe<Scalars['Float']>;
+};
+
+export type TrendEQForOpptyResponse = {
+  deals?: Maybe<DealSummaryDetailResponse>;
+  keyMoments5?: Maybe<OpptyDTO>;
+};
+
+export type AccountPromisesResponseDTO = {
+  account?: Maybe<Account>;
+  dateTime?: Maybe<Scalars['String']>;
+  promises?: Maybe<Array<Maybe<Promise>>>;
+};
+
+export type Promise = {
+  classification?: Maybe<Scalars['String']>;
+  conv?: Maybe<ConvInfo>;
+  deal?: Maybe<DealInfo>;
+  id?: Maybe<Scalars['Float']>;
+  promiseEndTime?: Maybe<Scalars['String']>;
+  promiseNextAction?: Maybe<Scalars['String']>;
+  promiseStartTime?: Maybe<Scalars['String']>;
+  promiseText?: Maybe<Scalars['String']>;
+  score?: Maybe<Scalars['Float']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type ConvInfo = {
+  confidential?: Maybe<Scalars['Boolean']>;
+  endTime?: Maybe<Scalars['String']>;
+  hostId?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  meetingTopic?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+};
+
+export type DealInfo = {
+  amount?: Maybe<Scalars['Float']>;
+  amountNumber?: Maybe<Scalars['String']>;
+  closeDate?: Maybe<Scalars['String']>;
+  createDate?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type CompanyParamResponseDTO = {
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+};
+
+export type ConfigPropResponseDTO = {
+  configPropset?: Maybe<IdNameDTO>;
+  defaultValue?: Maybe<Scalars['String']>;
+  defaultValueInt?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  isVisible?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type AggrConvMetrics = {
+  convId?: Maybe<Scalars['Float']>;
+  engagement?: Maybe<Scalars['Float']>;
+  engagementSmooth?: Maybe<Scalars['Float']>;
+  isSpeaker?: Maybe<Scalars['Boolean']>;
+  offset?: Maybe<Scalars['Float']>;
+  offsetTimestamp?: Maybe<Scalars['String']>;
+  participantId?: Maybe<Scalars['String']>;
+  sentiment?: Maybe<Scalars['Float']>;
+  sentimentSmooth?: Maybe<Scalars['Float']>;
+};
+
+export type CustWebLinkResponseDTO = {
+  company?: Maybe<Scalars['String']>;
+  companyProfile?: Maybe<CompanyProfileDTO>;
+  id?: Maybe<Scalars['Float']>;
+  orgId?: Maybe<Scalars['Float']>;
+  url?: Maybe<Scalars['String']>;
+  usersId?: Maybe<Scalars['Float']>;
 };
 
 export type EmlEqResponseDTO = {
@@ -2193,190 +2978,12 @@ export type EmlBodyParam = {
   version?: Maybe<Scalars['String']>;
 };
 
-export type EmpathyAndHesitationTurnsReport = {
-  convId?: Maybe<Scalars['Float']>;
-  empathyChangeDetailsList?: Maybe<Array<Maybe<EmpathyChangeDetails>>>;
-  empathyScore?: Maybe<Scalars['Float']>;
-  hesitationChangeDetailsList?: Maybe<Array<Maybe<HesitationChangeDetails>>>;
-  hesitationScore?: Maybe<Scalars['Float']>;
-};
-
-export type EmpathyChangeDetails = {
-  averageEmpathy2?: Maybe<Scalars['Float']>;
-  convId2?: Maybe<Scalars['Float']>;
-  convOffset?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  polarity?: Maybe<Scalars['String']>;
-  prevContactNameOnTurn?: Maybe<Scalars['String']>;
-  source?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  userId2?: Maybe<Scalars['Float']>;
-  userName?: Maybe<Scalars['String']>;
-};
-
-export type HesitationChangeDetails = {
-  averageHesitation?: Maybe<Scalars['Float']>;
-  convId3?: Maybe<Scalars['Float']>;
-  convOffset?: Maybe<Scalars['Float']>;
-  prevContactNameOnTurn?: Maybe<Scalars['String']>;
-  userId3?: Maybe<Scalars['Float']>;
-  userName?: Maybe<Scalars['String']>;
-};
-
-export type CalendarEvent = {
-  account?: Maybe<IdNameDTO>;
-  botInstrFromCalendar?: Maybe<Scalars['Boolean']>;
-  calUid?: Maybe<Scalars['Boolean']>;
-  description?: Maybe<Scalars['String']>;
-  eventAttendees?: Maybe<Array<Maybe<CalendarEventAttendee>>>;
-  eventEndTime?: Maybe<Scalars['String']>;
-  eventStartTime?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  lastMeeting?: Maybe<ConversationDetailResponse>;
-  oppty?: Maybe<Array<Maybe<IdNameDTO>>>;
-  opptyDetail?: Maybe<DealSummaryDetailResponse>;
-  subjectLine?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  userId?: Maybe<Scalars['Float']>;
-};
-
-export type CalendarEventAttendee = {
+export type KeyPhraseExpertResponseDTO = {
   email?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type KeyPhraseResponse = {
-  id?: Maybe<Scalars['Float']>;
-  keyMoments3?: Maybe<Array<Maybe<KeyMoment>>>;
-};
-
-export type TeamOpptyUsersStats = {
-  idealConvEQ?: Maybe<IdealConvEQ>;
-  overAll?: Maybe<Array<Maybe<TeamUsersStat>>>;
-  teamOpptyUsersStats?: Maybe<Array<Maybe<TeamOpptyUsersStat>>>;
-  unattributed?: Maybe<Array<Maybe<TeamUnattributedUsersStat>>>;
-};
-
-export type IdealConvEQ = {
-  empathy?: Maybe<Scalars['Float']>;
   engagement?: Maybe<Scalars['Float']>;
+  fullName?: Maybe<Scalars['String']>;
   sentiment?: Maybe<Scalars['Float']>;
-  talkRatio?: Maybe<Scalars['Float']>;
-};
-
-export type TeamUsersStat = {
-  customerEngagement?: Maybe<Scalars['Float']>;
-  customerSentiment?: Maybe<Scalars['Float']>;
-  empathy?: Maybe<Scalars['Float']>;
-  engagement?: Maybe<Scalars['Float']>;
-  hesitation?: Maybe<Scalars['Float']>;
-  politeness?: Maybe<Scalars['Float']>;
-  sentiment?: Maybe<Scalars['Float']>;
-  speakingRate?: Maybe<Scalars['Float']>;
-  talkRatio?: Maybe<Scalars['Float']>;
-  talkSpeed?: Maybe<Scalars['Float']>;
-  user?: Maybe<User>;
-  usersStats?: Maybe<Array<Maybe<UsersStat>>>;
-};
-
-export type UsersStat = {
-  accountID?: Maybe<ConvAccountDTO>;
-  convEndTime?: Maybe<Scalars['String']>;
-  convId?: Maybe<Scalars['Float']>;
-  convStartTime?: Maybe<Scalars['String']>;
-  convStatus?: Maybe<Scalars['String']>;
-  convType?: Maybe<Scalars['String']>;
-  empathy?: Maybe<Scalars['Float']>;
-  engagement?: Maybe<Scalars['Float']>;
-  hesitation?: Maybe<Scalars['Float']>;
-  orgId?: Maybe<Scalars['Float']>;
-  participantName?: Maybe<Scalars['String']>;
-  politeness?: Maybe<Scalars['Float']>;
-  sentiment?: Maybe<Scalars['Float']>;
-  speakingRate?: Maybe<Scalars['Float']>;
-  talkRatio?: Maybe<Scalars['Float']>;
-  talkSpeed?: Maybe<Scalars['Float']>;
   userId?: Maybe<Scalars['Float']>;
-};
-
-export type TeamOpptyUsersStat = {
-  comments?: Maybe<Array<Maybe<CommentResponseDTO>>>;
-  conversations?: Maybe<Array<Maybe<ConversationRequest>>>;
-  oppty?: Maybe<OpptyDTO>;
-  usersStats?: Maybe<Array<Maybe<TeamUsersStat>>>;
-};
-
-export type TeamUnattributedUsersStat = {
-  comments?: Maybe<Array<Maybe<CommentResponseDTO>>>;
-  conversations?: Maybe<Array<Maybe<ConversationRequest>>>;
-  user?: Maybe<TeamUsersStat>;
-};
-
-export type MediaClipResponseDTO = {
-  accountID?: Maybe<ConvAccountDTO>;
-  audioMediaLink?: Maybe<Scalars['String']>;
-  comments?: Maybe<Array<Maybe<CommentResponseDTO>>>;
-  convID?: Maybe<ConvDTO>;
-  description?: Maybe<Scalars['String']>;
-  endTime?: Maybe<Scalars['Float']>;
-  galleryViewVideoMediaLink?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  keyMoment?: Maybe<ConvKeyMomentResponseDTO>;
-  keytags?: Maybe<Array<Maybe<KeywordTagResponseDTO>>>;
-  mediaClipRelId?: Maybe<Scalars['Float']>;
-  meetingTime?: Maybe<Scalars['String']>;
-  meetingTopic?: Maybe<Scalars['String']>;
-  opptyID?: Maybe<ConvOpptyDTO>;
-  opptyName?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  polarity?: Maybe<Scalars['String']>;
-  position?: Maybe<Scalars['Float']>;
-  shared?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  startTime?: Maybe<Scalars['Float']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  thumbnail?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  transcript?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  userID?: Maybe<ConvUsersDTO>;
-  usersViewed?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
-  views?: Maybe<Scalars['Float']>;
-};
-
-export type ConvKeyMomentResponseDTO = {
-  contentImages?: Maybe<Scalars['String']>;
-  convId?: Maybe<Scalars['Float']>;
-  downVote?: Maybe<Scalars['Float']>;
-  downVoteUser?: Maybe<Scalars['String']>;
-  endOffset?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  keywordTagId1?: Maybe<Scalars['Float']>;
-  keywordTagId2?: Maybe<Scalars['Float']>;
-  keywordTagId3?: Maybe<Scalars['Float']>;
-  keywordTagId4?: Maybe<Scalars['Float']>;
-  kmEndTime?: Maybe<Scalars['String']>;
-  kmStartTime?: Maybe<Scalars['String']>;
-  line?: Maybe<Scalars['String']>;
-  polarity?: Maybe<Scalars['String']>;
-  score?: Maybe<Scalars['Float']>;
-  startOffset?: Maybe<Scalars['Float']>;
-  type?: Maybe<Scalars['String']>;
-  upVote?: Maybe<Scalars['Float']>;
-  upVoteUser?: Maybe<Scalars['String']>;
-  updateTime?: Maybe<Scalars['String']>;
-  username?: Maybe<Scalars['String']>;
-};
-
-export type ConvOpptyDTO = {
-  id?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
 };
 
 export type MediaClipParamResponseDTO = {
@@ -2390,119 +2997,6 @@ export type MediaClipParamResponseDTO = {
   type?: Maybe<Scalars['String']>;
   value?: Maybe<Scalars['String']>;
   version?: Maybe<Scalars['String']>;
-};
-
-export type ConversationSummaryResponse = {
-  data?: Maybe<Array<Maybe<Datum>>>;
-  userId?: Maybe<Scalars['String']>;
-};
-
-export type Datum = {
-  account?: Maybe<IdNameDTO>;
-  aiViewVideoMediaLink?: Maybe<Scalars['String']>;
-  attendees?: Maybe<Array<Maybe<ConvAttendeeAttr>>>;
-  audioMediaLink?: Maybe<Scalars['String']>;
-  confidential?: Maybe<Scalars['Boolean']>;
-  contentViewVideoMediaLink?: Maybe<Scalars['String']>;
-  cvProcDone?: Maybe<Scalars['Boolean']>;
-  dataFusionProcDone?: Maybe<Scalars['Boolean']>;
-  description?: Maybe<Scalars['String']>;
-  endDate?: Maybe<Scalars['String']>;
-  externalMeetingId?: Maybe<Scalars['String']>;
-  galleryViewVideoMediaLink?: Maybe<Scalars['String']>;
-  host?: Maybe<Scalars['String']>;
-  hostId?: Maybe<Scalars['Float']>;
-  hostImage?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  keyTopics?: Maybe<Array<Maybe<KeyTag>>>;
-  lastChunk?: Maybe<Scalars['Float']>;
-  mediaLink?: Maybe<Scalars['String']>;
-  mediaThumbnail?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  opportunity?: Maybe<Opportunity>;
-  orgId?: Maybe<Scalars['Float']>;
-  pendingPromisesCount?: Maybe<Scalars['Int']>;
-  processedFlag?: Maybe<Scalars['String']>;
-  score?: Maybe<Array<Maybe<Score4>>>;
-  sharedDate?: Maybe<Scalars['String']>;
-  sharedUser?: Maybe<Scalars['String']>;
-  source?: Maybe<Scalars['String']>;
-  speakerTimelineLink?: Maybe<Scalars['String']>;
-  speakerViewVideoMediaLink?: Maybe<Scalars['String']>;
-  startDate?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  textKmProcDone?: Maybe<Scalars['Boolean']>;
-  textMediaLink?: Maybe<Scalars['String']>;
-  textSentProcDone?: Maybe<Scalars['Boolean']>;
-  thumbnail?: Maybe<Scalars['String']>;
-  tonalProcDone?: Maybe<Scalars['Boolean']>;
-  totalPromisesCount?: Maybe<Scalars['Int']>;
-  transcriptLink?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  uuid?: Maybe<Scalars['String']>;
-  videoMediaLink?: Maybe<Scalars['String']>;
-};
-
-export type ConvAttendeeAttr = {
-  convId?: Maybe<Scalars['Float']>;
-  email?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type Opportunity = {
-  amount?: Maybe<Scalars['Float']>;
-  closeDate?: Maybe<Scalars['String']>;
-  createDate?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  opptyAmount?: Maybe<Scalars['Float']>;
-  stage?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-};
-
-export type OpptyEqbyStageResponseDTO = {
-  emotionalScore?: Maybe<Scalars['String']>;
-  emotionalStage?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  numberOfAttendees2?: Maybe<Scalars['Float']>;
-  opptyId?: Maybe<Scalars['Float']>;
-  stage?: Maybe<Scalars['String']>;
-  stageEndDate?: Maybe<Scalars['String']>;
-  stageStartDate?: Maybe<Scalars['String']>;
-};
-
-export type OpptyTeamResponseDTO = {
-  endDate?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  startDate?: Maybe<Scalars['String']>;
-  usersId?: Maybe<ConvUsersDTO>;
-  version?: Maybe<Scalars['String']>;
-};
-
-export type PlaylistResponseDTO = {
-  clips?: Maybe<Array<Maybe<MediaClipResponseDTO>>>;
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  isPublic?: Maybe<Scalars['Boolean']>;
-  orgId?: Maybe<Scalars['Float']>;
-  permission?: Maybe<Scalars['String']>;
-  shared?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  updateTime?: Maybe<Scalars['String']>;
-  userID?: Maybe<ConvUsersDTO>;
-  usersViewed?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
-  views?: Maybe<Scalars['Float']>;
 };
 
 export type PlaylistParamResponseDTO = {
@@ -2535,413 +3029,1037 @@ export type ConvSharedViewData = {
   startTime?: Maybe<Scalars['Float']>;
 };
 
-export type ConvSlideFirstResponse = {
-  high?: Maybe<Array<Maybe<SlideFirst>>>;
-  low?: Maybe<Array<Maybe<SlideFirst>>>;
-};
-
-export type SummaryReportDTO = {
-  amountImpacted?: Maybe<Scalars['Float']>;
-  hrsProcessed?: Maybe<Scalars['Float']>;
-  numOfConversations?: Maybe<Scalars['Float']>;
-  uniqueContacts?: Maybe<Scalars['Float']>;
-  uniqueDeals?: Maybe<Scalars['Float']>;
-  uniqueKeyMoments?: Maybe<Scalars['Float']>;
-};
-
-export type ConvTimeline = {
-  convId4?: Maybe<Scalars['Float']>;
-  data?: Maybe<Scalars['JSON']>;
-};
-
-export type TrendEQForOpptyResponse = {
-  deals?: Maybe<DealSummaryDetailResponse>;
-  keyMoments4?: Maybe<OpptyDTO>;
-};
-
 export type UserDelegateResponseDTO = {
   proxyOwners?: Maybe<Array<Maybe<User>>>;
   proxyUsers?: Maybe<Array<Maybe<User>>>;
 };
 
-export type ContactResponse = {
-  accounts?: Maybe<Array<Maybe<Array<Maybe<Scalars['JSON']>>>>>;
-  avatarUrl?: Maybe<Scalars['String']>;
-  contactMethods?: Maybe<Array<Maybe<ContactMethodDTO>>>;
-  firstName?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  jobTitle?: Maybe<Scalars['String']>;
-  keyMoments5?: Maybe<Array<Maybe<KeyMoment>>>;
-  lastConv?: Maybe<LastConv>;
-  lastName?: Maybe<Scalars['String']>;
-  metrics?: Maybe<Scalars['JSON']>;
-  name?: Maybe<Scalars['String']>;
-  nextConv?: Maybe<NextConv>;
-  openOppty?: Maybe<Array<Maybe<OpptyDTO>>>;
-  role?: Maybe<Scalars['String']>;
-  score?: Maybe<Array<Maybe<Score4>>>;
-  timezone?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-};
-
-export type LastConv = {
-  id?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  startTime?: Maybe<Scalars['String']>;
-};
-
-export type NextConv = {
-  id?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  startTime?: Maybe<Scalars['String']>;
-};
-
 export type Mutation = {
-  /** Equivalent to PUT /usales/playlists/media-clip-rel-bulk */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/playlists/media-clip-rel-bulk
+   */
   addBulkPlaylistMediaClipRel?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /auth/login */
+  /**
+   *
+   *
+   * Equivalent to POST /auth/login
+   */
   authenticateUser?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /auth/login2 */
+  /**
+   *
+   *
+   * Equivalent to POST /auth/login2
+   */
   authenticateUser2?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/analytics/keyphrase/occurrences */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/keyphrase/occurrences
+   */
   companyKeyPhraseOccurrences?: Maybe<Array<Maybe<KeyPhraseOccurenceContentResponseDTO>>>;
-  /** Equivalent to POST /usales/analytics/keyphrase/sentiment */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/keyphrase/sentiment
+   */
   companyKeyPhraseOccurrencesBySentiment?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/timeline/{conv_id} */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/timeline/{conv_id}
+   */
   convert?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/alerts */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/alerts
+   */
   createAlert?: Maybe<AlertResponseDTO>;
-  /** Equivalent to POST /usales/conv-topic-episodes */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/conv-topic-episodes
+   */
   createConvTopicEpisode?: Maybe<ConvTopicEpisodeResponseDTO>;
-  /** Equivalent to POST /usales/emleqs */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/emleqs
+   */
   createEmlEq?: Maybe<EmlEqResponseDTO>;
-  /** Equivalent to POST /usales/custweblinks */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/custweblinks
+   */
   createOrUpdate?: Maybe<CustWebLinkResponseDTO>;
-  /** Equivalent to POST /usales/comments */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/comments
+   */
   createOrUpdate1?: Maybe<CommentResponseDTO>;
-  /** Equivalent to POST /usales/clips */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/clips
+   */
   createOrUpdate2?: Maybe<VideoSharingHistoryDTO>;
-  /** Equivalent to POST /usales/bookmarks */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/bookmarks
+   */
   createOrUpdate3?: Maybe<ConvBookmarkResponseDTO>;
-  /** Equivalent to POST /usales/accounts */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/accounts
+   */
   createOrUpdateAccount?: Maybe<AccountResponseDTO>;
-  /** Equivalent to POST /usales/convs/attendees */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/attendees
+   */
   createOrUpdateConvAttendee?: Maybe<ConvAttendeeResponseDTO>;
-  /** Equivalent to POST /usales/conv/attendees/{id} */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/conv/attendees/{id}
+   */
   createOrUpdateConvAttendee1?: Maybe<ConvAttendeeResponseDTO>;
-  /** Equivalent to PUT /usales/keyword/categ */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/keyword/categ
+   */
   createOrUpdateKeywordCateg?: Maybe<KeywordCategResponseDTO>;
-  /** Equivalent to PUT /usales/keyword/tag */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/keyword/tag
+   */
   createOrUpdateKeywordTag?: Maybe<KeywordTagResponseDTO>;
-  /** Equivalent to POST /usales/oppty/{opptyId} */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/oppty/{opptyId}
+   */
   createOrUpdateOppty?: Maybe<OpptyDTO>;
-  /** Equivalent to POST /usales/oppty */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/oppty
+   */
   createOrUpdateOppty1?: Maybe<OpptyDTO>;
-  /** Equivalent to POST /usales/oppty/teams */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/oppty/teams
+   */
   createOrUpdateOpptyTeam?: Maybe<OpptyTeamResponseDTO>;
-  /** Equivalent to PUT /usales/preferences */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/preferences
+   */
   createOrUpdatePreference?: Maybe<UserUiPreferenceResponseDto>;
-  /** Equivalent to POST /usales/empathy-moment-recommendation */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/empathy-moment-recommendation
+   */
   createOrUpdateRecommendation?: Maybe<EmpathyMomentRecommendationDTO>;
-  /** Equivalent to POST /usales/users */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/users
+   */
   createOrUpdateUser?: Maybe<User>;
-  /** Equivalent to DELETE /usales/zoommeetingwhitelist */
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/zoommeetingwhitelist
+   */
   delete?: Maybe<Scalars['JSON']>;
-  /** Equivalent to DELETE /usales/emleqs/{id} */
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/emleqs/{id}
+   */
   delete1?: Maybe<Scalars['JSON']>;
-  /** Equivalent to DELETE /usales/custweblinks/{id} */
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/custweblinks/{id}
+   */
   delete2?: Maybe<Scalars['JSON']>;
-  /** Equivalent to DELETE /usales/conv-topic-episodes/{id} */
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/conv-topic-episodes/{id}
+   */
   delete3?: Maybe<Scalars['JSON']>;
-  /** Equivalent to DELETE /usales/comments/{id} */
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/comments/{id}
+   */
   delete4?: Maybe<Scalars['JSON']>;
-  /** Equivalent to DELETE /usales/bookmarks/{id} */
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/bookmarks/{id}
+   */
   delete5?: Maybe<Scalars['JSON']>;
-  /** Equivalent to DELETE /usales/alerts/{id} */
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/alerts/{id}
+   */
   delete6?: Maybe<Scalars['JSON']>;
-  /** Equivalent to PUT /usales/playlists/delete-media-clip-rel */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/playlists/delete-media-clip-rel
+   */
   deletePlaylistMediaClipRel?: Maybe<Scalars['JSON']>;
-  /** Equivalent to DELETE /usales/keyword/tags */
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/keyword/tags
+   */
   deleteTags?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/keyword/keyphrase/custom/trending */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/keyphrase/custom/trending
+   */
   findCustomKeyphraseTrendingTopicCount?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/oppty/{id}/details */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/oppty/{id}/details
+   */
   findDealDetailsByMode?: Maybe<DealSummaryDetailResponse>;
-  /** Equivalent to POST /usales/keyword/keyphrase/trending */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/keyphrase/trending
+   */
   findKeyphraseTrendingTopicCount?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/timeline/generate/{conv_id} */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/timeline/generate/{conv_id}
+   */
   generateTimeline?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/teams/usersstat */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/teams/usersstat
+   */
   getAccountTeamsUsersStats?: Maybe<Array<Maybe<TeamUsersStat>>>;
-  /** Equivalent to POST /usales/teams/account/userstat */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/teams/account/userstat
+   */
   getAccountUsersStat?: Maybe<Array<Maybe<TeamAccountUsersStat>>>;
-  /** Equivalent to POST /usales/analytics/usage/active-users */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/usage/active-users
+   */
   getAllActiveUsers?: Maybe<Array<Maybe<QUsageUserPageVisitDto>>>;
-  /** Equivalent to POST /usales/teams/userstat */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/teams/userstat
+   */
   getAllTeamsUserStats?: Maybe<Array<Maybe<TeamsAccountOpptyUsersStat>>>;
-  /** Equivalent to POST /usales/company/assessments */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/company/assessments
+   */
   getAssessmentByCompany?: Maybe<Scalars['String']>;
-  /** Equivalent to POST /usales/users/assessments */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/users/assessments
+   */
   getAssessments?: Maybe<Scalars['JSON']>;
-  /** Equivalent to PUT /usales/convs/meeting-attendee */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/convs/meeting-attendee
+   */
   getAttendeeByMeetingTranscript?: Maybe<Array<Maybe<Scalars['String']>>>;
-  /** Equivalent to POST /auth/outlook/callback */
+  /**
+   *
+   *
+   * Equivalent to POST /auth/outlook/callback
+   */
   getAuthCodeAndGenerateToken?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /auth/social */
+  /**
+   *
+   *
+   * Equivalent to POST /auth/social
+   */
   getAuthUrl?: Maybe<Scalars['String']>;
-  /** Equivalent to POST /auth/outlook */
+  /**
+   *
+   *
+   * Equivalent to POST /auth/outlook
+   */
   getAuthUrl1?: Maybe<Scalars['String']>;
-  /** Equivalent to POST /auth/google */
+  /**
+   *
+   *
+   * Equivalent to POST /auth/google
+   */
   getAuthUrl2?: Maybe<Scalars['String']>;
-  /** Equivalent to POST /usales/analytics/customer-pulse/closed-deals */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/customer-pulse/closed-deals
+   */
   getClosedDealDetails?: Maybe<Array<Maybe<AnalyticsCustomerPulseDealResponse>>>;
-  /** Equivalent to POST /usales/analytics/company/deals */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/company/deals
+   */
   getCompanyDeals?: Maybe<DealDetailResponse>;
-  /** Equivalent to POST /usales/account-oppty-eq/company */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/account-oppty-eq/company
+   */
   getCompanyDealsEQOnRiskScale?: Maybe<Array<Maybe<AccountOpptyEQResponseDTO>>>;
-  /** Equivalent to POST /usales/analytics/usage/meetingstat */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/usage/meetingstat
+   */
   getCompanyMeetingStats?: Maybe<OverallMeetingStatsResponse>;
-  /** Equivalent to POST /usales/company-params */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/company-params
+   */
   getCompanyParams?: Maybe<Array<Maybe<CompanyParamResponseDTO>>>;
-  /** Equivalent to POST /usales/analytics/usage/companystat */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/usage/companystat
+   */
   getCompanyQUsage?: Maybe<OverallQUsageResponse>;
-  /** Equivalent to POST /usales/analytics/contacts */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/contacts
+   */
   getContacts?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/accounts/{id}/activities */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/accounts/{id}/activities
+   */
   getConversationByAccount?: Maybe<AccountActivityResponseDTO>;
-  /** Equivalent to POST /usales/convs/userstat */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/userstat
+   */
   getConversationUserStat?: Maybe<ConvUserStatDTO>;
-  /** Equivalent to POST /usales/analytics/customer-pulse */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/customer-pulse
+   */
   getCustomerPulse?: Maybe<DealSellerPerformanceResponse>;
-  /** Equivalent to POST /usales/oppty/{id}/activities */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/oppty/{id}/activities
+   */
   getDealActivities?: Maybe<Array<Maybe<DealActivitiesSummaryResponse>>>;
-  /** Equivalent to POST /usales/accounts/deals */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/accounts/deals
+   */
   getDealCountByAccounts?: Maybe<Array<Maybe<AccountDealResponse>>>;
-  /** Equivalent to POST /usales/account-oppty-eq */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/account-oppty-eq
+   */
   getDealEQOnRiskScale?: Maybe<Array<Maybe<AccountOpptyEQResponseDTO>>>;
-  /** Equivalent to POST /usales/oppty/topics */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/oppty/topics
+   */
   getDealTopics?: Maybe<DealTopicCoverageResponse>;
-  /** Equivalent to POST /usales/deals */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/deals
+   */
   getDeals?: Maybe<DealDetailResponse>;
-  /** Equivalent to POST /usales/emails/{emlObjId} */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/emails/{emlObjId}
+   */
   getEmailByEmlObjId?: Maybe<EmlResponseDTO>;
-  /** Equivalent to POST /usales/emails */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/emails
+   */
   getEmails?: Maybe<Array<Maybe<EmlResponseDTO>>>;
-  /** Equivalent to POST /usales/empathyandhesitationturns/getforuserandrange */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/empathyandhesitationturns/getforuserandrange
+   */
   getEmpathyAndHesitationTurns?: Maybe<EmpathyAndHesitationTurnsReportForConvList>;
-  /** Equivalent to POST /usales/preferences/favorite-meeting */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/preferences/favorite-meeting
+   */
   getFavoriteMeeting?: Maybe<UserUiPreferenceResponseDto>;
-  /** Equivalent to POST /usales/analytics/usage/invited-users */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/usage/invited-users
+   */
   getInvitedUsers?: Maybe<Array<Maybe<User>>>;
-  /** Equivalent to POST /usales/convs/lastmeeting */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/lastmeeting
+   */
   getLastMeeting?: Maybe<Array<Maybe<ConversationRequest>>>;
-  /** Equivalent to POST /usales/mediaclip/search/count */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/mediaclip/search/count
+   */
   getMediaClipCount?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/mediaclip/stats */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/mediaclip/stats
+   */
   getMediaClipStats?: Maybe<MediaClipStatsResponseDTO>;
-  /** Equivalent to POST /usales/analytics/usage/meetings */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/usage/meetings
+   */
   getMeetingListBasedOnType?: Maybe<Array<Maybe<ConversationRequest>>>;
-  /** Equivalent to POST /usales/analytics/meeting/sentiments */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/meeting/sentiments
+   */
   getMeetingSentiments?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/users/meetings/sharedwithme */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/users/meetings/sharedwithme
+   */
   getMeetingsSharedWithUser?: Maybe<AdvSearchResponse>;
-  /** Equivalent to POST /usales/convs/{id}/keyword/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/{id}/keyword/search
+   */
   getMomentsHavingKeyword?: Maybe<ConversationKeywordSearchResponse>;
-  /** Equivalent to POST /usales/analytics/keytopics/popular */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/keytopics/popular
+   */
   getMostPopularKeymoments?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/analytics/meeting/most-shared */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/meeting/most-shared
+   */
   getMostSharedMeetings?: Maybe<Array<Maybe<MostSharedConvAttr>>>;
-  /** Equivalent to POST /usales/analytics/meeting/mostviewed */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/meeting/mostviewed
+   */
   getMostViewedMeeting?: Maybe<Array<Maybe<MostViewedConvAttr>>>;
-  /** Equivalent to POST /usales/teams/oppty/userstat */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/teams/oppty/userstat
+   */
   getOpptyUsersStat?: Maybe<TeamOpptyUsersStats>;
-  /** Equivalent to POST /usales/playlists/stats */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/playlists/stats
+   */
   getPlaylistStats?: Maybe<PlaylistStatsResponseDTO>;
-  /** Equivalent to POST /usales/playlists/search/count */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/playlists/search/count
+   */
   getPlaylistsCount?: Maybe<Scalars['JSON']>;
-  /** Equivalent to DELETE /usales/playlists/{id} */
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/playlists/{id}
+   */
   getPlaylistsCount1?: Maybe<Scalars['JSON']>;
-  /** Equivalent to DELETE /usales/mediaclip/{id} */
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/mediaclip/{id}
+   */
   getPlaylistsCount2?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/analytics/sellereq */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/sellereq
+   */
   getSellerEQ?: Maybe<DealSellerPerformanceResponse>;
-  /** Equivalent to POST /usales/configprops */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/configprops
+   */
   getSystemProps?: Maybe<Array<Maybe<ConfigPropResponseDTO>>>;
-  /** Equivalent to POST /usales/analytics/usage/page-visits */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/usage/page-visits
+   */
   getTopPageVisitDetails?: Maybe<Array<Maybe<PageVisitsDto>>>;
-  /** Equivalent to POST /usales/analytics/users/calldetails */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/users/calldetails
+   */
   getUserCallMetr?: Maybe<Scalars['String']>;
-  /** Equivalent to POST /usales/analytics/users/callmetrics */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/users/callmetrics
+   */
   getUserCallMetrics?: Maybe<Scalars['String']>;
-  /** Equivalent to POST /usales/analytics/usage/users-auth */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/usage/users-auth
+   */
   getUsersAuth?: Maybe<Array<Maybe<User>>>;
-  /** Equivalent to POST /usales/teams/convostat */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/teams/convostat
+   */
   getUsersConvoStat?: Maybe<Array<Maybe<TeamUsersStat>>>;
-  /** Equivalent to POST /usales/keyword/keyphrase/topic/count */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/keyphrase/topic/count
+   */
   keyPhras1eOccurences?: Maybe<Array<Maybe<KeyphraseTotalCountAttrDTO>>>;
-  /** Equivalent to POST /usales/keyword/keyphrase/occurences */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/keyphrase/occurences
+   */
   keyPhraseOccurences?: Maybe<Array<Maybe<KeyPhraseOccurenceResponseDTO>>>;
-  /** Equivalent to POST /auth/logout */
+  /**
+   *
+   *
+   * Equivalent to POST /auth/logout
+   */
   logout?: Maybe<Scalars['String']>;
-  /** Equivalent to POST /v1/transcript/populate */
+  /**
+   *
+   *
+   * Equivalent to POST /v1/transcript/populate
+   */
   populate?: Maybe<Scalars['String']>;
-  /** Equivalent to POST /usales/mindtickle/query */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/mindtickle/query
+   */
   postDataByUri?: Maybe<Scalars['String']>;
-  /** Equivalent to PUT /usales/keyword/keyphrases */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/keyword/keyphrases
+   */
   resetKeyPhrases?: Maybe<Scalars['String']>;
-  /** Equivalent to POST /auth/users/details */
+  /**
+   *
+   *
+   * Equivalent to POST /auth/users/details
+   */
   revoke?: Maybe<Array<Maybe<User>>>;
-  /** Equivalent to POST /auth/revoke/{provider} */
+  /**
+   *
+   *
+   * Equivalent to POST /auth/revoke/{provider}
+   */
   revoke1?: Maybe<Array<Maybe<Scalars['String']>>>;
-  /** Equivalent to POST /usales/meeting/custom-disclaimer */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/meeting/custom-disclaimer
+   */
   saveMessage?: Maybe<Scalars['String']>;
-  /** Equivalent to POST /cspviolations */
+  /**
+   *
+   *
+   * Equivalent to POST /cspviolations
+   */
   saveReport?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /v1/transcript/search */
+  /**
+   *
+   *
+   * Equivalent to POST /v1/transcript/search
+   */
   search?: Maybe<Scalars['String']>;
-  /** Equivalent to POST /usales/zoommeetingwhitelist/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/zoommeetingwhitelist/search
+   */
   search1?: Maybe<Array<Maybe<ZoomMeetingWhitelistDTO>>>;
-  /** Equivalent to POST /usales/playlists/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/playlists/search
+   */
   search2?: Maybe<Array<Maybe<PlaylistResponseDTO>>>;
-  /** Equivalent to POST /usales/mediaclip/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/mediaclip/search
+   */
   search3?: Maybe<Array<Maybe<MediaClipResponseDTO>>>;
-  /** Equivalent to POST /usales/keymoments/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keymoments/search
+   */
   search4?: Maybe<KeyMomentResponseDTO>;
-  /** Equivalent to POST /usales/emails/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/emails/search
+   */
   search5?: Maybe<Array<Maybe<EmlResponseDTO>>>;
-  /** Equivalent to POST /usales/custweblinks/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/custweblinks/search
+   */
   search6?: Maybe<Array<Maybe<CustWebLinkResponseDTO>>>;
-  /** Equivalent to POST /usales/convs/promise/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/promise/search
+   */
   search7?: Maybe<Array<Maybe<ConvPromiseResponseDTO>>>;
-  /** Equivalent to POST /usales/conv-topic-episodes/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/conv-topic-episodes/search
+   */
   search8?: Maybe<Array<Maybe<ConvTopicEpisodeResponseDTO>>>;
-  /** Equivalent to POST /usales/comments/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/comments/search
+   */
   search9?: Maybe<Array<Maybe<CommentResponseDTO>>>;
-  /** Equivalent to POST /usales/contacts/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/contacts/search
+   */
   searchAccountAndContact?: Maybe<AccountContactSearchResponse>;
-  /** Equivalent to POST /usales/contacts/search/count */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/contacts/search/count
+   */
   searchAccountAndContactCount?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/accounts/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/accounts/search
+   */
   searchAccounts?: Maybe<Array<Maybe<AccountResponseDTO>>>;
-  /** Equivalent to POST /usales/accounts/search/count */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/accounts/search/count
+   */
   searchAccountsCount?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/alerts/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/alerts/search
+   */
   searchAlerts?: Maybe<Array<Maybe<AlertResponseDTO>>>;
-  /** Equivalent to POST /usales/contact/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/contact/search
+   */
   searchContact?: Maybe<Array<Maybe<ContactSearchResponseDTO>>>;
-  /** Equivalent to POST /usales/emails/search-summary */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/emails/search-summary
+   */
   searchEmailSummary?: Maybe<Array<Maybe<EmailSummaryResponseDTO>>>;
-  /** Equivalent to POST /usales/events/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/events/search
+   */
   searchEvents?: Maybe<CalenderEventSearchResponse>;
-  /** Equivalent to POST /usales/events/search/count */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/events/search/count
+   */
   searchEventsCount?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/keyword/categ/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/categ/search
+   */
   searchKeywordCateg?: Maybe<Array<Maybe<KeywordCategResponseDTO>>>;
-  /** Equivalent to POST /usales/keyword/categ/search/count */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/categ/search/count
+   */
   searchKeywordCategCount?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/keyword/categ/search/notags */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/categ/search/notags
+   */
   searchKeywordCategWithoutTags?: Maybe<Array<Maybe<KeywordCategResponseDTO>>>;
-  /** Equivalent to POST /usales/keyword/tag/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/tag/search
+   */
   searchKeywordTag?: Maybe<Array<Maybe<KeywordTagResponseDTO>>>;
-  /** Equivalent to POST /usales/keyword/tag/search/count */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/tag/search/count
+   */
   searchKeywordTagCount?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/advSearch */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/advSearch
+   */
   searchMeetings?: Maybe<AdvSearchResponse>;
-  /** Equivalent to POST /usales/search/meetings */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/search/meetings
+   */
   searchMeetingsByAccountOrOppty?: Maybe<AdvSearchResponse>;
-  /** Equivalent to POST /usales/advSearch/count */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/advSearch/count
+   */
   searchMeetingsCount?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/empathy-moment-recommendation/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/empathy-moment-recommendation/search
+   */
   searchMoments?: Maybe<EmpathyChangeMomentResponseDTO>;
-  /** Equivalent to POST /usales/preferences/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/preferences/search
+   */
   searchPreference?: Maybe<Array<Maybe<UserUiPreferenceResponseDto>>>;
-  /** Equivalent to POST /usales/emails/team-activity */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/emails/team-activity
+   */
   searchTeamActivity?: Maybe<TeamEmailActivityResponseDTO>;
-  /** Equivalent to POST /usales/users/search */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/users/search
+   */
   searchUsers?: Maybe<Array<Maybe<User>>>;
-  /** Equivalent to PUT /usales/companyprofile/keyword-categ-select */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/companyprofile/keyword-categ-select
+   */
   selectCompanyKeywordCategory?: Maybe<Scalars['String']>;
-  /** Equivalent to POST /slack/sendmessage */
+  /**
+   *
+   *
+   * Equivalent to POST /slack/sendmessage
+   */
   sendMessage?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/shares/share-clip-external */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/shares/share-clip-external
+   */
   shareClipExternalUser?: Maybe<Scalars['String']>;
-  /** Equivalent to POST /usales/shares/share-meeting-external */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/shares/share-meeting-external
+   */
   shareMeetingExternalUser?: Maybe<Scalars['String']>;
-  /** Equivalent to POST /usales/shares/share-meeting-internal/{type} */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/shares/share-meeting-internal/{type}
+   */
   shareMeetingInternalUser?: Maybe<Scalars['String']>;
-  /** Equivalent to POST /usales/shares/playlist */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/shares/playlist
+   */
   sharePlaylist?: Maybe<Scalars['String']>;
-  /** Equivalent to POST /usales/emails/threadcount */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/emails/threadcount
+   */
   threadCount?: Maybe<Array<Maybe<ThreadCountResponse>>>;
-  /** Equivalent to PUT /usales/companyprofile/access-consent */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/companyprofile/access-consent
+   */
   updateAccessConsent?: Maybe<Scalars['String']>;
-  /** Equivalent to PUT /usales/account-oppty-eq */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/account-oppty-eq
+   */
   updateAccountOpptyEQ?: Maybe<Scalars['String']>;
-  /** Equivalent to PUT /usales/account-oppty-eq-1 */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/account-oppty-eq-1
+   */
   updateAccountOpptyEQ1?: Maybe<Scalars['String']>;
-  /** Equivalent to PUT /usales/alerts */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/alerts
+   */
   updateAlert?: Maybe<AlertResponseDTO>;
-  /** Equivalent to PUT /usales/events */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/events
+   */
   updateCalendarEvent?: Maybe<CalendarEvent>;
-  /** Equivalent to PUT /usales/conv-topic-episodes */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/conv-topic-episodes
+   */
   updateConvTopicEpisode?: Maybe<ConvTopicEpisodeResponseDTO>;
-  /** Equivalent to PUT /usales/convs */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/convs
+   */
   updateConversation?: Maybe<ConversationRequest>;
-  /** Equivalent to PUT /usales/emleqs */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/emleqs
+   */
   updateEmlEq?: Maybe<EmlEqResponseDTO>;
-  /** Equivalent to PUT /usales/keymoments */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/keymoments
+   */
   updateKeyMoment?: Maybe<ConvKeyMomentResponseDTO>;
-  /** Equivalent to PUT /usales/playlists/media-clip-rel */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/playlists/media-clip-rel
+   */
   updatePlaylistMediaClipRel?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/users/enable */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/users/enable
+   */
   updateQDetails?: Maybe<Scalars['JSON']>;
-  /** Equivalent to PUT /usales/keyword/tag/update-status */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/keyword/tag/update-status
+   */
   updateStatusByIds?: Maybe<Scalars['JSON']>;
-  /** Equivalent to PUT /auth/teams */
+  /**
+   *
+   *
+   * Equivalent to PUT /auth/teams
+   */
   updateTeamAccess?: Maybe<Scalars['String']>;
-  /** Equivalent to POST /usales/users/{managerId}/team */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/users/{managerId}/team
+   */
   updateTeamMembersManagerDetails?: Maybe<Array<Maybe<User>>>;
-  /** Equivalent to POST /usales/users/proxy */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/users/proxy
+   */
   updateUserProxy?: Maybe<UserDelegateResponseDTO>;
-  /** Equivalent to PUT /usales/zoommeetingwhitelist/invoke-bot */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/zoommeetingwhitelist/invoke-bot
+   */
   updateZoomMeetingInvokeBot?: Maybe<Scalars['JSON']>;
-  /** Equivalent to PUT /usales/zoommeetingwhitelist/update */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/zoommeetingwhitelist/update
+   */
   updateZoomMeetingWhitelist?: Maybe<Scalars['String']>;
-  /** Equivalent to PUT /usales/convs/external-meeting */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/convs/external-meeting
+   */
   uploadExternalMeeting?: Maybe<Scalars['JSON']>;
-  /** Equivalent to POST /usales/playlists */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/playlists
+   */
   upsert?: Maybe<PlaylistResponseDTO>;
-  /** Equivalent to POST /usales/playlist/param */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/playlist/param
+   */
   upsert1?: Maybe<PlaylistParamResponseDTO>;
-  /** Equivalent to POST /usales/mediaclip */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/mediaclip
+   */
   upsert2?: Maybe<MediaClipResponseDTO>;
-  /** Equivalent to POST /usales/mediaClip/param */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/mediaClip/param
+   */
   upsert3?: Maybe<MediaClipParamResponseDTO>;
-  /** Equivalent to POST /usales/convs/promise */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/promise
+   */
   upsert4?: Maybe<ConvPromiseResponseDTO>;
-  /** Equivalent to POST /usales/convs/param */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/param
+   */
   upsert5?: Maybe<ConvParamResponseDTO>;
-  /** Equivalent to PUT /usales/company-param */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/company-param
+   */
   upsertCompanyParam?: Maybe<CompanyParamResponseDTO>;
-  /** Equivalent to POST /usales/companyprofile */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/companyprofile
+   */
   upsertCompanyProfile?: Maybe<CompanyProfileDTO>;
-  /** Equivalent to POST /usales/companyprofile/businesscategs */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/companyprofile/businesscategs
+   */
   upsertCompanyProfileWithKeywordCategRel?: Maybe<CompanyProfileKeywordCategRelDTO>;
-  /** Equivalent to PUT /usales/configprops */
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/configprops
+   */
   upsertConfigProp?: Maybe<ConfigPropResponseDTO>;
-  /** Equivalent to POST /usales/convs/{convId}/viewed */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/{convId}/viewed
+   */
   upsertExternal?: Maybe<ConvParamResponseDTO>;
-  /** Equivalent to POST /usales/playlist/param/last-viewed */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/playlist/param/last-viewed
+   */
   upsertLastViewed?: Maybe<Array<Maybe<PlaylistParamResponseDTO>>>;
-  /** Equivalent to POST /usales/mediaClip/param/last-viewed */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/mediaClip/param/last-viewed
+   */
   upsertLastViewed1?: Maybe<Array<Maybe<MediaClipParamResponseDTO>>>;
-  /** Equivalent to POST /usales/convs/param/last-viewed */
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/param/last-viewed
+   */
   upsertLastViewed2?: Maybe<ConvParamResponseDTO>;
 };
 
 
 export type MutationaddBulkPlaylistMediaClipRelArgs = {
-  usalesPlaylistsMediaClipRelBulkInput: Array<Maybe<PlaylistMediaClipRelRequestDTOInput>>;
+  usalesPlaylistsMediaClipRelBulkInput: Array<InputMaybe<PlaylistMediaClipRelRequestDTOInput>>;
 };
 
 
@@ -2957,7 +4075,7 @@ export type MutationauthenticateUser2Args = {
 
 export type MutationcompanyKeyPhraseOccurrencesArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -3067,7 +4185,7 @@ export type MutationcreateOrUpdateUserArgs = {
 
 
 export type MutationdeleteArgs = {
-  usalesZoommeetingwhitelistInput: Array<Maybe<Scalars['String']>>;
+  usalesZoommeetingwhitelistInput: Array<InputMaybe<Scalars['String']>>;
 };
 
 
@@ -3102,7 +4220,7 @@ export type Mutationdelete6Args = {
 
 
 export type MutationdeletePlaylistMediaClipRelArgs = {
-  usalesPlaylistsDeleteMediaClipRelInput: Array<Maybe<PlaylistMediaClipRelRequestDTOInput>>;
+  usalesPlaylistsDeleteMediaClipRelInput: Array<InputMaybe<PlaylistMediaClipRelRequestDTOInput>>;
 };
 
 
@@ -3119,8 +4237,8 @@ export type MutationfindCustomKeyphraseTrendingTopicCountArgs = {
 export type MutationfindDealDetailsByModeArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
   id: Scalars['Float'];
-  mode?: Maybe<Scalars['String']>;
-  tz?: Maybe<Scalars['String']>;
+  mode?: InputMaybe<Scalars['String']>;
+  tz?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -3136,25 +4254,25 @@ export type MutationgenerateTimelineArgs = {
 
 export type MutationgetAccountTeamsUsersStatsArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type MutationgetAccountUsersStatArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type MutationgetAllActiveUsersArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type MutationgetAllTeamsUserStatsArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -3169,7 +4287,7 @@ export type MutationgetAssessmentsArgs = {
 
 
 export type MutationgetAttendeeByMeetingTranscriptArgs = {
-  usalesConvsMeetingAttendeeInput?: Maybe<UsalesConvsMeetingAttendeeInput>;
+  usalesConvsMeetingAttendeeInput?: InputMaybe<UsalesConvsMeetingAttendeeInput>;
 };
 
 
@@ -3197,7 +4315,7 @@ export type MutationgetAuthUrl2Args = {
 
 export type MutationgetClosedDealDetailsArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -3208,7 +4326,7 @@ export type MutationgetCompanyDealsArgs = {
 
 export type MutationgetCompanyDealsEQOnRiskScaleArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -3218,8 +4336,8 @@ export type MutationgetCompanyMeetingStatsArgs = {
 
 
 export type MutationgetCompanyParamsArgs = {
-  limit?: Maybe<Scalars['Int']>;
-  usalesCompanyParams2Input: Array<Maybe<Scalars['String']>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  usalesCompanyParams2Input: Array<InputMaybe<Scalars['String']>>;
 };
 
 
@@ -3252,19 +4370,19 @@ export type MutationgetCustomerPulseArgs = {
 export type MutationgetDealActivitiesArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
   id: Scalars['Float'];
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type MutationgetDealCountByAccountsArgs = {
   accountDealRequestInput: AccountDealRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type MutationgetDealEQOnRiskScaleArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -3284,7 +4402,7 @@ export type MutationgetEmailByEmlObjIdArgs = {
 
 
 export type MutationgetEmailsArgs = {
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
   usalesEmailsInput: Scalars['JSON'];
 };
 
@@ -3301,13 +4419,13 @@ export type MutationgetFavoriteMeetingArgs = {
 
 export type MutationgetInvitedUsersArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type MutationgetLastMeetingArgs = {
-  limit?: Maybe<Scalars['Int']>;
-  usalesConvsLastmeetingInput: Array<Maybe<Scalars['Float']>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  usalesConvsLastmeetingInput: Array<InputMaybe<Scalars['Float']>>;
 };
 
 
@@ -3323,7 +4441,7 @@ export type MutationgetMediaClipStatsArgs = {
 
 export type MutationgetMeetingListBasedOnTypeArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -3350,13 +4468,13 @@ export type MutationgetMostPopularKeymomentsArgs = {
 
 export type MutationgetMostSharedMeetingsArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type MutationgetMostViewedMeetingArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -3391,14 +4509,14 @@ export type MutationgetSellerEQArgs = {
 
 
 export type MutationgetSystemPropsArgs = {
-  limit?: Maybe<Scalars['Int']>;
-  usalesConfigprops2Input: Array<Maybe<Scalars['String']>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  usalesConfigprops2Input: Array<InputMaybe<Scalars['String']>>;
 };
 
 
 export type MutationgetTopPageVisitDetailsArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -3414,31 +4532,31 @@ export type MutationgetUserCallMetricsArgs = {
 
 export type MutationgetUsersAuthArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type MutationgetUsersConvoStatArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type MutationkeyPhras1eOccurencesArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type MutationkeyPhraseOccurencesArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type MutationpopulateArgs = {
   eSPopulateRequestInput: ESPopulateRequestInput;
-  pegasusJobKey?: Maybe<Scalars['String']>;
+  pegasusJobKey?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -3448,13 +4566,13 @@ export type MutationpostDataByUriArgs = {
 
 
 export type MutationrevokeArgs = {
-  authUsersDetailsInput: Array<Maybe<Scalars['Float']>>;
-  limit?: Maybe<Scalars['Int']>;
+  authUsersDetailsInput: Array<InputMaybe<Scalars['Float']>>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type Mutationrevoke1Args = {
-  authRevoke2Input: Array<Maybe<Scalars['Float']>>;
+  authRevoke2Input: Array<InputMaybe<Scalars['Float']>>;
   provider: Scalars['String'];
 };
 
@@ -3476,19 +4594,19 @@ export type MutationsearchArgs = {
 
 export type Mutationsearch1Args = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type Mutationsearch2Args = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type Mutationsearch3Args = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -3499,31 +4617,31 @@ export type Mutationsearch4Args = {
 
 export type Mutationsearch5Args = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type Mutationsearch6Args = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type Mutationsearch7Args = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type Mutationsearch8Args = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type Mutationsearch9Args = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -3539,7 +4657,7 @@ export type MutationsearchAccountAndContactCountArgs = {
 
 export type MutationsearchAccountsArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -3550,19 +4668,19 @@ export type MutationsearchAccountsCountArgs = {
 
 export type MutationsearchAlertsArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type MutationsearchContactArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type MutationsearchEmailSummaryArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -3578,7 +4696,7 @@ export type MutationsearchEventsCountArgs = {
 
 export type MutationsearchKeywordCategArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -3589,13 +4707,13 @@ export type MutationsearchKeywordCategCountArgs = {
 
 export type MutationsearchKeywordCategWithoutTagsArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type MutationsearchKeywordTagArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -3626,7 +4744,7 @@ export type MutationsearchMomentsArgs = {
 
 export type MutationsearchPreferenceArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -3637,7 +4755,7 @@ export type MutationsearchTeamActivityArgs = {
 
 export type MutationsearchUsersArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -3674,7 +4792,7 @@ export type MutationsharePlaylistArgs = {
 
 export type MutationthreadCountArgs = {
   advSearchRequestInput: AdvSearchRequestInput;
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -3684,7 +4802,7 @@ export type MutationupdateAccessConsentArgs = {
 
 
 export type MutationupdateAccountOpptyEQArgs = {
-  pegasusJobKey?: Maybe<Scalars['String']>;
+  pegasusJobKey?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -3724,8 +4842,8 @@ export type MutationupdatePlaylistMediaClipRelArgs = {
 
 
 export type MutationupdateQDetailsArgs = {
-  all?: Maybe<Scalars['Boolean']>;
-  usalesUsersEnableInput?: Maybe<Array<Maybe<UserRequestDTOInput>>>;
+  all?: InputMaybe<Scalars['Boolean']>;
+  usalesUsersEnableInput?: InputMaybe<Array<InputMaybe<UserRequestDTOInput>>>;
 };
 
 
@@ -3740,9 +4858,9 @@ export type MutationupdateTeamAccessArgs = {
 
 
 export type MutationupdateTeamMembersManagerDetailsArgs = {
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
   managerId: Scalars['Float'];
-  usalesUserTeamInput: Array<Maybe<Scalars['Float']>>;
+  usalesUserTeamInput: Array<InputMaybe<Scalars['Float']>>;
 };
 
 
@@ -3757,7 +4875,7 @@ export type MutationupdateZoomMeetingInvokeBotArgs = {
 
 
 export type MutationuploadExternalMeetingArgs = {
-  usalesConvsExternalMeetingInput?: Maybe<UsalesConvsExternalMeetingInput>;
+  usalesConvsExternalMeetingInput?: InputMaybe<UsalesConvsExternalMeetingInput>;
 };
 
 
@@ -3817,13 +4935,13 @@ export type MutationupsertExternalArgs = {
 
 
 export type MutationupsertLastViewedArgs = {
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
   playlistParamRequestDTOInput: PlaylistParamRequestDTOInput;
 };
 
 
 export type MutationupsertLastViewed1Args = {
-  limit?: Maybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
   mediaClipParamRequestDTOInput: MediaClipParamRequestDTOInput;
 };
 
@@ -3833,10 +4951,10 @@ export type MutationupsertLastViewed2Args = {
 };
 
 export type PlaylistMediaClipRelRequestDTOInput = {
-  mediaClipId?: Maybe<Scalars['Float']>;
-  mediaClipRelId?: Maybe<Scalars['Float']>;
-  playlistId?: Maybe<Scalars['Float']>;
-  pos?: Maybe<Scalars['Int']>;
+  mediaClipId?: InputMaybe<Scalars['Float']>;
+  mediaClipRelId?: InputMaybe<Scalars['Float']>;
+  playlistId?: InputMaybe<Scalars['Float']>;
+  pos?: InputMaybe<Scalars['Int']>;
 };
 
 export type LoginRequestInput = {
@@ -3855,183 +4973,183 @@ export type KeyPhraseOccurenceContentResponseDTO = {
 };
 
 export type AdvSearchRequestInput = {
-  criteria?: Maybe<Array<Maybe<CriterionInput>>>;
-  durationFlag?: Maybe<Scalars['String']>;
-  entity?: Maybe<Scalars['String']>;
-  pagination?: Maybe<PaginationInput>;
-  searchString?: Maybe<Scalars['String']>;
-  sort?: Maybe<SortInput>;
+  criteria?: InputMaybe<Array<InputMaybe<CriterionInput>>>;
+  durationFlag?: InputMaybe<Scalars['String']>;
+  entity?: InputMaybe<Scalars['String']>;
+  pagination?: InputMaybe<PaginationInput>;
+  searchString?: InputMaybe<Scalars['String']>;
+  sort?: InputMaybe<SortInput>;
 };
 
 export type CriterionInput = {
-  name?: Maybe<Scalars['String']>;
-  operator?: Maybe<Scalars['String']>;
-  value?: Maybe<Scalars['String']>;
-  valueType?: Maybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  operator?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
+  valueType?: InputMaybe<Scalars['String']>;
 };
 
 export type PaginationInput = {
-  page?: Maybe<Scalars['Int']>;
-  size?: Maybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
+  size?: InputMaybe<Scalars['Int']>;
 };
 
 export type SortInput = {
-  asc?: Maybe<Scalars['Boolean']>;
-  name?: Maybe<Scalars['String']>;
+  asc?: InputMaybe<Scalars['Boolean']>;
+  name?: InputMaybe<Scalars['String']>;
 };
 
 export type UsalesTimelineInput = {
-  timeline?: Maybe<Array<Maybe<TimelineDataInput>>>;
+  timeline?: InputMaybe<Array<InputMaybe<TimelineDataInput>>>;
 };
 
 export type TimelineDataInput = {
-  ts?: Maybe<Scalars['Float']>;
-  users?: Maybe<Array<Maybe<UserInput>>>;
+  ts?: InputMaybe<Scalars['Float']>;
+  users?: InputMaybe<Array<InputMaybe<UserInput>>>;
 };
 
 export type UserInput = {
-  companyProfileDTO?: Maybe<CompanyProfileDTOInput>;
-  email?: Maybe<Scalars['String']>;
-  expired?: Maybe<Scalars['Boolean']>;
-  externalIdToken?: Maybe<Array<Maybe<Scalars['JSON']>>>;
-  firstTimeLogin?: Maybe<Scalars['Boolean']>;
-  firstname?: Maybe<Scalars['String']>;
-  fullname?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  invited?: Maybe<Scalars['Boolean']>;
-  invitedAt?: Maybe<Scalars['String']>;
-  isBlueJeansAuthorized?: Maybe<Scalars['Boolean']>;
-  isCalendarAuthorized?: Maybe<Scalars['Boolean']>;
-  isEmailAuthorized?: Maybe<Scalars['Boolean']>;
-  isGmailAuthorized?: Maybe<Scalars['Boolean']>;
-  isGoogleCalendarAuthorized?: Maybe<Scalars['Boolean']>;
-  isOutlookAuthorized?: Maybe<Scalars['Boolean']>;
-  isOutlookCalendarAuthorized?: Maybe<Scalars['Boolean']>;
-  isPasswordResetRequired?: Maybe<Scalars['Boolean']>;
-  isPasswordSet?: Maybe<Scalars['Boolean']>;
-  isSlackAuthorized?: Maybe<Scalars['Boolean']>;
-  isSsoLogin?: Maybe<Scalars['Boolean']>;
-  isTeamAuthorized?: Maybe<Scalars['Boolean']>;
-  isWebexAuthorized?: Maybe<Scalars['Boolean']>;
-  isZoomAuthorized?: Maybe<Scalars['Boolean']>;
-  lastname?: Maybe<Scalars['String']>;
-  manager?: Maybe<UserManagerDTOInput>;
-  orgId?: Maybe<Scalars['Float']>;
-  orgType?: Maybe<Scalars['String']>;
-  qEnabled?: Maybe<Scalars['Boolean']>;
-  role?: Maybe<Array<Maybe<IdNameDTOInput>>>;
-  scopes?: Maybe<Scalars['String']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  userType?: Maybe<Scalars['String']>;
-  username?: Maybe<Scalars['String']>;
-  zoomToken?: Maybe<Scalars['String']>;
+  companyProfileDTO?: InputMaybe<CompanyProfileDTOInput>;
+  email?: InputMaybe<Scalars['String']>;
+  expired?: InputMaybe<Scalars['Boolean']>;
+  externalIdToken?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>;
+  firstTimeLogin?: InputMaybe<Scalars['Boolean']>;
+  firstname?: InputMaybe<Scalars['String']>;
+  fullname?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  invited?: InputMaybe<Scalars['Boolean']>;
+  invitedAt?: InputMaybe<Scalars['String']>;
+  isBlueJeansAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isCalendarAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isEmailAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isGmailAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isGoogleCalendarAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isOutlookAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isOutlookCalendarAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isPasswordResetRequired?: InputMaybe<Scalars['Boolean']>;
+  isPasswordSet?: InputMaybe<Scalars['Boolean']>;
+  isSlackAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isSsoLogin?: InputMaybe<Scalars['Boolean']>;
+  isTeamAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isWebexAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isZoomAuthorized?: InputMaybe<Scalars['Boolean']>;
+  lastname?: InputMaybe<Scalars['String']>;
+  manager?: InputMaybe<UserManagerDTOInput>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  orgType?: InputMaybe<Scalars['String']>;
+  qEnabled?: InputMaybe<Scalars['Boolean']>;
+  role?: InputMaybe<Array<InputMaybe<IdNameDTOInput>>>;
+  scopes?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  userType?: InputMaybe<Scalars['String']>;
+  username?: InputMaybe<Scalars['String']>;
+  zoomToken?: InputMaybe<Scalars['String']>;
 };
 
 export type CompanyProfileDTOInput = {
-  companyName?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  externalId?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  companyName?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  externalId?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
 };
 
 export type UserManagerDTOInput = {
-  email?: Maybe<Scalars['String']>;
-  firstname?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  lastname?: Maybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  firstname?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  lastname?: InputMaybe<Scalars['String']>;
 };
 
 export type IdNameDTOInput = {
-  id?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  name?: InputMaybe<Scalars['String']>;
 };
 
 export type AlertRequestDTOInput = {
-  archive?: Maybe<Scalars['Boolean']>;
-  description?: Maybe<Scalars['String']>;
-  exp?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  objId?: Maybe<Scalars['Float']>;
-  objSubId?: Maybe<Scalars['Float']>;
-  objType?: Maybe<Scalars['String']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  updateBy?: Maybe<Scalars['Float']>;
-  userId?: Maybe<Scalars['Float']>;
-  version?: Maybe<Scalars['String']>;
+  archive?: InputMaybe<Scalars['Boolean']>;
+  description?: InputMaybe<Scalars['String']>;
+  exp?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  objId?: InputMaybe<Scalars['Float']>;
+  objSubId?: InputMaybe<Scalars['Float']>;
+  objType?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  updateBy?: InputMaybe<Scalars['Float']>;
+  userId?: InputMaybe<Scalars['Float']>;
+  version?: InputMaybe<Scalars['String']>;
 };
 
 export type ConvTopicEpisodeRequestDTOInput = {
-  conversation?: Maybe<Scalars['Float']>;
-  endTime?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  insertBy?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  keytopicCount1?: Maybe<Scalars['Float']>;
-  keytopicCount2?: Maybe<Scalars['Float']>;
-  keytopicCount3?: Maybe<Scalars['Float']>;
-  keytopicCount4?: Maybe<Scalars['Float']>;
-  keytopicId1?: Maybe<Scalars['String']>;
-  keytopicId2?: Maybe<Scalars['String']>;
-  keytopicId3?: Maybe<Scalars['String']>;
-  keytopicId4?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  startTime?: Maybe<Scalars['Float']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  unsupervisedCount1?: Maybe<Scalars['Float']>;
-  unsupervisedCount2?: Maybe<Scalars['Float']>;
-  unsupervisedCount3?: Maybe<Scalars['Float']>;
-  unsupervisedCount4?: Maybe<Scalars['Float']>;
-  unsupervisedTopic1?: Maybe<Scalars['String']>;
-  unsupervisedTopic2?: Maybe<Scalars['String']>;
-  unsupervisedTopic3?: Maybe<Scalars['String']>;
-  unsupervisedTopic4?: Maybe<Scalars['String']>;
-  updateBy?: Maybe<Scalars['Float']>;
-  updateTime?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
+  conversation?: InputMaybe<Scalars['Float']>;
+  endTime?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertBy?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  keytopicCount1?: InputMaybe<Scalars['Float']>;
+  keytopicCount2?: InputMaybe<Scalars['Float']>;
+  keytopicCount3?: InputMaybe<Scalars['Float']>;
+  keytopicCount4?: InputMaybe<Scalars['Float']>;
+  keytopicId1?: InputMaybe<Scalars['String']>;
+  keytopicId2?: InputMaybe<Scalars['String']>;
+  keytopicId3?: InputMaybe<Scalars['String']>;
+  keytopicId4?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  startTime?: InputMaybe<Scalars['Float']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  unsupervisedCount1?: InputMaybe<Scalars['Float']>;
+  unsupervisedCount2?: InputMaybe<Scalars['Float']>;
+  unsupervisedCount3?: InputMaybe<Scalars['Float']>;
+  unsupervisedCount4?: InputMaybe<Scalars['Float']>;
+  unsupervisedTopic1?: InputMaybe<Scalars['String']>;
+  unsupervisedTopic2?: InputMaybe<Scalars['String']>;
+  unsupervisedTopic3?: InputMaybe<Scalars['String']>;
+  unsupervisedTopic4?: InputMaybe<Scalars['String']>;
+  updateBy?: InputMaybe<Scalars['Float']>;
+  updateTime?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
 };
 
 export type EmlEqRequestDTOInput = {
-  emlObjId?: Maybe<Scalars['Float']>;
-  empathy?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  senderName?: Maybe<Scalars['String']>;
-  sentiment?: Maybe<Scalars['Float']>;
+  emlObjId?: InputMaybe<Scalars['Float']>;
+  empathy?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  senderName?: InputMaybe<Scalars['String']>;
+  sentiment?: InputMaybe<Scalars['Float']>;
 };
 
 export type CustWebLinkRequestDTOInput = {
-  company?: Maybe<Scalars['String']>;
-  companyProfileId?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  orgId?: Maybe<Scalars['Float']>;
-  url?: Maybe<Scalars['String']>;
-  usersId?: Maybe<Scalars['Float']>;
+  company?: InputMaybe<Scalars['String']>;
+  companyProfileId?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  url?: InputMaybe<Scalars['String']>;
+  usersId?: InputMaybe<Scalars['Float']>;
 };
 
 export type CommentRequestDTOInput = {
-  comment?: Maybe<Scalars['String']>;
-  convID?: Maybe<Scalars['Float']>;
-  endTime?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  keyMomentId?: Maybe<Scalars['Float']>;
-  mentions?: Maybe<Scalars['String']>;
-  source?: Maybe<Scalars['String']>;
-  startTime?: Maybe<Scalars['Float']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
+  comment?: InputMaybe<Scalars['String']>;
+  convID?: InputMaybe<Scalars['Float']>;
+  endTime?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  keyMomentId?: InputMaybe<Scalars['Float']>;
+  mentions?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  startTime?: InputMaybe<Scalars['Float']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
 };
 
 export type VideoSharingHistoryDTO = {
@@ -4049,119 +5167,119 @@ export type VideoSharingHistoryDTO = {
 };
 
 export type VideoCutterRequestInput = {
-  convId?: Maybe<Scalars['Float']>;
-  inputFile?: Maybe<Scalars['String']>;
-  keyMomentId?: Maybe<Scalars['Float']>;
-  videoLength?: Maybe<Scalars['Int']>;
-  videoStartTime?: Maybe<Scalars['Int']>;
+  convId?: InputMaybe<Scalars['Float']>;
+  inputFile?: InputMaybe<Scalars['String']>;
+  keyMomentId?: InputMaybe<Scalars['Float']>;
+  videoLength?: InputMaybe<Scalars['Int']>;
+  videoStartTime?: InputMaybe<Scalars['Int']>;
 };
 
 export type ConvBookmarkRequestDTOInput = {
-  convID?: Maybe<Scalars['Float']>;
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  keyMomentId?: Maybe<Scalars['Float']>;
-  orgId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  timeEnd?: Maybe<Scalars['Float']>;
-  timeStart?: Maybe<Scalars['Float']>;
-  type?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
+  convID?: InputMaybe<Scalars['Float']>;
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  keyMomentId?: InputMaybe<Scalars['Float']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  timeEnd?: InputMaybe<Scalars['Float']>;
+  timeStart?: InputMaybe<Scalars['Float']>;
+  type?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
 };
 
 export type AccountRequestDTOInput = {
-  accountTeam?: Maybe<Scalars['Float']>;
-  crmAccountId?: Maybe<Scalars['String']>;
-  domain?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  sticker?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
+  accountTeam?: InputMaybe<Scalars['Float']>;
+  crmAccountId?: InputMaybe<Scalars['String']>;
+  domain?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  sticker?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  url?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
 };
 
 export type ConvAttendeeRequestDTOInput = {
-  attendeeEmail?: Maybe<Scalars['String']>;
-  attendeeName?: Maybe<Scalars['String']>;
-  conv?: Maybe<Scalars['Float']>;
-  description?: Maybe<Scalars['String']>;
-  employeeOrContactInd?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
+  attendeeEmail?: InputMaybe<Scalars['String']>;
+  attendeeName?: InputMaybe<Scalars['String']>;
+  conv?: InputMaybe<Scalars['Float']>;
+  description?: InputMaybe<Scalars['String']>;
+  employeeOrContactInd?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
 };
 
 export type KeywordCategRequestDTOInput = {
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  keywordCategName2?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  keywordCategName2?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
 };
 
 export type KeywordTagRequestDTOInput = {
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  keywordCateg?: Maybe<Scalars['Float']>;
-  keywordTagVal?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  keywordCateg?: InputMaybe<Scalars['Float']>;
+  keywordTagVal?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
 };
 
 export type OpptyRequestDTOInput = {
-  account?: Maybe<Scalars['Float']>;
-  amount?: Maybe<Scalars['Float']>;
-  contact?: Maybe<Scalars['Float']>;
-  crmOpptyId?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  opptyAmount?: Maybe<Scalars['Float']>;
-  opptyCloseDate?: Maybe<Scalars['String']>;
-  opptyCreateDate?: Maybe<Scalars['String']>;
-  opptySource?: Maybe<Scalars['String']>;
-  opptyStage?: Maybe<Scalars['String']>;
-  opptyStatus?: Maybe<Scalars['String']>;
-  opptyTeam?: Maybe<Scalars['Float']>;
-  orgId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
+  account?: InputMaybe<Scalars['Float']>;
+  amount?: InputMaybe<Scalars['Float']>;
+  contact?: InputMaybe<Scalars['Float']>;
+  crmOpptyId?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  opptyAmount?: InputMaybe<Scalars['Float']>;
+  opptyCloseDate?: InputMaybe<Scalars['String']>;
+  opptyCreateDate?: InputMaybe<Scalars['String']>;
+  opptySource?: InputMaybe<Scalars['String']>;
+  opptyStage?: InputMaybe<Scalars['String']>;
+  opptyStatus?: InputMaybe<Scalars['String']>;
+  opptyTeam?: InputMaybe<Scalars['Float']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
 };
 
 export type OpptyTeamRequestDTOInput = {
-  endDate?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  startDate?: Maybe<Scalars['String']>;
-  usersId?: Maybe<Scalars['Float']>;
-  version?: Maybe<Scalars['String']>;
+  endDate?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  startDate?: InputMaybe<Scalars['String']>;
+  usersId?: InputMaybe<Scalars['Float']>;
+  version?: InputMaybe<Scalars['String']>;
 };
 
 export type UserUiPreferenceResponseDto = {
@@ -4185,12 +5303,12 @@ export type SearchResult = {
 };
 
 export type UserUiPreferenceRequestDtoInput = {
-  id?: Maybe<Scalars['Float']>;
-  orgId?: Maybe<Scalars['Float']>;
-  preferenceType?: Maybe<Scalars['String']>;
-  savedJson?: Maybe<Scalars['String']>;
-  uiPreferenceParamMap?: Maybe<Scalars['JSON']>;
-  userId?: Maybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  preferenceType?: InputMaybe<Scalars['String']>;
+  savedJson?: InputMaybe<Scalars['String']>;
+  uiPreferenceParamMap?: InputMaybe<Scalars['JSON']>;
+  userId?: InputMaybe<Scalars['Float']>;
 };
 
 export type EmpathyMomentRecommendationDTO = {
@@ -4214,44 +5332,44 @@ export type EmpathyMomentRecommendationDTO = {
 };
 
 export type EmpathyMomentRecommendationDTOInput = {
-  convId?: Maybe<Scalars['Float']>;
-  description?: Maybe<Scalars['String']>;
-  detectedBehaviour?: Maybe<Scalars['String']>;
-  empathyMomentId?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  originalUtterance?: Maybe<Scalars['String']>;
-  recommendation?: Maybe<Scalars['String']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  suggestedType?: Maybe<Scalars['String']>;
-  suggestedUtterance?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  updateTime?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
+  convId?: InputMaybe<Scalars['Float']>;
+  description?: InputMaybe<Scalars['String']>;
+  detectedBehaviour?: InputMaybe<Scalars['String']>;
+  empathyMomentId?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  originalUtterance?: InputMaybe<Scalars['String']>;
+  recommendation?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  suggestedType?: InputMaybe<Scalars['String']>;
+  suggestedUtterance?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  updateTime?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
 };
 
 export type UserRequestDTOInput = {
-  email?: Maybe<Scalars['String']>;
-  expired?: Maybe<Scalars['Boolean']>;
-  externalIdToken?: Maybe<Scalars['JSON']>;
-  firstTimeLogin?: Maybe<Scalars['Boolean']>;
-  firstname?: Maybe<Scalars['String']>;
-  fullname?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  lastname?: Maybe<Scalars['String']>;
-  managerId?: Maybe<Scalars['Float']>;
-  orgId?: Maybe<Scalars['Float']>;
-  orgType?: Maybe<Scalars['String']>;
-  qenabled?: Maybe<Scalars['Boolean']>;
-  role?: Maybe<Array<Maybe<Scalars['Float']>>>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  userType?: Maybe<Scalars['String']>;
-  username?: Maybe<Scalars['String']>;
-  zoomToken?: Maybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  expired?: InputMaybe<Scalars['Boolean']>;
+  externalIdToken?: InputMaybe<Scalars['JSON']>;
+  firstTimeLogin?: InputMaybe<Scalars['Boolean']>;
+  firstname?: InputMaybe<Scalars['String']>;
+  fullname?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  lastname?: InputMaybe<Scalars['String']>;
+  managerId?: InputMaybe<Scalars['Float']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  orgType?: InputMaybe<Scalars['String']>;
+  qenabled?: InputMaybe<Scalars['Boolean']>;
+  role?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  userType?: InputMaybe<Scalars['String']>;
+  username?: InputMaybe<Scalars['String']>;
+  zoomToken?: InputMaybe<Scalars['String']>;
 };
 
 export type TeamAccountUsersStat = {
@@ -4283,24 +5401,24 @@ export type UsalesConvsMeetingAttendeeInput = {
 };
 
 export type MeetingRequestInput = {
-  attendeeList?: Maybe<Array<Maybe<AttendeeRequestInput>>>;
-  doNotProcess?: Maybe<Scalars['Boolean']>;
-  externalMeetingId?: Maybe<Scalars['String']>;
-  meetingStartTime?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  recordingStartTime?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  attendeeList?: InputMaybe<Array<InputMaybe<AttendeeRequestInput>>>;
+  doNotProcess?: InputMaybe<Scalars['Boolean']>;
+  externalMeetingId?: InputMaybe<Scalars['String']>;
+  meetingStartTime?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  recordingStartTime?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
 };
 
 export type AttendeeRequestInput = {
-  attendeeType?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  attendeeType?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
 };
 
 export type AuthRequestInput = {
-  scopes?: Maybe<Array<Maybe<Scalars['String']>>>;
+  scopes?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type AnalyticsCustomerPulseDealResponse = {
@@ -4489,7 +5607,7 @@ export type AccountDealResponse = {
 };
 
 export type AccountDealRequestInput = {
-  accounts?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  accounts?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
 };
 
 export type DealTopicCoverageResponse = {
@@ -4545,9 +5663,9 @@ export type EmpathyAndHesitationTurnsReportForConvList = {
 };
 
 export type EmpathyAndHesitationSearchCriterionInput = {
-  meetingEndTime?: Maybe<Scalars['String']>;
-  meetingStartTime?: Maybe<Scalars['String']>;
-  userId?: Maybe<Scalars['Float']>;
+  meetingEndTime?: InputMaybe<Scalars['String']>;
+  meetingStartTime?: InputMaybe<Scalars['String']>;
+  userId?: InputMaybe<Scalars['Float']>;
 };
 
 export type MediaClipStatsResponseDTO = {
@@ -4669,37 +5787,37 @@ export type KeyPhraseOccurence = {
 };
 
 export type ESPopulateRequestInput = {
-  daysToProcess?: Maybe<Scalars['Int']>;
-  startDate?: Maybe<Scalars['String']>;
+  daysToProcess?: InputMaybe<Scalars['Int']>;
+  startDate?: InputMaybe<Scalars['String']>;
 };
 
 export type MindTickleReqInput = {
-  filter?: Maybe<Scalars['String']>;
-  format?: Maybe<Scalars['String']>;
-  uri?: Maybe<Scalars['String']>;
+  filter?: InputMaybe<Scalars['String']>;
+  format?: InputMaybe<Scalars['String']>;
+  uri?: InputMaybe<Scalars['String']>;
 };
 
 export type CspViolationReqInput = {
-  cspReport?: Maybe<CspReportInput>;
+  cspReport?: InputMaybe<CspReportInput>;
 };
 
 export type CspReportInput = {
-  blockedUri?: Maybe<Scalars['String']>;
-  columnNumber?: Maybe<Scalars['String']>;
-  disposition?: Maybe<Scalars['String']>;
-  documentUri?: Maybe<Scalars['String']>;
-  effectiveDirective?: Maybe<Scalars['String']>;
-  lineNumber?: Maybe<Scalars['String']>;
-  originalPolicy?: Maybe<Scalars['String']>;
-  referrer?: Maybe<Scalars['String']>;
-  scriptSample?: Maybe<Scalars['String']>;
-  sourceFile?: Maybe<Scalars['String']>;
-  statusCode?: Maybe<Scalars['String']>;
-  violatedDirective?: Maybe<Scalars['String']>;
+  blockedUri?: InputMaybe<Scalars['String']>;
+  columnNumber?: InputMaybe<Scalars['String']>;
+  disposition?: InputMaybe<Scalars['String']>;
+  documentUri?: InputMaybe<Scalars['String']>;
+  effectiveDirective?: InputMaybe<Scalars['String']>;
+  lineNumber?: InputMaybe<Scalars['String']>;
+  originalPolicy?: InputMaybe<Scalars['String']>;
+  referrer?: InputMaybe<Scalars['String']>;
+  scriptSample?: InputMaybe<Scalars['String']>;
+  sourceFile?: InputMaybe<Scalars['String']>;
+  statusCode?: InputMaybe<Scalars['String']>;
+  violatedDirective?: InputMaybe<Scalars['String']>;
 };
 
 export type ESSearchInput = {
-  criteria?: Maybe<Scalars['String']>;
+  criteria?: InputMaybe<Scalars['String']>;
 };
 
 export type ZoomMeetingWhitelistDTO = {
@@ -4856,47 +5974,47 @@ export type TeamEmailActivityResponseDTO = {
 };
 
 export type MessageRequestDTOInput = {
-  clip?: Maybe<ClipRequestInput>;
-  description?: Maybe<Scalars['String']>;
-  emailList?: Maybe<Array<Maybe<Scalars['String']>>>;
-  fullVideo?: Maybe<Scalars['Boolean']>;
-  keyMomentText?: Maybe<Scalars['String']>;
-  mediaClipId?: Maybe<Scalars['Float']>;
-  meetingUrl?: Maybe<Scalars['String']>;
-  subject?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  clip?: InputMaybe<ClipRequestInput>;
+  description?: InputMaybe<Scalars['String']>;
+  emailList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  fullVideo?: InputMaybe<Scalars['Boolean']>;
+  keyMomentText?: InputMaybe<Scalars['String']>;
+  mediaClipId?: InputMaybe<Scalars['Float']>;
+  meetingUrl?: InputMaybe<Scalars['String']>;
+  subject?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
 };
 
 export type ClipRequestInput = {
-  convId?: Maybe<Scalars['Float']>;
-  keymomentId?: Maybe<Scalars['Float']>;
-  startInSeconds?: Maybe<Scalars['Float']>;
-  stopInSeconds?: Maybe<Scalars['Float']>;
+  convId?: InputMaybe<Scalars['Float']>;
+  keymomentId?: InputMaybe<Scalars['Float']>;
+  startInSeconds?: InputMaybe<Scalars['Float']>;
+  stopInSeconds?: InputMaybe<Scalars['Float']>;
 };
 
 export type ShareClipDTOInput = {
-  clipLength?: Maybe<Scalars['Int']>;
-  clipStartTime?: Maybe<Scalars['Int']>;
-  clipTitle?: Maybe<Scalars['String']>;
-  convId?: Maybe<Scalars['Float']>;
-  currtime?: Maybe<Scalars['Float']>;
-  description?: Maybe<Scalars['String']>;
-  duration?: Maybe<Scalars['Float']>;
-  password?: Maybe<Scalars['String']>;
-  recipients?: Maybe<Array<Maybe<Scalars['String']>>>;
+  clipLength?: InputMaybe<Scalars['Int']>;
+  clipStartTime?: InputMaybe<Scalars['Int']>;
+  clipTitle?: InputMaybe<Scalars['String']>;
+  convId?: InputMaybe<Scalars['Float']>;
+  currtime?: InputMaybe<Scalars['Float']>;
+  description?: InputMaybe<Scalars['String']>;
+  duration?: InputMaybe<Scalars['Float']>;
+  password?: InputMaybe<Scalars['String']>;
+  recipients?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type ShareMeetingDTOInput = {
-  convId?: Maybe<Scalars['Float']>;
-  currtime?: Maybe<Scalars['Float']>;
-  description?: Maybe<Scalars['String']>;
-  duration?: Maybe<Scalars['Float']>;
-  mediaClipId?: Maybe<Scalars['Float']>;
-  password?: Maybe<Scalars['String']>;
-  permission?: Maybe<Scalars['String']>;
-  playlistId?: Maybe<Scalars['Float']>;
-  recipients?: Maybe<Array<Maybe<Scalars['String']>>>;
-  videoSharingHistoryId?: Maybe<Scalars['Float']>;
+  convId?: InputMaybe<Scalars['Float']>;
+  currtime?: InputMaybe<Scalars['Float']>;
+  description?: InputMaybe<Scalars['String']>;
+  duration?: InputMaybe<Scalars['Float']>;
+  mediaClipId?: InputMaybe<Scalars['Float']>;
+  password?: InputMaybe<Scalars['String']>;
+  permission?: InputMaybe<Scalars['String']>;
+  playlistId?: InputMaybe<Scalars['Float']>;
+  recipients?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  videoSharingHistoryId?: InputMaybe<Scalars['Float']>;
 };
 
 export type ThreadCountResponse = {
@@ -4905,171 +6023,171 @@ export type ThreadCountResponse = {
 };
 
 export type CalendarEventRequestDTOInput = {
-  accountId?: Maybe<Scalars['Float']>;
-  botInstrFromCalendar?: Maybe<Scalars['Boolean']>;
-  calUid?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  opptyId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  accountId?: InputMaybe<Scalars['Float']>;
+  botInstrFromCalendar?: InputMaybe<Scalars['Boolean']>;
+  calUid?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  opptyId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
 };
 
 export type ConversationDTOInput = {
-  accountId?: Maybe<Scalars['Float']>;
-  aiViewVideoMediaLink?: Maybe<Scalars['String']>;
-  audioMediaLink?: Maybe<Scalars['String']>;
-  confidential?: Maybe<Scalars['Boolean']>;
-  contentViewVideoMediaLink?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  entity?: Maybe<Scalars['String']>;
-  externalConvId?: Maybe<Scalars['String']>;
-  externalMeetingId?: Maybe<Scalars['String']>;
-  galleryViewVideoMediaLink?: Maybe<Scalars['String']>;
-  hostId?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  meetingEndTime?: Maybe<Scalars['String']>;
-  meetingStartTime?: Maybe<Scalars['String']>;
-  meetingTopic?: Maybe<Scalars['String']>;
-  opptyId?: Maybe<Scalars['Float']>;
-  orgId?: Maybe<Scalars['Float']>;
-  recordingStartTime?: Maybe<Scalars['String']>;
-  source?: Maybe<Scalars['String']>;
-  speakerTimelineLink?: Maybe<Scalars['String']>;
-  speakerViewVideoMediaLink?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  textMediaLink?: Maybe<Scalars['String']>;
-  transcriptLink?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
-  videoMediaLink?: Maybe<Scalars['String']>;
+  accountId?: InputMaybe<Scalars['Float']>;
+  aiViewVideoMediaLink?: InputMaybe<Scalars['String']>;
+  audioMediaLink?: InputMaybe<Scalars['String']>;
+  confidential?: InputMaybe<Scalars['Boolean']>;
+  contentViewVideoMediaLink?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  entity?: InputMaybe<Scalars['String']>;
+  externalConvId?: InputMaybe<Scalars['String']>;
+  externalMeetingId?: InputMaybe<Scalars['String']>;
+  galleryViewVideoMediaLink?: InputMaybe<Scalars['String']>;
+  hostId?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  meetingEndTime?: InputMaybe<Scalars['String']>;
+  meetingStartTime?: InputMaybe<Scalars['String']>;
+  meetingTopic?: InputMaybe<Scalars['String']>;
+  opptyId?: InputMaybe<Scalars['Float']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  recordingStartTime?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  speakerTimelineLink?: InputMaybe<Scalars['String']>;
+  speakerViewVideoMediaLink?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  textMediaLink?: InputMaybe<Scalars['String']>;
+  transcriptLink?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
+  videoMediaLink?: InputMaybe<Scalars['String']>;
 };
 
 export type ConvKeyMomentRequestDTOInput = {
-  contentImages?: Maybe<Scalars['String']>;
-  conversation?: Maybe<Scalars['Float']>;
-  downVote?: Maybe<Scalars['Float']>;
-  downVoteUser?: Maybe<Scalars['String']>;
-  endTime?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  keywordTagId1?: Maybe<Scalars['Float']>;
-  keywordTagId2?: Maybe<Scalars['Float']>;
-  keywordTagId3?: Maybe<Scalars['Float']>;
-  keywordTagId4?: Maybe<Scalars['Float']>;
-  kmEndTime?: Maybe<Scalars['String']>;
-  kmEndUtteranceId?: Maybe<Scalars['Float']>;
-  kmStartTime?: Maybe<Scalars['String']>;
-  kmStartUtteranceId?: Maybe<Scalars['Float']>;
-  polarity?: Maybe<Scalars['String']>;
-  score?: Maybe<Scalars['Float']>;
-  startTime?: Maybe<Scalars['Float']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  time?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  upVote?: Maybe<Scalars['Float']>;
-  upVoteUser?: Maybe<Scalars['String']>;
+  contentImages?: InputMaybe<Scalars['String']>;
+  conversation?: InputMaybe<Scalars['Float']>;
+  downVote?: InputMaybe<Scalars['Float']>;
+  downVoteUser?: InputMaybe<Scalars['String']>;
+  endTime?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  keywordTagId1?: InputMaybe<Scalars['Float']>;
+  keywordTagId2?: InputMaybe<Scalars['Float']>;
+  keywordTagId3?: InputMaybe<Scalars['Float']>;
+  keywordTagId4?: InputMaybe<Scalars['Float']>;
+  kmEndTime?: InputMaybe<Scalars['String']>;
+  kmEndUtteranceId?: InputMaybe<Scalars['Float']>;
+  kmStartTime?: InputMaybe<Scalars['String']>;
+  kmStartUtteranceId?: InputMaybe<Scalars['Float']>;
+  polarity?: InputMaybe<Scalars['String']>;
+  score?: InputMaybe<Scalars['Float']>;
+  startTime?: InputMaybe<Scalars['Float']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  time?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  upVote?: InputMaybe<Scalars['Float']>;
+  upVoteUser?: InputMaybe<Scalars['String']>;
 };
 
 export type UserDelegateRequestDTOInput = {
-  proxyOwner?: Maybe<Scalars['Float']>;
-  proxyUsers?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  proxyOwner?: InputMaybe<Scalars['Float']>;
+  proxyUsers?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
 };
 
 export type ZoomMeetingWhitelistRequestInput = {
-  meetingWhiteLists?: Maybe<Array<Maybe<MeetingWhiteListInput>>>;
+  meetingWhiteLists?: InputMaybe<Array<InputMaybe<MeetingWhiteListInput>>>;
 };
 
 export type MeetingWhiteListInput = {
-  invokeBot?: Maybe<Scalars['Boolean']>;
-  userId?: Maybe<Scalars['Float']>;
+  invokeBot?: InputMaybe<Scalars['Boolean']>;
+  userId?: InputMaybe<Scalars['Float']>;
 };
 
 export type UsalesConvsExternalMeetingInput = {
   file: Scalars['String'];
   payload: MeetingRequestInput;
-  transcript?: Maybe<Scalars['String']>;
+  transcript?: InputMaybe<Scalars['String']>;
 };
 
 export type PlaylistRequestDTOInput = {
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  isPublic?: Maybe<Scalars['Boolean']>;
-  orgId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  updateTime?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  isPublic?: InputMaybe<Scalars['Boolean']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  updateTime?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
 };
 
 export type PlaylistParamRequestDTOInput = {
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  playlistId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  value?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  name?: InputMaybe<Scalars['String']>;
+  playlistId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
 };
 
 export type MediaClipRequestDTOInput = {
-  convId?: Maybe<Scalars['Float']>;
-  convKeymomentId?: Maybe<Scalars['Float']>;
-  description?: Maybe<Scalars['String']>;
-  endTime?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  source?: Maybe<Scalars['String']>;
-  startTime?: Maybe<Scalars['Float']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  transcript?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  updateTime?: Maybe<Scalars['String']>;
-  userId?: Maybe<Scalars['Float']>;
-  version?: Maybe<Scalars['String']>;
+  convId?: InputMaybe<Scalars['Float']>;
+  convKeymomentId?: InputMaybe<Scalars['Float']>;
+  description?: InputMaybe<Scalars['String']>;
+  endTime?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  startTime?: InputMaybe<Scalars['Float']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  transcript?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  updateTime?: InputMaybe<Scalars['String']>;
+  userId?: InputMaybe<Scalars['Float']>;
+  version?: InputMaybe<Scalars['String']>;
 };
 
 export type MediaClipParamRequestDTOInput = {
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  mediaClipId?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  value?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  mediaClipId?: InputMaybe<Scalars['Float']>;
+  name?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
 };
 
 export type ConvPromiseRequestDTOInput = {
-  actionStatus?: Maybe<Scalars['String']>;
-  classification?: Maybe<Scalars['String']>;
-  convId?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  orgId?: Maybe<Scalars['Float']>;
-  promiseEndTime?: Maybe<Scalars['String']>;
-  promiseNextAction?: Maybe<Scalars['String']>;
-  promiseStartTime?: Maybe<Scalars['String']>;
-  promiseText?: Maybe<Scalars['String']>;
-  score?: Maybe<Scalars['String']>;
-  speaker?: Maybe<Scalars['String']>;
-  speakerUsersId?: Maybe<Scalars['Float']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
+  actionStatus?: InputMaybe<Scalars['String']>;
+  classification?: InputMaybe<Scalars['String']>;
+  convId?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  promiseEndTime?: InputMaybe<Scalars['String']>;
+  promiseNextAction?: InputMaybe<Scalars['String']>;
+  promiseStartTime?: InputMaybe<Scalars['String']>;
+  promiseText?: InputMaybe<Scalars['String']>;
+  score?: InputMaybe<Scalars['String']>;
+  speaker?: InputMaybe<Scalars['String']>;
+  speakerUsersId?: InputMaybe<Scalars['Float']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
 };
 
 export type ConvParamResponseDTO = {
@@ -5101,42 +6219,42 @@ export type ConvParamResponseDTO = {
 };
 
 export type ConvParamRequestDTOInput = {
-  agentSpoken?: Maybe<Scalars['String']>;
-  convId?: Maybe<Scalars['Float']>;
-  custSpoken?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  duration?: Maybe<Scalars['Float']>;
-  engagement?: Maybe<Scalars['String']>;
-  externalMeetingId?: Maybe<Scalars['String']>;
-  frame?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  introVideoMediaLink?: Maybe<Scalars['String']>;
-  messages?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  orgId?: Maybe<Scalars['Float']>;
-  performance?: Maybe<Scalars['String']>;
-  probability?: Maybe<Scalars['String']>;
-  questions?: Maybe<Scalars['String']>;
-  score?: Maybe<Scalars['String']>;
-  sentiment?: Maybe<Scalars['String']>;
-  silences?: Maybe<Scalars['String']>;
-  spoken?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  value?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
+  agentSpoken?: InputMaybe<Scalars['String']>;
+  convId?: InputMaybe<Scalars['Float']>;
+  custSpoken?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  duration?: InputMaybe<Scalars['Float']>;
+  engagement?: InputMaybe<Scalars['String']>;
+  externalMeetingId?: InputMaybe<Scalars['String']>;
+  frame?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  introVideoMediaLink?: InputMaybe<Scalars['String']>;
+  messages?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  performance?: InputMaybe<Scalars['String']>;
+  probability?: InputMaybe<Scalars['String']>;
+  questions?: InputMaybe<Scalars['String']>;
+  score?: InputMaybe<Scalars['String']>;
+  sentiment?: InputMaybe<Scalars['String']>;
+  silences?: InputMaybe<Scalars['String']>;
+  spoken?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
 };
 
 export type CompanyParamRequestDTOInput = {
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  source?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['String']>;
-  subtype?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  value?: Maybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  name?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
 };
 
 export type CompanyProfileKeywordCategRelDTO = {
@@ -5148,22 +6266,22 @@ export type CompanyProfileKeywordCategRelDTO = {
 };
 
 export type CompanyProfileKeywordCategRelDTOInput = {
-  companyProfileId?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
-  insertTime?: Maybe<Scalars['String']>;
-  keywordCategId?: Maybe<Scalars['Float']>;
-  orgId?: Maybe<Scalars['Float']>;
+  companyProfileId?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  keywordCategId?: InputMaybe<Scalars['Float']>;
+  orgId?: InputMaybe<Scalars['Float']>;
 };
 
 export type ConfigPropRequestDTOInput = {
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  setId?: Maybe<Scalars['Float']>;
-  setName?: Maybe<Scalars['String']>;
-  source?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  value?: Maybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  name?: InputMaybe<Scalars['String']>;
+  setId?: InputMaybe<Scalars['Float']>;
+  setName?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -5175,21 +6293,7 @@ export type ResolverTypeWrapper<T> = Promise<T> | T;
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
 };
-
-export type LegacyStitchingResolver<TResult, TParent, TContext, TArgs> = {
-  fragment: string;
-  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
-};
-
-export type NewStitchingResolver<TResult, TParent, TContext, TArgs> = {
-  selectionSet: string;
-  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
-};
-export type StitchingResolver<TResult, TParent, TContext, TArgs> = LegacyStitchingResolver<TResult, TParent, TContext, TArgs> | NewStitchingResolver<TResult, TParent, TContext, TArgs>;
-export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
-  | ResolverFn<TResult, TParent, TContext, TArgs>
-  | ResolverWithResolve<TResult, TParent, TContext, TArgs>
-  | StitchingResolver<TResult, TParent, TContext, TArgs>;
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> = ResolverFn<TResult, TParent, TContext, TArgs> | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
@@ -5203,7 +6307,7 @@ export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
   args: TArgs,
   context: TContext,
   info: GraphQLResolveInfo
-) => AsyncIterator<TResult> | Promise<AsyncIterator<TResult>>;
+) => AsyncIterable<TResult> | Promise<AsyncIterable<TResult>>;
 
 export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
@@ -5251,10 +6355,8 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>;
-  JSON: ResolverTypeWrapper<Scalars['JSON']>;
-  KeyPhraseExpertResponseDTO: ResolverTypeWrapper<KeyPhraseExpertResponseDTO>;
-  String: ResolverTypeWrapper<Scalars['String']>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   AccountResponseDTO: ResolverTypeWrapper<AccountResponseDTO>;
@@ -5297,44 +6399,45 @@ export type ResolversTypes = ResolversObject<{
   UserUiPreference: ResolverTypeWrapper<UserUiPreference>;
   UserUiPreferenceParam: ResolverTypeWrapper<UserUiPreferenceParam>;
   OpptyParam: ResolverTypeWrapper<OpptyParam>;
-  OpptyDTO: ResolverTypeWrapper<OpptyDTO>;
   AccountTeamResponse: ResolverTypeWrapper<AccountTeamResponse>;
   AccountTeamDTO: ResolverTypeWrapper<AccountTeamDTO>;
-  AggrConvMetrics: ResolverTypeWrapper<AggrConvMetrics>;
   AlertResponseDTO: ResolverTypeWrapper<AlertResponseDTO>;
   User: ResolverTypeWrapper<User>;
   CompanyProfileDTO: ResolverTypeWrapper<CompanyProfileDTO>;
+  JSON: ResolverTypeWrapper<Scalars['JSON']>;
   UserManagerDTO: ResolverTypeWrapper<UserManagerDTO>;
-  CompanyParamResponseDTO: ResolverTypeWrapper<CompanyParamResponseDTO>;
-  ConfigPropResponseDTO: ResolverTypeWrapper<ConfigPropResponseDTO>;
-  ConversationAttendeesResponse: ResolverTypeWrapper<ConversationAttendeesResponse>;
-  CommentResponseDTO: ResolverTypeWrapper<CommentResponseDTO>;
-  KeywordCategResponseDTO: ResolverTypeWrapper<KeywordCategResponseDTO>;
-  KeywordTagResponseDTO: ResolverTypeWrapper<KeywordTagResponseDTO>;
-  CompanySlideFirstResponse: ResolverTypeWrapper<CompanySlideFirstResponse>;
-  SlideFirst: ResolverTypeWrapper<SlideFirst>;
-  ContactMetricsResponse: ResolverTypeWrapper<ContactMetricsResponse>;
-  ContactMethodDTO: ResolverTypeWrapper<ContactMethodDTO>;
-  ContactMethodParam: ResolverTypeWrapper<ContactMethodParam>;
-  ContactMethod: ResolverTypeWrapper<ContactMethod>;
-  ConvAttendeeResponseDTO: ResolverTypeWrapper<ConvAttendeeResponseDTO>;
-  ConvMetricsResponse: ResolverTypeWrapper<ConvMetricsResponse>;
-  ConversationAttributionLogRsp: ResolverTypeWrapper<ConversationAttributionLogRsp>;
-  AccountPromisesResponseDTO: ResolverTypeWrapper<AccountPromisesResponseDTO>;
-  Promise: ResolverTypeWrapper<Promise>;
-  ConvInfo: ResolverTypeWrapper<ConvInfo>;
-  DealInfo: ResolverTypeWrapper<DealInfo>;
-  ConvTopicEpisodeResponseDTO: ResolverTypeWrapper<ConvTopicEpisodeResponseDTO>;
-  ConvEQResponseDTO: ResolverTypeWrapper<ConvEQResponseDTO>;
+  CalendarEvent: ResolverTypeWrapper<CalendarEvent>;
+  CalendarEventAttendee: ResolverTypeWrapper<CalendarEventAttendee>;
   ConversationDetailResponse: ResolverTypeWrapper<ConversationDetailResponse>;
   DealAccount: ResolverTypeWrapper<DealAccount>;
   ConvNextAction: ResolverTypeWrapper<ConvNextAction>;
   DealSummaryDetailResponse: ResolverTypeWrapper<DealSummaryDetailResponse>;
   UserActivity: ResolverTypeWrapper<UserActivity>;
   DealOppty: ResolverTypeWrapper<DealOppty>;
+  ConvTopicEpisodeResponseDTO: ResolverTypeWrapper<ConvTopicEpisodeResponseDTO>;
+  CompanySlideFirstResponse: ResolverTypeWrapper<CompanySlideFirstResponse>;
+  SlideFirst: ResolverTypeWrapper<SlideFirst>;
+  ContactMetricsResponse: ResolverTypeWrapper<ContactMetricsResponse>;
+  ContactMethodDTO: ResolverTypeWrapper<ContactMethodDTO>;
+  ContactMethodParam: ResolverTypeWrapper<ContactMethodParam>;
+  ContactMethod: ResolverTypeWrapper<ContactMethod>;
+  OpptyDTO: ResolverTypeWrapper<OpptyDTO>;
+  ContactResponse: ResolverTypeWrapper<ContactResponse>;
+  LastConv: ResolverTypeWrapper<LastConv>;
+  NextConv: ResolverTypeWrapper<NextConv>;
+  ConvAttendeeResponseDTO: ResolverTypeWrapper<ConvAttendeeResponseDTO>;
+  ConvEQResponseDTO: ResolverTypeWrapper<ConvEQResponseDTO>;
+  ConvMetricsResponse: ResolverTypeWrapper<ConvMetricsResponse>;
+  ConversationAttributionLogRsp: ResolverTypeWrapper<ConversationAttributionLogRsp>;
+  ConvSlideFirstResponse: ResolverTypeWrapper<ConvSlideFirstResponse>;
+  ConvTimeline: ResolverTypeWrapper<ConvTimeline>;
+  ConversationAttendeesResponse: ResolverTypeWrapper<ConversationAttendeesResponse>;
+  ConversationSummaryResponse: ResolverTypeWrapper<ConversationSummaryResponse>;
+  Datum: ResolverTypeWrapper<Datum>;
+  ConvAttendeeAttr: ResolverTypeWrapper<ConvAttendeeAttr>;
+  Opportunity: ResolverTypeWrapper<Opportunity>;
   ConvoStatResponse: ResolverTypeWrapper<ConvoStatResponse>;
   ConvoStats: ResolverTypeWrapper<ConvoStats>;
-  CurrentEQForOpptyResponse: ResolverTypeWrapper<CurrentEQForOpptyResponse>;
   DealDetailResponse: ResolverTypeWrapper<DealDetailResponse>;
   DealSearchResult: ResolverTypeWrapper<DealSearchResult>;
   DealEntity: ResolverTypeWrapper<DealEntity>;
@@ -5342,15 +6445,44 @@ export type ResolversTypes = ResolversObject<{
   AccountOpptyEQResponseDTO: ResolverTypeWrapper<AccountOpptyEQResponseDTO>;
   OpptyRisk: OpptyRisk;
   DealNextAction: ResolverTypeWrapper<DealNextAction>;
-  CustWebLinkResponseDTO: ResolverTypeWrapper<CustWebLinkResponseDTO>;
+  CurrentEQForOpptyResponse: ResolverTypeWrapper<CurrentEQForOpptyResponse>;
+  DealSummaryResponse: ResolverTypeWrapper<DealSummaryResponse>;
   DealSummaryTrendResponse: ResolverTypeWrapper<DealSummaryTrendResponse>;
   DealConvoStat: ResolverTypeWrapper<DealConvoStat>;
   Stages: ResolverTypeWrapper<Stages>;
   DealStat: ResolverTypeWrapper<DealStat>;
-  DealSummaryResponse: ResolverTypeWrapper<DealSummaryResponse>;
   Diarization: ResolverTypeWrapper<Diarization>;
   Task: ResolverTypeWrapper<Task>;
   Option: ResolverTypeWrapper<Option>;
+  EmpathyAndHesitationTurnsReport: ResolverTypeWrapper<EmpathyAndHesitationTurnsReport>;
+  EmpathyChangeDetails: ResolverTypeWrapper<EmpathyChangeDetails>;
+  HesitationChangeDetails: ResolverTypeWrapper<HesitationChangeDetails>;
+  TeamOpptyUsersStats: ResolverTypeWrapper<TeamOpptyUsersStats>;
+  IdealConvEQ: ResolverTypeWrapper<IdealConvEQ>;
+  TeamUsersStat: ResolverTypeWrapper<TeamUsersStat>;
+  UsersStat: ResolverTypeWrapper<UsersStat>;
+  TeamOpptyUsersStat: ResolverTypeWrapper<TeamOpptyUsersStat>;
+  CommentResponseDTO: ResolverTypeWrapper<CommentResponseDTO>;
+  TeamUnattributedUsersStat: ResolverTypeWrapper<TeamUnattributedUsersStat>;
+  KeyPhraseResponse: ResolverTypeWrapper<KeyPhraseResponse>;
+  MediaClipResponseDTO: ResolverTypeWrapper<MediaClipResponseDTO>;
+  ConvKeyMomentResponseDTO: ResolverTypeWrapper<ConvKeyMomentResponseDTO>;
+  KeywordTagResponseDTO: ResolverTypeWrapper<KeywordTagResponseDTO>;
+  KeywordCategResponseDTO: ResolverTypeWrapper<KeywordCategResponseDTO>;
+  ConvOpptyDTO: ResolverTypeWrapper<ConvOpptyDTO>;
+  OpptyEqbyStageResponseDTO: ResolverTypeWrapper<OpptyEqbyStageResponseDTO>;
+  OpptyTeamResponseDTO: ResolverTypeWrapper<OpptyTeamResponseDTO>;
+  PlaylistResponseDTO: ResolverTypeWrapper<PlaylistResponseDTO>;
+  SummaryReportDTO: ResolverTypeWrapper<SummaryReportDTO>;
+  TrendEQForOpptyResponse: ResolverTypeWrapper<TrendEQForOpptyResponse>;
+  AccountPromisesResponseDTO: ResolverTypeWrapper<AccountPromisesResponseDTO>;
+  Promise: ResolverTypeWrapper<Promise>;
+  ConvInfo: ResolverTypeWrapper<ConvInfo>;
+  DealInfo: ResolverTypeWrapper<DealInfo>;
+  CompanyParamResponseDTO: ResolverTypeWrapper<CompanyParamResponseDTO>;
+  ConfigPropResponseDTO: ResolverTypeWrapper<ConfigPropResponseDTO>;
+  AggrConvMetrics: ResolverTypeWrapper<AggrConvMetrics>;
+  CustWebLinkResponseDTO: ResolverTypeWrapper<CustWebLinkResponseDTO>;
   EmlEqResponseDTO: ResolverTypeWrapper<EmlEqResponseDTO>;
   EmlObjResponseDTO: ResolverTypeWrapper<EmlObjResponseDTO>;
   EmlBody2: ResolverTypeWrapper<EmlBody2>;
@@ -5360,40 +6492,12 @@ export type ResolversTypes = ResolversObject<{
   EmlMetadataParam: ResolverTypeWrapper<EmlMetadataParam>;
   EmlObjParam: ResolverTypeWrapper<EmlObjParam>;
   EmlBodyParam: ResolverTypeWrapper<EmlBodyParam>;
-  EmpathyAndHesitationTurnsReport: ResolverTypeWrapper<EmpathyAndHesitationTurnsReport>;
-  EmpathyChangeDetails: ResolverTypeWrapper<EmpathyChangeDetails>;
-  HesitationChangeDetails: ResolverTypeWrapper<HesitationChangeDetails>;
-  CalendarEvent: ResolverTypeWrapper<CalendarEvent>;
-  CalendarEventAttendee: ResolverTypeWrapper<CalendarEventAttendee>;
-  KeyPhraseResponse: ResolverTypeWrapper<KeyPhraseResponse>;
-  TeamOpptyUsersStats: ResolverTypeWrapper<TeamOpptyUsersStats>;
-  IdealConvEQ: ResolverTypeWrapper<IdealConvEQ>;
-  TeamUsersStat: ResolverTypeWrapper<TeamUsersStat>;
-  UsersStat: ResolverTypeWrapper<UsersStat>;
-  TeamOpptyUsersStat: ResolverTypeWrapper<TeamOpptyUsersStat>;
-  TeamUnattributedUsersStat: ResolverTypeWrapper<TeamUnattributedUsersStat>;
-  MediaClipResponseDTO: ResolverTypeWrapper<MediaClipResponseDTO>;
-  ConvKeyMomentResponseDTO: ResolverTypeWrapper<ConvKeyMomentResponseDTO>;
-  ConvOpptyDTO: ResolverTypeWrapper<ConvOpptyDTO>;
+  KeyPhraseExpertResponseDTO: ResolverTypeWrapper<KeyPhraseExpertResponseDTO>;
   MediaClipParamResponseDTO: ResolverTypeWrapper<MediaClipParamResponseDTO>;
-  ConversationSummaryResponse: ResolverTypeWrapper<ConversationSummaryResponse>;
-  Datum: ResolverTypeWrapper<Datum>;
-  ConvAttendeeAttr: ResolverTypeWrapper<ConvAttendeeAttr>;
-  Opportunity: ResolverTypeWrapper<Opportunity>;
-  OpptyEqbyStageResponseDTO: ResolverTypeWrapper<OpptyEqbyStageResponseDTO>;
-  OpptyTeamResponseDTO: ResolverTypeWrapper<OpptyTeamResponseDTO>;
-  PlaylistResponseDTO: ResolverTypeWrapper<PlaylistResponseDTO>;
   PlaylistParamResponseDTO: ResolverTypeWrapper<PlaylistParamResponseDTO>;
   SharedMemberDTO: ResolverTypeWrapper<SharedMemberDTO>;
   ConvSharedViewData: ResolverTypeWrapper<ConvSharedViewData>;
-  ConvSlideFirstResponse: ResolverTypeWrapper<ConvSlideFirstResponse>;
-  SummaryReportDTO: ResolverTypeWrapper<SummaryReportDTO>;
-  ConvTimeline: ResolverTypeWrapper<ConvTimeline>;
-  TrendEQForOpptyResponse: ResolverTypeWrapper<TrendEQForOpptyResponse>;
   UserDelegateResponseDTO: ResolverTypeWrapper<UserDelegateResponseDTO>;
-  ContactResponse: ResolverTypeWrapper<ContactResponse>;
-  LastConv: ResolverTypeWrapper<LastConv>;
-  NextConv: ResolverTypeWrapper<NextConv>;
   Mutation: ResolverTypeWrapper<{}>;
   PlaylistMediaClipRelRequestDTOInput: PlaylistMediaClipRelRequestDTOInput;
   LoginRequestInput: LoginRequestInput;
@@ -5514,10 +6618,8 @@ export type ResolversTypes = ResolversObject<{
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Query: {};
-  JSON: Scalars['JSON'];
-  KeyPhraseExpertResponseDTO: KeyPhraseExpertResponseDTO;
-  String: Scalars['String'];
   Float: Scalars['Float'];
+  String: Scalars['String'];
   Int: Scalars['Int'];
   Boolean: Scalars['Boolean'];
   AccountResponseDTO: AccountResponseDTO;
@@ -5557,59 +6659,89 @@ export type ResolversParentTypes = ResolversObject<{
   UserUiPreference: UserUiPreference;
   UserUiPreferenceParam: UserUiPreferenceParam;
   OpptyParam: OpptyParam;
-  OpptyDTO: OpptyDTO;
   AccountTeamResponse: AccountTeamResponse;
   AccountTeamDTO: AccountTeamDTO;
-  AggrConvMetrics: AggrConvMetrics;
   AlertResponseDTO: AlertResponseDTO;
   User: User;
   CompanyProfileDTO: CompanyProfileDTO;
+  JSON: Scalars['JSON'];
   UserManagerDTO: UserManagerDTO;
-  CompanyParamResponseDTO: CompanyParamResponseDTO;
-  ConfigPropResponseDTO: ConfigPropResponseDTO;
-  ConversationAttendeesResponse: ConversationAttendeesResponse;
-  CommentResponseDTO: CommentResponseDTO;
-  KeywordCategResponseDTO: KeywordCategResponseDTO;
-  KeywordTagResponseDTO: KeywordTagResponseDTO;
-  CompanySlideFirstResponse: CompanySlideFirstResponse;
-  SlideFirst: SlideFirst;
-  ContactMetricsResponse: ContactMetricsResponse;
-  ContactMethodDTO: ContactMethodDTO;
-  ContactMethodParam: ContactMethodParam;
-  ContactMethod: ContactMethod;
-  ConvAttendeeResponseDTO: ConvAttendeeResponseDTO;
-  ConvMetricsResponse: ConvMetricsResponse;
-  ConversationAttributionLogRsp: ConversationAttributionLogRsp;
-  AccountPromisesResponseDTO: AccountPromisesResponseDTO;
-  Promise: Promise;
-  ConvInfo: ConvInfo;
-  DealInfo: DealInfo;
-  ConvTopicEpisodeResponseDTO: ConvTopicEpisodeResponseDTO;
-  ConvEQResponseDTO: ConvEQResponseDTO;
+  CalendarEvent: CalendarEvent;
+  CalendarEventAttendee: CalendarEventAttendee;
   ConversationDetailResponse: ConversationDetailResponse;
   DealAccount: DealAccount;
   ConvNextAction: ConvNextAction;
   DealSummaryDetailResponse: DealSummaryDetailResponse;
   UserActivity: UserActivity;
   DealOppty: DealOppty;
+  ConvTopicEpisodeResponseDTO: ConvTopicEpisodeResponseDTO;
+  CompanySlideFirstResponse: CompanySlideFirstResponse;
+  SlideFirst: SlideFirst;
+  ContactMetricsResponse: ContactMetricsResponse;
+  ContactMethodDTO: ContactMethodDTO;
+  ContactMethodParam: ContactMethodParam;
+  ContactMethod: ContactMethod;
+  OpptyDTO: OpptyDTO;
+  ContactResponse: ContactResponse;
+  LastConv: LastConv;
+  NextConv: NextConv;
+  ConvAttendeeResponseDTO: ConvAttendeeResponseDTO;
+  ConvEQResponseDTO: ConvEQResponseDTO;
+  ConvMetricsResponse: ConvMetricsResponse;
+  ConversationAttributionLogRsp: ConversationAttributionLogRsp;
+  ConvSlideFirstResponse: ConvSlideFirstResponse;
+  ConvTimeline: ConvTimeline;
+  ConversationAttendeesResponse: ConversationAttendeesResponse;
+  ConversationSummaryResponse: ConversationSummaryResponse;
+  Datum: Datum;
+  ConvAttendeeAttr: ConvAttendeeAttr;
+  Opportunity: Opportunity;
   ConvoStatResponse: ConvoStatResponse;
   ConvoStats: ConvoStats;
-  CurrentEQForOpptyResponse: CurrentEQForOpptyResponse;
   DealDetailResponse: DealDetailResponse;
   DealSearchResult: DealSearchResult;
   DealEntity: DealEntity;
   DealData: DealData;
   AccountOpptyEQResponseDTO: AccountOpptyEQResponseDTO;
   DealNextAction: DealNextAction;
-  CustWebLinkResponseDTO: CustWebLinkResponseDTO;
+  CurrentEQForOpptyResponse: CurrentEQForOpptyResponse;
+  DealSummaryResponse: DealSummaryResponse;
   DealSummaryTrendResponse: DealSummaryTrendResponse;
   DealConvoStat: DealConvoStat;
   Stages: Stages;
   DealStat: DealStat;
-  DealSummaryResponse: DealSummaryResponse;
   Diarization: Diarization;
   Task: Task;
   Option: Option;
+  EmpathyAndHesitationTurnsReport: EmpathyAndHesitationTurnsReport;
+  EmpathyChangeDetails: EmpathyChangeDetails;
+  HesitationChangeDetails: HesitationChangeDetails;
+  TeamOpptyUsersStats: TeamOpptyUsersStats;
+  IdealConvEQ: IdealConvEQ;
+  TeamUsersStat: TeamUsersStat;
+  UsersStat: UsersStat;
+  TeamOpptyUsersStat: TeamOpptyUsersStat;
+  CommentResponseDTO: CommentResponseDTO;
+  TeamUnattributedUsersStat: TeamUnattributedUsersStat;
+  KeyPhraseResponse: KeyPhraseResponse;
+  MediaClipResponseDTO: MediaClipResponseDTO;
+  ConvKeyMomentResponseDTO: ConvKeyMomentResponseDTO;
+  KeywordTagResponseDTO: KeywordTagResponseDTO;
+  KeywordCategResponseDTO: KeywordCategResponseDTO;
+  ConvOpptyDTO: ConvOpptyDTO;
+  OpptyEqbyStageResponseDTO: OpptyEqbyStageResponseDTO;
+  OpptyTeamResponseDTO: OpptyTeamResponseDTO;
+  PlaylistResponseDTO: PlaylistResponseDTO;
+  SummaryReportDTO: SummaryReportDTO;
+  TrendEQForOpptyResponse: TrendEQForOpptyResponse;
+  AccountPromisesResponseDTO: AccountPromisesResponseDTO;
+  Promise: Promise;
+  ConvInfo: ConvInfo;
+  DealInfo: DealInfo;
+  CompanyParamResponseDTO: CompanyParamResponseDTO;
+  ConfigPropResponseDTO: ConfigPropResponseDTO;
+  AggrConvMetrics: AggrConvMetrics;
+  CustWebLinkResponseDTO: CustWebLinkResponseDTO;
   EmlEqResponseDTO: EmlEqResponseDTO;
   EmlObjResponseDTO: EmlObjResponseDTO;
   EmlBody2: EmlBody2;
@@ -5619,40 +6751,12 @@ export type ResolversParentTypes = ResolversObject<{
   EmlMetadataParam: EmlMetadataParam;
   EmlObjParam: EmlObjParam;
   EmlBodyParam: EmlBodyParam;
-  EmpathyAndHesitationTurnsReport: EmpathyAndHesitationTurnsReport;
-  EmpathyChangeDetails: EmpathyChangeDetails;
-  HesitationChangeDetails: HesitationChangeDetails;
-  CalendarEvent: CalendarEvent;
-  CalendarEventAttendee: CalendarEventAttendee;
-  KeyPhraseResponse: KeyPhraseResponse;
-  TeamOpptyUsersStats: TeamOpptyUsersStats;
-  IdealConvEQ: IdealConvEQ;
-  TeamUsersStat: TeamUsersStat;
-  UsersStat: UsersStat;
-  TeamOpptyUsersStat: TeamOpptyUsersStat;
-  TeamUnattributedUsersStat: TeamUnattributedUsersStat;
-  MediaClipResponseDTO: MediaClipResponseDTO;
-  ConvKeyMomentResponseDTO: ConvKeyMomentResponseDTO;
-  ConvOpptyDTO: ConvOpptyDTO;
+  KeyPhraseExpertResponseDTO: KeyPhraseExpertResponseDTO;
   MediaClipParamResponseDTO: MediaClipParamResponseDTO;
-  ConversationSummaryResponse: ConversationSummaryResponse;
-  Datum: Datum;
-  ConvAttendeeAttr: ConvAttendeeAttr;
-  Opportunity: Opportunity;
-  OpptyEqbyStageResponseDTO: OpptyEqbyStageResponseDTO;
-  OpptyTeamResponseDTO: OpptyTeamResponseDTO;
-  PlaylistResponseDTO: PlaylistResponseDTO;
   PlaylistParamResponseDTO: PlaylistParamResponseDTO;
   SharedMemberDTO: SharedMemberDTO;
   ConvSharedViewData: ConvSharedViewData;
-  ConvSlideFirstResponse: ConvSlideFirstResponse;
-  SummaryReportDTO: SummaryReportDTO;
-  ConvTimeline: ConvTimeline;
-  TrendEQForOpptyResponse: TrendEQForOpptyResponse;
   UserDelegateResponseDTO: UserDelegateResponseDTO;
-  ContactResponse: ContactResponse;
-  LastConv: LastConv;
-  NextConv: NextConv;
   Mutation: {};
   PlaylistMediaClipRelRequestDTOInput: PlaylistMediaClipRelRequestDTOInput;
   LoginRequestInput: LoginRequestInput;
@@ -5771,129 +6875,116 @@ export type ResolversParentTypes = ResolversObject<{
 }>;
 
 export type QueryResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  accessTokenForAuthenticatedUser?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
-  fetchKeyPhraseExpert?: Resolver<Maybe<Array<Maybe<ResolversTypes['KeyPhraseExpertResponseDTO']>>>, ParentType, ContextType, RequireFields<QueryfetchKeyPhraseExpertArgs, 'tagId'>>;
-  generateAccessToken?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
-  generateRefreshToken?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
-  getAccessConsent?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  getAccountById?: Resolver<Maybe<ResolversTypes['AccountResponseDTO']>, ParentType, ContextType, RequireFields<QuerygetAccountByIdArgs, 'id'>>;
-  getAccountOpptyByAccount?: Resolver<Maybe<Array<Maybe<ResolversTypes['OpptyDTO']>>>, ParentType, ContextType, RequireFields<QuerygetAccountOpptyByAccountArgs, 'id'>>;
-  getAccountTeamByAccount?: Resolver<Maybe<ResolversTypes['AccountTeamResponse']>, ParentType, ContextType, RequireFields<QuerygetAccountTeamByAccountArgs, 'id'>>;
-  getAccounts?: Resolver<Maybe<Array<Maybe<ResolversTypes['AccountResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetAccountsArgs, never>>;
-  getAggrConvMetrics?: Resolver<Maybe<Array<Maybe<ResolversTypes['AggrConvMetrics']>>>, ParentType, ContextType, RequireFields<QuerygetAggrConvMetricsArgs, 'id'>>;
-  getAggrConvMetricsByParticipant?: Resolver<Maybe<Array<Maybe<ResolversTypes['AggrConvMetrics']>>>, ParentType, ContextType, RequireFields<QuerygetAggrConvMetricsByParticipantArgs, 'id' | 'participantId'>>;
-  getAlertById?: Resolver<Maybe<ResolversTypes['AlertResponseDTO']>, ParentType, ContextType, RequireFields<QuerygetAlertByIdArgs, 'id'>>;
-  getAlertByUser?: Resolver<Maybe<Array<Maybe<ResolversTypes['AlertResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetAlertByUserArgs, never>>;
-  getAllCompanyParams?: Resolver<Maybe<Array<Maybe<ResolversTypes['CompanyParamResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetAllCompanyParamsArgs, never>>;
-  getAllCurrentSystemProp?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConfigPropResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetAllCurrentSystemPropArgs, never>>;
-  getAttendees?: Resolver<Maybe<ResolversTypes['ConversationAttendeesResponse']>, ParentType, ContextType, RequireFields<QuerygetAttendeesArgs, 'id'>>;
-  getAuthCodeAndGenerateToken1?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
-  getAuthUrl3?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  getAuthUrl4?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  getAuthUrl5?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  getAuthUrl6?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  getBookmarksByConvId?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConvBookmarkResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetBookmarksByConvIdArgs, 'convId'>>;
-  getBookmarksByConvKeyMomentId?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConvBookmarkResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetBookmarksByConvKeyMomentIdArgs, 'convKeyMomentId'>>;
-  getCommentByConvId?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetCommentByConvIdArgs, 'convId'>>;
-  getCommentByConvKeyMomentId?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetCommentByConvKeyMomentIdArgs, 'convKeyMomentId'>>;
-  getCompanyCategAndSubCateg?: Resolver<Maybe<Array<Maybe<ResolversTypes['KeywordCategResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetCompanyCategAndSubCategArgs, never>>;
-  getCompanyProfile?: Resolver<Maybe<ResolversTypes['CompanyProfileDTO']>, ParentType, ContextType>;
-  getCompanySlideFirst?: Resolver<Maybe<ResolversTypes['CompanySlideFirstResponse']>, ParentType, ContextType>;
-  getContactEQForOppty?: Resolver<Maybe<Array<Maybe<ResolversTypes['Contact']>>>, ParentType, ContextType, RequireFields<QuerygetContactEQForOpptyArgs, 'crmContactId' | 'crmOpportunityId'>>;
-  getContactEmailsCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<QuerygetContactEmailsCountArgs, 'contactId'>>;
-  getContactMetrics?: Resolver<Maybe<ResolversTypes['ContactMetricsResponse']>, ParentType, ContextType, RequireFields<QuerygetContactMetricsArgs, 'contactId' | 'opptyId'>>;
+  accountResponseDTO?: Resolver<Maybe<ResolversTypes['AccountResponseDTO']>, ParentType, ContextType, RequireFields<QueryaccountResponseDTOArgs, 'id'>>;
+  accountTeamResponse?: Resolver<Maybe<ResolversTypes['AccountTeamResponse']>, ParentType, ContextType, RequireFields<QueryaccountTeamResponseArgs, 'id'>>;
+  alertResponseDTO?: Resolver<Maybe<ResolversTypes['AlertResponseDTO']>, ParentType, ContextType, RequireFields<QueryalertResponseDTOArgs, 'id'>>;
+  authAccessToken?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
+  authGoogle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  authGoogleCallback?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
+  authOutlook?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  authRevoke?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryauthRevokeArgs, 'provider'>>;
+  authSocial?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  calendarEvent?: Resolver<Maybe<ResolversTypes['CalendarEvent']>, ParentType, ContextType, RequireFields<QuerycalendarEventArgs, 'id'>>;
+  companyProfileDTO?: Resolver<Maybe<ResolversTypes['CompanyProfileDTO']>, ParentType, ContextType>;
+  companySlideFirstResponse?: Resolver<Maybe<ResolversTypes['CompanySlideFirstResponse']>, ParentType, ContextType>;
+  contactMetricsResponse?: Resolver<Maybe<ResolversTypes['ContactMetricsResponse']>, ParentType, ContextType, RequireFields<QuerycontactMetricsResponseArgs, 'contactId' | 'opptyId'>>;
+  contactResponse?: Resolver<Maybe<ResolversTypes['ContactResponse']>, ParentType, ContextType, RequireFields<QuerycontactResponseArgs, 'contactId'>>;
+  convAttendeeResponseDTO?: Resolver<Maybe<ResolversTypes['ConvAttendeeResponseDTO']>, ParentType, ContextType, RequireFields<QueryconvAttendeeResponseDTOArgs, 'id'>>;
+  convEQResponseDTO?: Resolver<Maybe<ResolversTypes['ConvEQResponseDTO']>, ParentType, ContextType, RequireFields<QueryconvEQResponseDTOArgs, 'convId'>>;
+  convMetricsResponse?: Resolver<Maybe<ResolversTypes['ConvMetricsResponse']>, ParentType, ContextType, RequireFields<QueryconvMetricsResponseArgs, 'id'>>;
+  convMod?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConversationAttributionLogRsp']>>>, ParentType, ContextType, RequireFields<QueryconvModArgs, 'convId'>>;
+  convSlideFirstResponse?: Resolver<Maybe<ResolversTypes['ConvSlideFirstResponse']>, ParentType, ContextType, RequireFields<QueryconvSlideFirstResponseArgs, 'id'>>;
+  convTimeline?: Resolver<Maybe<ResolversTypes['ConvTimeline']>, ParentType, ContextType, RequireFields<QueryconvTimelineArgs, 'convId'>>;
+  convTopicEpisodeResponseDTO?: Resolver<Maybe<ResolversTypes['ConvTopicEpisodeResponseDTO']>, ParentType, ContextType, RequireFields<QueryconvTopicEpisodeResponseDTOArgs, 'id'>>;
+  conversationAttendeesResponse?: Resolver<Maybe<ResolversTypes['ConversationAttendeesResponse']>, ParentType, ContextType, RequireFields<QueryconversationAttendeesResponseArgs, 'id'>>;
+  conversationDetailResponse?: Resolver<Maybe<ResolversTypes['ConversationDetailResponse']>, ParentType, ContextType, RequireFields<QueryconversationDetailResponseArgs, 'id'>>;
+  conversationRequest?: Resolver<Maybe<ResolversTypes['ConversationRequest']>, ParentType, ContextType, RequireFields<QueryconversationRequestArgs, 'id'>>;
+  conversationSummaryResponse?: Resolver<Maybe<ResolversTypes['ConversationSummaryResponse']>, ParentType, ContextType, RequireFields<QueryconversationSummaryResponseArgs, 'id'>>;
+  convoStatResponse?: Resolver<Maybe<ResolversTypes['ConvoStatResponse']>, ParentType, ContextType, RequireFields<QueryconvoStatResponseArgs, 'convId'>>;
+  cqAccountTrend?: Resolver<Maybe<Array<Maybe<ResolversTypes['DealDetailResponse']>>>, ParentType, ContextType, RequireFields<QuerycqAccountTrendArgs, 'crmAccountId'>>;
+  cqContactEq?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QuerycqContactEqArgs, 'crmContactId'>>;
+  cqOpportunityContactEq?: Resolver<Maybe<Array<Maybe<ResolversTypes['Contact']>>>, ParentType, ContextType, RequireFields<QuerycqOpportunityContactEqArgs, 'crmContactId' | 'crmOpportunityId'>>;
+  cqTokenAccess?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
+  cqTokenRefresh?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
+  cqTokenRevokeAccess?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  cqTokenRevokeRefresh?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  currentEQForOpptyResponse?: Resolver<Maybe<ResolversTypes['CurrentEQForOpptyResponse']>, ParentType, ContextType, RequireFields<QuerycurrentEQForOpptyResponseArgs, 'crmOpportunityId'>>;
+  dealDetailResponse?: Resolver<Maybe<ResolversTypes['DealDetailResponse']>, ParentType, ContextType, RequireFields<QuerydealDetailResponseArgs, 'crmAccountId'>>;
+  dealSummaryDetailResponse?: Resolver<Maybe<ResolversTypes['DealSummaryDetailResponse']>, ParentType, ContextType, RequireFields<QuerydealSummaryDetailResponseArgs, 'id'>>;
+  dealSummaryResponse?: Resolver<Maybe<ResolversTypes['DealSummaryResponse']>, ParentType, ContextType, RequireFields<QuerydealSummaryResponseArgs, 'id'>>;
+  dealSummaryTrendResponse?: Resolver<Maybe<ResolversTypes['DealSummaryTrendResponse']>, ParentType, ContextType, RequireFields<QuerydealSummaryTrendResponseArgs, 'id'>>;
+  diarization?: Resolver<Maybe<ResolversTypes['Diarization']>, ParentType, ContextType, RequireFields<QuerydiarizationArgs, 'convId'>>;
+  empathyAndHesitationTurnsReport?: Resolver<Maybe<ResolversTypes['EmpathyAndHesitationTurnsReport']>, ParentType, ContextType, RequireFields<QueryempathyAndHesitationTurnsReportArgs, 'convId'>>;
   getContactsEQForOppty?: Resolver<Maybe<Array<Maybe<ResolversTypes['Contact']>>>, ParentType, ContextType, RequireFields<QuerygetContactsEQForOpptyArgs, 'crmOpportunityId'>>;
-  getConvAttendeeTeam?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConvAttendeeResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetConvAttendeeTeamArgs, never>>;
-  getConvAttendeeTeamById?: Resolver<Maybe<ResolversTypes['ConvAttendeeResponseDTO']>, ParentType, ContextType, RequireFields<QuerygetConvAttendeeTeamByIdArgs, 'id'>>;
-  getConvMetrics?: Resolver<Maybe<ResolversTypes['ConvMetricsResponse']>, ParentType, ContextType, RequireFields<QuerygetConvMetricsArgs, 'id'>>;
-  getConvModLog?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConversationAttributionLogRsp']>>>, ParentType, ContextType, RequireFields<QuerygetConvModLogArgs, 'convId'>>;
-  getConvPromises?: Resolver<Maybe<Array<Maybe<ResolversTypes['AccountPromisesResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetConvPromisesArgs, never>>;
-  getConvStatus?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
-  getConvTopicEpisodeById?: Resolver<Maybe<ResolversTypes['ConvTopicEpisodeResponseDTO']>, ParentType, ContextType, RequireFields<QuerygetConvTopicEpisodeByIdArgs, 'id'>>;
-  getConvTrends?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConvEQResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetConvTrendsArgs, 'opptyId'>>;
-  getConversation?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConversationRequest']>>>, ParentType, ContextType, RequireFields<QuerygetConversationArgs, never>>;
-  getConversationById?: Resolver<Maybe<ResolversTypes['ConversationRequest']>, ParentType, ContextType, RequireFields<QuerygetConversationByIdArgs, 'id'>>;
   getConversationDetail?: Resolver<Maybe<ResolversTypes['ConversationDetailResponse']>, ParentType, ContextType, RequireFields<QuerygetConversationDetailArgs, 'id'>>;
-  getConversationPreviewByConversation?: Resolver<Maybe<ResolversTypes['ConversationDetailResponse']>, ParentType, ContextType, RequireFields<QuerygetConversationPreviewByConversationArgs, 'id'>>;
-  getConvostats?: Resolver<Maybe<ResolversTypes['ConvoStatResponse']>, ParentType, ContextType, RequireFields<QuerygetConvostatsArgs, 'convId'>>;
-  getCoursesForUserEmail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QuerygetCoursesForUserEmailArgs, 'email'>>;
-  getCurrentCompanyProp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QuerygetCurrentCompanyPropArgs, 'prop'>>;
-  getCurrentEQForContact?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QuerygetCurrentEQForContactArgs, 'crmContactId'>>;
-  getCurrentEQForOppty?: Resolver<Maybe<ResolversTypes['CurrentEQForOpptyResponse']>, ParentType, ContextType, RequireFields<QuerygetCurrentEQForOpptyArgs, 'crmOpportunityId'>>;
-  getCurrentEqForAccount?: Resolver<Maybe<ResolversTypes['DealDetailResponse']>, ParentType, ContextType, RequireFields<QuerygetCurrentEqForAccountArgs, 'crmAccountId'>>;
-  getCurrentSystemProp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QuerygetCurrentSystemPropArgs, 'prop'>>;
-  getCurrentUserDetail?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-  getCustWebLinks?: Resolver<Maybe<Array<Maybe<ResolversTypes['CustWebLinkResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetCustWebLinksArgs, never>>;
-  getDataByUri?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QuerygetDataByUriArgs, 'uri'>>;
-  getDealByIdTrend?: Resolver<Maybe<ResolversTypes['DealSummaryTrendResponse']>, ParentType, ContextType, RequireFields<QuerygetDealByIdTrendArgs, 'id'>>;
-  getDealDetailsByMode?: Resolver<Maybe<ResolversTypes['DealSummaryDetailResponse']>, ParentType, ContextType, RequireFields<QuerygetDealDetailsByModeArgs, 'id'>>;
-  getDealEQScore?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QuerygetDealEQScoreArgs, 'opptyId'>>;
-  getDealStageList?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
-  getDealSummaryById?: Resolver<Maybe<ResolversTypes['DealSummaryResponse']>, ParentType, ContextType, RequireFields<QuerygetDealSummaryByIdArgs, 'id'>>;
-  getDiarization?: Resolver<Maybe<ResolversTypes['Diarization']>, ParentType, ContextType, RequireFields<QuerygetDiarizationArgs, 'convId'>>;
   getEQbyAccount?: Resolver<Maybe<ResolversTypes['ConvEQResponseDTO']>, ParentType, ContextType, RequireFields<QuerygetEQbyAccountArgs, 'accountId'>>;
-  getEQbyContact?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QuerygetEQbyContactArgs, 'contactId' | 'opptyId'>>;
-  getEQbyConv?: Resolver<Maybe<ResolversTypes['ConvEQResponseDTO']>, ParentType, ContextType, RequireFields<QuerygetEQbyConvArgs, 'convId'>>;
-  getEQbyConv1?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QuerygetEQbyConv1Args, 'contact' | 'convId'>>;
-  getEmlEqByEmailObj?: Resolver<Maybe<Array<Maybe<ResolversTypes['EmlEqResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetEmlEqByEmailObjArgs, never>>;
-  getEmlEqById?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QuerygetEmlEqByIdArgs, 'id'>>;
-  getEmpathyTurns?: Resolver<Maybe<ResolversTypes['EmpathyAndHesitationTurnsReport']>, ParentType, ContextType, RequireFields<QuerygetEmpathyTurnsArgs, 'convId'>>;
-  getEventById?: Resolver<Maybe<ResolversTypes['CalendarEvent']>, ParentType, ContextType, RequireFields<QuerygetEventByIdArgs, 'id'>>;
-  getKeyMomentsForConvId?: Resolver<Maybe<ResolversTypes['KeyPhraseResponse']>, ParentType, ContextType, RequireFields<QuerygetKeyMomentsForConvIdArgs, 'id'>>;
-  getKeywordCategories?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
-  getKeywordCategories1?: Resolver<Maybe<Array<Maybe<ResolversTypes['KeywordCategResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetKeywordCategories1Args, 'category'>>;
   getManagerEQ?: Resolver<Maybe<ResolversTypes['TeamOpptyUsersStats']>, ParentType, ContextType, RequireFields<QuerygetManagerEQArgs, 'managerEmailId' | 'startMMddyyyy'>>;
-  getMediaClipById?: Resolver<Maybe<ResolversTypes['MediaClipResponseDTO']>, ParentType, ContextType, RequireFields<QuerygetMediaClipByIdArgs, 'id'>>;
-  getMediaClipParamsByMediaClipId1?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaClipParamResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetMediaClipParamsByMediaClipId1Args, 'mediaClipId' | 'name'>>;
-  getMediaClipPlaylistSharedWithUser?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
-  getMeeting?: Resolver<Maybe<ResolversTypes['ConversationSummaryResponse']>, ParentType, ContextType, RequireFields<QuerygetMeetingArgs, 'id'>>;
-  getMentionedUserComments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetMentionedUserCommentsArgs, 'userId'>>;
-  getMyMediaClips?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaClipResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetMyMediaClipsArgs, never>>;
   getOpptyById?: Resolver<Maybe<ResolversTypes['OpptyDTO']>, ParentType, ContextType, RequireFields<QuerygetOpptyByIdArgs, 'id'>>;
-  getOpptyEqbyStage?: Resolver<Maybe<ResolversTypes['OpptyEqbyStageResponseDTO']>, ParentType, ContextType, RequireFields<QuerygetOpptyEqbyStageArgs, 'opptyStage'>>;
-  getOpptyKeyMoments?: Resolver<Maybe<ResolversTypes['OpptyDTO']>, ParentType, ContextType, RequireFields<QuerygetOpptyKeyMomentsArgs, never>>;
-  getOpptyPromises?: Resolver<Maybe<ResolversTypes['OpptyDTO']>, ParentType, ContextType, RequireFields<QuerygetOpptyPromisesArgs, 'opptyId'>>;
-  getOpptyTeam?: Resolver<Maybe<Array<Maybe<ResolversTypes['OpptyTeamResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetOpptyTeamArgs, never>>;
-  getOpptyTeamById?: Resolver<Maybe<ResolversTypes['OpptyTeamResponseDTO']>, ParentType, ContextType, RequireFields<QuerygetOpptyTeamByIdArgs, 'id'>>;
-  getOpptys?: Resolver<Maybe<Array<Maybe<ResolversTypes['OpptyDTO']>>>, ParentType, ContextType, RequireFields<QuerygetOpptysArgs, never>>;
-  getPlaylistById?: Resolver<Maybe<ResolversTypes['PlaylistResponseDTO']>, ParentType, ContextType, RequireFields<QuerygetPlaylistByIdArgs, 'id'>>;
-  getPlaylistParamsByPlaylistId1?: Resolver<Maybe<Array<Maybe<ResolversTypes['PlaylistParamResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetPlaylistParamsByPlaylistId1Args, 'name' | 'playlistId'>>;
-  getPlaylistSharedMembers?: Resolver<Maybe<Array<Maybe<ResolversTypes['SharedMemberDTO']>>>, ParentType, ContextType, RequireFields<QuerygetPlaylistSharedMembersArgs, 'playlistId'>>;
-  getPlaylists?: Resolver<Maybe<Array<Maybe<ResolversTypes['PlaylistResponseDTO']>>>, ParentType, ContextType, RequireFields<QuerygetPlaylistsArgs, never>>;
-  getPreferences1?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QuerygetPreferences1Args, 'type'>>;
-  getSellerEQ1?: Resolver<Maybe<ResolversTypes['TeamOpptyUsersStats']>, ParentType, ContextType, RequireFields<QuerygetSellerEQ1Args, 'days' | 'sellerEmailId'>>;
+  getOpptyKeyMoments?: Resolver<Maybe<ResolversTypes['OpptyDTO']>, ParentType, ContextType, Partial<QuerygetOpptyKeyMomentsArgs>>;
   getSellerEQ2?: Resolver<Maybe<ResolversTypes['TeamOpptyUsersStats']>, ParentType, ContextType, RequireFields<QuerygetSellerEQ2Args, 'sellerEmailId'>>;
-  getSharedViewData?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConvSharedViewData']>>>, ParentType, ContextType, RequireFields<QuerygetSharedViewDataArgs, 'convId'>>;
-  getSlideFirstByConversation?: Resolver<Maybe<ResolversTypes['ConvSlideFirstResponse']>, ParentType, ContextType, RequireFields<QuerygetSlideFirstByConversationArgs, 'id'>>;
-  getSummary?: Resolver<Maybe<ResolversTypes['SummaryReportDTO']>, ParentType, ContextType>;
-  getTeamMembers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<QuerygetTeamMembersArgs, 'usersId'>>;
-  getTimeline?: Resolver<Maybe<ResolversTypes['ConvTimeline']>, ParentType, ContextType, RequireFields<QuerygetTimelineArgs, 'convId'>>;
-  getTimeline1?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConvSharedViewData']>>>, ParentType, ContextType, RequireFields<QuerygetTimeline1Args, 'name'>>;
-  getTrendEQForOppty?: Resolver<Maybe<ResolversTypes['TrendEQForOpptyResponse']>, ParentType, ContextType, RequireFields<QuerygetTrendEQForOpptyArgs, 'crmOpportunityId'>>;
-  getTrendEqForAccount?: Resolver<Maybe<Array<Maybe<ResolversTypes['DealDetailResponse']>>>, ParentType, ContextType, RequireFields<QuerygetTrendEqForAccountArgs, 'crmAccountId'>>;
-  getUserEmailsCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  getUserProxy?: Resolver<Maybe<ResolversTypes['UserDelegateResponseDTO']>, ParentType, ContextType, RequireFields<QuerygetUserProxyArgs, 'usersId'>>;
-  getUsersCount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  populate1?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<Querypopulate1Args, 'convId'>>;
-  redirectMethod?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QueryredirectMethodArgs, 'code' | 'state'>>;
-  redirectUrl?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QueryredirectUrlArgs, 'code'>>;
-  revokeAccessToken?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  revokeAuth?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryrevokeAuthArgs, 'provider'>>;
-  revokeRefreshToken?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  searchContact1?: Resolver<Maybe<ResolversTypes['ContactResponse']>, ParentType, ContextType, RequireFields<QuerysearchContact1Args, 'contactId'>>;
-}>;
-
-export interface JSONScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
-  name: 'JSON';
-}
-
-export type KeyPhraseExpertResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['KeyPhraseExpertResponseDTO'] = ResolversParentTypes['KeyPhraseExpertResponseDTO']> = ResolversObject<{
-  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  engagement?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  fullName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  sentiment?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  userId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+  keyPhraseResponse?: Resolver<Maybe<ResolversTypes['KeyPhraseResponse']>, ParentType, ContextType, RequireFields<QuerykeyPhraseResponseArgs, 'id'>>;
+  mediaClipResponseDTO?: Resolver<Maybe<ResolversTypes['MediaClipResponseDTO']>, ParentType, ContextType, RequireFields<QuerymediaClipResponseDTOArgs, 'id'>>;
+  opptyDTO?: Resolver<Maybe<ResolversTypes['OpptyDTO']>, ParentType, ContextType, RequireFields<QueryopptyDTOArgs, 'opptyId'>>;
+  opptyEqbyStageResponseDTO?: Resolver<Maybe<ResolversTypes['OpptyEqbyStageResponseDTO']>, ParentType, ContextType, RequireFields<QueryopptyEqbyStageResponseDTOArgs, 'opptyStage'>>;
+  opptyTeamResponseDTO?: Resolver<Maybe<ResolversTypes['OpptyTeamResponseDTO']>, ParentType, ContextType, RequireFields<QueryopptyTeamResponseDTOArgs, 'id'>>;
+  playlistResponseDTO?: Resolver<Maybe<ResolversTypes['PlaylistResponseDTO']>, ParentType, ContextType, RequireFields<QueryplaylistResponseDTOArgs, 'id'>>;
+  slackAuthurl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  slackRedirect?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QueryslackRedirectArgs, 'code' | 'state'>>;
+  summaryReportDTO?: Resolver<Maybe<ResolversTypes['SummaryReportDTO']>, ParentType, ContextType>;
+  teamOpptyUsersStats?: Resolver<Maybe<ResolversTypes['TeamOpptyUsersStats']>, ParentType, ContextType, RequireFields<QueryteamOpptyUsersStatsArgs, 'days' | 'sellerEmailId'>>;
+  trendEQForOpptyResponse?: Resolver<Maybe<ResolversTypes['TrendEQForOpptyResponse']>, ParentType, ContextType, RequireFields<QuerytrendEQForOpptyResponseArgs, 'crmOpportunityId'>>;
+  usalesAccountOppty?: Resolver<Maybe<Array<Maybe<ResolversTypes['OpptyDTO']>>>, ParentType, ContextType, RequireFields<QueryusalesAccountOpptyArgs, 'id'>>;
+  usalesAccounts?: Resolver<Maybe<Array<Maybe<ResolversTypes['AccountResponseDTO']>>>, ParentType, ContextType, Partial<QueryusalesAccountsArgs>>;
+  usalesAccountsPromises?: Resolver<Maybe<Array<Maybe<ResolversTypes['AccountPromisesResponseDTO']>>>, ParentType, ContextType, Partial<QueryusalesAccountsPromisesArgs>>;
+  usalesAlerts?: Resolver<Maybe<Array<Maybe<ResolversTypes['AlertResponseDTO']>>>, ParentType, ContextType, Partial<QueryusalesAlertsArgs>>;
+  usalesBookmarksConv?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConvBookmarkResponseDTO']>>>, ParentType, ContextType, RequireFields<QueryusalesBookmarksConvArgs, 'convId'>>;
+  usalesBookmarksKeymoment?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConvBookmarkResponseDTO']>>>, ParentType, ContextType, RequireFields<QueryusalesBookmarksKeymomentArgs, 'convKeyMomentId'>>;
+  usalesCompanyParam?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryusalesCompanyParamArgs, 'prop'>>;
+  usalesCompanyParams?: Resolver<Maybe<Array<Maybe<ResolversTypes['CompanyParamResponseDTO']>>>, ParentType, ContextType, Partial<QueryusalesCompanyParamsArgs>>;
+  usalesCompanyprofileAccessConsent?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  usalesCompanyprofileBusinesscategs?: Resolver<Maybe<Array<Maybe<ResolversTypes['KeywordCategResponseDTO']>>>, ParentType, ContextType, Partial<QueryusalesCompanyprofileBusinesscategsArgs>>;
+  usalesConfigprops?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConfigPropResponseDTO']>>>, ParentType, ContextType, Partial<QueryusalesConfigpropsArgs>>;
+  usalesContactEmailsCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<QueryusalesContactEmailsCountArgs, 'contactId'>>;
+  usalesConvComments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentResponseDTO']>>>, ParentType, ContextType, RequireFields<QueryusalesConvCommentsArgs, 'convId'>>;
+  usalesConvContactEqscore?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QueryusalesConvContactEqscoreArgs, 'contact' | 'convId'>>;
+  usalesConvMetric?: Resolver<Maybe<Array<Maybe<ResolversTypes['AggrConvMetrics']>>>, ParentType, ContextType, RequireFields<QueryusalesConvMetricArgs, 'id'>>;
+  usalesConvMetrics?: Resolver<Maybe<Array<Maybe<ResolversTypes['AggrConvMetrics']>>>, ParentType, ContextType, RequireFields<QueryusalesConvMetricsArgs, 'id' | 'participantId'>>;
+  usalesConvs?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConversationRequest']>>>, ParentType, ContextType, Partial<QueryusalesConvsArgs>>;
+  usalesConvsAttendees?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConvAttendeeResponseDTO']>>>, ParentType, ContextType, Partial<QueryusalesConvsAttendeesArgs>>;
+  usalesConvsStatus?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  usalesCustweblinks?: Resolver<Maybe<Array<Maybe<ResolversTypes['CustWebLinkResponseDTO']>>>, ParentType, ContextType, Partial<QueryusalesCustweblinksArgs>>;
+  usalesDealContactEqscore?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QueryusalesDealContactEqscoreArgs, 'contactId' | 'opptyId'>>;
+  usalesDealConvtrends?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConvEQResponseDTO']>>>, ParentType, ContextType, RequireFields<QueryusalesDealConvtrendsArgs, 'opptyId'>>;
+  usalesDealEqscore?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QueryusalesDealEqscoreArgs, 'opptyId'>>;
+  usalesDealsStages?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  usalesEmleq?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QueryusalesEmleqArgs, 'id'>>;
+  usalesEmleqs?: Resolver<Maybe<Array<Maybe<ResolversTypes['EmlEqResponseDTO']>>>, ParentType, ContextType, Partial<QueryusalesEmleqsArgs>>;
+  usalesKeymomentComments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentResponseDTO']>>>, ParentType, ContextType, RequireFields<QueryusalesKeymomentCommentsArgs, 'convKeyMomentId'>>;
+  usalesKeywordCateg?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  usalesKeywordCateg2?: Resolver<Maybe<Array<Maybe<ResolversTypes['KeywordCategResponseDTO']>>>, ParentType, ContextType, RequireFields<QueryusalesKeywordCateg2Args, 'category'>>;
+  usalesKeywordKeyphraseFetchExpert?: Resolver<Maybe<Array<Maybe<ResolversTypes['KeyPhraseExpertResponseDTO']>>>, ParentType, ContextType, RequireFields<QueryusalesKeywordKeyphraseFetchExpertArgs, 'tagId'>>;
+  usalesMediaClipParam?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaClipParamResponseDTO']>>>, ParentType, ContextType, RequireFields<QueryusalesMediaClipParamArgs, 'mediaClipId' | 'name'>>;
+  usalesMediaclipMyclips?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaClipResponseDTO']>>>, ParentType, ContextType, Partial<QueryusalesMediaclipMyclipsArgs>>;
+  usalesMindtickleCoursesbyemail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryusalesMindtickleCoursesbyemailArgs, 'email'>>;
+  usalesMindtickleQuerybyuri?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryusalesMindtickleQuerybyuriArgs, 'uri'>>;
+  usalesOppty?: Resolver<Maybe<Array<Maybe<ResolversTypes['OpptyDTO']>>>, ParentType, ContextType, Partial<QueryusalesOpptyArgs>>;
+  usalesOpptyTeams?: Resolver<Maybe<Array<Maybe<ResolversTypes['OpptyTeamResponseDTO']>>>, ParentType, ContextType, Partial<QueryusalesOpptyTeamsArgs>>;
+  usalesPlaylistParam?: Resolver<Maybe<Array<Maybe<ResolversTypes['PlaylistParamResponseDTO']>>>, ParentType, ContextType, RequireFields<QueryusalesPlaylistParamArgs, 'name' | 'playlistId'>>;
+  usalesPlaylistsMyplaylists?: Resolver<Maybe<Array<Maybe<ResolversTypes['PlaylistResponseDTO']>>>, ParentType, ContextType, Partial<QueryusalesPlaylistsMyplaylistsArgs>>;
+  usalesPlaylistsSharedMembers?: Resolver<Maybe<Array<Maybe<ResolversTypes['SharedMemberDTO']>>>, ParentType, ContextType, RequireFields<QueryusalesPlaylistsSharedMembersArgs, 'playlistId'>>;
+  usalesPlaylistsSharedwithme?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
+  usalesPreferencesMine?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QueryusalesPreferencesMineArgs, 'type'>>;
+  usalesRe?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QueryusalesReArgs, 'code'>>;
+  usalesSharedviewdataConv?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConvSharedViewData']>>>, ParentType, ContextType, RequireFields<QueryusalesSharedviewdataConvArgs, 'convId'>>;
+  usalesSharedviewdataName?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConvSharedViewData']>>>, ParentType, ContextType, RequireFields<QueryusalesSharedviewdataNameArgs, 'name'>>;
+  usalesSys?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryusalesSysArgs, 'prop'>>;
+  usalesUserComments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentResponseDTO']>>>, ParentType, ContextType, RequireFields<QueryusalesUserCommentsArgs, 'userId'>>;
+  usalesUsers?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  usalesUsersMeEmailsCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  usalesUsersTeam?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<QueryusalesUsersTeamArgs, 'usersId'>>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  userDelegateResponseDTO?: Resolver<Maybe<ResolversTypes['UserDelegateResponseDTO']>, ParentType, ContextType, RequireFields<QueryuserDelegateResponseDTOArgs, 'usersId'>>;
+  v1TranscriptPopulate2?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<Queryv1TranscriptPopulate2Args, 'convId'>>;
 }>;
 
 export type AccountResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['AccountResponseDTO'] = ResolversParentTypes['AccountResponseDTO']> = ResolversObject<{
@@ -6497,33 +7588,6 @@ export type OpptyParamResolvers<ContextType = MeshContext, ParentType extends Re
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type OpptyDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['OpptyDTO'] = ResolversParentTypes['OpptyDTO']> = ResolversObject<{
-  accountID?: Resolver<Maybe<ResolversTypes['IdNameDTO']>, ParentType, ContextType>;
-  amount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  contact?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  conversation?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConversationRequest']>>>, ParentType, ContextType>;
-  crmOpptyId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  metrics?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  opptyAmount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  opptyCloseDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  opptyCreateDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  opptySource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  opptyStage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  opptyStatus?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  opptyTeamID?: Resolver<Maybe<ResolversTypes['IdNameDTO']>, ParentType, ContextType>;
-  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  score?: Resolver<Maybe<Array<Maybe<ResolversTypes['Score4']>>>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
 export type AccountTeamResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['AccountTeamResponse'] = ResolversParentTypes['AccountTeamResponse']> = ResolversObject<{
   current?: Resolver<Maybe<Array<Maybe<ResolversTypes['AccountTeamDTO']>>>, ParentType, ContextType>;
   last?: Resolver<Maybe<Array<Maybe<ResolversTypes['AccountTeamDTO']>>>, ParentType, ContextType>;
@@ -6546,19 +7610,6 @@ export type AccountTeamDTOResolvers<ContextType = MeshContext, ParentType extend
   timeOnAccount?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type AggrConvMetricsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['AggrConvMetrics'] = ResolversParentTypes['AggrConvMetrics']> = ResolversObject<{
-  convId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  engagement?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  engagementSmooth?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  isSpeaker?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  offset?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  offsetTimestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  participantId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  sentiment?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  sentimentSmooth?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -6635,6 +7686,10 @@ export type CompanyProfileDTOResolvers<ContextType = MeshContext, ParentType ext
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export interface JSONScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
+  name: 'JSON';
+}
+
 export type UserManagerDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['UserManagerDTO'] = ResolversParentTypes['UserManagerDTO']> = ResolversObject<{
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   firstname?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -6643,329 +7698,29 @@ export type UserManagerDTOResolvers<ContextType = MeshContext, ParentType extend
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type CompanyParamResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CompanyParamResponseDTO'] = ResolversParentTypes['CompanyParamResponseDTO']> = ResolversObject<{
+export type CalendarEventResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CalendarEvent'] = ResolversParentTypes['CalendarEvent']> = ResolversObject<{
+  account?: Resolver<Maybe<ResolversTypes['IdNameDTO']>, ParentType, ContextType>;
+  botInstrFromCalendar?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  calUid?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  eventAttendees?: Resolver<Maybe<Array<Maybe<ResolversTypes['CalendarEventAttendee']>>>, ParentType, ContextType>;
+  eventEndTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  eventStartTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  lastMeeting?: Resolver<Maybe<ResolversTypes['ConversationDetailResponse']>, ParentType, ContextType>;
+  oppty?: Resolver<Maybe<Array<Maybe<ResolversTypes['IdNameDTO']>>>, ParentType, ContextType>;
+  opptyDetail?: Resolver<Maybe<ResolversTypes['DealSummaryDetailResponse']>, ParentType, ContextType>;
+  subjectLine?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  userId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CalendarEventAttendeeResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CalendarEventAttendee'] = ResolversParentTypes['CalendarEventAttendee']> = ResolversObject<{
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  value?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ConfigPropResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConfigPropResponseDTO'] = ResolversParentTypes['ConfigPropResponseDTO']> = ResolversObject<{
-  configPropset?: Resolver<Maybe<ResolversTypes['IdNameDTO']>, ParentType, ContextType>;
-  defaultValue?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  defaultValueInt?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  isVisible?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ConversationAttendeesResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConversationAttendeesResponse'] = ResolversParentTypes['ConversationAttendeesResponse']> = ResolversObject<{
-  attendees?: Resolver<Maybe<Array<Maybe<ResolversTypes['Attendee']>>>, ParentType, ContextType>;
-  endDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  startDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type CommentResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CommentResponseDTO'] = ResolversParentTypes['CommentResponseDTO']> = ResolversObject<{
-  comment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  convID?: Resolver<Maybe<ResolversTypes['ConvDTO']>, ParentType, ContextType>;
-  endTime?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  keyMomentId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  mentions?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  startTime?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  updateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type KeywordCategResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['KeywordCategResponseDTO'] = ResolversParentTypes['KeywordCategResponseDTO']> = ResolversObject<{
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  keywordCategName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  keywordTags?: Resolver<Maybe<Array<Maybe<ResolversTypes['KeywordTagResponseDTO']>>>, ParentType, ContextType>;
-  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type KeywordTagResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['KeywordTagResponseDTO'] = ResolversParentTypes['KeywordTagResponseDTO']> = ResolversObject<{
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  keywordCateg?: Resolver<Maybe<ResolversTypes['KeywordCategResponseDTO']>, ParentType, ContextType>;
-  keywordTagVal?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type CompanySlideFirstResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CompanySlideFirstResponse'] = ResolversParentTypes['CompanySlideFirstResponse']> = ResolversObject<{
-  companyName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  high?: Resolver<Maybe<Array<Maybe<ResolversTypes['SlideFirst']>>>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  low?: Resolver<Maybe<Array<Maybe<ResolversTypes['SlideFirst']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type SlideFirstResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['SlideFirst'] = ResolversParentTypes['SlideFirst']> = ResolversObject<{
-  accountID?: Resolver<Maybe<ResolversTypes['ConvAccountDTO']>, ParentType, ContextType>;
-  contentStartTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  contentViewVideoMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  convId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  convList?: Resolver<Maybe<Array<Maybe<ResolversTypes['SlideFirst']>>>, ParentType, ContextType>;
-  galleryViewVideoMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  kmEndTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  kmId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  kmStartTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  kmText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  kmUsername?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  meetingEndTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  meetingName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  meetingStartTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  sentiment?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ContactMetricsResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ContactMetricsResponse'] = ResolversParentTypes['ContactMetricsResponse']> = ResolversObject<{
-  avatarUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  contactMethods?: Resolver<Maybe<Array<Maybe<ResolversTypes['ContactMethodDTO']>>>, ParentType, ContextType>;
-  firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  jobTitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  metrics?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  oppty?: Resolver<Maybe<Array<Maybe<ResolversTypes['OpptyDTO']>>>, ParentType, ContextType>;
-  role?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  score?: Resolver<Maybe<Array<Maybe<ResolversTypes['Score4']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ContactMethodDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ContactMethodDTO'] = ResolversParentTypes['ContactMethodDTO']> = ResolversObject<{
-  contactId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  emailAddress?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertBy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  phoneNumber?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  preference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  setOfContactMethodParam?: Resolver<Maybe<Array<Maybe<ResolversTypes['ContactMethodParam']>>>, ParentType, ContextType>;
-  social?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  updateBy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  updateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ContactMethodParamResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ContactMethodParam'] = ResolversParentTypes['ContactMethodParam']> = ResolversObject<{
-  contactMethod?: Resolver<Maybe<ResolversTypes['ContactMethod']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertBy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  preference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  updateBy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  updateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ContactMethodResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ContactMethod'] = ResolversParentTypes['ContactMethod']> = ResolversObject<{
-  contact?: Resolver<Maybe<ResolversTypes['Contact']>, ParentType, ContextType>;
-  emailAddress2?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertBy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  phoneNumber2?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  preference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  setOfContactMethodParam?: Resolver<Maybe<Array<Maybe<ResolversTypes['ContactMethodParam']>>>, ParentType, ContextType>;
-  social?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  updateBy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  updateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ConvAttendeeResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvAttendeeResponseDTO'] = ResolversParentTypes['ConvAttendeeResponseDTO']> = ResolversObject<{
-  attendeeEmail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  attendeeName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  convID?: Resolver<Maybe<ResolversTypes['IdNameDTO']>, ParentType, ContextType>;
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  employeeOrContactInd?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ConvMetricsResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvMetricsResponse'] = ResolversParentTypes['ConvMetricsResponse']> = ResolversObject<{
-  attendees?: Resolver<Maybe<Array<Maybe<ResolversTypes['AttendeeMetric']>>>, ParentType, ContextType>;
-  desc?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  videoLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ConversationAttributionLogRspResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConversationAttributionLogRsp'] = ResolversParentTypes['ConversationAttributionLogRsp']> = ResolversObject<{
-  allowEdit?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  convId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  newAccountCrmId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  newAccountId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  newOpptyCrmId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  newOpptyId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  oldAccountCrmId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  oldAccountId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  oldOpptyCrmId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  oldOpptyId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type AccountPromisesResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['AccountPromisesResponseDTO'] = ResolversParentTypes['AccountPromisesResponseDTO']> = ResolversObject<{
-  account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType>;
-  dateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  promises?: Resolver<Maybe<Array<Maybe<ResolversTypes['Promise']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type PromiseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Promise'] = ResolversParentTypes['Promise']> = ResolversObject<{
-  classification?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  conv?: Resolver<Maybe<ResolversTypes['ConvInfo']>, ParentType, ContextType>;
-  deal?: Resolver<Maybe<ResolversTypes['DealInfo']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  promiseEndTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  promiseNextAction?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  promiseStartTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  promiseText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  score?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ConvInfoResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvInfo'] = ResolversParentTypes['ConvInfo']> = ResolversObject<{
-  confidential?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  endTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  hostId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  meetingTopic?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  startTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type DealInfoResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['DealInfo'] = ResolversParentTypes['DealInfo']> = ResolversObject<{
-  amount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  amountNumber?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  closeDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  createDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ConvTopicEpisodeResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvTopicEpisodeResponseDTO'] = ResolversParentTypes['ConvTopicEpisodeResponseDTO']> = ResolversObject<{
-  conversation?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  endTime?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertBy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  keytopicCount1?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  keytopicCount2?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  keytopicCount3?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  keytopicCount4?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  keytopicId1?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  keytopicId2?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  keytopicId3?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  keytopicId4?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  startTime?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  unsupervisedCount1?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  unsupervisedCount2?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  unsupervisedCount3?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  unsupervisedCount4?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  unsupervisedTopic1?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  unsupervisedTopic2?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  unsupervisedTopic3?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  unsupervisedTopic4?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  updateBy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  updateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ConvEQResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvEQResponseDTO'] = ResolversParentTypes['ConvEQResponseDTO']> = ResolversObject<{
-  accountId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  convEndTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  convId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  convStartTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  eqScore?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  meetingEngagement?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  meetingSentiment?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  numberOfAttendees?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  opptyId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  stage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  updateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  vRankSum?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  vrankSum?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -7082,6 +7837,358 @@ export type DealOpptyResolvers<ContextType = MeshContext, ParentType extends Res
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type ConvTopicEpisodeResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvTopicEpisodeResponseDTO'] = ResolversParentTypes['ConvTopicEpisodeResponseDTO']> = ResolversObject<{
+  conversation?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  endTime?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertBy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  keytopicCount1?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  keytopicCount2?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  keytopicCount3?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  keytopicCount4?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  keytopicId1?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  keytopicId2?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  keytopicId3?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  keytopicId4?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  startTime?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  unsupervisedCount1?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  unsupervisedCount2?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  unsupervisedCount3?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  unsupervisedCount4?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  unsupervisedTopic1?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  unsupervisedTopic2?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  unsupervisedTopic3?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  unsupervisedTopic4?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updateBy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  updateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CompanySlideFirstResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CompanySlideFirstResponse'] = ResolversParentTypes['CompanySlideFirstResponse']> = ResolversObject<{
+  companyName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  high?: Resolver<Maybe<Array<Maybe<ResolversTypes['SlideFirst']>>>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  low?: Resolver<Maybe<Array<Maybe<ResolversTypes['SlideFirst']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SlideFirstResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['SlideFirst'] = ResolversParentTypes['SlideFirst']> = ResolversObject<{
+  accountID?: Resolver<Maybe<ResolversTypes['ConvAccountDTO']>, ParentType, ContextType>;
+  contentStartTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  contentViewVideoMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  convId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  convList?: Resolver<Maybe<Array<Maybe<ResolversTypes['SlideFirst']>>>, ParentType, ContextType>;
+  galleryViewVideoMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  kmEndTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  kmId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  kmStartTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  kmText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  kmUsername?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  meetingEndTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  meetingName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  meetingStartTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  sentiment?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ContactMetricsResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ContactMetricsResponse'] = ResolversParentTypes['ContactMetricsResponse']> = ResolversObject<{
+  avatarUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  contactMethods?: Resolver<Maybe<Array<Maybe<ResolversTypes['ContactMethodDTO']>>>, ParentType, ContextType>;
+  firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  jobTitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  metrics?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  oppty?: Resolver<Maybe<Array<Maybe<ResolversTypes['OpptyDTO']>>>, ParentType, ContextType>;
+  role?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  score?: Resolver<Maybe<Array<Maybe<ResolversTypes['Score4']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ContactMethodDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ContactMethodDTO'] = ResolversParentTypes['ContactMethodDTO']> = ResolversObject<{
+  contactId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  emailAddress?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertBy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  phoneNumber?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  preference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  setOfContactMethodParam?: Resolver<Maybe<Array<Maybe<ResolversTypes['ContactMethodParam']>>>, ParentType, ContextType>;
+  social?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updateBy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  updateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ContactMethodParamResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ContactMethodParam'] = ResolversParentTypes['ContactMethodParam']> = ResolversObject<{
+  contactMethod?: Resolver<Maybe<ResolversTypes['ContactMethod']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertBy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  preference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updateBy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  updateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ContactMethodResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ContactMethod'] = ResolversParentTypes['ContactMethod']> = ResolversObject<{
+  contact?: Resolver<Maybe<ResolversTypes['Contact']>, ParentType, ContextType>;
+  emailAddress2?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertBy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  phoneNumber2?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  preference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  setOfContactMethodParam?: Resolver<Maybe<Array<Maybe<ResolversTypes['ContactMethodParam']>>>, ParentType, ContextType>;
+  social?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updateBy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  updateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type OpptyDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['OpptyDTO'] = ResolversParentTypes['OpptyDTO']> = ResolversObject<{
+  accountID?: Resolver<Maybe<ResolversTypes['IdNameDTO']>, ParentType, ContextType>;
+  amount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  contact?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  conversation?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConversationRequest']>>>, ParentType, ContextType>;
+  crmOpptyId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  metrics?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  opptyAmount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  opptyCloseDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  opptyCreateDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  opptySource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  opptyStage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  opptyStatus?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  opptyTeamID?: Resolver<Maybe<ResolversTypes['IdNameDTO']>, ParentType, ContextType>;
+  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  score?: Resolver<Maybe<Array<Maybe<ResolversTypes['Score4']>>>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ContactResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ContactResponse'] = ResolversParentTypes['ContactResponse']> = ResolversObject<{
+  accounts?: Resolver<Maybe<Array<Maybe<Array<Maybe<ResolversTypes['JSON']>>>>>, ParentType, ContextType>;
+  avatarUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  contactMethods?: Resolver<Maybe<Array<Maybe<ResolversTypes['ContactMethodDTO']>>>, ParentType, ContextType>;
+  firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  jobTitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  keyMoments3?: Resolver<Maybe<Array<Maybe<ResolversTypes['KeyMoment']>>>, ParentType, ContextType>;
+  lastConv?: Resolver<Maybe<ResolversTypes['LastConv']>, ParentType, ContextType>;
+  lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  metrics?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  nextConv?: Resolver<Maybe<ResolversTypes['NextConv']>, ParentType, ContextType>;
+  openOppty?: Resolver<Maybe<Array<Maybe<ResolversTypes['OpptyDTO']>>>, ParentType, ContextType>;
+  role?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  score?: Resolver<Maybe<Array<Maybe<ResolversTypes['Score4']>>>, ParentType, ContextType>;
+  timezone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type LastConvResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['LastConv'] = ResolversParentTypes['LastConv']> = ResolversObject<{
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  startTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type NextConvResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['NextConv'] = ResolversParentTypes['NextConv']> = ResolversObject<{
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  startTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ConvAttendeeResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvAttendeeResponseDTO'] = ResolversParentTypes['ConvAttendeeResponseDTO']> = ResolversObject<{
+  attendeeEmail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  attendeeName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  convID?: Resolver<Maybe<ResolversTypes['IdNameDTO']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  employeeOrContactInd?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ConvEQResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvEQResponseDTO'] = ResolversParentTypes['ConvEQResponseDTO']> = ResolversObject<{
+  accountId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  convEndTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  convId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  convStartTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  eqScore?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  meetingEngagement?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  meetingSentiment?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  numberOfAttendees?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  opptyId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  stage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  vRankSum?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  vrankSum?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ConvMetricsResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvMetricsResponse'] = ResolversParentTypes['ConvMetricsResponse']> = ResolversObject<{
+  attendees?: Resolver<Maybe<Array<Maybe<ResolversTypes['AttendeeMetric']>>>, ParentType, ContextType>;
+  desc?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  videoLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ConversationAttributionLogRspResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConversationAttributionLogRsp'] = ResolversParentTypes['ConversationAttributionLogRsp']> = ResolversObject<{
+  allowEdit?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  convId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  newAccountCrmId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  newAccountId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  newOpptyCrmId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  newOpptyId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  oldAccountCrmId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  oldAccountId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  oldOpptyCrmId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  oldOpptyId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ConvSlideFirstResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvSlideFirstResponse'] = ResolversParentTypes['ConvSlideFirstResponse']> = ResolversObject<{
+  high?: Resolver<Maybe<Array<Maybe<ResolversTypes['SlideFirst']>>>, ParentType, ContextType>;
+  low?: Resolver<Maybe<Array<Maybe<ResolversTypes['SlideFirst']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ConvTimelineResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvTimeline'] = ResolversParentTypes['ConvTimeline']> = ResolversObject<{
+  convId2?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  data?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ConversationAttendeesResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConversationAttendeesResponse'] = ResolversParentTypes['ConversationAttendeesResponse']> = ResolversObject<{
+  attendees?: Resolver<Maybe<Array<Maybe<ResolversTypes['Attendee']>>>, ParentType, ContextType>;
+  endDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  startDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ConversationSummaryResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConversationSummaryResponse'] = ResolversParentTypes['ConversationSummaryResponse']> = ResolversObject<{
+  data?: Resolver<Maybe<Array<Maybe<ResolversTypes['Datum']>>>, ParentType, ContextType>;
+  userId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type DatumResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Datum'] = ResolversParentTypes['Datum']> = ResolversObject<{
+  account?: Resolver<Maybe<ResolversTypes['IdNameDTO']>, ParentType, ContextType>;
+  aiViewVideoMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  attendees?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConvAttendeeAttr']>>>, ParentType, ContextType>;
+  audioMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  confidential?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  contentViewVideoMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  cvProcDone?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  dataFusionProcDone?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  endDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  externalMeetingId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  galleryViewVideoMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  host?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  hostId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  hostImage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  keyTopics?: Resolver<Maybe<Array<Maybe<ResolversTypes['KeyTag']>>>, ParentType, ContextType>;
+  lastChunk?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  mediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  mediaThumbnail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  opportunity?: Resolver<Maybe<ResolversTypes['Opportunity']>, ParentType, ContextType>;
+  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  pendingPromisesCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  processedFlag?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  score?: Resolver<Maybe<Array<Maybe<ResolversTypes['Score4']>>>, ParentType, ContextType>;
+  sharedDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  sharedUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  speakerTimelineLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  speakerViewVideoMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  startDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  textKmProcDone?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  textMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  textSentProcDone?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  thumbnail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  tonalProcDone?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  totalPromisesCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  transcriptLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  uuid?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  videoMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ConvAttendeeAttrResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvAttendeeAttr'] = ResolversParentTypes['ConvAttendeeAttr']> = ResolversObject<{
+  convId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type OpportunityResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Opportunity'] = ResolversParentTypes['Opportunity']> = ResolversObject<{
+  amount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  closeDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  createDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  opptyAmount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  stage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type ConvoStatResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvoStatResponse'] = ResolversParentTypes['ConvoStatResponse']> = ResolversObject<{
   accountId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   aiViewVideoMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -7129,11 +8236,6 @@ export type ConvoStatsResolvers<ContextType = MeshContext, ParentType extends Re
   longestRepMonologue?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   talkRatio?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   teamMembers?: Resolver<Maybe<Array<Maybe<ResolversTypes['Attendee']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type CurrentEQForOpptyResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CurrentEQForOpptyResponse'] = ResolversParentTypes['CurrentEQForOpptyResponse']> = ResolversObject<{
-  deals?: Resolver<Maybe<ResolversTypes['DealSummaryDetailResponse']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -7204,13 +8306,34 @@ export type DealNextActionResolvers<ContextType = MeshContext, ParentType extend
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type CustWebLinkResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CustWebLinkResponseDTO'] = ResolversParentTypes['CustWebLinkResponseDTO']> = ResolversObject<{
-  company?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  companyProfile?: Resolver<Maybe<ResolversTypes['CompanyProfileDTO']>, ParentType, ContextType>;
+export type CurrentEQForOpptyResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CurrentEQForOpptyResponse'] = ResolversParentTypes['CurrentEQForOpptyResponse']> = ResolversObject<{
+  deals?: Resolver<Maybe<ResolversTypes['DealSummaryDetailResponse']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type DealSummaryResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['DealSummaryResponse'] = ResolversParentTypes['DealSummaryResponse']> = ResolversObject<{
+  account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType>;
+  accountId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  accountUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  amount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  contact?: Resolver<Maybe<ResolversTypes['Contact']>, ParentType, ContextType>;
+  contactId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  crmOpptyId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  opptyAmount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  opptyCloseDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  opptyCreateDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  opptyName?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  opptySource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  opptyStage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  opptyStatus?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  opptyTeamId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  usersId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  topicCoverageStatus?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -7243,32 +8366,6 @@ export type DealStatResolvers<ContextType = MeshContext, ParentType extends Reso
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type DealSummaryResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['DealSummaryResponse'] = ResolversParentTypes['DealSummaryResponse']> = ResolversObject<{
-  account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType>;
-  accountId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  accountUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  amount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  contact?: Resolver<Maybe<ResolversTypes['Contact']>, ParentType, ContextType>;
-  contactId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  crmOpptyId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  opptyAmount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  opptyCloseDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  opptyCreateDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  opptyName?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  opptySource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  opptyStage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  opptyStatus?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  opptyTeamId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  topicCoverageStatus?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
 export type DiarizationResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Diarization'] = ResolversParentTypes['Diarization']> = ResolversObject<{
   tasks?: Resolver<Maybe<Array<Maybe<ResolversTypes['Task']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -7283,6 +8380,388 @@ export type TaskResolvers<ContextType = MeshContext, ParentType extends Resolver
 export type OptionResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Option'] = ResolversParentTypes['Option']> = ResolversObject<{
   activate?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   data?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type EmpathyAndHesitationTurnsReportResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['EmpathyAndHesitationTurnsReport'] = ResolversParentTypes['EmpathyAndHesitationTurnsReport']> = ResolversObject<{
+  convId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  empathyChangeDetailsList?: Resolver<Maybe<Array<Maybe<ResolversTypes['EmpathyChangeDetails']>>>, ParentType, ContextType>;
+  empathyScore?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  hesitationChangeDetailsList?: Resolver<Maybe<Array<Maybe<ResolversTypes['HesitationChangeDetails']>>>, ParentType, ContextType>;
+  hesitationScore?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type EmpathyChangeDetailsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['EmpathyChangeDetails'] = ResolversParentTypes['EmpathyChangeDetails']> = ResolversObject<{
+  averageEmpathy2?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  convId3?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  convOffset?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  polarity?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  prevContactNameOnTurn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  userId2?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  userName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type HesitationChangeDetailsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['HesitationChangeDetails'] = ResolversParentTypes['HesitationChangeDetails']> = ResolversObject<{
+  averageHesitation?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  convId4?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  convOffset?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  prevContactNameOnTurn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  userId3?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  userName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type TeamOpptyUsersStatsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['TeamOpptyUsersStats'] = ResolversParentTypes['TeamOpptyUsersStats']> = ResolversObject<{
+  idealConvEQ?: Resolver<Maybe<ResolversTypes['IdealConvEQ']>, ParentType, ContextType>;
+  overAll?: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamUsersStat']>>>, ParentType, ContextType>;
+  teamOpptyUsersStats?: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamOpptyUsersStat']>>>, ParentType, ContextType>;
+  unattributed?: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamUnattributedUsersStat']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type IdealConvEQResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['IdealConvEQ'] = ResolversParentTypes['IdealConvEQ']> = ResolversObject<{
+  empathy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  engagement?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  sentiment?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  talkRatio?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type TeamUsersStatResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['TeamUsersStat'] = ResolversParentTypes['TeamUsersStat']> = ResolversObject<{
+  customerEngagement?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  customerSentiment?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  empathy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  engagement?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  hesitation?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  politeness?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  sentiment?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  speakingRate?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  talkRatio?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  talkSpeed?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  usersStats?: Resolver<Maybe<Array<Maybe<ResolversTypes['UsersStat']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type UsersStatResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['UsersStat'] = ResolversParentTypes['UsersStat']> = ResolversObject<{
+  accountID?: Resolver<Maybe<ResolversTypes['ConvAccountDTO']>, ParentType, ContextType>;
+  convEndTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  convId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  convStartTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  convStatus?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  convType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  empathy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  engagement?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  hesitation?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  participantName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  politeness?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  sentiment?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  speakingRate?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  talkRatio?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  talkSpeed?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  userId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type TeamOpptyUsersStatResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['TeamOpptyUsersStat'] = ResolversParentTypes['TeamOpptyUsersStat']> = ResolversObject<{
+  comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentResponseDTO']>>>, ParentType, ContextType>;
+  conversations?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConversationRequest']>>>, ParentType, ContextType>;
+  oppty?: Resolver<Maybe<ResolversTypes['OpptyDTO']>, ParentType, ContextType>;
+  usersStats?: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamUsersStat']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CommentResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CommentResponseDTO'] = ResolversParentTypes['CommentResponseDTO']> = ResolversObject<{
+  comment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  convID?: Resolver<Maybe<ResolversTypes['ConvDTO']>, ParentType, ContextType>;
+  endTime?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  keyMomentId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  mentions?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  startTime?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type TeamUnattributedUsersStatResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['TeamUnattributedUsersStat'] = ResolversParentTypes['TeamUnattributedUsersStat']> = ResolversObject<{
+  comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentResponseDTO']>>>, ParentType, ContextType>;
+  conversations?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConversationRequest']>>>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['TeamUsersStat']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type KeyPhraseResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['KeyPhraseResponse'] = ResolversParentTypes['KeyPhraseResponse']> = ResolversObject<{
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  keyMoments4?: Resolver<Maybe<Array<Maybe<ResolversTypes['KeyMoment']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type MediaClipResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['MediaClipResponseDTO'] = ResolversParentTypes['MediaClipResponseDTO']> = ResolversObject<{
+  accountID?: Resolver<Maybe<ResolversTypes['ConvAccountDTO']>, ParentType, ContextType>;
+  audioMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentResponseDTO']>>>, ParentType, ContextType>;
+  convID?: Resolver<Maybe<ResolversTypes['ConvDTO']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  endTime?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  galleryViewVideoMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  keyMoment?: Resolver<Maybe<ResolversTypes['ConvKeyMomentResponseDTO']>, ParentType, ContextType>;
+  keytags?: Resolver<Maybe<Array<Maybe<ResolversTypes['KeywordTagResponseDTO']>>>, ParentType, ContextType>;
+  mediaClipRelId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  meetingTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  meetingTopic?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  opptyID?: Resolver<Maybe<ResolversTypes['ConvOpptyDTO']>, ParentType, ContextType>;
+  opptyName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  polarity?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  position?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  shared?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  startTime?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  thumbnail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  transcript?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  userID?: Resolver<Maybe<ResolversTypes['ConvUsersDTO']>, ParentType, ContextType>;
+  usersViewed?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  views?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ConvKeyMomentResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvKeyMomentResponseDTO'] = ResolversParentTypes['ConvKeyMomentResponseDTO']> = ResolversObject<{
+  contentImages?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  convId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  downVote?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  downVoteUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  endOffset?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  keywordTagId1?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  keywordTagId2?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  keywordTagId3?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  keywordTagId4?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  kmEndTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  kmStartTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  line?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  polarity?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  score?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  startOffset?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  upVote?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  upVoteUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type KeywordTagResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['KeywordTagResponseDTO'] = ResolversParentTypes['KeywordTagResponseDTO']> = ResolversObject<{
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  keywordCateg?: Resolver<Maybe<ResolversTypes['KeywordCategResponseDTO']>, ParentType, ContextType>;
+  keywordTagVal?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type KeywordCategResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['KeywordCategResponseDTO'] = ResolversParentTypes['KeywordCategResponseDTO']> = ResolversObject<{
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  keywordCategName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  keywordTags?: Resolver<Maybe<Array<Maybe<ResolversTypes['KeywordTagResponseDTO']>>>, ParentType, ContextType>;
+  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ConvOpptyDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvOpptyDTO'] = ResolversParentTypes['ConvOpptyDTO']> = ResolversObject<{
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type OpptyEqbyStageResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['OpptyEqbyStageResponseDTO'] = ResolversParentTypes['OpptyEqbyStageResponseDTO']> = ResolversObject<{
+  emotionalScore?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  emotionalStage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  numberOfAttendees2?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  opptyId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  stage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  stageEndDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  stageStartDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type OpptyTeamResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['OpptyTeamResponseDTO'] = ResolversParentTypes['OpptyTeamResponseDTO']> = ResolversObject<{
+  endDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  startDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  usersId?: Resolver<Maybe<ResolversTypes['ConvUsersDTO']>, ParentType, ContextType>;
+  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type PlaylistResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['PlaylistResponseDTO'] = ResolversParentTypes['PlaylistResponseDTO']> = ResolversObject<{
+  clips?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaClipResponseDTO']>>>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  isPublic?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  permission?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  shared?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  userID?: Resolver<Maybe<ResolversTypes['ConvUsersDTO']>, ParentType, ContextType>;
+  usersViewed?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  views?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SummaryReportDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['SummaryReportDTO'] = ResolversParentTypes['SummaryReportDTO']> = ResolversObject<{
+  amountImpacted?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  hrsProcessed?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  numOfConversations?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  uniqueContacts?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  uniqueDeals?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  uniqueKeyMoments?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type TrendEQForOpptyResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['TrendEQForOpptyResponse'] = ResolversParentTypes['TrendEQForOpptyResponse']> = ResolversObject<{
+  deals?: Resolver<Maybe<ResolversTypes['DealSummaryDetailResponse']>, ParentType, ContextType>;
+  keyMoments5?: Resolver<Maybe<ResolversTypes['OpptyDTO']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type AccountPromisesResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['AccountPromisesResponseDTO'] = ResolversParentTypes['AccountPromisesResponseDTO']> = ResolversObject<{
+  account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType>;
+  dateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  promises?: Resolver<Maybe<Array<Maybe<ResolversTypes['Promise']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type PromiseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Promise'] = ResolversParentTypes['Promise']> = ResolversObject<{
+  classification?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  conv?: Resolver<Maybe<ResolversTypes['ConvInfo']>, ParentType, ContextType>;
+  deal?: Resolver<Maybe<ResolversTypes['DealInfo']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  promiseEndTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  promiseNextAction?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  promiseStartTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  promiseText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  score?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ConvInfoResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvInfo'] = ResolversParentTypes['ConvInfo']> = ResolversObject<{
+  confidential?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  endTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  hostId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  meetingTopic?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  startTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type DealInfoResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['DealInfo'] = ResolversParentTypes['DealInfo']> = ResolversObject<{
+  amount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  amountNumber?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  closeDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  createDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CompanyParamResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CompanyParamResponseDTO'] = ResolversParentTypes['CompanyParamResponseDTO']> = ResolversObject<{
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  value?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ConfigPropResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConfigPropResponseDTO'] = ResolversParentTypes['ConfigPropResponseDTO']> = ResolversObject<{
+  configPropset?: Resolver<Maybe<ResolversTypes['IdNameDTO']>, ParentType, ContextType>;
+  defaultValue?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  defaultValueInt?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  isVisible?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type AggrConvMetricsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['AggrConvMetrics'] = ResolversParentTypes['AggrConvMetrics']> = ResolversObject<{
+  convId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  engagement?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  engagementSmooth?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  isSpeaker?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  offset?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  offsetTimestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  participantId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  sentiment?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  sentimentSmooth?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CustWebLinkResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CustWebLinkResponseDTO'] = ResolversParentTypes['CustWebLinkResponseDTO']> = ResolversObject<{
+  company?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  companyProfile?: Resolver<Maybe<ResolversTypes['CompanyProfileDTO']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  usersId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -7421,204 +8900,12 @@ export type EmlBodyParamResolvers<ContextType = MeshContext, ParentType extends 
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type EmpathyAndHesitationTurnsReportResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['EmpathyAndHesitationTurnsReport'] = ResolversParentTypes['EmpathyAndHesitationTurnsReport']> = ResolversObject<{
-  convId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  empathyChangeDetailsList?: Resolver<Maybe<Array<Maybe<ResolversTypes['EmpathyChangeDetails']>>>, ParentType, ContextType>;
-  empathyScore?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  hesitationChangeDetailsList?: Resolver<Maybe<Array<Maybe<ResolversTypes['HesitationChangeDetails']>>>, ParentType, ContextType>;
-  hesitationScore?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type EmpathyChangeDetailsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['EmpathyChangeDetails'] = ResolversParentTypes['EmpathyChangeDetails']> = ResolversObject<{
-  averageEmpathy2?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  convId2?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  convOffset?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  polarity?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  prevContactNameOnTurn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  userId2?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  userName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type HesitationChangeDetailsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['HesitationChangeDetails'] = ResolversParentTypes['HesitationChangeDetails']> = ResolversObject<{
-  averageHesitation?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  convId3?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  convOffset?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  prevContactNameOnTurn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  userId3?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  userName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type CalendarEventResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CalendarEvent'] = ResolversParentTypes['CalendarEvent']> = ResolversObject<{
-  account?: Resolver<Maybe<ResolversTypes['IdNameDTO']>, ParentType, ContextType>;
-  botInstrFromCalendar?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  calUid?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  eventAttendees?: Resolver<Maybe<Array<Maybe<ResolversTypes['CalendarEventAttendee']>>>, ParentType, ContextType>;
-  eventEndTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  eventStartTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  lastMeeting?: Resolver<Maybe<ResolversTypes['ConversationDetailResponse']>, ParentType, ContextType>;
-  oppty?: Resolver<Maybe<Array<Maybe<ResolversTypes['IdNameDTO']>>>, ParentType, ContextType>;
-  opptyDetail?: Resolver<Maybe<ResolversTypes['DealSummaryDetailResponse']>, ParentType, ContextType>;
-  subjectLine?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  userId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type CalendarEventAttendeeResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CalendarEventAttendee'] = ResolversParentTypes['CalendarEventAttendee']> = ResolversObject<{
+export type KeyPhraseExpertResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['KeyPhraseExpertResponseDTO'] = ResolversParentTypes['KeyPhraseExpertResponseDTO']> = ResolversObject<{
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type KeyPhraseResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['KeyPhraseResponse'] = ResolversParentTypes['KeyPhraseResponse']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  keyMoments3?: Resolver<Maybe<Array<Maybe<ResolversTypes['KeyMoment']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type TeamOpptyUsersStatsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['TeamOpptyUsersStats'] = ResolversParentTypes['TeamOpptyUsersStats']> = ResolversObject<{
-  idealConvEQ?: Resolver<Maybe<ResolversTypes['IdealConvEQ']>, ParentType, ContextType>;
-  overAll?: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamUsersStat']>>>, ParentType, ContextType>;
-  teamOpptyUsersStats?: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamOpptyUsersStat']>>>, ParentType, ContextType>;
-  unattributed?: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamUnattributedUsersStat']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type IdealConvEQResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['IdealConvEQ'] = ResolversParentTypes['IdealConvEQ']> = ResolversObject<{
-  empathy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   engagement?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  fullName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   sentiment?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  talkRatio?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type TeamUsersStatResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['TeamUsersStat'] = ResolversParentTypes['TeamUsersStat']> = ResolversObject<{
-  customerEngagement?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  customerSentiment?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  empathy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  engagement?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  hesitation?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  politeness?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  sentiment?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  speakingRate?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  talkRatio?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  talkSpeed?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-  usersStats?: Resolver<Maybe<Array<Maybe<ResolversTypes['UsersStat']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type UsersStatResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['UsersStat'] = ResolversParentTypes['UsersStat']> = ResolversObject<{
-  accountID?: Resolver<Maybe<ResolversTypes['ConvAccountDTO']>, ParentType, ContextType>;
-  convEndTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  convId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  convStartTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  convStatus?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  convType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  empathy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  engagement?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  hesitation?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  participantName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  politeness?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  sentiment?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  speakingRate?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  talkRatio?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  talkSpeed?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   userId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type TeamOpptyUsersStatResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['TeamOpptyUsersStat'] = ResolversParentTypes['TeamOpptyUsersStat']> = ResolversObject<{
-  comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentResponseDTO']>>>, ParentType, ContextType>;
-  conversations?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConversationRequest']>>>, ParentType, ContextType>;
-  oppty?: Resolver<Maybe<ResolversTypes['OpptyDTO']>, ParentType, ContextType>;
-  usersStats?: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamUsersStat']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type TeamUnattributedUsersStatResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['TeamUnattributedUsersStat'] = ResolversParentTypes['TeamUnattributedUsersStat']> = ResolversObject<{
-  comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentResponseDTO']>>>, ParentType, ContextType>;
-  conversations?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConversationRequest']>>>, ParentType, ContextType>;
-  user?: Resolver<Maybe<ResolversTypes['TeamUsersStat']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type MediaClipResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['MediaClipResponseDTO'] = ResolversParentTypes['MediaClipResponseDTO']> = ResolversObject<{
-  accountID?: Resolver<Maybe<ResolversTypes['ConvAccountDTO']>, ParentType, ContextType>;
-  audioMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentResponseDTO']>>>, ParentType, ContextType>;
-  convID?: Resolver<Maybe<ResolversTypes['ConvDTO']>, ParentType, ContextType>;
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  endTime?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  galleryViewVideoMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  keyMoment?: Resolver<Maybe<ResolversTypes['ConvKeyMomentResponseDTO']>, ParentType, ContextType>;
-  keytags?: Resolver<Maybe<Array<Maybe<ResolversTypes['KeywordTagResponseDTO']>>>, ParentType, ContextType>;
-  mediaClipRelId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  meetingTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  meetingTopic?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  opptyID?: Resolver<Maybe<ResolversTypes['ConvOpptyDTO']>, ParentType, ContextType>;
-  opptyName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  polarity?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  position?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  shared?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  startTime?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  thumbnail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  transcript?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  userID?: Resolver<Maybe<ResolversTypes['ConvUsersDTO']>, ParentType, ContextType>;
-  usersViewed?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  views?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ConvKeyMomentResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvKeyMomentResponseDTO'] = ResolversParentTypes['ConvKeyMomentResponseDTO']> = ResolversObject<{
-  contentImages?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  convId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  downVote?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  downVoteUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  endOffset?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  keywordTagId1?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  keywordTagId2?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  keywordTagId3?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  keywordTagId4?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  kmEndTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  kmStartTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  line?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  polarity?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  score?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  startOffset?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  upVote?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  upVoteUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  updateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ConvOpptyDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvOpptyDTO'] = ResolversParentTypes['ConvOpptyDTO']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -7633,126 +8920,6 @@ export type MediaClipParamResponseDTOResolvers<ContextType = MeshContext, Parent
   type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   value?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ConversationSummaryResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConversationSummaryResponse'] = ResolversParentTypes['ConversationSummaryResponse']> = ResolversObject<{
-  data?: Resolver<Maybe<Array<Maybe<ResolversTypes['Datum']>>>, ParentType, ContextType>;
-  userId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type DatumResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Datum'] = ResolversParentTypes['Datum']> = ResolversObject<{
-  account?: Resolver<Maybe<ResolversTypes['IdNameDTO']>, ParentType, ContextType>;
-  aiViewVideoMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  attendees?: Resolver<Maybe<Array<Maybe<ResolversTypes['ConvAttendeeAttr']>>>, ParentType, ContextType>;
-  audioMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  confidential?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  contentViewVideoMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  cvProcDone?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  dataFusionProcDone?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  endDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  externalMeetingId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  galleryViewVideoMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  host?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  hostId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  hostImage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  keyTopics?: Resolver<Maybe<Array<Maybe<ResolversTypes['KeyTag']>>>, ParentType, ContextType>;
-  lastChunk?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  mediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  mediaThumbnail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  opportunity?: Resolver<Maybe<ResolversTypes['Opportunity']>, ParentType, ContextType>;
-  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  pendingPromisesCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  processedFlag?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  score?: Resolver<Maybe<Array<Maybe<ResolversTypes['Score4']>>>, ParentType, ContextType>;
-  sharedDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  sharedUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  speakerTimelineLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  speakerViewVideoMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  startDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  textKmProcDone?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  textMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  textSentProcDone?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  thumbnail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  tonalProcDone?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  totalPromisesCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  transcriptLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  uuid?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  videoMediaLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ConvAttendeeAttrResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvAttendeeAttr'] = ResolversParentTypes['ConvAttendeeAttr']> = ResolversObject<{
-  convId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type OpportunityResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Opportunity'] = ResolversParentTypes['Opportunity']> = ResolversObject<{
-  amount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  closeDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  createDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  opptyAmount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  stage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type OpptyEqbyStageResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['OpptyEqbyStageResponseDTO'] = ResolversParentTypes['OpptyEqbyStageResponseDTO']> = ResolversObject<{
-  emotionalScore?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  emotionalStage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  numberOfAttendees2?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  opptyId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  stage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  stageEndDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  stageStartDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type OpptyTeamResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['OpptyTeamResponseDTO'] = ResolversParentTypes['OpptyTeamResponseDTO']> = ResolversObject<{
-  endDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  startDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  usersId?: Resolver<Maybe<ResolversTypes['ConvUsersDTO']>, ParentType, ContextType>;
-  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type PlaylistResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['PlaylistResponseDTO'] = ResolversParentTypes['PlaylistResponseDTO']> = ResolversObject<{
-  clips?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaClipResponseDTO']>>>, ParentType, ContextType>;
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  insertTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  isPublic?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  orgId?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  permission?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  shared?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  subtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  updateTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  userID?: Resolver<Maybe<ResolversTypes['ConvUsersDTO']>, ParentType, ContextType>;
-  usersViewed?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  views?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -7789,72 +8956,9 @@ export type ConvSharedViewDataResolvers<ContextType = MeshContext, ParentType ex
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ConvSlideFirstResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvSlideFirstResponse'] = ResolversParentTypes['ConvSlideFirstResponse']> = ResolversObject<{
-  high?: Resolver<Maybe<Array<Maybe<ResolversTypes['SlideFirst']>>>, ParentType, ContextType>;
-  low?: Resolver<Maybe<Array<Maybe<ResolversTypes['SlideFirst']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type SummaryReportDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['SummaryReportDTO'] = ResolversParentTypes['SummaryReportDTO']> = ResolversObject<{
-  amountImpacted?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  hrsProcessed?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  numOfConversations?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  uniqueContacts?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  uniqueDeals?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  uniqueKeyMoments?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ConvTimelineResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ConvTimeline'] = ResolversParentTypes['ConvTimeline']> = ResolversObject<{
-  convId4?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  data?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type TrendEQForOpptyResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['TrendEQForOpptyResponse'] = ResolversParentTypes['TrendEQForOpptyResponse']> = ResolversObject<{
-  deals?: Resolver<Maybe<ResolversTypes['DealSummaryDetailResponse']>, ParentType, ContextType>;
-  keyMoments4?: Resolver<Maybe<ResolversTypes['OpptyDTO']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
 export type UserDelegateResponseDTOResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['UserDelegateResponseDTO'] = ResolversParentTypes['UserDelegateResponseDTO']> = ResolversObject<{
   proxyOwners?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
   proxyUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ContactResponseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ContactResponse'] = ResolversParentTypes['ContactResponse']> = ResolversObject<{
-  accounts?: Resolver<Maybe<Array<Maybe<Array<Maybe<ResolversTypes['JSON']>>>>>, ParentType, ContextType>;
-  avatarUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  contactMethods?: Resolver<Maybe<Array<Maybe<ResolversTypes['ContactMethodDTO']>>>, ParentType, ContextType>;
-  firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  jobTitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  keyMoments5?: Resolver<Maybe<Array<Maybe<ResolversTypes['KeyMoment']>>>, ParentType, ContextType>;
-  lastConv?: Resolver<Maybe<ResolversTypes['LastConv']>, ParentType, ContextType>;
-  lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  metrics?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  nextConv?: Resolver<Maybe<ResolversTypes['NextConv']>, ParentType, ContextType>;
-  openOppty?: Resolver<Maybe<Array<Maybe<ResolversTypes['OpptyDTO']>>>, ParentType, ContextType>;
-  role?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  score?: Resolver<Maybe<Array<Maybe<ResolversTypes['Score4']>>>, ParentType, ContextType>;
-  timezone?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type LastConvResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['LastConv'] = ResolversParentTypes['LastConv']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  startTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type NextConvResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['NextConv'] = ResolversParentTypes['NextConv']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  startTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -7902,7 +9006,7 @@ export type MutationResolvers<ContextType = MeshContext, ParentType extends Reso
   getAllTeamsUserStats?: Resolver<Maybe<Array<Maybe<ResolversTypes['TeamsAccountOpptyUsersStat']>>>, ParentType, ContextType, RequireFields<MutationgetAllTeamsUserStatsArgs, 'advSearchRequestInput'>>;
   getAssessmentByCompany?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationgetAssessmentByCompanyArgs, 'advSearchRequestInput'>>;
   getAssessments?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<MutationgetAssessmentsArgs, 'advSearchRequestInput'>>;
-  getAttendeeByMeetingTranscript?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType, RequireFields<MutationgetAttendeeByMeetingTranscriptArgs, never>>;
+  getAttendeeByMeetingTranscript?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType, Partial<MutationgetAttendeeByMeetingTranscriptArgs>>;
   getAuthCodeAndGenerateToken?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<MutationgetAuthCodeAndGenerateTokenArgs, 'code' | 'idToken' | 'state'>>;
   getAuthUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationgetAuthUrlArgs, 'authRequestInput'>>;
   getAuthUrl1?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationgetAuthUrl1Args, 'authRequestInput'>>;
@@ -7998,7 +9102,7 @@ export type MutationResolvers<ContextType = MeshContext, ParentType extends Reso
   sharePlaylist?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationsharePlaylistArgs, 'shareMeetingDTOInput'>>;
   threadCount?: Resolver<Maybe<Array<Maybe<ResolversTypes['ThreadCountResponse']>>>, ParentType, ContextType, RequireFields<MutationthreadCountArgs, 'advSearchRequestInput'>>;
   updateAccessConsent?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationupdateAccessConsentArgs, 'consent'>>;
-  updateAccountOpptyEQ?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationupdateAccountOpptyEQArgs, never>>;
+  updateAccountOpptyEQ?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, Partial<MutationupdateAccountOpptyEQArgs>>;
   updateAccountOpptyEQ1?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updateAlert?: Resolver<Maybe<ResolversTypes['AlertResponseDTO']>, ParentType, ContextType, RequireFields<MutationupdateAlertArgs, 'alertRequestDTOInput'>>;
   updateCalendarEvent?: Resolver<Maybe<ResolversTypes['CalendarEvent']>, ParentType, ContextType, RequireFields<MutationupdateCalendarEventArgs, 'calendarEventRequestDTOInput'>>;
@@ -8007,14 +9111,14 @@ export type MutationResolvers<ContextType = MeshContext, ParentType extends Reso
   updateEmlEq?: Resolver<Maybe<ResolversTypes['EmlEqResponseDTO']>, ParentType, ContextType, RequireFields<MutationupdateEmlEqArgs, 'emlEqRequestDTOInput'>>;
   updateKeyMoment?: Resolver<Maybe<ResolversTypes['ConvKeyMomentResponseDTO']>, ParentType, ContextType, RequireFields<MutationupdateKeyMomentArgs, 'convKeyMomentRequestDTOInput'>>;
   updatePlaylistMediaClipRel?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<MutationupdatePlaylistMediaClipRelArgs, 'playlistMediaClipRelRequestDTOInput'>>;
-  updateQDetails?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<MutationupdateQDetailsArgs, never>>;
+  updateQDetails?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, Partial<MutationupdateQDetailsArgs>>;
   updateStatusByIds?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<MutationupdateStatusByIdsArgs, 'usalesKeywordTagUpdateStatusInput'>>;
   updateTeamAccess?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationupdateTeamAccessArgs, 'enable'>>;
   updateTeamMembersManagerDetails?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType, RequireFields<MutationupdateTeamMembersManagerDetailsArgs, 'managerId' | 'usalesUserTeamInput'>>;
   updateUserProxy?: Resolver<Maybe<ResolversTypes['UserDelegateResponseDTO']>, ParentType, ContextType, RequireFields<MutationupdateUserProxyArgs, 'userDelegateRequestDTOInput'>>;
   updateZoomMeetingInvokeBot?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<MutationupdateZoomMeetingInvokeBotArgs, 'zoomMeetingWhitelistRequestInput'>>;
   updateZoomMeetingWhitelist?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  uploadExternalMeeting?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<MutationuploadExternalMeetingArgs, never>>;
+  uploadExternalMeeting?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, Partial<MutationuploadExternalMeetingArgs>>;
   upsert?: Resolver<Maybe<ResolversTypes['PlaylistResponseDTO']>, ParentType, ContextType, RequireFields<MutationupsertArgs, 'playlistRequestDTOInput'>>;
   upsert1?: Resolver<Maybe<ResolversTypes['PlaylistParamResponseDTO']>, ParentType, ContextType, RequireFields<Mutationupsert1Args, 'playlistParamRequestDTOInput'>>;
   upsert2?: Resolver<Maybe<ResolversTypes['MediaClipResponseDTO']>, ParentType, ContextType, RequireFields<Mutationupsert2Args, 'mediaClipRequestDTOInput'>>;
@@ -8724,8 +9828,6 @@ export type CompanyProfileKeywordCategRelDTOResolvers<ContextType = MeshContext,
 
 export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   Query?: QueryResolvers<ContextType>;
-  JSON?: GraphQLScalarType;
-  KeyPhraseExpertResponseDTO?: KeyPhraseExpertResponseDTOResolvers<ContextType>;
   AccountResponseDTO?: AccountResponseDTOResolvers<ContextType>;
   IdNameDTO?: IdNameDTOResolvers<ContextType>;
   ContactActivity?: ContactActivityResolvers<ContextType>;
@@ -8764,59 +9866,89 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   UserUiPreference?: UserUiPreferenceResolvers<ContextType>;
   UserUiPreferenceParam?: UserUiPreferenceParamResolvers<ContextType>;
   OpptyParam?: OpptyParamResolvers<ContextType>;
-  OpptyDTO?: OpptyDTOResolvers<ContextType>;
   AccountTeamResponse?: AccountTeamResponseResolvers<ContextType>;
   AccountTeamDTO?: AccountTeamDTOResolvers<ContextType>;
-  AggrConvMetrics?: AggrConvMetricsResolvers<ContextType>;
   AlertResponseDTO?: AlertResponseDTOResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   CompanyProfileDTO?: CompanyProfileDTOResolvers<ContextType>;
+  JSON?: GraphQLScalarType;
   UserManagerDTO?: UserManagerDTOResolvers<ContextType>;
-  CompanyParamResponseDTO?: CompanyParamResponseDTOResolvers<ContextType>;
-  ConfigPropResponseDTO?: ConfigPropResponseDTOResolvers<ContextType>;
-  ConversationAttendeesResponse?: ConversationAttendeesResponseResolvers<ContextType>;
-  CommentResponseDTO?: CommentResponseDTOResolvers<ContextType>;
-  KeywordCategResponseDTO?: KeywordCategResponseDTOResolvers<ContextType>;
-  KeywordTagResponseDTO?: KeywordTagResponseDTOResolvers<ContextType>;
-  CompanySlideFirstResponse?: CompanySlideFirstResponseResolvers<ContextType>;
-  SlideFirst?: SlideFirstResolvers<ContextType>;
-  ContactMetricsResponse?: ContactMetricsResponseResolvers<ContextType>;
-  ContactMethodDTO?: ContactMethodDTOResolvers<ContextType>;
-  ContactMethodParam?: ContactMethodParamResolvers<ContextType>;
-  ContactMethod?: ContactMethodResolvers<ContextType>;
-  ConvAttendeeResponseDTO?: ConvAttendeeResponseDTOResolvers<ContextType>;
-  ConvMetricsResponse?: ConvMetricsResponseResolvers<ContextType>;
-  ConversationAttributionLogRsp?: ConversationAttributionLogRspResolvers<ContextType>;
-  AccountPromisesResponseDTO?: AccountPromisesResponseDTOResolvers<ContextType>;
-  Promise?: PromiseResolvers<ContextType>;
-  ConvInfo?: ConvInfoResolvers<ContextType>;
-  DealInfo?: DealInfoResolvers<ContextType>;
-  ConvTopicEpisodeResponseDTO?: ConvTopicEpisodeResponseDTOResolvers<ContextType>;
-  ConvEQResponseDTO?: ConvEQResponseDTOResolvers<ContextType>;
+  CalendarEvent?: CalendarEventResolvers<ContextType>;
+  CalendarEventAttendee?: CalendarEventAttendeeResolvers<ContextType>;
   ConversationDetailResponse?: ConversationDetailResponseResolvers<ContextType>;
   DealAccount?: DealAccountResolvers<ContextType>;
   ConvNextAction?: ConvNextActionResolvers<ContextType>;
   DealSummaryDetailResponse?: DealSummaryDetailResponseResolvers<ContextType>;
   UserActivity?: UserActivityResolvers<ContextType>;
   DealOppty?: DealOpptyResolvers<ContextType>;
+  ConvTopicEpisodeResponseDTO?: ConvTopicEpisodeResponseDTOResolvers<ContextType>;
+  CompanySlideFirstResponse?: CompanySlideFirstResponseResolvers<ContextType>;
+  SlideFirst?: SlideFirstResolvers<ContextType>;
+  ContactMetricsResponse?: ContactMetricsResponseResolvers<ContextType>;
+  ContactMethodDTO?: ContactMethodDTOResolvers<ContextType>;
+  ContactMethodParam?: ContactMethodParamResolvers<ContextType>;
+  ContactMethod?: ContactMethodResolvers<ContextType>;
+  OpptyDTO?: OpptyDTOResolvers<ContextType>;
+  ContactResponse?: ContactResponseResolvers<ContextType>;
+  LastConv?: LastConvResolvers<ContextType>;
+  NextConv?: NextConvResolvers<ContextType>;
+  ConvAttendeeResponseDTO?: ConvAttendeeResponseDTOResolvers<ContextType>;
+  ConvEQResponseDTO?: ConvEQResponseDTOResolvers<ContextType>;
+  ConvMetricsResponse?: ConvMetricsResponseResolvers<ContextType>;
+  ConversationAttributionLogRsp?: ConversationAttributionLogRspResolvers<ContextType>;
+  ConvSlideFirstResponse?: ConvSlideFirstResponseResolvers<ContextType>;
+  ConvTimeline?: ConvTimelineResolvers<ContextType>;
+  ConversationAttendeesResponse?: ConversationAttendeesResponseResolvers<ContextType>;
+  ConversationSummaryResponse?: ConversationSummaryResponseResolvers<ContextType>;
+  Datum?: DatumResolvers<ContextType>;
+  ConvAttendeeAttr?: ConvAttendeeAttrResolvers<ContextType>;
+  Opportunity?: OpportunityResolvers<ContextType>;
   ConvoStatResponse?: ConvoStatResponseResolvers<ContextType>;
   ConvoStats?: ConvoStatsResolvers<ContextType>;
-  CurrentEQForOpptyResponse?: CurrentEQForOpptyResponseResolvers<ContextType>;
   DealDetailResponse?: DealDetailResponseResolvers<ContextType>;
   DealSearchResult?: DealSearchResultResolvers<ContextType>;
   DealEntity?: DealEntityResolvers<ContextType>;
   DealData?: DealDataResolvers<ContextType>;
   AccountOpptyEQResponseDTO?: AccountOpptyEQResponseDTOResolvers<ContextType>;
   DealNextAction?: DealNextActionResolvers<ContextType>;
-  CustWebLinkResponseDTO?: CustWebLinkResponseDTOResolvers<ContextType>;
+  CurrentEQForOpptyResponse?: CurrentEQForOpptyResponseResolvers<ContextType>;
+  DealSummaryResponse?: DealSummaryResponseResolvers<ContextType>;
   DealSummaryTrendResponse?: DealSummaryTrendResponseResolvers<ContextType>;
   DealConvoStat?: DealConvoStatResolvers<ContextType>;
   Stages?: StagesResolvers<ContextType>;
   DealStat?: DealStatResolvers<ContextType>;
-  DealSummaryResponse?: DealSummaryResponseResolvers<ContextType>;
   Diarization?: DiarizationResolvers<ContextType>;
   Task?: TaskResolvers<ContextType>;
   Option?: OptionResolvers<ContextType>;
+  EmpathyAndHesitationTurnsReport?: EmpathyAndHesitationTurnsReportResolvers<ContextType>;
+  EmpathyChangeDetails?: EmpathyChangeDetailsResolvers<ContextType>;
+  HesitationChangeDetails?: HesitationChangeDetailsResolvers<ContextType>;
+  TeamOpptyUsersStats?: TeamOpptyUsersStatsResolvers<ContextType>;
+  IdealConvEQ?: IdealConvEQResolvers<ContextType>;
+  TeamUsersStat?: TeamUsersStatResolvers<ContextType>;
+  UsersStat?: UsersStatResolvers<ContextType>;
+  TeamOpptyUsersStat?: TeamOpptyUsersStatResolvers<ContextType>;
+  CommentResponseDTO?: CommentResponseDTOResolvers<ContextType>;
+  TeamUnattributedUsersStat?: TeamUnattributedUsersStatResolvers<ContextType>;
+  KeyPhraseResponse?: KeyPhraseResponseResolvers<ContextType>;
+  MediaClipResponseDTO?: MediaClipResponseDTOResolvers<ContextType>;
+  ConvKeyMomentResponseDTO?: ConvKeyMomentResponseDTOResolvers<ContextType>;
+  KeywordTagResponseDTO?: KeywordTagResponseDTOResolvers<ContextType>;
+  KeywordCategResponseDTO?: KeywordCategResponseDTOResolvers<ContextType>;
+  ConvOpptyDTO?: ConvOpptyDTOResolvers<ContextType>;
+  OpptyEqbyStageResponseDTO?: OpptyEqbyStageResponseDTOResolvers<ContextType>;
+  OpptyTeamResponseDTO?: OpptyTeamResponseDTOResolvers<ContextType>;
+  PlaylistResponseDTO?: PlaylistResponseDTOResolvers<ContextType>;
+  SummaryReportDTO?: SummaryReportDTOResolvers<ContextType>;
+  TrendEQForOpptyResponse?: TrendEQForOpptyResponseResolvers<ContextType>;
+  AccountPromisesResponseDTO?: AccountPromisesResponseDTOResolvers<ContextType>;
+  Promise?: PromiseResolvers<ContextType>;
+  ConvInfo?: ConvInfoResolvers<ContextType>;
+  DealInfo?: DealInfoResolvers<ContextType>;
+  CompanyParamResponseDTO?: CompanyParamResponseDTOResolvers<ContextType>;
+  ConfigPropResponseDTO?: ConfigPropResponseDTOResolvers<ContextType>;
+  AggrConvMetrics?: AggrConvMetricsResolvers<ContextType>;
+  CustWebLinkResponseDTO?: CustWebLinkResponseDTOResolvers<ContextType>;
   EmlEqResponseDTO?: EmlEqResponseDTOResolvers<ContextType>;
   EmlObjResponseDTO?: EmlObjResponseDTOResolvers<ContextType>;
   EmlBody2?: EmlBody2Resolvers<ContextType>;
@@ -8826,40 +9958,12 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   EmlMetadataParam?: EmlMetadataParamResolvers<ContextType>;
   EmlObjParam?: EmlObjParamResolvers<ContextType>;
   EmlBodyParam?: EmlBodyParamResolvers<ContextType>;
-  EmpathyAndHesitationTurnsReport?: EmpathyAndHesitationTurnsReportResolvers<ContextType>;
-  EmpathyChangeDetails?: EmpathyChangeDetailsResolvers<ContextType>;
-  HesitationChangeDetails?: HesitationChangeDetailsResolvers<ContextType>;
-  CalendarEvent?: CalendarEventResolvers<ContextType>;
-  CalendarEventAttendee?: CalendarEventAttendeeResolvers<ContextType>;
-  KeyPhraseResponse?: KeyPhraseResponseResolvers<ContextType>;
-  TeamOpptyUsersStats?: TeamOpptyUsersStatsResolvers<ContextType>;
-  IdealConvEQ?: IdealConvEQResolvers<ContextType>;
-  TeamUsersStat?: TeamUsersStatResolvers<ContextType>;
-  UsersStat?: UsersStatResolvers<ContextType>;
-  TeamOpptyUsersStat?: TeamOpptyUsersStatResolvers<ContextType>;
-  TeamUnattributedUsersStat?: TeamUnattributedUsersStatResolvers<ContextType>;
-  MediaClipResponseDTO?: MediaClipResponseDTOResolvers<ContextType>;
-  ConvKeyMomentResponseDTO?: ConvKeyMomentResponseDTOResolvers<ContextType>;
-  ConvOpptyDTO?: ConvOpptyDTOResolvers<ContextType>;
+  KeyPhraseExpertResponseDTO?: KeyPhraseExpertResponseDTOResolvers<ContextType>;
   MediaClipParamResponseDTO?: MediaClipParamResponseDTOResolvers<ContextType>;
-  ConversationSummaryResponse?: ConversationSummaryResponseResolvers<ContextType>;
-  Datum?: DatumResolvers<ContextType>;
-  ConvAttendeeAttr?: ConvAttendeeAttrResolvers<ContextType>;
-  Opportunity?: OpportunityResolvers<ContextType>;
-  OpptyEqbyStageResponseDTO?: OpptyEqbyStageResponseDTOResolvers<ContextType>;
-  OpptyTeamResponseDTO?: OpptyTeamResponseDTOResolvers<ContextType>;
-  PlaylistResponseDTO?: PlaylistResponseDTOResolvers<ContextType>;
   PlaylistParamResponseDTO?: PlaylistParamResponseDTOResolvers<ContextType>;
   SharedMemberDTO?: SharedMemberDTOResolvers<ContextType>;
   ConvSharedViewData?: ConvSharedViewDataResolvers<ContextType>;
-  ConvSlideFirstResponse?: ConvSlideFirstResponseResolvers<ContextType>;
-  SummaryReportDTO?: SummaryReportDTOResolvers<ContextType>;
-  ConvTimeline?: ConvTimelineResolvers<ContextType>;
-  TrendEQForOpptyResponse?: TrendEQForOpptyResponseResolvers<ContextType>;
   UserDelegateResponseDTO?: UserDelegateResponseDTOResolvers<ContextType>;
-  ContactResponse?: ContactResponseResolvers<ContextType>;
-  LastConv?: LastConvResolvers<ContextType>;
-  NextConv?: NextConvResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   KeyPhraseOccurenceContentResponseDTO?: KeyPhraseOccurenceContentResponseDTOResolvers<ContextType>;
   VideoSharingHistoryDTO?: VideoSharingHistoryDTOResolvers<ContextType>;
@@ -8919,2109 +10023,7481 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
 }>;
 
 
-/**
- * @deprecated
- * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
- */
-export type IResolvers<ContextType = MeshContext> = Resolvers<ContextType>;
+import { MeshContext as BaseMeshContext, MeshInstance } from '@graphql-mesh/runtime';
 
-import { MeshContext as BaseMeshContext } from '@graphql-mesh/runtime';
+import { InContextSdkMethod } from '@graphql-mesh/types';
 
-import { SelectionSetParamOrFactory } from '@graphql-mesh/types';
 
-export type QueryWeatherbitIoSdk = {
-  accessTokenForAuthenticatedUser: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['accessTokenForAuthenticatedUser']>,
-  fetchKeyPhraseExpert: (params: {
-      root?: any;
-      args: QueryfetchKeyPhraseExpertArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['fetchKeyPhraseExpert']>,
-  generateAccessToken: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['generateAccessToken']>,
-  generateRefreshToken: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['generateRefreshToken']>,
-  getAccessConsent: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getAccessConsent']>,
-  getAccountById: (params: {
-      root?: any;
-      args: QuerygetAccountByIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getAccountById']>,
-  getAccountOpptyByAccount: (params: {
-      root?: any;
-      args: QuerygetAccountOpptyByAccountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getAccountOpptyByAccount']>,
-  getAccountTeamByAccount: (params: {
-      root?: any;
-      args: QuerygetAccountTeamByAccountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getAccountTeamByAccount']>,
-  getAccounts: (params: {
-      root?: any;
-      args: QuerygetAccountsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getAccounts']>,
-  getAggrConvMetrics: (params: {
-      root?: any;
-      args: QuerygetAggrConvMetricsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getAggrConvMetrics']>,
-  getAggrConvMetricsByParticipant: (params: {
-      root?: any;
-      args: QuerygetAggrConvMetricsByParticipantArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getAggrConvMetricsByParticipant']>,
-  getAlertById: (params: {
-      root?: any;
-      args: QuerygetAlertByIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getAlertById']>,
-  getAlertByUser: (params: {
-      root?: any;
-      args: QuerygetAlertByUserArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getAlertByUser']>,
-  getAllCompanyParams: (params: {
-      root?: any;
-      args: QuerygetAllCompanyParamsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getAllCompanyParams']>,
-  getAllCurrentSystemProp: (params: {
-      root?: any;
-      args: QuerygetAllCurrentSystemPropArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getAllCurrentSystemProp']>,
-  getAttendees: (params: {
-      root?: any;
-      args: QuerygetAttendeesArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getAttendees']>,
-  getAuthCodeAndGenerateToken1: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getAuthCodeAndGenerateToken1']>,
-  getAuthUrl3: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getAuthUrl3']>,
-  getAuthUrl4: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getAuthUrl4']>,
-  getAuthUrl5: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getAuthUrl5']>,
-  getAuthUrl6: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getAuthUrl6']>,
-  getBookmarksByConvId: (params: {
-      root?: any;
-      args: QuerygetBookmarksByConvIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getBookmarksByConvId']>,
-  getBookmarksByConvKeyMomentId: (params: {
-      root?: any;
-      args: QuerygetBookmarksByConvKeyMomentIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getBookmarksByConvKeyMomentId']>,
-  getCommentByConvId: (params: {
-      root?: any;
-      args: QuerygetCommentByConvIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getCommentByConvId']>,
-  getCommentByConvKeyMomentId: (params: {
-      root?: any;
-      args: QuerygetCommentByConvKeyMomentIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getCommentByConvKeyMomentId']>,
-  getCompanyCategAndSubCateg: (params: {
-      root?: any;
-      args: QuerygetCompanyCategAndSubCategArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getCompanyCategAndSubCateg']>,
-  getCompanyProfile: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getCompanyProfile']>,
-  getCompanySlideFirst: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getCompanySlideFirst']>,
-  getContactEQForOppty: (params: {
-      root?: any;
-      args: QuerygetContactEQForOpptyArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getContactEQForOppty']>,
-  getContactEmailsCount: (params: {
-      root?: any;
-      args: QuerygetContactEmailsCountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getContactEmailsCount']>,
-  getContactMetrics: (params: {
-      root?: any;
-      args: QuerygetContactMetricsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getContactMetrics']>,
-  getContactsEQForOppty: (params: {
-      root?: any;
-      args: QuerygetContactsEQForOpptyArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getContactsEQForOppty']>,
-  getConvAttendeeTeam: (params: {
-      root?: any;
-      args: QuerygetConvAttendeeTeamArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getConvAttendeeTeam']>,
-  getConvAttendeeTeamById: (params: {
-      root?: any;
-      args: QuerygetConvAttendeeTeamByIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getConvAttendeeTeamById']>,
-  getConvMetrics: (params: {
-      root?: any;
-      args: QuerygetConvMetricsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getConvMetrics']>,
-  getConvModLog: (params: {
-      root?: any;
-      args: QuerygetConvModLogArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getConvModLog']>,
-  getConvPromises: (params: {
-      root?: any;
-      args: QuerygetConvPromisesArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getConvPromises']>,
-  getConvStatus: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getConvStatus']>,
-  getConvTopicEpisodeById: (params: {
-      root?: any;
-      args: QuerygetConvTopicEpisodeByIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getConvTopicEpisodeById']>,
-  getConvTrends: (params: {
-      root?: any;
-      args: QuerygetConvTrendsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getConvTrends']>,
-  getConversation: (params: {
-      root?: any;
-      args: QuerygetConversationArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getConversation']>,
-  getConversationById: (params: {
-      root?: any;
-      args: QuerygetConversationByIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getConversationById']>,
-  getConversationDetail: (params: {
-      root?: any;
-      args: QuerygetConversationDetailArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getConversationDetail']>,
-  getConversationPreviewByConversation: (params: {
-      root?: any;
-      args: QuerygetConversationPreviewByConversationArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getConversationPreviewByConversation']>,
-  getConvostats: (params: {
-      root?: any;
-      args: QuerygetConvostatsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getConvostats']>,
-  getCoursesForUserEmail: (params: {
-      root?: any;
-      args: QuerygetCoursesForUserEmailArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getCoursesForUserEmail']>,
-  getCurrentCompanyProp: (params: {
-      root?: any;
-      args: QuerygetCurrentCompanyPropArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getCurrentCompanyProp']>,
-  getCurrentEQForContact: (params: {
-      root?: any;
-      args: QuerygetCurrentEQForContactArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getCurrentEQForContact']>,
-  getCurrentEQForOppty: (params: {
-      root?: any;
-      args: QuerygetCurrentEQForOpptyArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getCurrentEQForOppty']>,
-  getCurrentEqForAccount: (params: {
-      root?: any;
-      args: QuerygetCurrentEqForAccountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getCurrentEqForAccount']>,
-  getCurrentSystemProp: (params: {
-      root?: any;
-      args: QuerygetCurrentSystemPropArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getCurrentSystemProp']>,
-  getCurrentUserDetail: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getCurrentUserDetail']>,
-  getCustWebLinks: (params: {
-      root?: any;
-      args: QuerygetCustWebLinksArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getCustWebLinks']>,
-  getDataByUri: (params: {
-      root?: any;
-      args: QuerygetDataByUriArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getDataByUri']>,
-  getDealByIdTrend: (params: {
-      root?: any;
-      args: QuerygetDealByIdTrendArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getDealByIdTrend']>,
-  getDealDetailsByMode: (params: {
-      root?: any;
-      args: QuerygetDealDetailsByModeArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getDealDetailsByMode']>,
-  getDealEQScore: (params: {
-      root?: any;
-      args: QuerygetDealEQScoreArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getDealEQScore']>,
-  getDealStageList: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getDealStageList']>,
-  getDealSummaryById: (params: {
-      root?: any;
-      args: QuerygetDealSummaryByIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getDealSummaryById']>,
-  getDiarization: (params: {
-      root?: any;
-      args: QuerygetDiarizationArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getDiarization']>,
-  getEQbyAccount: (params: {
-      root?: any;
-      args: QuerygetEQbyAccountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getEQbyAccount']>,
-  getEQbyContact: (params: {
-      root?: any;
-      args: QuerygetEQbyContactArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getEQbyContact']>,
-  getEQbyConv: (params: {
-      root?: any;
-      args: QuerygetEQbyConvArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getEQbyConv']>,
-  getEQbyConv1: (params: {
-      root?: any;
-      args: QuerygetEQbyConv1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getEQbyConv1']>,
-  getEmlEqByEmailObj: (params: {
-      root?: any;
-      args: QuerygetEmlEqByEmailObjArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getEmlEqByEmailObj']>,
-  getEmlEqById: (params: {
-      root?: any;
-      args: QuerygetEmlEqByIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getEmlEqById']>,
-  getEmpathyTurns: (params: {
-      root?: any;
-      args: QuerygetEmpathyTurnsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getEmpathyTurns']>,
-  getEventById: (params: {
-      root?: any;
-      args: QuerygetEventByIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getEventById']>,
-  getKeyMomentsForConvId: (params: {
-      root?: any;
-      args: QuerygetKeyMomentsForConvIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getKeyMomentsForConvId']>,
-  getKeywordCategories: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getKeywordCategories']>,
-  getKeywordCategories1: (params: {
-      root?: any;
-      args: QuerygetKeywordCategories1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getKeywordCategories1']>,
-  getManagerEQ: (params: {
-      root?: any;
-      args: QuerygetManagerEQArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getManagerEQ']>,
-  getMediaClipById: (params: {
-      root?: any;
-      args: QuerygetMediaClipByIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getMediaClipById']>,
-  getMediaClipParamsByMediaClipId1: (params: {
-      root?: any;
-      args: QuerygetMediaClipParamsByMediaClipId1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getMediaClipParamsByMediaClipId1']>,
-  getMediaClipPlaylistSharedWithUser: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getMediaClipPlaylistSharedWithUser']>,
-  getMeeting: (params: {
-      root?: any;
-      args: QuerygetMeetingArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getMeeting']>,
-  getMentionedUserComments: (params: {
-      root?: any;
-      args: QuerygetMentionedUserCommentsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getMentionedUserComments']>,
-  getMyMediaClips: (params: {
-      root?: any;
-      args: QuerygetMyMediaClipsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getMyMediaClips']>,
-  getOpptyById: (params: {
-      root?: any;
-      args: QuerygetOpptyByIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getOpptyById']>,
-  getOpptyEqbyStage: (params: {
-      root?: any;
-      args: QuerygetOpptyEqbyStageArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getOpptyEqbyStage']>,
-  getOpptyKeyMoments: (params: {
-      root?: any;
-      args: QuerygetOpptyKeyMomentsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getOpptyKeyMoments']>,
-  getOpptyPromises: (params: {
-      root?: any;
-      args: QuerygetOpptyPromisesArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getOpptyPromises']>,
-  getOpptyTeam: (params: {
-      root?: any;
-      args: QuerygetOpptyTeamArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getOpptyTeam']>,
-  getOpptyTeamById: (params: {
-      root?: any;
-      args: QuerygetOpptyTeamByIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getOpptyTeamById']>,
-  getOpptys: (params: {
-      root?: any;
-      args: QuerygetOpptysArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getOpptys']>,
-  getPlaylistById: (params: {
-      root?: any;
-      args: QuerygetPlaylistByIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getPlaylistById']>,
-  getPlaylistParamsByPlaylistId1: (params: {
-      root?: any;
-      args: QuerygetPlaylistParamsByPlaylistId1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getPlaylistParamsByPlaylistId1']>,
-  getPlaylistSharedMembers: (params: {
-      root?: any;
-      args: QuerygetPlaylistSharedMembersArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getPlaylistSharedMembers']>,
-  getPlaylists: (params: {
-      root?: any;
-      args: QuerygetPlaylistsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getPlaylists']>,
-  getPreferences1: (params: {
-      root?: any;
-      args: QuerygetPreferences1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getPreferences1']>,
-  getSellerEQ1: (params: {
-      root?: any;
-      args: QuerygetSellerEQ1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getSellerEQ1']>,
-  getSellerEQ2: (params: {
-      root?: any;
-      args: QuerygetSellerEQ2Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getSellerEQ2']>,
-  getSharedViewData: (params: {
-      root?: any;
-      args: QuerygetSharedViewDataArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getSharedViewData']>,
-  getSlideFirstByConversation: (params: {
-      root?: any;
-      args: QuerygetSlideFirstByConversationArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getSlideFirstByConversation']>,
-  getSummary: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getSummary']>,
-  getTeamMembers: (params: {
-      root?: any;
-      args: QuerygetTeamMembersArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getTeamMembers']>,
-  getTimeline: (params: {
-      root?: any;
-      args: QuerygetTimelineArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getTimeline']>,
-  getTimeline1: (params: {
-      root?: any;
-      args: QuerygetTimeline1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getTimeline1']>,
-  getTrendEQForOppty: (params: {
-      root?: any;
-      args: QuerygetTrendEQForOpptyArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getTrendEQForOppty']>,
-  getTrendEqForAccount: (params: {
-      root?: any;
-      args: QuerygetTrendEqForAccountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getTrendEqForAccount']>,
-  getUserEmailsCount: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getUserEmailsCount']>,
-  getUserProxy: (params: {
-      root?: any;
-      args: QuerygetUserProxyArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getUserProxy']>,
-  getUsersCount: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['getUsersCount']>,
-  populate1: (params: {
-      root?: any;
-      args: Querypopulate1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['populate1']>,
-  redirectMethod: (params: {
-      root?: any;
-      args: QueryredirectMethodArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['redirectMethod']>,
-  redirectUrl: (params: {
-      root?: any;
-      args: QueryredirectUrlArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['redirectUrl']>,
-  revokeAccessToken: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['revokeAccessToken']>,
-  revokeAuth: (params: {
-      root?: any;
-      args: QueryrevokeAuthArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['revokeAuth']>,
-  revokeRefreshToken: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['revokeRefreshToken']>,
-  searchContact1: (params: {
-      root?: any;
-      args: QuerysearchContact1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Query['searchContact1']>
+    export namespace QSalesTypes {
+      export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+/** All built-in and custom scalars, mapped to their actual values */
+export type Scalars = {
+  ID: string;
+  String: string;
+  Boolean: boolean;
+  Int: number;
+  Float: number;
+  JSON: any;
 };
 
-export type MutationWeatherbitIoSdk = {
-  addBulkPlaylistMediaClipRel: (params: {
-      root?: any;
-      args: MutationaddBulkPlaylistMediaClipRelArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['addBulkPlaylistMediaClipRel']>,
-  authenticateUser: (params: {
-      root?: any;
-      args: MutationauthenticateUserArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['authenticateUser']>,
-  authenticateUser2: (params: {
-      root?: any;
-      args: MutationauthenticateUser2Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['authenticateUser2']>,
-  companyKeyPhraseOccurrences: (params: {
-      root?: any;
-      args: MutationcompanyKeyPhraseOccurrencesArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['companyKeyPhraseOccurrences']>,
-  companyKeyPhraseOccurrencesBySentiment: (params: {
-      root?: any;
-      args: MutationcompanyKeyPhraseOccurrencesBySentimentArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['companyKeyPhraseOccurrencesBySentiment']>,
-  convert: (params: {
-      root?: any;
-      args: MutationconvertArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['convert']>,
-  createAlert: (params: {
-      root?: any;
-      args: MutationcreateAlertArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createAlert']>,
-  createConvTopicEpisode: (params: {
-      root?: any;
-      args: MutationcreateConvTopicEpisodeArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createConvTopicEpisode']>,
-  createEmlEq: (params: {
-      root?: any;
-      args: MutationcreateEmlEqArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createEmlEq']>,
-  createOrUpdate: (params: {
-      root?: any;
-      args: MutationcreateOrUpdateArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createOrUpdate']>,
-  createOrUpdate1: (params: {
-      root?: any;
-      args: MutationcreateOrUpdate1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createOrUpdate1']>,
-  createOrUpdate2: (params: {
-      root?: any;
-      args: MutationcreateOrUpdate2Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createOrUpdate2']>,
-  createOrUpdate3: (params: {
-      root?: any;
-      args: MutationcreateOrUpdate3Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createOrUpdate3']>,
-  createOrUpdateAccount: (params: {
-      root?: any;
-      args: MutationcreateOrUpdateAccountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createOrUpdateAccount']>,
-  createOrUpdateConvAttendee: (params: {
-      root?: any;
-      args: MutationcreateOrUpdateConvAttendeeArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createOrUpdateConvAttendee']>,
-  createOrUpdateConvAttendee1: (params: {
-      root?: any;
-      args: MutationcreateOrUpdateConvAttendee1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createOrUpdateConvAttendee1']>,
-  createOrUpdateKeywordCateg: (params: {
-      root?: any;
-      args: MutationcreateOrUpdateKeywordCategArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createOrUpdateKeywordCateg']>,
-  createOrUpdateKeywordTag: (params: {
-      root?: any;
-      args: MutationcreateOrUpdateKeywordTagArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createOrUpdateKeywordTag']>,
-  createOrUpdateOppty: (params: {
-      root?: any;
-      args: MutationcreateOrUpdateOpptyArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createOrUpdateOppty']>,
-  createOrUpdateOppty1: (params: {
-      root?: any;
-      args: MutationcreateOrUpdateOppty1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createOrUpdateOppty1']>,
-  createOrUpdateOpptyTeam: (params: {
-      root?: any;
-      args: MutationcreateOrUpdateOpptyTeamArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createOrUpdateOpptyTeam']>,
-  createOrUpdatePreference: (params: {
-      root?: any;
-      args: MutationcreateOrUpdatePreferenceArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createOrUpdatePreference']>,
-  createOrUpdateRecommendation: (params: {
-      root?: any;
-      args: MutationcreateOrUpdateRecommendationArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createOrUpdateRecommendation']>,
-  createOrUpdateUser: (params: {
-      root?: any;
-      args: MutationcreateOrUpdateUserArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['createOrUpdateUser']>,
-  delete: (params: {
-      root?: any;
-      args: MutationdeleteArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['delete']>,
-  delete1: (params: {
-      root?: any;
-      args: Mutationdelete1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['delete1']>,
-  delete2: (params: {
-      root?: any;
-      args: Mutationdelete2Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['delete2']>,
-  delete3: (params: {
-      root?: any;
-      args: Mutationdelete3Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['delete3']>,
-  delete4: (params: {
-      root?: any;
-      args: Mutationdelete4Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['delete4']>,
-  delete5: (params: {
-      root?: any;
-      args: Mutationdelete5Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['delete5']>,
-  delete6: (params: {
-      root?: any;
-      args: Mutationdelete6Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['delete6']>,
-  deletePlaylistMediaClipRel: (params: {
-      root?: any;
-      args: MutationdeletePlaylistMediaClipRelArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['deletePlaylistMediaClipRel']>,
-  deleteTags: (params: {
-      root?: any;
-      args: MutationdeleteTagsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['deleteTags']>,
-  findCustomKeyphraseTrendingTopicCount: (params: {
-      root?: any;
-      args: MutationfindCustomKeyphraseTrendingTopicCountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['findCustomKeyphraseTrendingTopicCount']>,
-  findDealDetailsByMode: (params: {
-      root?: any;
-      args: MutationfindDealDetailsByModeArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['findDealDetailsByMode']>,
-  findKeyphraseTrendingTopicCount: (params: {
-      root?: any;
-      args: MutationfindKeyphraseTrendingTopicCountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['findKeyphraseTrendingTopicCount']>,
-  generateTimeline: (params: {
-      root?: any;
-      args: MutationgenerateTimelineArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['generateTimeline']>,
-  getAccountTeamsUsersStats: (params: {
-      root?: any;
-      args: MutationgetAccountTeamsUsersStatsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getAccountTeamsUsersStats']>,
-  getAccountUsersStat: (params: {
-      root?: any;
-      args: MutationgetAccountUsersStatArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getAccountUsersStat']>,
-  getAllActiveUsers: (params: {
-      root?: any;
-      args: MutationgetAllActiveUsersArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getAllActiveUsers']>,
-  getAllTeamsUserStats: (params: {
-      root?: any;
-      args: MutationgetAllTeamsUserStatsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getAllTeamsUserStats']>,
-  getAssessmentByCompany: (params: {
-      root?: any;
-      args: MutationgetAssessmentByCompanyArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getAssessmentByCompany']>,
-  getAssessments: (params: {
-      root?: any;
-      args: MutationgetAssessmentsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getAssessments']>,
-  getAttendeeByMeetingTranscript: (params: {
-      root?: any;
-      args: MutationgetAttendeeByMeetingTranscriptArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getAttendeeByMeetingTranscript']>,
-  getAuthCodeAndGenerateToken: (params: {
-      root?: any;
-      args: MutationgetAuthCodeAndGenerateTokenArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getAuthCodeAndGenerateToken']>,
-  getAuthUrl: (params: {
-      root?: any;
-      args: MutationgetAuthUrlArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getAuthUrl']>,
-  getAuthUrl1: (params: {
-      root?: any;
-      args: MutationgetAuthUrl1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getAuthUrl1']>,
-  getAuthUrl2: (params: {
-      root?: any;
-      args: MutationgetAuthUrl2Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getAuthUrl2']>,
-  getClosedDealDetails: (params: {
-      root?: any;
-      args: MutationgetClosedDealDetailsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getClosedDealDetails']>,
-  getCompanyDeals: (params: {
-      root?: any;
-      args: MutationgetCompanyDealsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getCompanyDeals']>,
-  getCompanyDealsEQOnRiskScale: (params: {
-      root?: any;
-      args: MutationgetCompanyDealsEQOnRiskScaleArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getCompanyDealsEQOnRiskScale']>,
-  getCompanyMeetingStats: (params: {
-      root?: any;
-      args: MutationgetCompanyMeetingStatsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getCompanyMeetingStats']>,
-  getCompanyParams: (params: {
-      root?: any;
-      args: MutationgetCompanyParamsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getCompanyParams']>,
-  getCompanyQUsage: (params: {
-      root?: any;
-      args: MutationgetCompanyQUsageArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getCompanyQUsage']>,
-  getContacts: (params: {
-      root?: any;
-      args: MutationgetContactsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getContacts']>,
-  getConversationByAccount: (params: {
-      root?: any;
-      args: MutationgetConversationByAccountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getConversationByAccount']>,
-  getConversationUserStat: (params: {
-      root?: any;
-      args: MutationgetConversationUserStatArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getConversationUserStat']>,
-  getCustomerPulse: (params: {
-      root?: any;
-      args: MutationgetCustomerPulseArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getCustomerPulse']>,
-  getDealActivities: (params: {
-      root?: any;
-      args: MutationgetDealActivitiesArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getDealActivities']>,
-  getDealCountByAccounts: (params: {
-      root?: any;
-      args: MutationgetDealCountByAccountsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getDealCountByAccounts']>,
-  getDealEQOnRiskScale: (params: {
-      root?: any;
-      args: MutationgetDealEQOnRiskScaleArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getDealEQOnRiskScale']>,
-  getDealTopics: (params: {
-      root?: any;
-      args: MutationgetDealTopicsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getDealTopics']>,
-  getDeals: (params: {
-      root?: any;
-      args: MutationgetDealsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getDeals']>,
-  getEmailByEmlObjId: (params: {
-      root?: any;
-      args: MutationgetEmailByEmlObjIdArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getEmailByEmlObjId']>,
-  getEmails: (params: {
-      root?: any;
-      args: MutationgetEmailsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getEmails']>,
-  getEmpathyAndHesitationTurns: (params: {
-      root?: any;
-      args: MutationgetEmpathyAndHesitationTurnsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getEmpathyAndHesitationTurns']>,
-  getFavoriteMeeting: (params: {
-      root?: any;
-      args: MutationgetFavoriteMeetingArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getFavoriteMeeting']>,
-  getInvitedUsers: (params: {
-      root?: any;
-      args: MutationgetInvitedUsersArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getInvitedUsers']>,
-  getLastMeeting: (params: {
-      root?: any;
-      args: MutationgetLastMeetingArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getLastMeeting']>,
-  getMediaClipCount: (params: {
-      root?: any;
-      args: MutationgetMediaClipCountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getMediaClipCount']>,
-  getMediaClipStats: (params: {
-      root?: any;
-      args: MutationgetMediaClipStatsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getMediaClipStats']>,
-  getMeetingListBasedOnType: (params: {
-      root?: any;
-      args: MutationgetMeetingListBasedOnTypeArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getMeetingListBasedOnType']>,
-  getMeetingSentiments: (params: {
-      root?: any;
-      args: MutationgetMeetingSentimentsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getMeetingSentiments']>,
-  getMeetingsSharedWithUser: (params: {
-      root?: any;
-      args: MutationgetMeetingsSharedWithUserArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getMeetingsSharedWithUser']>,
-  getMomentsHavingKeyword: (params: {
-      root?: any;
-      args: MutationgetMomentsHavingKeywordArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getMomentsHavingKeyword']>,
-  getMostPopularKeymoments: (params: {
-      root?: any;
-      args: MutationgetMostPopularKeymomentsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getMostPopularKeymoments']>,
-  getMostSharedMeetings: (params: {
-      root?: any;
-      args: MutationgetMostSharedMeetingsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getMostSharedMeetings']>,
-  getMostViewedMeeting: (params: {
-      root?: any;
-      args: MutationgetMostViewedMeetingArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getMostViewedMeeting']>,
-  getOpptyUsersStat: (params: {
-      root?: any;
-      args: MutationgetOpptyUsersStatArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getOpptyUsersStat']>,
-  getPlaylistStats: (params: {
-      root?: any;
-      args: MutationgetPlaylistStatsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getPlaylistStats']>,
-  getPlaylistsCount: (params: {
-      root?: any;
-      args: MutationgetPlaylistsCountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getPlaylistsCount']>,
-  getPlaylistsCount1: (params: {
-      root?: any;
-      args: MutationgetPlaylistsCount1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getPlaylistsCount1']>,
-  getPlaylistsCount2: (params: {
-      root?: any;
-      args: MutationgetPlaylistsCount2Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getPlaylistsCount2']>,
-  getSellerEQ: (params: {
-      root?: any;
-      args: MutationgetSellerEQArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getSellerEQ']>,
-  getSystemProps: (params: {
-      root?: any;
-      args: MutationgetSystemPropsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getSystemProps']>,
-  getTopPageVisitDetails: (params: {
-      root?: any;
-      args: MutationgetTopPageVisitDetailsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getTopPageVisitDetails']>,
-  getUserCallMetr: (params: {
-      root?: any;
-      args: MutationgetUserCallMetrArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getUserCallMetr']>,
-  getUserCallMetrics: (params: {
-      root?: any;
-      args: MutationgetUserCallMetricsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getUserCallMetrics']>,
-  getUsersAuth: (params: {
-      root?: any;
-      args: MutationgetUsersAuthArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getUsersAuth']>,
-  getUsersConvoStat: (params: {
-      root?: any;
-      args: MutationgetUsersConvoStatArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['getUsersConvoStat']>,
-  keyPhras1eOccurences: (params: {
-      root?: any;
-      args: MutationkeyPhras1eOccurencesArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['keyPhras1eOccurences']>,
-  keyPhraseOccurences: (params: {
-      root?: any;
-      args: MutationkeyPhraseOccurencesArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['keyPhraseOccurences']>,
-  logout: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['logout']>,
-  populate: (params: {
-      root?: any;
-      args: MutationpopulateArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['populate']>,
-  postDataByUri: (params: {
-      root?: any;
-      args: MutationpostDataByUriArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['postDataByUri']>,
-  resetKeyPhrases: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['resetKeyPhrases']>,
-  revoke: (params: {
-      root?: any;
-      args: MutationrevokeArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['revoke']>,
-  revoke1: (params: {
-      root?: any;
-      args: Mutationrevoke1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['revoke1']>,
-  saveMessage: (params: {
-      root?: any;
-      args: MutationsaveMessageArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['saveMessage']>,
-  saveReport: (params: {
-      root?: any;
-      args: MutationsaveReportArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['saveReport']>,
-  search: (params: {
-      root?: any;
-      args: MutationsearchArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['search']>,
-  search1: (params: {
-      root?: any;
-      args: Mutationsearch1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['search1']>,
-  search2: (params: {
-      root?: any;
-      args: Mutationsearch2Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['search2']>,
-  search3: (params: {
-      root?: any;
-      args: Mutationsearch3Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['search3']>,
-  search4: (params: {
-      root?: any;
-      args: Mutationsearch4Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['search4']>,
-  search5: (params: {
-      root?: any;
-      args: Mutationsearch5Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['search5']>,
-  search6: (params: {
-      root?: any;
-      args: Mutationsearch6Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['search6']>,
-  search7: (params: {
-      root?: any;
-      args: Mutationsearch7Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['search7']>,
-  search8: (params: {
-      root?: any;
-      args: Mutationsearch8Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['search8']>,
-  search9: (params: {
-      root?: any;
-      args: Mutationsearch9Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['search9']>,
-  searchAccountAndContact: (params: {
-      root?: any;
-      args: MutationsearchAccountAndContactArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchAccountAndContact']>,
-  searchAccountAndContactCount: (params: {
-      root?: any;
-      args: MutationsearchAccountAndContactCountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchAccountAndContactCount']>,
-  searchAccounts: (params: {
-      root?: any;
-      args: MutationsearchAccountsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchAccounts']>,
-  searchAccountsCount: (params: {
-      root?: any;
-      args: MutationsearchAccountsCountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchAccountsCount']>,
-  searchAlerts: (params: {
-      root?: any;
-      args: MutationsearchAlertsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchAlerts']>,
-  searchContact: (params: {
-      root?: any;
-      args: MutationsearchContactArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchContact']>,
-  searchEmailSummary: (params: {
-      root?: any;
-      args: MutationsearchEmailSummaryArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchEmailSummary']>,
-  searchEvents: (params: {
-      root?: any;
-      args: MutationsearchEventsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchEvents']>,
-  searchEventsCount: (params: {
-      root?: any;
-      args: MutationsearchEventsCountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchEventsCount']>,
-  searchKeywordCateg: (params: {
-      root?: any;
-      args: MutationsearchKeywordCategArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchKeywordCateg']>,
-  searchKeywordCategCount: (params: {
-      root?: any;
-      args: MutationsearchKeywordCategCountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchKeywordCategCount']>,
-  searchKeywordCategWithoutTags: (params: {
-      root?: any;
-      args: MutationsearchKeywordCategWithoutTagsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchKeywordCategWithoutTags']>,
-  searchKeywordTag: (params: {
-      root?: any;
-      args: MutationsearchKeywordTagArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchKeywordTag']>,
-  searchKeywordTagCount: (params: {
-      root?: any;
-      args: MutationsearchKeywordTagCountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchKeywordTagCount']>,
-  searchMeetings: (params: {
-      root?: any;
-      args: MutationsearchMeetingsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchMeetings']>,
-  searchMeetingsByAccountOrOppty: (params: {
-      root?: any;
-      args: MutationsearchMeetingsByAccountOrOpptyArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchMeetingsByAccountOrOppty']>,
-  searchMeetingsCount: (params: {
-      root?: any;
-      args: MutationsearchMeetingsCountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchMeetingsCount']>,
-  searchMoments: (params: {
-      root?: any;
-      args: MutationsearchMomentsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchMoments']>,
-  searchPreference: (params: {
-      root?: any;
-      args: MutationsearchPreferenceArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchPreference']>,
-  searchTeamActivity: (params: {
-      root?: any;
-      args: MutationsearchTeamActivityArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchTeamActivity']>,
-  searchUsers: (params: {
-      root?: any;
-      args: MutationsearchUsersArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['searchUsers']>,
-  selectCompanyKeywordCategory: (params: {
-      root?: any;
-      args: MutationselectCompanyKeywordCategoryArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['selectCompanyKeywordCategory']>,
-  sendMessage: (params: {
-      root?: any;
-      args: MutationsendMessageArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['sendMessage']>,
-  shareClipExternalUser: (params: {
-      root?: any;
-      args: MutationshareClipExternalUserArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['shareClipExternalUser']>,
-  shareMeetingExternalUser: (params: {
-      root?: any;
-      args: MutationshareMeetingExternalUserArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['shareMeetingExternalUser']>,
-  shareMeetingInternalUser: (params: {
-      root?: any;
-      args: MutationshareMeetingInternalUserArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['shareMeetingInternalUser']>,
-  sharePlaylist: (params: {
-      root?: any;
-      args: MutationsharePlaylistArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['sharePlaylist']>,
-  threadCount: (params: {
-      root?: any;
-      args: MutationthreadCountArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['threadCount']>,
-  updateAccessConsent: (params: {
-      root?: any;
-      args: MutationupdateAccessConsentArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['updateAccessConsent']>,
-  updateAccountOpptyEQ: (params: {
-      root?: any;
-      args: MutationupdateAccountOpptyEQArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['updateAccountOpptyEQ']>,
-  updateAccountOpptyEQ1: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['updateAccountOpptyEQ1']>,
-  updateAlert: (params: {
-      root?: any;
-      args: MutationupdateAlertArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['updateAlert']>,
-  updateCalendarEvent: (params: {
-      root?: any;
-      args: MutationupdateCalendarEventArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['updateCalendarEvent']>,
-  updateConvTopicEpisode: (params: {
-      root?: any;
-      args: MutationupdateConvTopicEpisodeArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['updateConvTopicEpisode']>,
-  updateConversation: (params: {
-      root?: any;
-      args: MutationupdateConversationArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['updateConversation']>,
-  updateEmlEq: (params: {
-      root?: any;
-      args: MutationupdateEmlEqArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['updateEmlEq']>,
-  updateKeyMoment: (params: {
-      root?: any;
-      args: MutationupdateKeyMomentArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['updateKeyMoment']>,
-  updatePlaylistMediaClipRel: (params: {
-      root?: any;
-      args: MutationupdatePlaylistMediaClipRelArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['updatePlaylistMediaClipRel']>,
-  updateQDetails: (params: {
-      root?: any;
-      args: MutationupdateQDetailsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['updateQDetails']>,
-  updateStatusByIds: (params: {
-      root?: any;
-      args: MutationupdateStatusByIdsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['updateStatusByIds']>,
-  updateTeamAccess: (params: {
-      root?: any;
-      args: MutationupdateTeamAccessArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['updateTeamAccess']>,
-  updateTeamMembersManagerDetails: (params: {
-      root?: any;
-      args: MutationupdateTeamMembersManagerDetailsArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['updateTeamMembersManagerDetails']>,
-  updateUserProxy: (params: {
-      root?: any;
-      args: MutationupdateUserProxyArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['updateUserProxy']>,
-  updateZoomMeetingInvokeBot: (params: {
-      root?: any;
-      args: MutationupdateZoomMeetingInvokeBotArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['updateZoomMeetingInvokeBot']>,
-  updateZoomMeetingWhitelist: (params: {
-      root?: any;
-      args?: {};
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['updateZoomMeetingWhitelist']>,
-  uploadExternalMeeting: (params: {
-      root?: any;
-      args: MutationuploadExternalMeetingArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['uploadExternalMeeting']>,
-  upsert: (params: {
-      root?: any;
-      args: MutationupsertArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['upsert']>,
-  upsert1: (params: {
-      root?: any;
-      args: Mutationupsert1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['upsert1']>,
-  upsert2: (params: {
-      root?: any;
-      args: Mutationupsert2Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['upsert2']>,
-  upsert3: (params: {
-      root?: any;
-      args: Mutationupsert3Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['upsert3']>,
-  upsert4: (params: {
-      root?: any;
-      args: Mutationupsert4Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['upsert4']>,
-  upsert5: (params: {
-      root?: any;
-      args: Mutationupsert5Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['upsert5']>,
-  upsertCompanyParam: (params: {
-      root?: any;
-      args: MutationupsertCompanyParamArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['upsertCompanyParam']>,
-  upsertCompanyProfile: (params: {
-      root?: any;
-      args: MutationupsertCompanyProfileArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['upsertCompanyProfile']>,
-  upsertCompanyProfileWithKeywordCategRel: (params: {
-      root?: any;
-      args: MutationupsertCompanyProfileWithKeywordCategRelArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['upsertCompanyProfileWithKeywordCategRel']>,
-  upsertConfigProp: (params: {
-      root?: any;
-      args: MutationupsertConfigPropArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['upsertConfigProp']>,
-  upsertExternal: (params: {
-      root?: any;
-      args: MutationupsertExternalArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['upsertExternal']>,
-  upsertLastViewed: (params: {
-      root?: any;
-      args: MutationupsertLastViewedArgs;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['upsertLastViewed']>,
-  upsertLastViewed1: (params: {
-      root?: any;
-      args: MutationupsertLastViewed1Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['upsertLastViewed1']>,
-  upsertLastViewed2: (params: {
-      root?: any;
-      args: MutationupsertLastViewed2Args;
-      context: MeshContext;
-      info: GraphQLResolveInfo;
-      selectionSet?: SelectionSetParamOrFactory;
-    }) => Promise<Mutation['upsertLastViewed2']>
+export type Query = {
+  /**
+   *
+   *
+   * Equivalent to GET /usales/accounts/{id}
+   */
+  accountResponseDTO?: Maybe<AccountResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/accounts/{id}/team
+   */
+  accountTeamResponse?: Maybe<AccountTeamResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/alerts/{id}
+   */
+  alertResponseDTO?: Maybe<AlertResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /auth/accessToken
+   */
+  authAccessToken?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /auth/google
+   */
+  authGoogle?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /auth/google/callback
+   */
+  authGoogleCallback?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /auth/outlook
+   */
+  authOutlook?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /auth/revoke/{provider}
+   */
+  authRevoke?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /auth/social
+   */
+  authSocial?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/events/{id}
+   */
+  calendarEvent?: Maybe<CalendarEvent>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/companyprofile
+   */
+  companyProfileDTO?: Maybe<CompanyProfileDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/analytics/company/slide-first
+   */
+  companySlideFirstResponse?: Maybe<CompanySlideFirstResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/contact/metrics/{contactId}
+   */
+  contactMetricsResponse?: Maybe<ContactMetricsResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/contact/summary/{contactId}
+   */
+  contactResponse?: Maybe<ContactResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/attendees/{id}
+   */
+  convAttendeeResponseDTO?: Maybe<ConvAttendeeResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{convId}/eqscore
+   */
+  convEQResponseDTO?: Maybe<ConvEQResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/conv/metrics/aggr/{id}
+   */
+  convMetricsResponse?: Maybe<ConvMetricsResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /conv/mod/{convId}
+   */
+  convMod?: Maybe<Array<Maybe<ConversationAttributionLogRsp>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{id}/slide-first
+   */
+  convSlideFirstResponse?: Maybe<ConvSlideFirstResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/timeline/{conv_id}
+   */
+  convTimeline?: Maybe<ConvTimeline>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/conv-topic-episodes/{id}
+   */
+  convTopicEpisodeResponseDTO?: Maybe<ConvTopicEpisodeResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{id}/participantsWithMetrics
+   */
+  conversationAttendeesResponse?: Maybe<ConversationAttendeesResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{id}/preview
+   */
+  conversationDetailResponse?: Maybe<ConversationDetailResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{id}
+   */
+  conversationRequest?: Maybe<ConversationRequest>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/summary/{id}
+   */
+  conversationSummaryResponse?: Maybe<ConversationSummaryResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/metrics/convs/{convId}/convostats
+   */
+  convoStatResponse?: Maybe<ConvoStatResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/account/{crmAccountId}/trend
+   */
+  cqAccountTrend?: Maybe<Array<Maybe<DealDetailResponse>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/contact/{crmContactId}/eq
+   */
+  cqContactEq?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/opportunity/{crmOpportunityId}/contact/{crmContactId}/eq
+   */
+  cqOpportunityContactEq?: Maybe<Array<Maybe<Contact>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/token/access
+   */
+  cqTokenAccess?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/token/refresh
+   */
+  cqTokenRefresh?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/token/revoke/access
+   */
+  cqTokenRevokeAccess?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/token/revoke/refresh
+   */
+  cqTokenRevokeRefresh?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/opportunity/{crmOpportunityId}/current
+   */
+  currentEQForOpptyResponse?: Maybe<CurrentEQForOpptyResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/account/{crmAccountId}/current
+   */
+  dealDetailResponse?: Maybe<DealDetailResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty/{id}/details
+   */
+  dealSummaryDetailResponse?: Maybe<DealSummaryDetailResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty/summary/{id}
+   */
+  dealSummaryResponse?: Maybe<DealSummaryResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty/{id}/trend
+   */
+  dealSummaryTrendResponse?: Maybe<DealSummaryTrendResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/diarization/{conv_id}
+   */
+  diarization?: Maybe<Diarization>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/empathyandhesitationturns/get/conv
+   */
+  empathyAndHesitationTurnsReport?: Maybe<EmpathyAndHesitationTurnsReport>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/opportunity/{crmOpportunityId}/contact/eq
+   */
+  getContactsEQForOppty?: Maybe<Array<Maybe<Contact>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{id}/details
+   */
+  getConversationDetail?: Maybe<ConversationDetailResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/accounts/{accountId}/convtrends
+   */
+  getEQbyAccount?: Maybe<ConvEQResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/manager/{managerEmailId}/{startMMddyyyy}/eq
+   */
+  getManagerEQ?: Maybe<TeamOpptyUsersStats>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty/{id}
+   */
+  getOpptyById?: Maybe<OpptyDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty/keyMoments
+   */
+  getOpptyKeyMoments?: Maybe<OpptyDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/seller/{sellerEmailId}/eq
+   */
+  getSellerEQ2?: Maybe<TeamOpptyUsersStats>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{id}/keyPhrases
+   */
+  keyPhraseResponse?: Maybe<KeyPhraseResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/mediaclip/{id}
+   */
+  mediaClipResponseDTO?: Maybe<MediaClipResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty/{opptyId}/promises
+   */
+  opptyDTO?: Maybe<OpptyDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/{oppty_stage}/eqscore
+   */
+  opptyEqbyStageResponseDTO?: Maybe<OpptyEqbyStageResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty/teams/{id}
+   */
+  opptyTeamResponseDTO?: Maybe<OpptyTeamResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/playlists/{id}
+   */
+  playlistResponseDTO?: Maybe<PlaylistResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /slack/authurl
+   */
+  slackAuthurl?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /slack/redirect
+   */
+  slackRedirect?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/reports/summary
+   */
+  summaryReportDTO?: Maybe<SummaryReportDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/seller/{sellerEmailId}/{days}/eq
+   */
+  teamOpptyUsersStats?: Maybe<TeamOpptyUsersStats>;
+  /**
+   *
+   *
+   * Equivalent to GET /cq/opportunity/{crmOpportunityId}/trend
+   */
+  trendEQForOpptyResponse?: Maybe<TrendEQForOpptyResponse>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/accounts/{id}/oppty
+   */
+  usalesAccountOppty?: Maybe<Array<Maybe<OpptyDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/accounts
+   */
+  usalesAccounts?: Maybe<Array<Maybe<AccountResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/accounts/promises
+   */
+  usalesAccountsPromises?: Maybe<Array<Maybe<AccountPromisesResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/alerts
+   */
+  usalesAlerts?: Maybe<Array<Maybe<AlertResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/bookmarks/convs/{convId}
+   */
+  usalesBookmarksConv?: Maybe<Array<Maybe<ConvBookmarkResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/bookmarks/keymoments/{convKeyMomentId}
+   */
+  usalesBookmarksKeymoment?: Maybe<Array<Maybe<ConvBookmarkResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/company-param
+   */
+  usalesCompanyParam?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/company-params
+   */
+  usalesCompanyParams?: Maybe<Array<Maybe<CompanyParamResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/companyprofile/access-consent
+   */
+  usalesCompanyprofileAccessConsent?: Maybe<Scalars['Boolean']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/companyprofile/businesscategs
+   */
+  usalesCompanyprofileBusinesscategs?: Maybe<Array<Maybe<KeywordCategResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/configprops
+   */
+  usalesConfigprops?: Maybe<Array<Maybe<ConfigPropResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/contacts/{contact}/emails/count
+   */
+  usalesContactEmailsCount?: Maybe<Scalars['Int']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{convId}/comments
+   */
+  usalesConvComments?: Maybe<Array<Maybe<CommentResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{convId}/contact_eqscore
+   */
+  usalesConvContactEqscore?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/conv/metrics/{id}
+   */
+  usalesConvMetric?: Maybe<Array<Maybe<AggrConvMetrics>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/{id}/metrics
+   */
+  usalesConvMetrics?: Maybe<Array<Maybe<AggrConvMetrics>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs
+   */
+  usalesConvs?: Maybe<Array<Maybe<ConversationRequest>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/attendees
+   */
+  usalesConvsAttendees?: Maybe<Array<Maybe<ConvAttendeeResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/convs/status
+   */
+  usalesConvsStatus?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/custweblinks
+   */
+  usalesCustweblinks?: Maybe<Array<Maybe<CustWebLinkResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/deals/{opptyId}/contacts/{contactId}/eqscore
+   */
+  usalesDealContactEqscore?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/deals/{opptyId}/convtrends
+   */
+  usalesDealConvtrends?: Maybe<Array<Maybe<ConvEQResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/deals/{opptyId}/eqscore
+   */
+  usalesDealEqscore?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/deals/stages
+   */
+  usalesDealsStages?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/emleqs/{id}
+   */
+  usalesEmleq?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/emleqs
+   */
+  usalesEmleqs?: Maybe<Array<Maybe<EmlEqResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/keymoments/{convKeyMomentId}/comments
+   */
+  usalesKeymomentComments?: Maybe<Array<Maybe<CommentResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/keyword/categ
+   */
+  usalesKeywordCateg?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/keyword/categ/{category}
+   */
+  usalesKeywordCateg2?: Maybe<Array<Maybe<KeywordCategResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/keyword/keyphrase/fetch-expert/{tagId}
+   */
+  usalesKeywordKeyphraseFetchExpert?: Maybe<Array<Maybe<KeyPhraseExpertResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/mediaClip/param/{mediaClipId}
+   */
+  usalesMediaClipParam?: Maybe<Array<Maybe<MediaClipParamResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/mediaclip/myclips
+   */
+  usalesMediaclipMyclips?: Maybe<Array<Maybe<MediaClipResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/mindtickle/coursesbyemail/{email}
+   */
+  usalesMindtickleCoursesbyemail?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/mindtickle/querybyuri/{url}
+   */
+  usalesMindtickleQuerybyuri?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty
+   */
+  usalesOppty?: Maybe<Array<Maybe<OpptyDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/oppty/teams
+   */
+  usalesOpptyTeams?: Maybe<Array<Maybe<OpptyTeamResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/playlist/param/{playlistId}
+   */
+  usalesPlaylistParam?: Maybe<Array<Maybe<PlaylistParamResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/playlists/myplaylists
+   */
+  usalesPlaylistsMyplaylists?: Maybe<Array<Maybe<PlaylistResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/playlists/shared-members
+   */
+  usalesPlaylistsSharedMembers?: Maybe<Array<Maybe<SharedMemberDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/playlists/sharedwithme
+   */
+  usalesPlaylistsSharedwithme?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/preferences/mine
+   */
+  usalesPreferencesMine?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/re/{code}
+   */
+  usalesRe?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/sharedviewdata-conv/{conv_id}
+   */
+  usalesSharedviewdataConv?: Maybe<Array<Maybe<ConvSharedViewData>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/sharedviewdata-name/{name}
+   */
+  usalesSharedviewdataName?: Maybe<Array<Maybe<ConvSharedViewData>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/sys
+   */
+  usalesSys?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/users/{receiverUserId}/comments
+   */
+  usalesUserComments?: Maybe<Array<Maybe<CommentResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/users
+   */
+  usalesUsers?: Maybe<Scalars['Float']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/users/me/emails/count
+   */
+  usalesUsersMeEmailsCount?: Maybe<Scalars['Int']>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/users/team/{usersId}
+   */
+  usalesUsersTeam?: Maybe<Array<Maybe<User>>>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/users/me
+   */
+  user?: Maybe<User>;
+  /**
+   *
+   *
+   * Equivalent to GET /usales/users/{usersId}/proxy
+   */
+  userDelegateResponseDTO?: Maybe<UserDelegateResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to GET /v1/transcript/populate/{convId}
+   */
+  v1TranscriptPopulate2?: Maybe<Scalars['String']>;
 };
 
-export type SubscriptionWeatherbitIoSdk = {
+
+export type QueryaccountResponseDTOArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryaccountTeamResponseArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryalertResponseDTOArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryauthRevokeArgs = {
+  provider: Scalars['String'];
+};
+
+
+export type QuerycalendarEventArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QuerycontactMetricsResponseArgs = {
+  contactId: Scalars['Float'];
+  ganularity?: InputMaybe<Scalars['String']>;
+  opptyId: Scalars['Float'];
+};
+
+
+export type QuerycontactResponseArgs = {
+  contactId: Scalars['Float'];
+};
+
+
+export type QueryconvAttendeeResponseDTOArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryconvEQResponseDTOArgs = {
+  convId: Scalars['Float'];
+};
+
+
+export type QueryconvMetricsResponseArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryconvModArgs = {
+  convId: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryconvSlideFirstResponseArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryconvTimelineArgs = {
+  convId: Scalars['Float'];
+};
+
+
+export type QueryconvTopicEpisodeResponseDTOArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryconversationAttendeesResponseArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryconversationDetailResponseArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryconversationRequestArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryconversationSummaryResponseArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryconvoStatResponseArgs = {
+  convId: Scalars['Float'];
+};
+
+
+export type QuerycqAccountTrendArgs = {
+  crmAccountId: Scalars['String'];
+  days?: InputMaybe<Scalars['Float']>;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QuerycqContactEqArgs = {
+  crmContactId: Scalars['String'];
+};
+
+
+export type QuerycqOpportunityContactEqArgs = {
+  crmContactId: Scalars['String'];
+  crmOpportunityId: Scalars['String'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QuerycurrentEQForOpptyResponseArgs = {
+  crmOpportunityId: Scalars['String'];
+  days?: InputMaybe<Scalars['Float']>;
+};
+
+
+export type QuerydealDetailResponseArgs = {
+  crmAccountId: Scalars['String'];
+  days?: InputMaybe<Scalars['Float']>;
+};
+
+
+export type QuerydealSummaryDetailResponseArgs = {
+  id: Scalars['Float'];
+  mode?: InputMaybe<Scalars['String']>;
+  tz?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QuerydealSummaryResponseArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QuerydealSummaryTrendResponseArgs = {
+  id: Scalars['Float'];
+  key?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QuerydiarizationArgs = {
+  convId: Scalars['Float'];
+};
+
+
+export type QueryempathyAndHesitationTurnsReportArgs = {
+  convId: Scalars['Float'];
+};
+
+
+export type QuerygetContactsEQForOpptyArgs = {
+  crmOpportunityId: Scalars['String'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QuerygetConversationDetailArgs = {
+  id: Scalars['Float'];
+  type?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QuerygetEQbyAccountArgs = {
+  accountId: Scalars['Float'];
+};
+
+
+export type QuerygetManagerEQArgs = {
+  managerEmailId: Scalars['String'];
+  startMMddyyyy: Scalars['String'];
+};
+
+
+export type QuerygetOpptyByIdArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QuerygetOpptyKeyMomentsArgs = {
+  granularity?: InputMaybe<Scalars['String']>;
+  keyTag?: InputMaybe<Scalars['String']>;
+  opptyId?: InputMaybe<Scalars['Float']>;
+  period?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QuerygetSellerEQ2Args = {
+  sellerEmailId: Scalars['String'];
+};
+
+
+export type QuerykeyPhraseResponseArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QuerymediaClipResponseDTOArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryopptyDTOArgs = {
+  opptyId: Scalars['Float'];
+};
+
+
+export type QueryopptyEqbyStageResponseDTOArgs = {
+  opptyStage: Scalars['String'];
+};
+
+
+export type QueryopptyTeamResponseDTOArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryplaylistResponseDTOArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryslackRedirectArgs = {
+  code: Scalars['String'];
+  state: Scalars['String'];
+};
+
+
+export type QueryteamOpptyUsersStatsArgs = {
+  days: Scalars['Int'];
+  sellerEmailId: Scalars['String'];
+};
+
+
+export type QuerytrendEQForOpptyResponseArgs = {
+  crmOpportunityId: Scalars['String'];
+  days?: InputMaybe<Scalars['Float']>;
+};
+
+
+export type QueryusalesAccountOpptyArgs = {
+  id: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesAccountsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesAccountsPromisesArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  userIds?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryusalesAlertsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryusalesBookmarksConvArgs = {
+  convId: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesBookmarksKeymomentArgs = {
+  convKeyMomentId: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesCompanyParamArgs = {
+  prop: Scalars['String'];
+};
+
+
+export type QueryusalesCompanyParamsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesCompanyprofileBusinesscategsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesConfigpropsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesContactEmailsCountArgs = {
+  contactId: Scalars['Float'];
+};
+
+
+export type QueryusalesConvCommentsArgs = {
+  convId: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesConvContactEqscoreArgs = {
+  contact: Scalars['String'];
+  convId: Scalars['Float'];
+};
+
+
+export type QueryusalesConvMetricArgs = {
+  id: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesConvMetricsArgs = {
+  id: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+  participantId: Scalars['String'];
+};
+
+
+export type QueryusalesConvsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesConvsAttendeesArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesCustweblinksArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesDealContactEqscoreArgs = {
+  contactId: Scalars['Float'];
+  opptyId: Scalars['Float'];
+};
+
+
+export type QueryusalesDealConvtrendsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  opptyId: Scalars['Float'];
+};
+
+
+export type QueryusalesDealEqscoreArgs = {
+  opptyId: Scalars['Float'];
+};
+
+
+export type QueryusalesEmleqArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryusalesEmleqsArgs = {
+  emlObjId?: InputMaybe<Scalars['Float']>;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesKeymomentCommentsArgs = {
+  convKeyMomentId: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesKeywordCateg2Args = {
+  category: Scalars['String'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesKeywordKeyphraseFetchExpertArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  tagId: Scalars['Float'];
+};
+
+
+export type QueryusalesMediaClipParamArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  mediaClipId: Scalars['Float'];
+  name: Scalars['String'];
+};
+
+
+export type QueryusalesMediaclipMyclipsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesMindtickleCoursesbyemailArgs = {
+  email: Scalars['String'];
+};
+
+
+export type QueryusalesMindtickleQuerybyuriArgs = {
+  uri: Scalars['String'];
+};
+
+
+export type QueryusalesOpptyArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesOpptyTeamsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesPlaylistParamArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  name: Scalars['String'];
+  playlistId: Scalars['Float'];
+};
+
+
+export type QueryusalesPlaylistsMyplaylistsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesPlaylistsSharedMembersArgs = {
+  history?: InputMaybe<Scalars['Boolean']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  playlistId: Scalars['Float'];
+};
+
+
+export type QueryusalesPreferencesMineArgs = {
+  type: Scalars['String'];
+};
+
+
+export type QueryusalesReArgs = {
+  code: Scalars['String'];
+};
+
+
+export type QueryusalesSharedviewdataConvArgs = {
+  convId: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryusalesSharedviewdataNameArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  name: Scalars['String'];
+};
+
+
+export type QueryusalesSysArgs = {
+  prop: Scalars['String'];
+};
+
+
+export type QueryusalesUserCommentsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  userId: Scalars['Float'];
+};
+
+
+export type QueryusalesUsersTeamArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  usersId: Scalars['Float'];
+};
+
+
+export type QueryuserDelegateResponseDTOArgs = {
+  usersId: Scalars['Float'];
+};
+
+
+export type Queryv1TranscriptPopulate2Args = {
+  convId: Scalars['String'];
+};
+
+export type AccountResponseDTO = {
+  accountTeamID?: Maybe<IdNameDTO>;
+  contacts?: Maybe<Array<Maybe<ContactActivity>>>;
+  conversations?: Maybe<Array<Maybe<ConversationRequest>>>;
+  crmAccountId?: Maybe<Scalars['String']>;
+  domain?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  oppties?: Maybe<Array<Maybe<Oppty2>>>;
+  orgId?: Maybe<Scalars['Float']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+  source?: Maybe<Scalars['String']>;
+  standing?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  sticker?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type IdNameDTO = {
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type ContactActivity = {
+  conversation?: Maybe<Conversation2>;
+  conversations?: Maybe<Scalars['Int']>;
+  email?: Maybe<Scalars['String']>;
+  emails?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['Float']>;
+  jobTitle?: Maybe<Scalars['String']>;
+  lastActivityDate?: Maybe<Scalars['String']>;
+  lastActivityType?: Maybe<Scalars['String']>;
+  lastActivityTypeId?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  role?: Maybe<Scalars['String']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type Conversation2 = {
+  data?: Maybe<Array<Maybe<ConversationData>>>;
+  mode?: Maybe<Scalars['String']>;
+};
+
+export type ConversationData = {
+  convIds?: Maybe<Array<Maybe<Array<Maybe<Scalars['Float']>>>>>;
+  conversations?: Maybe<Scalars['Int']>;
+  emailIds?: Maybe<Array<Maybe<Array<Maybe<Scalars['Float']>>>>>;
+  emails?: Maybe<Scalars['Int']>;
+  endDate?: Maybe<Scalars['String']>;
+};
+
+export type Score4 = {
+  trend?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+};
+
+export type ConversationRequest = {
+  accountID?: Maybe<ConvAccountDTO>;
+  aiViewVideoMediaLink?: Maybe<Scalars['String']>;
+  attendees?: Maybe<Array<Maybe<Attendee>>>;
+  audioMediaLink?: Maybe<Scalars['String']>;
+  confidential?: Maybe<Scalars['Boolean']>;
+  contentViewVideoMediaLink?: Maybe<Scalars['String']>;
+  cvProcDone?: Maybe<Scalars['Boolean']>;
+  dataFusionProcDone?: Maybe<Scalars['Boolean']>;
+  description?: Maybe<Scalars['String']>;
+  entity?: Maybe<Scalars['String']>;
+  externalConvId?: Maybe<Scalars['String']>;
+  externalMeetingId?: Maybe<Scalars['String']>;
+  galleryViewVideoMediaLink?: Maybe<Scalars['String']>;
+  hasClips?: Maybe<Scalars['Boolean']>;
+  hasComments?: Maybe<Scalars['Boolean']>;
+  hostID?: Maybe<ConvUsersDTO>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  isShared?: Maybe<Scalars['Boolean']>;
+  keyMoments?: Maybe<Array<Maybe<KeyMoment>>>;
+  lastChunk?: Maybe<Scalars['Float']>;
+  meetingEndTime?: Maybe<Scalars['String']>;
+  meetingStartTime?: Maybe<Scalars['String']>;
+  meetingTopic?: Maybe<Scalars['String']>;
+  opptyID?: Maybe<IdNameDTO>;
+  orgId?: Maybe<Scalars['Float']>;
+  processedFlag?: Maybe<Scalars['String']>;
+  promises?: Maybe<Array<Maybe<ConvPromiseResponseDTO>>>;
+  recordingStartTime?: Maybe<Scalars['String']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+  source?: Maybe<Scalars['String']>;
+  speakerTimelineLink?: Maybe<Scalars['String']>;
+  speakerViewVideoMediaLink?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  textKmProcDone?: Maybe<Scalars['Boolean']>;
+  textMediaLink?: Maybe<Scalars['String']>;
+  textSentProcDone?: Maybe<Scalars['Boolean']>;
+  thumbnail?: Maybe<Scalars['String']>;
+  tonalProcDone?: Maybe<Scalars['Boolean']>;
+  transcriptLink?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  uuid?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  videoMediaLink?: Maybe<Scalars['String']>;
+  views?: Maybe<Scalars['Float']>;
+};
+
+export type ConvAccountDTO = {
+  domain?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+export type Attendee = {
+  contactId?: Maybe<Scalars['Float']>;
+  description?: Maybe<Scalars['String']>;
+  empathy?: Maybe<Scalars['Float']>;
+  hesitation?: Maybe<Scalars['Float']>;
+  hostImage?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  jobTitle?: Maybe<Scalars['String']>;
+  metrics?: Maybe<Array<Maybe<AttendeeMetric>>>;
+  name?: Maybe<Scalars['String']>;
+  politeness?: Maybe<Scalars['Float']>;
+  rank?: Maybe<Scalars['Int']>;
+  role?: Maybe<Scalars['String']>;
+  score?: Maybe<UniScore>;
+  speakingPace?: Maybe<Scalars['Float']>;
+  talkRatio?: Maybe<Scalars['Float']>;
+  timeline?: Maybe<Array<Maybe<Array<Maybe<Scalars['Float']>>>>>;
+  type?: Maybe<Type12>;
+  wonOver?: Maybe<Scalars['Boolean']>;
+};
+
+export type AttendeeMetric = {
+  time?: Maybe<Scalars['String']>;
+  type?: Maybe<Type13>;
+  value?: Maybe<Scalars['Float']>;
+};
+
+export type Type13 =
+  | 'POSITIVE'
+  | 'NEGATIVE'
+  | 'NEUTRAL';
+
+export type UniScore = {
+  score?: Maybe<Array<Maybe<Score4>>>;
+  trends?: Maybe<Trends>;
+  wonOver?: Maybe<Scalars['Boolean']>;
+};
+
+export type Trends = {
+  t1?: Maybe<UniScore>;
+  t2?: Maybe<UniScore>;
+  t3?: Maybe<UniScore>;
+  t4?: Maybe<UniScore>;
+  t5?: Maybe<UniScore>;
+  t6?: Maybe<UniScore>;
+  t7?: Maybe<UniScore>;
+  t8?: Maybe<UniScore>;
+};
+
+export type Type12 =
+  | 'CUSTOMER'
+  | 'EMPLOYEE';
+
+export type ConvUsersDTO = {
+  fullname?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  username?: Maybe<Scalars['String']>;
+};
+
+export type KeyMoment = {
+  bookmarks?: Maybe<Array<Maybe<ConvBookmarkResponseDTO>>>;
+  contentImages?: Maybe<Scalars['String']>;
+  contributedBy?: Maybe<Array<Maybe<Scalars['String']>>>;
+  criticality?: Maybe<Scalars['String']>;
+  downVote?: Maybe<Scalars['Float']>;
+  downVoteUser?: Maybe<Scalars['String']>;
+  endOffset?: Maybe<Scalars['Float']>;
+  highlightText?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  keyCategory?: Maybe<KeyCategory>;
+  keyMomentScore?: Maybe<Scalars['String']>;
+  keyMomentTexts?: Maybe<Array<Maybe<KeyMomentText>>>;
+  keyTags?: Maybe<Array<Maybe<KeyTag>>>;
+  kmEndOffset?: Maybe<Scalars['String']>;
+  kmStartOffset?: Maybe<Scalars['String']>;
+  polarity?: Maybe<Scalars['String']>;
+  score?: Maybe<Scalars['Float']>;
+  startOffset?: Maybe<Scalars['Float']>;
+  subtype?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+  time?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  upVote?: Maybe<Scalars['Float']>;
+  upVoteUser?: Maybe<Scalars['String']>;
+};
+
+export type ConvBookmarkResponseDTO = {
+  convID?: Maybe<ConvDTO>;
+  createdBy?: Maybe<ConvUsersDTO>;
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  keyMomentId?: Maybe<Scalars['Float']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  timeEnd?: Maybe<Scalars['Float']>;
+  timeStart?: Maybe<Scalars['Float']>;
+  type?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type ConvDTO = {
+  confidential?: Maybe<Scalars['Boolean']>;
+  description?: Maybe<Scalars['String']>;
+  hostId?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  meetingTopic?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+};
+
+export type KeyCategory =
+  | 'CUSTOMER_PAIN_POINTS'
+  | 'CUSTOMER_OBJECTIONS'
+  | 'BUDGET'
+  | 'PROJECT_METRICS_OF_SUCCESS'
+  | 'COMPETITORS'
+  | 'PRODUCT_FEATURES'
+  | 'PRICING'
+  | 'DECISION_CRITERIA';
+
+export type KeyMomentText = {
+  id?: Maybe<Scalars['Float']>;
+  line?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
+};
+
+export type KeyTag = {
+  category?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+};
+
+export type ConvPromiseResponseDTO = {
+  actionStatus?: Maybe<Scalars['String']>;
+  classification?: Maybe<Scalars['String']>;
+  confidential?: Maybe<Scalars['Boolean']>;
+  convId?: Maybe<Scalars['Float']>;
+  hostId?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  orgId?: Maybe<Scalars['Float']>;
+  promiseEndTime?: Maybe<Scalars['String']>;
+  promiseNextAction?: Maybe<Scalars['String']>;
+  promiseStartTime?: Maybe<Scalars['String']>;
+  promiseText?: Maybe<Scalars['String']>;
+  score?: Maybe<Scalars['Float']>;
+  speaker?: Maybe<Scalars['String']>;
+  speakerUsersId?: Maybe<Scalars['Float']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type Oppty2 = {
+  account?: Maybe<Account>;
+  amount?: Maybe<Scalars['Float']>;
+  crmOpptyId?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  listOfConversation?: Maybe<Array<Maybe<Conversation2>>>;
+  listOfMeetingMetadata?: Maybe<Array<Maybe<MeetingMetadata>>>;
+  listOfOpptyContactRel?: Maybe<Array<Maybe<OpptyContactRel>>>;
+  name?: Maybe<Scalars['String']>;
+  opptyAmount?: Maybe<Scalars['Float']>;
+  opptyCloseDate?: Maybe<Scalars['String']>;
+  opptyCreateDate?: Maybe<Scalars['String']>;
+  opptySource?: Maybe<Scalars['String']>;
+  opptyStage?: Maybe<Scalars['String']>;
+  opptyStatus?: Maybe<Scalars['String']>;
+  opptyTeam?: Maybe<OpptyTeam>;
+  orgId?: Maybe<Scalars['Float']>;
+  setOfOpptyParam?: Maybe<Array<Maybe<OpptyParam>>>;
+  source?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type Account = {
+  name?: Maybe<Scalars['String']>;
+};
+
+export type MeetingMetadata = {
+  account?: Maybe<Account>;
+  audioMediaLink?: Maybe<Scalars['String']>;
+  contact?: Maybe<Contact>;
+  description?: Maybe<Scalars['String']>;
+  externalMeetingId?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  meetingTopic?: Maybe<Scalars['String']>;
+  oppty?: Maybe<Oppty2>;
+  orgId?: Maybe<Scalars['Float']>;
+  setOfMeetingMetadataParam?: Maybe<Array<Maybe<MeetingMetadataParam>>>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  textMediaLink?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  videoMediaLink?: Maybe<Scalars['String']>;
+};
+
+export type Contact = {
+  avatar?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type MeetingMetadataParam = {
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  meetingMetadata?: Maybe<MeetingMetadata>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type OpptyContactRel = {
+  contact?: Maybe<Contact>;
+  crmRelId?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  oppty?: Maybe<Oppty2>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type OpptyTeam = {
+  crmRelId?: Maybe<Scalars['String']>;
+  endDate?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  listOfOppty?: Maybe<Array<Maybe<Oppty2>>>;
+  name?: Maybe<Scalars['String']>;
+  oppty?: Maybe<Oppty2>;
+  orgId?: Maybe<Scalars['Float']>;
+  role?: Maybe<Scalars['String']>;
+  setOfOpptyTeamParam?: Maybe<Array<Maybe<OpptyTeamParam>>>;
+  source?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  users3?: Maybe<Users2>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type OpptyTeamParam = {
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  members?: Maybe<Scalars['Int']>;
+  opptyTeam?: Maybe<OpptyTeam>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type Users2 = {
+  alertList?: Maybe<Array<Maybe<Alert>>>;
+  crmUserId?: Maybe<Scalars['String']>;
+  customerDomainWhiteList?: Maybe<Array<Maybe<CustomerDomainWhiteList2>>>;
+  email?: Maybe<Scalars['String']>;
+  expired?: Maybe<Scalars['Boolean']>;
+  firstTimeLogin?: Maybe<Scalars['Boolean']>;
+  firstname?: Maybe<Scalars['String']>;
+  fullname?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  inviteSent?: Maybe<Scalars['String']>;
+  invitedAt?: Maybe<Scalars['String']>;
+  lastname?: Maybe<Scalars['String']>;
+  listOfAccountTeam3?: Maybe<Array<Maybe<AccountTeam>>>;
+  listOfOpptyTeam3?: Maybe<Array<Maybe<OpptyTeam>>>;
+  listOfUserRoles?: Maybe<Array<Maybe<UsersRoleRel>>>;
+  listOfUserUiPreference3?: Maybe<Array<Maybe<UserUiPreference>>>;
+  managerId?: Maybe<Scalars['Float']>;
+  orgId?: Maybe<Scalars['Float']>;
+  orgType?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
+  provider?: Maybe<Scalars['String']>;
+  providerId?: Maybe<Scalars['String']>;
+  qenabled?: Maybe<Scalars['Boolean']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  userType?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  zoomHostId?: Maybe<Scalars['String']>;
+  zoomToken?: Maybe<Scalars['String']>;
+};
+
+export type Alert = {
+  archive?: Maybe<Scalars['Boolean']>;
+  description?: Maybe<Scalars['String']>;
+  exp?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  objId?: Maybe<Scalars['Float']>;
+  objSubId?: Maybe<Scalars['Float']>;
+  objType?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  users?: Maybe<Users2>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type CustomerDomainWhiteList2 = {
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  setOfCustomerDomainWhiteListParam?: Maybe<Array<Maybe<CustomerDomainWhiteListParam>>>;
+  source?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  users?: Maybe<Users2>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type CustomerDomainWhiteListParam = {
+  customerDomainWhiteList?: Maybe<CustomerDomainWhiteList2>;
+  domain?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  subject?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type AccountTeam = {
+  account?: Maybe<Account>;
+  crmRelId?: Maybe<Scalars['String']>;
+  endDate?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  listOfAccount?: Maybe<Array<Maybe<Account>>>;
+  name?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  role?: Maybe<Scalars['String']>;
+  setOfAccountTeamParam?: Maybe<Array<Maybe<AccountTeamParam>>>;
+  source?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  users3?: Maybe<Users2>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type AccountTeamParam = {
+  accountTeam?: Maybe<AccountTeam>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  members?: Maybe<Scalars['Int']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type UsersRoleRel = {
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  roleId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  users?: Maybe<Users2>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type UserUiPreference = {
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  preferenceType?: Maybe<Scalars['String']>;
+  savedJson?: Maybe<Scalars['String']>;
+  setOfUserUiPreferenceParam?: Maybe<Array<Maybe<UserUiPreferenceParam>>>;
+  source?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  users?: Maybe<Users2>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type UserUiPreferenceParam = {
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  userUiPreference?: Maybe<UserUiPreference>;
+  value?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type OpptyParam = {
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  oppty?: Maybe<Oppty2>;
+  orgId?: Maybe<Scalars['Float']>;
+  probability?: Maybe<Scalars['Float']>;
+  product?: Maybe<Scalars['String']>;
+  score?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  timespent?: Maybe<Scalars['Float']>;
+  type?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type AccountTeamResponse = {
+  current?: Maybe<Array<Maybe<AccountTeamDTO>>>;
+  last?: Maybe<Array<Maybe<AccountTeamDTO>>>;
+};
+
+export type AccountTeamDTO = {
+  endDate?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  lastActivityDate?: Maybe<Scalars['String']>;
+  manager?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  role?: Maybe<Scalars['String']>;
+  seller?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  timeOnAccount?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type AlertResponseDTO = {
+  archive?: Maybe<Scalars['Boolean']>;
+  description?: Maybe<Scalars['String']>;
+  digitalSource?: Maybe<Scalars['String']>;
+  exp?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  objId?: Maybe<Scalars['Float']>;
+  objSubId?: Maybe<Scalars['Float']>;
+  objType?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type User = {
+  companyProfileDTO?: Maybe<CompanyProfileDTO>;
+  email?: Maybe<Scalars['String']>;
+  expired?: Maybe<Scalars['Boolean']>;
+  externalIdToken?: Maybe<Array<Maybe<Scalars['JSON']>>>;
+  firstTimeLogin?: Maybe<Scalars['Boolean']>;
+  firstname?: Maybe<Scalars['String']>;
+  fullname?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  invited?: Maybe<Scalars['Boolean']>;
+  invitedAt?: Maybe<Scalars['String']>;
+  isBlueJeansAuthorized?: Maybe<Scalars['Boolean']>;
+  isCalendarAuthorized?: Maybe<Scalars['Boolean']>;
+  isEmailAuthorized?: Maybe<Scalars['Boolean']>;
+  isGmailAuthorized?: Maybe<Scalars['Boolean']>;
+  isGoogleCalendarAuthorized?: Maybe<Scalars['Boolean']>;
+  isOutlookAuthorized?: Maybe<Scalars['Boolean']>;
+  isOutlookCalendarAuthorized?: Maybe<Scalars['Boolean']>;
+  isPasswordResetRequired?: Maybe<Scalars['Boolean']>;
+  isPasswordSet?: Maybe<Scalars['Boolean']>;
+  isSlackAuthorized?: Maybe<Scalars['Boolean']>;
+  isSsoLogin?: Maybe<Scalars['Boolean']>;
+  isTeamAuthorized?: Maybe<Scalars['Boolean']>;
+  isWebexAuthorized?: Maybe<Scalars['Boolean']>;
+  isZoomAuthorized?: Maybe<Scalars['Boolean']>;
+  lastname?: Maybe<Scalars['String']>;
+  manager?: Maybe<UserManagerDTO>;
+  orgId?: Maybe<Scalars['Float']>;
+  orgType?: Maybe<Scalars['String']>;
+  qEnabled?: Maybe<Scalars['Boolean']>;
+  role?: Maybe<Array<Maybe<IdNameDTO>>>;
+  scopes?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  userType?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
+  zoomToken?: Maybe<Scalars['String']>;
+};
+
+export type CompanyProfileDTO = {
+  companyName?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  externalId?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type UserManagerDTO = {
+  email?: Maybe<Scalars['String']>;
+  firstname?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  lastname?: Maybe<Scalars['String']>;
+};
+
+export type CalendarEvent = {
+  account?: Maybe<IdNameDTO>;
+  botInstrFromCalendar?: Maybe<Scalars['Boolean']>;
+  calUid?: Maybe<Scalars['Boolean']>;
+  description?: Maybe<Scalars['String']>;
+  eventAttendees?: Maybe<Array<Maybe<CalendarEventAttendee>>>;
+  eventEndTime?: Maybe<Scalars['String']>;
+  eventStartTime?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  lastMeeting?: Maybe<ConversationDetailResponse>;
+  oppty?: Maybe<Array<Maybe<IdNameDTO>>>;
+  opptyDetail?: Maybe<DealSummaryDetailResponse>;
+  subjectLine?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['Float']>;
+};
+
+export type CalendarEventAttendee = {
+  email?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type ConversationDetailResponse = {
+  accountID?: Maybe<DealAccount>;
+  actionItems?: Maybe<Array<Maybe<ConvPromiseResponseDTO>>>;
+  aiViewVideoMediaLink?: Maybe<Scalars['String']>;
+  attendees?: Maybe<Array<Maybe<Attendee>>>;
+  audioMediaLink?: Maybe<Scalars['String']>;
+  bookmarks?: Maybe<Array<Maybe<ConvBookmarkResponseDTO>>>;
+  confidential?: Maybe<Scalars['Boolean']>;
+  contentViewVideoMediaLink?: Maybe<Scalars['String']>;
+  cvProcDone?: Maybe<Scalars['Boolean']>;
+  dataFusionProcDone?: Maybe<Scalars['Boolean']>;
+  description?: Maybe<Scalars['String']>;
+  endDate?: Maybe<Scalars['String']>;
+  externalMeetingId?: Maybe<Scalars['String']>;
+  freezeImage?: Maybe<Scalars['String']>;
+  galleryVideoLink?: Maybe<Scalars['String']>;
+  galleryViewVideoMediaLink?: Maybe<Scalars['String']>;
+  hostId?: Maybe<Scalars['Float']>;
+  hostName?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  keyMoments2?: Maybe<Array<Maybe<KeyMoment>>>;
+  maskVideoLink?: Maybe<Scalars['String']>;
+  meetingTopic?: Maybe<Scalars['String']>;
+  nextActions?: Maybe<Array<Maybe<ConvNextAction>>>;
+  opportunities?: Maybe<DealSummaryDetailResponse>;
+  opptyID?: Maybe<DealOppty>;
+  orgId?: Maybe<Scalars['Float']>;
+  recordingDate?: Maybe<Scalars['String']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+  shareCount?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  speakerTimelineLink?: Maybe<Scalars['String']>;
+  speakerViewVideoMediaLink?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  textKmProcDone?: Maybe<Scalars['Boolean']>;
+  textMediaLink?: Maybe<Scalars['String']>;
+  textSentProcDone?: Maybe<Scalars['Boolean']>;
+  tonalProcDone?: Maybe<Scalars['Boolean']>;
+  topics?: Maybe<Array<Maybe<ConvTopicEpisodeResponseDTO>>>;
+  transcriptLink?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  videoMediaLink?: Maybe<Scalars['String']>;
+};
+
+export type DealAccount = {
+  domain?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+export type ConvNextAction = {
+  description?: Maybe<Scalars['String']>;
+  rank?: Maybe<Scalars['Int']>;
+};
+
+export type DealSummaryDetailResponse = {
+  account?: Maybe<Account>;
+  accountId?: Maybe<Scalars['Float']>;
+  amount?: Maybe<Scalars['Float']>;
+  contact?: Maybe<Contact>;
+  contactId?: Maybe<Scalars['Float']>;
+  contacts?: Maybe<Array<Maybe<ContactActivity>>>;
+  conversations?: Maybe<Array<Maybe<ConversationRequest>>>;
+  crmOpptyId?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  metrics?: Maybe<Scalars['JSON']>;
+  name?: Maybe<Scalars['String']>;
+  opptyAmount?: Maybe<Scalars['Int']>;
+  opptyCloseDate?: Maybe<Scalars['String']>;
+  opptyCreateDate?: Maybe<Scalars['String']>;
+  opptyName?: Maybe<Scalars['Int']>;
+  opptySource?: Maybe<Scalars['String']>;
+  opptyStage?: Maybe<Scalars['String']>;
+  opptyStatus?: Maybe<Scalars['String']>;
+  opptyTeamId?: Maybe<Scalars['Float']>;
+  orgId?: Maybe<Scalars['Float']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+  sellers?: Maybe<Array<Maybe<UserActivity>>>;
+  source?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type UserActivity = {
+  conversation?: Maybe<Conversation2>;
+  email?: Maybe<Scalars['String']>;
+  emails?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['Float']>;
+  jobTitle?: Maybe<Scalars['String']>;
+  lastActivityDate?: Maybe<Scalars['String']>;
+  lastActivityType?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  role?: Maybe<Scalars['String']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type DealOppty = {
+  closeDate?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+};
+
+export type ConvTopicEpisodeResponseDTO = {
+  conversation?: Maybe<Scalars['Float']>;
+  endTime?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  keytopicCount1?: Maybe<Scalars['Float']>;
+  keytopicCount2?: Maybe<Scalars['Float']>;
+  keytopicCount3?: Maybe<Scalars['Float']>;
+  keytopicCount4?: Maybe<Scalars['Float']>;
+  keytopicId1?: Maybe<Scalars['String']>;
+  keytopicId2?: Maybe<Scalars['String']>;
+  keytopicId3?: Maybe<Scalars['String']>;
+  keytopicId4?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['Float']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  unsupervisedCount1?: Maybe<Scalars['Float']>;
+  unsupervisedCount2?: Maybe<Scalars['Float']>;
+  unsupervisedCount3?: Maybe<Scalars['Float']>;
+  unsupervisedCount4?: Maybe<Scalars['Float']>;
+  unsupervisedTopic1?: Maybe<Scalars['String']>;
+  unsupervisedTopic2?: Maybe<Scalars['String']>;
+  unsupervisedTopic3?: Maybe<Scalars['String']>;
+  unsupervisedTopic4?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type CompanySlideFirstResponse = {
+  companyName?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  high?: Maybe<Array<Maybe<SlideFirst>>>;
+  id?: Maybe<Scalars['Float']>;
+  low?: Maybe<Array<Maybe<SlideFirst>>>;
+};
+
+export type SlideFirst = {
+  accountID?: Maybe<ConvAccountDTO>;
+  contentStartTime?: Maybe<Scalars['String']>;
+  contentViewVideoMediaLink?: Maybe<Scalars['String']>;
+  convId?: Maybe<Scalars['Float']>;
+  convList?: Maybe<Array<Maybe<SlideFirst>>>;
+  galleryViewVideoMediaLink?: Maybe<Scalars['String']>;
+  kmEndTime?: Maybe<Scalars['String']>;
+  kmId?: Maybe<Scalars['Float']>;
+  kmStartTime?: Maybe<Scalars['String']>;
+  kmText?: Maybe<Scalars['String']>;
+  kmUsername?: Maybe<Scalars['String']>;
+  meetingEndTime?: Maybe<Scalars['String']>;
+  meetingName?: Maybe<Scalars['String']>;
+  meetingStartTime?: Maybe<Scalars['String']>;
+  sentiment?: Maybe<Scalars['Float']>;
+  type?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+export type ContactMetricsResponse = {
+  avatarUrl?: Maybe<Scalars['String']>;
+  contactMethods?: Maybe<Array<Maybe<ContactMethodDTO>>>;
+  firstName?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  jobTitle?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  metrics?: Maybe<Scalars['JSON']>;
+  name?: Maybe<Scalars['String']>;
+  oppty?: Maybe<Array<Maybe<OpptyDTO>>>;
+  role?: Maybe<Scalars['String']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+};
+
+export type ContactMethodDTO = {
+  contactId?: Maybe<Scalars['Float']>;
+  emailAddress?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  phoneNumber?: Maybe<Scalars['String']>;
+  preference?: Maybe<Scalars['String']>;
+  setOfContactMethodParam?: Maybe<Array<Maybe<ContactMethodParam>>>;
+  social?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type ContactMethodParam = {
+  contactMethod?: Maybe<ContactMethod>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  preference?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type ContactMethod = {
+  contact?: Maybe<Contact>;
+  emailAddress2?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  phoneNumber2?: Maybe<Scalars['String']>;
+  preference?: Maybe<Scalars['String']>;
+  setOfContactMethodParam?: Maybe<Array<Maybe<ContactMethodParam>>>;
+  social?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type OpptyDTO = {
+  accountID?: Maybe<IdNameDTO>;
+  amount?: Maybe<Scalars['Float']>;
+  contact?: Maybe<Scalars['Float']>;
+  conversation?: Maybe<Array<Maybe<ConversationRequest>>>;
+  crmOpptyId?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  metrics?: Maybe<Scalars['JSON']>;
+  name?: Maybe<Scalars['String']>;
+  opptyAmount?: Maybe<Scalars['Float']>;
+  opptyCloseDate?: Maybe<Scalars['String']>;
+  opptyCreateDate?: Maybe<Scalars['String']>;
+  opptySource?: Maybe<Scalars['String']>;
+  opptyStage?: Maybe<Scalars['String']>;
+  opptyStatus?: Maybe<Scalars['String']>;
+  opptyTeamID?: Maybe<IdNameDTO>;
+  orgId?: Maybe<Scalars['Float']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type ContactResponse = {
+  accounts?: Maybe<Array<Maybe<Array<Maybe<Scalars['JSON']>>>>>;
+  avatarUrl?: Maybe<Scalars['String']>;
+  contactMethods?: Maybe<Array<Maybe<ContactMethodDTO>>>;
+  firstName?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  jobTitle?: Maybe<Scalars['String']>;
+  keyMoments3?: Maybe<Array<Maybe<KeyMoment>>>;
+  lastConv?: Maybe<LastConv>;
+  lastName?: Maybe<Scalars['String']>;
+  metrics?: Maybe<Scalars['JSON']>;
+  name?: Maybe<Scalars['String']>;
+  nextConv?: Maybe<NextConv>;
+  openOppty?: Maybe<Array<Maybe<OpptyDTO>>>;
+  role?: Maybe<Scalars['String']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+  timezone?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+export type LastConv = {
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['String']>;
+};
+
+export type NextConv = {
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['String']>;
+};
+
+export type ConvAttendeeResponseDTO = {
+  attendeeEmail?: Maybe<Scalars['String']>;
+  attendeeName?: Maybe<Scalars['String']>;
+  convID?: Maybe<IdNameDTO>;
+  description?: Maybe<Scalars['String']>;
+  employeeOrContactInd?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type ConvEQResponseDTO = {
+  accountId?: Maybe<Scalars['Float']>;
+  convEndTime?: Maybe<Scalars['String']>;
+  convId?: Maybe<Scalars['Float']>;
+  convStartTime?: Maybe<Scalars['String']>;
+  eqScore?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  meetingEngagement?: Maybe<Scalars['Float']>;
+  meetingSentiment?: Maybe<Scalars['Float']>;
+  numberOfAttendees?: Maybe<Scalars['Float']>;
+  opptyId?: Maybe<Scalars['Float']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  stage?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updateTime?: Maybe<Scalars['String']>;
+  vRankSum?: Maybe<Scalars['Float']>;
+  version?: Maybe<Scalars['String']>;
+  vrankSum?: Maybe<Scalars['Float']>;
+};
+
+export type ConvMetricsResponse = {
+  attendees?: Maybe<Array<Maybe<AttendeeMetric>>>;
+  desc?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  videoLink?: Maybe<Scalars['String']>;
+};
+
+export type ConversationAttributionLogRsp = {
+  allowEdit?: Maybe<Scalars['Boolean']>;
+  convId?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  newAccountCrmId?: Maybe<Scalars['String']>;
+  newAccountId?: Maybe<Scalars['Float']>;
+  newOpptyCrmId?: Maybe<Scalars['String']>;
+  newOpptyId?: Maybe<Scalars['Float']>;
+  oldAccountCrmId?: Maybe<Scalars['String']>;
+  oldAccountId?: Maybe<Scalars['Float']>;
+  oldOpptyCrmId?: Maybe<Scalars['String']>;
+  oldOpptyId?: Maybe<Scalars['Float']>;
+};
+
+export type ConvSlideFirstResponse = {
+  high?: Maybe<Array<Maybe<SlideFirst>>>;
+  low?: Maybe<Array<Maybe<SlideFirst>>>;
+};
+
+export type ConvTimeline = {
+  convId2?: Maybe<Scalars['Float']>;
+  data?: Maybe<Scalars['JSON']>;
+};
+
+export type ConversationAttendeesResponse = {
+  attendees?: Maybe<Array<Maybe<Attendee>>>;
+  endDate?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type ConversationSummaryResponse = {
+  data?: Maybe<Array<Maybe<Datum>>>;
+  userId?: Maybe<Scalars['String']>;
+};
+
+export type Datum = {
+  account?: Maybe<IdNameDTO>;
+  aiViewVideoMediaLink?: Maybe<Scalars['String']>;
+  attendees?: Maybe<Array<Maybe<ConvAttendeeAttr>>>;
+  audioMediaLink?: Maybe<Scalars['String']>;
+  confidential?: Maybe<Scalars['Boolean']>;
+  contentViewVideoMediaLink?: Maybe<Scalars['String']>;
+  cvProcDone?: Maybe<Scalars['Boolean']>;
+  dataFusionProcDone?: Maybe<Scalars['Boolean']>;
+  description?: Maybe<Scalars['String']>;
+  endDate?: Maybe<Scalars['String']>;
+  externalMeetingId?: Maybe<Scalars['String']>;
+  galleryViewVideoMediaLink?: Maybe<Scalars['String']>;
+  host?: Maybe<Scalars['String']>;
+  hostId?: Maybe<Scalars['Float']>;
+  hostImage?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  keyTopics?: Maybe<Array<Maybe<KeyTag>>>;
+  lastChunk?: Maybe<Scalars['Float']>;
+  mediaLink?: Maybe<Scalars['String']>;
+  mediaThumbnail?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  opportunity?: Maybe<Opportunity>;
+  orgId?: Maybe<Scalars['Float']>;
+  pendingPromisesCount?: Maybe<Scalars['Int']>;
+  processedFlag?: Maybe<Scalars['String']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+  sharedDate?: Maybe<Scalars['String']>;
+  sharedUser?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  speakerTimelineLink?: Maybe<Scalars['String']>;
+  speakerViewVideoMediaLink?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  textKmProcDone?: Maybe<Scalars['Boolean']>;
+  textMediaLink?: Maybe<Scalars['String']>;
+  textSentProcDone?: Maybe<Scalars['Boolean']>;
+  thumbnail?: Maybe<Scalars['String']>;
+  tonalProcDone?: Maybe<Scalars['Boolean']>;
+  totalPromisesCount?: Maybe<Scalars['Int']>;
+  transcriptLink?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  uuid?: Maybe<Scalars['String']>;
+  videoMediaLink?: Maybe<Scalars['String']>;
+};
+
+export type ConvAttendeeAttr = {
+  convId?: Maybe<Scalars['Float']>;
+  email?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type Opportunity = {
+  amount?: Maybe<Scalars['Float']>;
+  closeDate?: Maybe<Scalars['String']>;
+  createDate?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  opptyAmount?: Maybe<Scalars['Float']>;
+  stage?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+};
+
+export type ConvoStatResponse = {
+  accountId?: Maybe<Scalars['Float']>;
+  aiViewVideoMediaLink?: Maybe<Scalars['String']>;
+  attendees?: Maybe<Array<Maybe<Attendee>>>;
+  audioMediaLink?: Maybe<Scalars['String']>;
+  contentViewVideoMediaLink?: Maybe<Scalars['String']>;
+  convoStats?: Maybe<ConvoStats>;
+  customer?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  endDate?: Maybe<Scalars['String']>;
+  externalMeetingId?: Maybe<Scalars['String']>;
+  freezeImage?: Maybe<Scalars['String']>;
+  galleryVideoLink?: Maybe<Scalars['String']>;
+  galleryViewVideoMediaLink?: Maybe<Scalars['String']>;
+  host?: Maybe<Scalars['String']>;
+  hostId?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['String']>;
+  keyMoments?: Maybe<Array<Maybe<KeyMoment>>>;
+  maskVideoLink?: Maybe<Scalars['String']>;
+  meetingTopic?: Maybe<Scalars['String']>;
+  nextActions?: Maybe<Array<Maybe<ConvNextAction>>>;
+  opptyId?: Maybe<Scalars['Float']>;
+  orgId?: Maybe<Scalars['Float']>;
+  recordingDate?: Maybe<Scalars['String']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+  source?: Maybe<Scalars['String']>;
+  speakerTimelineLink?: Maybe<Scalars['String']>;
+  speakerViewVideoMediaLink?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  textMediaLink?: Maybe<Scalars['String']>;
+  transcriptLink?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  videoMediaLink?: Maybe<Scalars['String']>;
+};
+
+export type ConvoStats = {
+  averageEmpathy?: Maybe<Scalars['Float']>;
+  averagePoliteness?: Maybe<Scalars['Float']>;
+  averagespeakingPace?: Maybe<Scalars['Float']>;
+  hesitation?: Maybe<Scalars['Float']>;
+  longestCustomerMonologue?: Maybe<Scalars['Int']>;
+  longestRepMonologue?: Maybe<Scalars['Int']>;
+  talkRatio?: Maybe<Scalars['Float']>;
+  teamMembers?: Maybe<Array<Maybe<Attendee>>>;
+};
+
+export type DealDetailResponse = {
+  searchResult?: Maybe<DealSearchResult>;
+  totalCount?: Maybe<Scalars['Float']>;
+};
+
+export type DealSearchResult = {
+  entities?: Maybe<Array<Maybe<DealEntity>>>;
+  resultCount?: Maybe<Scalars['Float']>;
+  userId?: Maybe<Scalars['Float']>;
+};
+
+export type DealEntity = {
+  data?: Maybe<Array<Maybe<DealData>>>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type DealData = {
+  account?: Maybe<DealAccount>;
+  accountOpptyEQ?: Maybe<AccountOpptyEQResponseDTO>;
+  amount?: Maybe<Scalars['Float']>;
+  contact?: Maybe<Array<Maybe<Contact>>>;
+  conversations?: Maybe<Array<Maybe<ConversationRequest>>>;
+  id?: Maybe<Scalars['Float']>;
+  metrics?: Maybe<Scalars['JSON']>;
+  name?: Maybe<Scalars['String']>;
+  nextAction?: Maybe<DealNextAction>;
+  opptyAmount?: Maybe<Scalars['Float']>;
+  opptyCloseDate?: Maybe<Scalars['String']>;
+  opptyCreateDate?: Maybe<Scalars['String']>;
+  opptyStage?: Maybe<Scalars['String']>;
+  opptyStatus?: Maybe<Scalars['String']>;
+  pastActivity?: Maybe<Scalars['String']>;
+  pendingPromisesCount?: Maybe<Scalars['Int']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+  totalPromisesCount?: Maybe<Scalars['Int']>;
+};
+
+export type AccountOpptyEQResponseDTO = {
+  accountId?: Maybe<Scalars['Float']>;
+  accountName?: Maybe<Scalars['String']>;
+  accountUrl?: Maybe<Scalars['String']>;
+  amount?: Maybe<Scalars['Float']>;
+  empathy?: Maybe<Scalars['Float']>;
+  engagement?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  opptyAmount?: Maybe<Scalars['Float']>;
+  opptyId?: Maybe<Scalars['Float']>;
+  opptyName?: Maybe<Scalars['String']>;
+  opptyRisk?: Maybe<OpptyRisk>;
+  opptyStage?: Maybe<Scalars['String']>;
+  opptyState?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  sentiment?: Maybe<Scalars['Float']>;
+};
+
+export type OpptyRisk =
+  | 'AT_RISK'
+  | 'ON_TRACK'
+  | 'EXCEED';
+
+export type DealNextAction = {
+  date?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['Boolean']>;
+  video?: Maybe<Scalars['Boolean']>;
+};
+
+export type CurrentEQForOpptyResponse = {
+  deals?: Maybe<DealSummaryDetailResponse>;
+};
+
+export type DealSummaryResponse = {
+  account?: Maybe<Account>;
+  accountId?: Maybe<Scalars['Float']>;
+  accountUrl?: Maybe<Scalars['String']>;
+  amount?: Maybe<Scalars['Float']>;
+  contact?: Maybe<Contact>;
+  contactId?: Maybe<Scalars['Float']>;
+  crmOpptyId?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  opptyAmount?: Maybe<Scalars['Int']>;
+  opptyCloseDate?: Maybe<Scalars['String']>;
+  opptyCreateDate?: Maybe<Scalars['String']>;
+  opptyName?: Maybe<Scalars['Int']>;
+  opptySource?: Maybe<Scalars['String']>;
+  opptyStage?: Maybe<Scalars['String']>;
+  opptyStatus?: Maybe<Scalars['String']>;
+  opptyTeamId?: Maybe<Scalars['Float']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  topicCoverageStatus?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type DealSummaryTrendResponse = {
+  convostats?: Maybe<Array<Maybe<DealConvoStat>>>;
+  engagement?: Maybe<Stages>;
+  id?: Maybe<Scalars['Float']>;
+  sentiment?: Maybe<Stages>;
+  stage?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  wonOppty?: Maybe<DealStat>;
+};
+
+export type DealConvoStat = {
+  stages?: Maybe<Scalars['JSON']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type Stages = {
+  stages?: Maybe<Scalars['JSON']>;
+};
+
+export type DealStat = {
+  convostats?: Maybe<Array<Maybe<DealConvoStat>>>;
+  engagement?: Maybe<Stages>;
+  sentiment?: Maybe<Stages>;
+};
+
+export type Diarization = {
+  tasks?: Maybe<Array<Maybe<Task>>>;
+};
+
+export type Task = {
+  name?: Maybe<Scalars['String']>;
+  options?: Maybe<Option>;
+};
+
+export type Option = {
+  activate?: Maybe<Scalars['Boolean']>;
+  data?: Maybe<Scalars['JSON']>;
+};
+
+export type EmpathyAndHesitationTurnsReport = {
+  convId?: Maybe<Scalars['Float']>;
+  empathyChangeDetailsList?: Maybe<Array<Maybe<EmpathyChangeDetails>>>;
+  empathyScore?: Maybe<Scalars['Float']>;
+  hesitationChangeDetailsList?: Maybe<Array<Maybe<HesitationChangeDetails>>>;
+  hesitationScore?: Maybe<Scalars['Float']>;
+};
+
+export type EmpathyChangeDetails = {
+  averageEmpathy2?: Maybe<Scalars['Float']>;
+  convId3?: Maybe<Scalars['Float']>;
+  convOffset?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  polarity?: Maybe<Scalars['String']>;
+  prevContactNameOnTurn?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  userId2?: Maybe<Scalars['Float']>;
+  userName?: Maybe<Scalars['String']>;
+};
+
+export type HesitationChangeDetails = {
+  averageHesitation?: Maybe<Scalars['Float']>;
+  convId4?: Maybe<Scalars['Float']>;
+  convOffset?: Maybe<Scalars['Float']>;
+  prevContactNameOnTurn?: Maybe<Scalars['String']>;
+  userId3?: Maybe<Scalars['Float']>;
+  userName?: Maybe<Scalars['String']>;
+};
+
+export type TeamOpptyUsersStats = {
+  idealConvEQ?: Maybe<IdealConvEQ>;
+  overAll?: Maybe<Array<Maybe<TeamUsersStat>>>;
+  teamOpptyUsersStats?: Maybe<Array<Maybe<TeamOpptyUsersStat>>>;
+  unattributed?: Maybe<Array<Maybe<TeamUnattributedUsersStat>>>;
+};
+
+export type IdealConvEQ = {
+  empathy?: Maybe<Scalars['Float']>;
+  engagement?: Maybe<Scalars['Float']>;
+  sentiment?: Maybe<Scalars['Float']>;
+  talkRatio?: Maybe<Scalars['Float']>;
+};
+
+export type TeamUsersStat = {
+  customerEngagement?: Maybe<Scalars['Float']>;
+  customerSentiment?: Maybe<Scalars['Float']>;
+  empathy?: Maybe<Scalars['Float']>;
+  engagement?: Maybe<Scalars['Float']>;
+  hesitation?: Maybe<Scalars['Float']>;
+  politeness?: Maybe<Scalars['Float']>;
+  sentiment?: Maybe<Scalars['Float']>;
+  speakingRate?: Maybe<Scalars['Float']>;
+  talkRatio?: Maybe<Scalars['Float']>;
+  talkSpeed?: Maybe<Scalars['Float']>;
+  user?: Maybe<User>;
+  usersStats?: Maybe<Array<Maybe<UsersStat>>>;
+};
+
+export type UsersStat = {
+  accountID?: Maybe<ConvAccountDTO>;
+  convEndTime?: Maybe<Scalars['String']>;
+  convId?: Maybe<Scalars['Float']>;
+  convStartTime?: Maybe<Scalars['String']>;
+  convStatus?: Maybe<Scalars['String']>;
+  convType?: Maybe<Scalars['String']>;
+  empathy?: Maybe<Scalars['Float']>;
+  engagement?: Maybe<Scalars['Float']>;
+  hesitation?: Maybe<Scalars['Float']>;
+  orgId?: Maybe<Scalars['Float']>;
+  participantName?: Maybe<Scalars['String']>;
+  politeness?: Maybe<Scalars['Float']>;
+  sentiment?: Maybe<Scalars['Float']>;
+  speakingRate?: Maybe<Scalars['Float']>;
+  talkRatio?: Maybe<Scalars['Float']>;
+  talkSpeed?: Maybe<Scalars['Float']>;
+  userId?: Maybe<Scalars['Float']>;
+};
+
+export type TeamOpptyUsersStat = {
+  comments?: Maybe<Array<Maybe<CommentResponseDTO>>>;
+  conversations?: Maybe<Array<Maybe<ConversationRequest>>>;
+  oppty?: Maybe<OpptyDTO>;
+  usersStats?: Maybe<Array<Maybe<TeamUsersStat>>>;
+};
+
+export type CommentResponseDTO = {
+  comment?: Maybe<Scalars['String']>;
+  convID?: Maybe<ConvDTO>;
+  endTime?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  keyMomentId?: Maybe<Scalars['Float']>;
+  mentions?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['Float']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updateTime?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type TeamUnattributedUsersStat = {
+  comments?: Maybe<Array<Maybe<CommentResponseDTO>>>;
+  conversations?: Maybe<Array<Maybe<ConversationRequest>>>;
+  user?: Maybe<TeamUsersStat>;
+};
+
+export type KeyPhraseResponse = {
+  id?: Maybe<Scalars['Float']>;
+  keyMoments4?: Maybe<Array<Maybe<KeyMoment>>>;
+};
+
+export type MediaClipResponseDTO = {
+  accountID?: Maybe<ConvAccountDTO>;
+  audioMediaLink?: Maybe<Scalars['String']>;
+  comments?: Maybe<Array<Maybe<CommentResponseDTO>>>;
+  convID?: Maybe<ConvDTO>;
+  description?: Maybe<Scalars['String']>;
+  endTime?: Maybe<Scalars['Float']>;
+  galleryViewVideoMediaLink?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  keyMoment?: Maybe<ConvKeyMomentResponseDTO>;
+  keytags?: Maybe<Array<Maybe<KeywordTagResponseDTO>>>;
+  mediaClipRelId?: Maybe<Scalars['Float']>;
+  meetingTime?: Maybe<Scalars['String']>;
+  meetingTopic?: Maybe<Scalars['String']>;
+  opptyID?: Maybe<ConvOpptyDTO>;
+  opptyName?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  polarity?: Maybe<Scalars['String']>;
+  position?: Maybe<Scalars['Float']>;
+  shared?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['Float']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  thumbnail?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  transcript?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  userID?: Maybe<ConvUsersDTO>;
+  usersViewed?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  views?: Maybe<Scalars['Float']>;
+};
+
+export type ConvKeyMomentResponseDTO = {
+  contentImages?: Maybe<Scalars['String']>;
+  convId?: Maybe<Scalars['Float']>;
+  downVote?: Maybe<Scalars['Float']>;
+  downVoteUser?: Maybe<Scalars['String']>;
+  endOffset?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  keywordTagId1?: Maybe<Scalars['Float']>;
+  keywordTagId2?: Maybe<Scalars['Float']>;
+  keywordTagId3?: Maybe<Scalars['Float']>;
+  keywordTagId4?: Maybe<Scalars['Float']>;
+  kmEndTime?: Maybe<Scalars['String']>;
+  kmStartTime?: Maybe<Scalars['String']>;
+  line?: Maybe<Scalars['String']>;
+  polarity?: Maybe<Scalars['String']>;
+  score?: Maybe<Scalars['Float']>;
+  startOffset?: Maybe<Scalars['Float']>;
+  type?: Maybe<Scalars['String']>;
+  upVote?: Maybe<Scalars['Float']>;
+  upVoteUser?: Maybe<Scalars['String']>;
+  updateTime?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
+};
+
+export type KeywordTagResponseDTO = {
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  keywordCateg?: Maybe<KeywordCategResponseDTO>;
+  keywordTagVal?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type KeywordCategResponseDTO = {
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  keywordCategName?: Maybe<Scalars['String']>;
+  keywordTags?: Maybe<Array<Maybe<KeywordTagResponseDTO>>>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type ConvOpptyDTO = {
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type OpptyEqbyStageResponseDTO = {
+  emotionalScore?: Maybe<Scalars['String']>;
+  emotionalStage?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  numberOfAttendees2?: Maybe<Scalars['Float']>;
+  opptyId?: Maybe<Scalars['Float']>;
+  stage?: Maybe<Scalars['String']>;
+  stageEndDate?: Maybe<Scalars['String']>;
+  stageStartDate?: Maybe<Scalars['String']>;
+};
+
+export type OpptyTeamResponseDTO = {
+  endDate?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['String']>;
+  usersId?: Maybe<ConvUsersDTO>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type PlaylistResponseDTO = {
+  clips?: Maybe<Array<Maybe<MediaClipResponseDTO>>>;
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+  orgId?: Maybe<Scalars['Float']>;
+  permission?: Maybe<Scalars['String']>;
+  shared?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updateTime?: Maybe<Scalars['String']>;
+  userID?: Maybe<ConvUsersDTO>;
+  usersViewed?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  views?: Maybe<Scalars['Float']>;
+};
+
+export type SummaryReportDTO = {
+  amountImpacted?: Maybe<Scalars['Float']>;
+  hrsProcessed?: Maybe<Scalars['Float']>;
+  numOfConversations?: Maybe<Scalars['Float']>;
+  uniqueContacts?: Maybe<Scalars['Float']>;
+  uniqueDeals?: Maybe<Scalars['Float']>;
+  uniqueKeyMoments?: Maybe<Scalars['Float']>;
+};
+
+export type TrendEQForOpptyResponse = {
+  deals?: Maybe<DealSummaryDetailResponse>;
+  keyMoments5?: Maybe<OpptyDTO>;
+};
+
+export type AccountPromisesResponseDTO = {
+  account?: Maybe<Account>;
+  dateTime?: Maybe<Scalars['String']>;
+  promises?: Maybe<Array<Maybe<Promise>>>;
+};
+
+export type Promise = {
+  classification?: Maybe<Scalars['String']>;
+  conv?: Maybe<ConvInfo>;
+  deal?: Maybe<DealInfo>;
+  id?: Maybe<Scalars['Float']>;
+  promiseEndTime?: Maybe<Scalars['String']>;
+  promiseNextAction?: Maybe<Scalars['String']>;
+  promiseStartTime?: Maybe<Scalars['String']>;
+  promiseText?: Maybe<Scalars['String']>;
+  score?: Maybe<Scalars['Float']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type ConvInfo = {
+  confidential?: Maybe<Scalars['Boolean']>;
+  endTime?: Maybe<Scalars['String']>;
+  hostId?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  meetingTopic?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+};
+
+export type DealInfo = {
+  amount?: Maybe<Scalars['Float']>;
+  amountNumber?: Maybe<Scalars['String']>;
+  closeDate?: Maybe<Scalars['String']>;
+  createDate?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type CompanyParamResponseDTO = {
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+};
+
+export type ConfigPropResponseDTO = {
+  configPropset?: Maybe<IdNameDTO>;
+  defaultValue?: Maybe<Scalars['String']>;
+  defaultValueInt?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  isVisible?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type AggrConvMetrics = {
+  convId?: Maybe<Scalars['Float']>;
+  engagement?: Maybe<Scalars['Float']>;
+  engagementSmooth?: Maybe<Scalars['Float']>;
+  isSpeaker?: Maybe<Scalars['Boolean']>;
+  offset?: Maybe<Scalars['Float']>;
+  offsetTimestamp?: Maybe<Scalars['String']>;
+  participantId?: Maybe<Scalars['String']>;
+  sentiment?: Maybe<Scalars['Float']>;
+  sentimentSmooth?: Maybe<Scalars['Float']>;
+};
+
+export type CustWebLinkResponseDTO = {
+  company?: Maybe<Scalars['String']>;
+  companyProfile?: Maybe<CompanyProfileDTO>;
+  id?: Maybe<Scalars['Float']>;
+  orgId?: Maybe<Scalars['Float']>;
+  url?: Maybe<Scalars['String']>;
+  usersId?: Maybe<Scalars['Float']>;
+};
+
+export type EmlEqResponseDTO = {
+  emlObj?: Maybe<EmlObjResponseDTO>;
+  empathy?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  senderName?: Maybe<Scalars['String']>;
+  senderUser?: Maybe<User>;
+  sentiment?: Maybe<Scalars['Float']>;
+};
+
+export type EmlObjResponseDTO = {
+  conversation?: Maybe<ConvDTO>;
+  emlBody?: Maybe<Array<Maybe<EmlBody2>>>;
+  emlMetadata?: Maybe<Array<Maybe<EmlMetadata>>>;
+  emlObjParam?: Maybe<Array<Maybe<EmlObjParam>>>;
+  info?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type EmlBody2 = {
+  body?: Maybe<Scalars['String']>;
+  emlObj?: Maybe<EmlObj>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  setOfEmlBodyParam?: Maybe<Array<Maybe<EmlBodyParam>>>;
+  source?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type EmlObj = {
+  cc?: Maybe<Scalars['String']>;
+  conversation?: Maybe<Conversation2>;
+  emlEqs?: Maybe<Array<Maybe<EmlEq>>>;
+  from?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  listOfEmlBody?: Maybe<Array<Maybe<EmlBody2>>>;
+  listOfEmlMetadata?: Maybe<Array<Maybe<EmlMetadata>>>;
+  orgId?: Maybe<Scalars['Float']>;
+  sendDatetime?: Maybe<Scalars['String']>;
+  setOfEmlObjParam?: Maybe<Array<Maybe<EmlObjParam>>>;
+  source?: Maybe<Scalars['String']>;
+  subject?: Maybe<Scalars['String']>;
+  threadId?: Maybe<Scalars['String']>;
+  to?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type EmlEq = {
+  emlObj?: Maybe<EmlObj>;
+  empathy?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  rawMetrics?: Maybe<Scalars['String']>;
+  senderName?: Maybe<Scalars['String']>;
+  senderUser?: Maybe<Scalars['Float']>;
+  sentiment?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type EmlMetadata = {
+  emlObj?: Maybe<EmlObj>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  setOfEmlMetadataParam?: Maybe<Array<Maybe<EmlMetadataParam>>>;
+  source?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type EmlMetadataParam = {
+  emlMetadata?: Maybe<EmlMetadata>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type EmlObjParam = {
+  emlObj?: Maybe<EmlObj>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type EmlBodyParam = {
+  emlBody?: Maybe<EmlBody2>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type KeyPhraseExpertResponseDTO = {
+  email?: Maybe<Scalars['String']>;
+  engagement?: Maybe<Scalars['Float']>;
+  fullName?: Maybe<Scalars['String']>;
+  sentiment?: Maybe<Scalars['Float']>;
+  userId?: Maybe<Scalars['Float']>;
+};
+
+export type MediaClipParamResponseDTO = {
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  mediaClipId?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type PlaylistParamResponseDTO = {
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  playlistId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type SharedMemberDTO = {
+  email?: Maybe<Scalars['String']>;
+  firstname?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  lastname?: Maybe<Scalars['String']>;
+  permission?: Maybe<Scalars['String']>;
+  shareTime?: Maybe<Scalars['String']>;
+  videoSharingHistoryId?: Maybe<Scalars['Float']>;
+};
+
+export type ConvSharedViewData = {
+  convId?: Maybe<Scalars['Float']>;
+  endTime?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  startTime?: Maybe<Scalars['Float']>;
+};
+
+export type UserDelegateResponseDTO = {
+  proxyOwners?: Maybe<Array<Maybe<User>>>;
+  proxyUsers?: Maybe<Array<Maybe<User>>>;
+};
+
+export type Mutation = {
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/playlists/media-clip-rel-bulk
+   */
+  addBulkPlaylistMediaClipRel?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /auth/login
+   */
+  authenticateUser?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /auth/login2
+   */
+  authenticateUser2?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/keyphrase/occurrences
+   */
+  companyKeyPhraseOccurrences?: Maybe<Array<Maybe<KeyPhraseOccurenceContentResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/keyphrase/sentiment
+   */
+  companyKeyPhraseOccurrencesBySentiment?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/timeline/{conv_id}
+   */
+  convert?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/alerts
+   */
+  createAlert?: Maybe<AlertResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/conv-topic-episodes
+   */
+  createConvTopicEpisode?: Maybe<ConvTopicEpisodeResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/emleqs
+   */
+  createEmlEq?: Maybe<EmlEqResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/custweblinks
+   */
+  createOrUpdate?: Maybe<CustWebLinkResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/comments
+   */
+  createOrUpdate1?: Maybe<CommentResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/clips
+   */
+  createOrUpdate2?: Maybe<VideoSharingHistoryDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/bookmarks
+   */
+  createOrUpdate3?: Maybe<ConvBookmarkResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/accounts
+   */
+  createOrUpdateAccount?: Maybe<AccountResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/attendees
+   */
+  createOrUpdateConvAttendee?: Maybe<ConvAttendeeResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/conv/attendees/{id}
+   */
+  createOrUpdateConvAttendee1?: Maybe<ConvAttendeeResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/keyword/categ
+   */
+  createOrUpdateKeywordCateg?: Maybe<KeywordCategResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/keyword/tag
+   */
+  createOrUpdateKeywordTag?: Maybe<KeywordTagResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/oppty/{opptyId}
+   */
+  createOrUpdateOppty?: Maybe<OpptyDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/oppty
+   */
+  createOrUpdateOppty1?: Maybe<OpptyDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/oppty/teams
+   */
+  createOrUpdateOpptyTeam?: Maybe<OpptyTeamResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/preferences
+   */
+  createOrUpdatePreference?: Maybe<UserUiPreferenceResponseDto>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/empathy-moment-recommendation
+   */
+  createOrUpdateRecommendation?: Maybe<EmpathyMomentRecommendationDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/users
+   */
+  createOrUpdateUser?: Maybe<User>;
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/zoommeetingwhitelist
+   */
+  delete?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/emleqs/{id}
+   */
+  delete1?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/custweblinks/{id}
+   */
+  delete2?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/conv-topic-episodes/{id}
+   */
+  delete3?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/comments/{id}
+   */
+  delete4?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/bookmarks/{id}
+   */
+  delete5?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/alerts/{id}
+   */
+  delete6?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/playlists/delete-media-clip-rel
+   */
+  deletePlaylistMediaClipRel?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/keyword/tags
+   */
+  deleteTags?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/keyphrase/custom/trending
+   */
+  findCustomKeyphraseTrendingTopicCount?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/oppty/{id}/details
+   */
+  findDealDetailsByMode?: Maybe<DealSummaryDetailResponse>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/keyphrase/trending
+   */
+  findKeyphraseTrendingTopicCount?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/timeline/generate/{conv_id}
+   */
+  generateTimeline?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/teams/usersstat
+   */
+  getAccountTeamsUsersStats?: Maybe<Array<Maybe<TeamUsersStat>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/teams/account/userstat
+   */
+  getAccountUsersStat?: Maybe<Array<Maybe<TeamAccountUsersStat>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/usage/active-users
+   */
+  getAllActiveUsers?: Maybe<Array<Maybe<QUsageUserPageVisitDto>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/teams/userstat
+   */
+  getAllTeamsUserStats?: Maybe<Array<Maybe<TeamsAccountOpptyUsersStat>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/company/assessments
+   */
+  getAssessmentByCompany?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/users/assessments
+   */
+  getAssessments?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/convs/meeting-attendee
+   */
+  getAttendeeByMeetingTranscript?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /auth/outlook/callback
+   */
+  getAuthCodeAndGenerateToken?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /auth/social
+   */
+  getAuthUrl?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to POST /auth/outlook
+   */
+  getAuthUrl1?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to POST /auth/google
+   */
+  getAuthUrl2?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/customer-pulse/closed-deals
+   */
+  getClosedDealDetails?: Maybe<Array<Maybe<AnalyticsCustomerPulseDealResponse>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/company/deals
+   */
+  getCompanyDeals?: Maybe<DealDetailResponse>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/account-oppty-eq/company
+   */
+  getCompanyDealsEQOnRiskScale?: Maybe<Array<Maybe<AccountOpptyEQResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/usage/meetingstat
+   */
+  getCompanyMeetingStats?: Maybe<OverallMeetingStatsResponse>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/company-params
+   */
+  getCompanyParams?: Maybe<Array<Maybe<CompanyParamResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/usage/companystat
+   */
+  getCompanyQUsage?: Maybe<OverallQUsageResponse>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/contacts
+   */
+  getContacts?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/accounts/{id}/activities
+   */
+  getConversationByAccount?: Maybe<AccountActivityResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/userstat
+   */
+  getConversationUserStat?: Maybe<ConvUserStatDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/customer-pulse
+   */
+  getCustomerPulse?: Maybe<DealSellerPerformanceResponse>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/oppty/{id}/activities
+   */
+  getDealActivities?: Maybe<Array<Maybe<DealActivitiesSummaryResponse>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/accounts/deals
+   */
+  getDealCountByAccounts?: Maybe<Array<Maybe<AccountDealResponse>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/account-oppty-eq
+   */
+  getDealEQOnRiskScale?: Maybe<Array<Maybe<AccountOpptyEQResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/oppty/topics
+   */
+  getDealTopics?: Maybe<DealTopicCoverageResponse>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/deals
+   */
+  getDeals?: Maybe<DealDetailResponse>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/emails/{emlObjId}
+   */
+  getEmailByEmlObjId?: Maybe<EmlResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/emails
+   */
+  getEmails?: Maybe<Array<Maybe<EmlResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/empathyandhesitationturns/getforuserandrange
+   */
+  getEmpathyAndHesitationTurns?: Maybe<EmpathyAndHesitationTurnsReportForConvList>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/preferences/favorite-meeting
+   */
+  getFavoriteMeeting?: Maybe<UserUiPreferenceResponseDto>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/usage/invited-users
+   */
+  getInvitedUsers?: Maybe<Array<Maybe<User>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/lastmeeting
+   */
+  getLastMeeting?: Maybe<Array<Maybe<ConversationRequest>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/mediaclip/search/count
+   */
+  getMediaClipCount?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/mediaclip/stats
+   */
+  getMediaClipStats?: Maybe<MediaClipStatsResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/usage/meetings
+   */
+  getMeetingListBasedOnType?: Maybe<Array<Maybe<ConversationRequest>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/meeting/sentiments
+   */
+  getMeetingSentiments?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/users/meetings/sharedwithme
+   */
+  getMeetingsSharedWithUser?: Maybe<AdvSearchResponse>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/{id}/keyword/search
+   */
+  getMomentsHavingKeyword?: Maybe<ConversationKeywordSearchResponse>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/keytopics/popular
+   */
+  getMostPopularKeymoments?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/meeting/most-shared
+   */
+  getMostSharedMeetings?: Maybe<Array<Maybe<MostSharedConvAttr>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/meeting/mostviewed
+   */
+  getMostViewedMeeting?: Maybe<Array<Maybe<MostViewedConvAttr>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/teams/oppty/userstat
+   */
+  getOpptyUsersStat?: Maybe<TeamOpptyUsersStats>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/playlists/stats
+   */
+  getPlaylistStats?: Maybe<PlaylistStatsResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/playlists/search/count
+   */
+  getPlaylistsCount?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/playlists/{id}
+   */
+  getPlaylistsCount1?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to DELETE /usales/mediaclip/{id}
+   */
+  getPlaylistsCount2?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/sellereq
+   */
+  getSellerEQ?: Maybe<DealSellerPerformanceResponse>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/configprops
+   */
+  getSystemProps?: Maybe<Array<Maybe<ConfigPropResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/usage/page-visits
+   */
+  getTopPageVisitDetails?: Maybe<Array<Maybe<PageVisitsDto>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/users/calldetails
+   */
+  getUserCallMetr?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/users/callmetrics
+   */
+  getUserCallMetrics?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/analytics/usage/users-auth
+   */
+  getUsersAuth?: Maybe<Array<Maybe<User>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/teams/convostat
+   */
+  getUsersConvoStat?: Maybe<Array<Maybe<TeamUsersStat>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/keyphrase/topic/count
+   */
+  keyPhras1eOccurences?: Maybe<Array<Maybe<KeyphraseTotalCountAttrDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/keyphrase/occurences
+   */
+  keyPhraseOccurences?: Maybe<Array<Maybe<KeyPhraseOccurenceResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /auth/logout
+   */
+  logout?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to POST /v1/transcript/populate
+   */
+  populate?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/mindtickle/query
+   */
+  postDataByUri?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/keyword/keyphrases
+   */
+  resetKeyPhrases?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to POST /auth/users/details
+   */
+  revoke?: Maybe<Array<Maybe<User>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /auth/revoke/{provider}
+   */
+  revoke1?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/meeting/custom-disclaimer
+   */
+  saveMessage?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to POST /cspviolations
+   */
+  saveReport?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /v1/transcript/search
+   */
+  search?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/zoommeetingwhitelist/search
+   */
+  search1?: Maybe<Array<Maybe<ZoomMeetingWhitelistDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/playlists/search
+   */
+  search2?: Maybe<Array<Maybe<PlaylistResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/mediaclip/search
+   */
+  search3?: Maybe<Array<Maybe<MediaClipResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keymoments/search
+   */
+  search4?: Maybe<KeyMomentResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/emails/search
+   */
+  search5?: Maybe<Array<Maybe<EmlResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/custweblinks/search
+   */
+  search6?: Maybe<Array<Maybe<CustWebLinkResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/promise/search
+   */
+  search7?: Maybe<Array<Maybe<ConvPromiseResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/conv-topic-episodes/search
+   */
+  search8?: Maybe<Array<Maybe<ConvTopicEpisodeResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/comments/search
+   */
+  search9?: Maybe<Array<Maybe<CommentResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/contacts/search
+   */
+  searchAccountAndContact?: Maybe<AccountContactSearchResponse>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/contacts/search/count
+   */
+  searchAccountAndContactCount?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/accounts/search
+   */
+  searchAccounts?: Maybe<Array<Maybe<AccountResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/accounts/search/count
+   */
+  searchAccountsCount?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/alerts/search
+   */
+  searchAlerts?: Maybe<Array<Maybe<AlertResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/contact/search
+   */
+  searchContact?: Maybe<Array<Maybe<ContactSearchResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/emails/search-summary
+   */
+  searchEmailSummary?: Maybe<Array<Maybe<EmailSummaryResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/events/search
+   */
+  searchEvents?: Maybe<CalenderEventSearchResponse>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/events/search/count
+   */
+  searchEventsCount?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/categ/search
+   */
+  searchKeywordCateg?: Maybe<Array<Maybe<KeywordCategResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/categ/search/count
+   */
+  searchKeywordCategCount?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/categ/search/notags
+   */
+  searchKeywordCategWithoutTags?: Maybe<Array<Maybe<KeywordCategResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/tag/search
+   */
+  searchKeywordTag?: Maybe<Array<Maybe<KeywordTagResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/keyword/tag/search/count
+   */
+  searchKeywordTagCount?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/advSearch
+   */
+  searchMeetings?: Maybe<AdvSearchResponse>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/search/meetings
+   */
+  searchMeetingsByAccountOrOppty?: Maybe<AdvSearchResponse>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/advSearch/count
+   */
+  searchMeetingsCount?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/empathy-moment-recommendation/search
+   */
+  searchMoments?: Maybe<EmpathyChangeMomentResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/preferences/search
+   */
+  searchPreference?: Maybe<Array<Maybe<UserUiPreferenceResponseDto>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/emails/team-activity
+   */
+  searchTeamActivity?: Maybe<TeamEmailActivityResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/users/search
+   */
+  searchUsers?: Maybe<Array<Maybe<User>>>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/companyprofile/keyword-categ-select
+   */
+  selectCompanyKeywordCategory?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to POST /slack/sendmessage
+   */
+  sendMessage?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/shares/share-clip-external
+   */
+  shareClipExternalUser?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/shares/share-meeting-external
+   */
+  shareMeetingExternalUser?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/shares/share-meeting-internal/{type}
+   */
+  shareMeetingInternalUser?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/shares/playlist
+   */
+  sharePlaylist?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/emails/threadcount
+   */
+  threadCount?: Maybe<Array<Maybe<ThreadCountResponse>>>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/companyprofile/access-consent
+   */
+  updateAccessConsent?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/account-oppty-eq
+   */
+  updateAccountOpptyEQ?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/account-oppty-eq-1
+   */
+  updateAccountOpptyEQ1?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/alerts
+   */
+  updateAlert?: Maybe<AlertResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/events
+   */
+  updateCalendarEvent?: Maybe<CalendarEvent>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/conv-topic-episodes
+   */
+  updateConvTopicEpisode?: Maybe<ConvTopicEpisodeResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/convs
+   */
+  updateConversation?: Maybe<ConversationRequest>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/emleqs
+   */
+  updateEmlEq?: Maybe<EmlEqResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/keymoments
+   */
+  updateKeyMoment?: Maybe<ConvKeyMomentResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/playlists/media-clip-rel
+   */
+  updatePlaylistMediaClipRel?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/users/enable
+   */
+  updateQDetails?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/keyword/tag/update-status
+   */
+  updateStatusByIds?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to PUT /auth/teams
+   */
+  updateTeamAccess?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/users/{managerId}/team
+   */
+  updateTeamMembersManagerDetails?: Maybe<Array<Maybe<User>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/users/proxy
+   */
+  updateUserProxy?: Maybe<UserDelegateResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/zoommeetingwhitelist/invoke-bot
+   */
+  updateZoomMeetingInvokeBot?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/zoommeetingwhitelist/update
+   */
+  updateZoomMeetingWhitelist?: Maybe<Scalars['String']>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/convs/external-meeting
+   */
+  uploadExternalMeeting?: Maybe<Scalars['JSON']>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/playlists
+   */
+  upsert?: Maybe<PlaylistResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/playlist/param
+   */
+  upsert1?: Maybe<PlaylistParamResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/mediaclip
+   */
+  upsert2?: Maybe<MediaClipResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/mediaClip/param
+   */
+  upsert3?: Maybe<MediaClipParamResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/promise
+   */
+  upsert4?: Maybe<ConvPromiseResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/param
+   */
+  upsert5?: Maybe<ConvParamResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/company-param
+   */
+  upsertCompanyParam?: Maybe<CompanyParamResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/companyprofile
+   */
+  upsertCompanyProfile?: Maybe<CompanyProfileDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/companyprofile/businesscategs
+   */
+  upsertCompanyProfileWithKeywordCategRel?: Maybe<CompanyProfileKeywordCategRelDTO>;
+  /**
+   *
+   *
+   * Equivalent to PUT /usales/configprops
+   */
+  upsertConfigProp?: Maybe<ConfigPropResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/{convId}/viewed
+   */
+  upsertExternal?: Maybe<ConvParamResponseDTO>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/playlist/param/last-viewed
+   */
+  upsertLastViewed?: Maybe<Array<Maybe<PlaylistParamResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/mediaClip/param/last-viewed
+   */
+  upsertLastViewed1?: Maybe<Array<Maybe<MediaClipParamResponseDTO>>>;
+  /**
+   *
+   *
+   * Equivalent to POST /usales/convs/param/last-viewed
+   */
+  upsertLastViewed2?: Maybe<ConvParamResponseDTO>;
+};
+
+
+export type MutationaddBulkPlaylistMediaClipRelArgs = {
+  usalesPlaylistsMediaClipRelBulkInput: Array<InputMaybe<PlaylistMediaClipRelRequestDTOInput>>;
+};
+
+
+export type MutationauthenticateUserArgs = {
+  loginRequestInput: LoginRequestInput;
+};
+
+
+export type MutationauthenticateUser2Args = {
+  loginRequestInput: LoginRequestInput;
+};
+
+
+export type MutationcompanyKeyPhraseOccurrencesArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationcompanyKeyPhraseOccurrencesBySentimentArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationconvertArgs = {
+  convId: Scalars['Float'];
+  usalesTimelineInput: UsalesTimelineInput;
+};
+
+
+export type MutationcreateAlertArgs = {
+  alertRequestDTOInput: AlertRequestDTOInput;
+};
+
+
+export type MutationcreateConvTopicEpisodeArgs = {
+  convTopicEpisodeRequestDTOInput: ConvTopicEpisodeRequestDTOInput;
+};
+
+
+export type MutationcreateEmlEqArgs = {
+  emlEqRequestDTOInput: EmlEqRequestDTOInput;
+};
+
+
+export type MutationcreateOrUpdateArgs = {
+  custWebLinkRequestDTOInput: CustWebLinkRequestDTOInput;
+};
+
+
+export type MutationcreateOrUpdate1Args = {
+  commentRequestDTOInput: CommentRequestDTOInput;
+};
+
+
+export type MutationcreateOrUpdate2Args = {
+  videoCutterRequestInput: VideoCutterRequestInput;
+};
+
+
+export type MutationcreateOrUpdate3Args = {
+  convBookmarkRequestDTOInput: ConvBookmarkRequestDTOInput;
+};
+
+
+export type MutationcreateOrUpdateAccountArgs = {
+  accountRequestDTOInput: AccountRequestDTOInput;
+};
+
+
+export type MutationcreateOrUpdateConvAttendeeArgs = {
+  convAttendeeRequestDTOInput: ConvAttendeeRequestDTOInput;
+  id: Scalars['Float'];
+};
+
+
+export type MutationcreateOrUpdateConvAttendee1Args = {
+  convAttendeeRequestDTOInput: ConvAttendeeRequestDTOInput;
+  id: Scalars['Float'];
+};
+
+
+export type MutationcreateOrUpdateKeywordCategArgs = {
+  keywordCategRequestDTOInput: KeywordCategRequestDTOInput;
+};
+
+
+export type MutationcreateOrUpdateKeywordTagArgs = {
+  keywordTagRequestDTOInput: KeywordTagRequestDTOInput;
+};
+
+
+export type MutationcreateOrUpdateOpptyArgs = {
+  id: Scalars['Float'];
+  opptyRequestDTOInput: OpptyRequestDTOInput;
+};
+
+
+export type MutationcreateOrUpdateOppty1Args = {
+  id: Scalars['Float'];
+  opptyRequestDTOInput: OpptyRequestDTOInput;
+};
+
+
+export type MutationcreateOrUpdateOpptyTeamArgs = {
+  opptyTeamRequestDTOInput: OpptyTeamRequestDTOInput;
+};
+
+
+export type MutationcreateOrUpdatePreferenceArgs = {
+  userUiPreferenceRequestDtoInput: UserUiPreferenceRequestDtoInput;
+};
+
+
+export type MutationcreateOrUpdateRecommendationArgs = {
+  empathyMomentRecommendationDTOInput: EmpathyMomentRecommendationDTOInput;
+};
+
+
+export type MutationcreateOrUpdateUserArgs = {
+  userRequestDTOInput: UserRequestDTOInput;
+};
+
+
+export type MutationdeleteArgs = {
+  usalesZoommeetingwhitelistInput: Array<InputMaybe<Scalars['String']>>;
+};
+
+
+export type Mutationdelete1Args = {
+  id: Scalars['Float'];
+};
+
+
+export type Mutationdelete2Args = {
+  id: Scalars['Float'];
+};
+
+
+export type Mutationdelete3Args = {
+  id: Scalars['Float'];
+};
+
+
+export type Mutationdelete4Args = {
+  id: Scalars['Float'];
+};
+
+
+export type Mutationdelete5Args = {
+  id: Scalars['Float'];
+};
+
+
+export type Mutationdelete6Args = {
+  id: Scalars['Float'];
+};
+
+
+export type MutationdeletePlaylistMediaClipRelArgs = {
+  usalesPlaylistsDeleteMediaClipRelInput: Array<InputMaybe<PlaylistMediaClipRelRequestDTOInput>>;
+};
+
+
+export type MutationdeleteTagsArgs = {
+  ids: Scalars['String'];
+};
+
+
+export type MutationfindCustomKeyphraseTrendingTopicCountArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationfindDealDetailsByModeArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  id: Scalars['Float'];
+  mode?: InputMaybe<Scalars['String']>;
+  tz?: InputMaybe<Scalars['String']>;
+};
+
+
+export type MutationfindKeyphraseTrendingTopicCountArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgenerateTimelineArgs = {
+  convId: Scalars['Float'];
+};
+
+
+export type MutationgetAccountTeamsUsersStatsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationgetAccountUsersStatArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationgetAllActiveUsersArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationgetAllTeamsUserStatsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationgetAssessmentByCompanyArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetAssessmentsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetAttendeeByMeetingTranscriptArgs = {
+  usalesConvsMeetingAttendeeInput?: InputMaybe<UsalesConvsMeetingAttendeeInput>;
+};
+
+
+export type MutationgetAuthCodeAndGenerateTokenArgs = {
+  code: Scalars['String'];
+  idToken: Scalars['String'];
+  state: Scalars['String'];
+};
+
+
+export type MutationgetAuthUrlArgs = {
+  authRequestInput: AuthRequestInput;
+};
+
+
+export type MutationgetAuthUrl1Args = {
+  authRequestInput: AuthRequestInput;
+};
+
+
+export type MutationgetAuthUrl2Args = {
+  authRequestInput: AuthRequestInput;
+};
+
+
+export type MutationgetClosedDealDetailsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationgetCompanyDealsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetCompanyDealsEQOnRiskScaleArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationgetCompanyMeetingStatsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetCompanyParamsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  usalesCompanyParams2Input: Array<InputMaybe<Scalars['String']>>;
+};
+
+
+export type MutationgetCompanyQUsageArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetContactsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetConversationByAccountArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  id: Scalars['Float'];
+};
+
+
+export type MutationgetConversationUserStatArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetCustomerPulseArgs = {
+  usalesAnalyticsCustomerPulseInput: Scalars['JSON'];
+};
+
+
+export type MutationgetDealActivitiesArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  id: Scalars['Float'];
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationgetDealCountByAccountsArgs = {
+  accountDealRequestInput: AccountDealRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationgetDealEQOnRiskScaleArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationgetDealTopicsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetDealsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetEmailByEmlObjIdArgs = {
+  emlObjId: Scalars['Float'];
+};
+
+
+export type MutationgetEmailsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  usalesEmailsInput: Scalars['JSON'];
+};
+
+
+export type MutationgetEmpathyAndHesitationTurnsArgs = {
+  empathyAndHesitationSearchCriterionInput: EmpathyAndHesitationSearchCriterionInput;
+};
+
+
+export type MutationgetFavoriteMeetingArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetInvitedUsersArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationgetLastMeetingArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  usalesConvsLastmeetingInput: Array<InputMaybe<Scalars['Float']>>;
+};
+
+
+export type MutationgetMediaClipCountArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetMediaClipStatsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetMeetingListBasedOnTypeArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationgetMeetingSentimentsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetMeetingsSharedWithUserArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetMomentsHavingKeywordArgs = {
+  criterionInput: CriterionInput;
+  id: Scalars['Float'];
+};
+
+
+export type MutationgetMostPopularKeymomentsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetMostSharedMeetingsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationgetMostViewedMeetingArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationgetOpptyUsersStatArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetPlaylistStatsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetPlaylistsCountArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetPlaylistsCount1Args = {
+  id: Scalars['Float'];
+};
+
+
+export type MutationgetPlaylistsCount2Args = {
+  id: Scalars['Float'];
+};
+
+
+export type MutationgetSellerEQArgs = {
+  usalesAnalyticsSellereqInput: Scalars['JSON'];
+};
+
+
+export type MutationgetSystemPropsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  usalesConfigprops2Input: Array<InputMaybe<Scalars['String']>>;
+};
+
+
+export type MutationgetTopPageVisitDetailsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationgetUserCallMetrArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetUserCallMetricsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationgetUsersAuthArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationgetUsersConvoStatArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationkeyPhras1eOccurencesArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationkeyPhraseOccurencesArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationpopulateArgs = {
+  eSPopulateRequestInput: ESPopulateRequestInput;
+  pegasusJobKey?: InputMaybe<Scalars['String']>;
+};
+
+
+export type MutationpostDataByUriArgs = {
+  mindTickleReqInput: MindTickleReqInput;
+};
+
+
+export type MutationrevokeArgs = {
+  authUsersDetailsInput: Array<InputMaybe<Scalars['Float']>>;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type Mutationrevoke1Args = {
+  authRevoke2Input: Array<InputMaybe<Scalars['Float']>>;
+  provider: Scalars['String'];
+};
+
+
+export type MutationsaveMessageArgs = {
+  usalesMeetingCustomDisclaimerInput: Scalars['String'];
+};
+
+
+export type MutationsaveReportArgs = {
+  cspViolationReqInput: CspViolationReqInput;
+};
+
+
+export type MutationsearchArgs = {
+  eSSearchInput: ESSearchInput;
+};
+
+
+export type Mutationsearch1Args = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type Mutationsearch2Args = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type Mutationsearch3Args = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type Mutationsearch4Args = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type Mutationsearch5Args = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type Mutationsearch6Args = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type Mutationsearch7Args = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type Mutationsearch8Args = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type Mutationsearch9Args = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationsearchAccountAndContactArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationsearchAccountAndContactCountArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationsearchAccountsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationsearchAccountsCountArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationsearchAlertsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationsearchContactArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationsearchEmailSummaryArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationsearchEventsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationsearchEventsCountArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationsearchKeywordCategArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationsearchKeywordCategCountArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationsearchKeywordCategWithoutTagsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationsearchKeywordTagArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationsearchKeywordTagCountArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationsearchMeetingsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationsearchMeetingsByAccountOrOpptyArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationsearchMeetingsCountArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationsearchMomentsArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationsearchPreferenceArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationsearchTeamActivityArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationsearchUsersArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationselectCompanyKeywordCategoryArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+};
+
+
+export type MutationsendMessageArgs = {
+  messageRequestDTOInput: MessageRequestDTOInput;
+};
+
+
+export type MutationshareClipExternalUserArgs = {
+  shareClipDTOInput: ShareClipDTOInput;
+};
+
+
+export type MutationshareMeetingExternalUserArgs = {
+  shareMeetingDTOInput: ShareMeetingDTOInput;
+};
+
+
+export type MutationshareMeetingInternalUserArgs = {
+  shareMeetingDTOInput: ShareMeetingDTOInput;
+  type: Scalars['String'];
+};
+
+
+export type MutationsharePlaylistArgs = {
+  shareMeetingDTOInput: ShareMeetingDTOInput;
+};
+
+
+export type MutationthreadCountArgs = {
+  advSearchRequestInput: AdvSearchRequestInput;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type MutationupdateAccessConsentArgs = {
+  consent: Scalars['Boolean'];
+};
+
+
+export type MutationupdateAccountOpptyEQArgs = {
+  pegasusJobKey?: InputMaybe<Scalars['String']>;
+};
+
+
+export type MutationupdateAlertArgs = {
+  alertRequestDTOInput: AlertRequestDTOInput;
+};
+
+
+export type MutationupdateCalendarEventArgs = {
+  calendarEventRequestDTOInput: CalendarEventRequestDTOInput;
+};
+
+
+export type MutationupdateConvTopicEpisodeArgs = {
+  convTopicEpisodeRequestDTOInput: ConvTopicEpisodeRequestDTOInput;
+};
+
+
+export type MutationupdateConversationArgs = {
+  conversationDTOInput: ConversationDTOInput;
+};
+
+
+export type MutationupdateEmlEqArgs = {
+  emlEqRequestDTOInput: EmlEqRequestDTOInput;
+};
+
+
+export type MutationupdateKeyMomentArgs = {
+  convKeyMomentRequestDTOInput: ConvKeyMomentRequestDTOInput;
+};
+
+
+export type MutationupdatePlaylistMediaClipRelArgs = {
+  playlistMediaClipRelRequestDTOInput: PlaylistMediaClipRelRequestDTOInput;
+};
+
+
+export type MutationupdateQDetailsArgs = {
+  all?: InputMaybe<Scalars['Boolean']>;
+  usalesUsersEnableInput?: InputMaybe<Array<InputMaybe<UserRequestDTOInput>>>;
+};
+
+
+export type MutationupdateStatusByIdsArgs = {
+  usalesKeywordTagUpdateStatusInput: Scalars['JSON'];
+};
+
+
+export type MutationupdateTeamAccessArgs = {
+  enable: Scalars['Boolean'];
+};
+
+
+export type MutationupdateTeamMembersManagerDetailsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  managerId: Scalars['Float'];
+  usalesUserTeamInput: Array<InputMaybe<Scalars['Float']>>;
+};
+
+
+export type MutationupdateUserProxyArgs = {
+  userDelegateRequestDTOInput: UserDelegateRequestDTOInput;
+};
+
+
+export type MutationupdateZoomMeetingInvokeBotArgs = {
+  zoomMeetingWhitelistRequestInput: ZoomMeetingWhitelistRequestInput;
+};
+
+
+export type MutationuploadExternalMeetingArgs = {
+  usalesConvsExternalMeetingInput?: InputMaybe<UsalesConvsExternalMeetingInput>;
+};
+
+
+export type MutationupsertArgs = {
+  playlistRequestDTOInput: PlaylistRequestDTOInput;
+};
+
+
+export type Mutationupsert1Args = {
+  playlistParamRequestDTOInput: PlaylistParamRequestDTOInput;
+};
+
+
+export type Mutationupsert2Args = {
+  mediaClipRequestDTOInput: MediaClipRequestDTOInput;
+};
+
+
+export type Mutationupsert3Args = {
+  mediaClipParamRequestDTOInput: MediaClipParamRequestDTOInput;
+};
+
+
+export type Mutationupsert4Args = {
+  convPromiseRequestDTOInput: ConvPromiseRequestDTOInput;
+};
+
+
+export type Mutationupsert5Args = {
+  convParamRequestDTOInput: ConvParamRequestDTOInput;
+};
+
+
+export type MutationupsertCompanyParamArgs = {
+  companyParamRequestDTOInput: CompanyParamRequestDTOInput;
+};
+
+
+export type MutationupsertCompanyProfileArgs = {
+  companyProfileDTOInput: CompanyProfileDTOInput;
+};
+
+
+export type MutationupsertCompanyProfileWithKeywordCategRelArgs = {
+  companyProfileKeywordCategRelDTOInput: CompanyProfileKeywordCategRelDTOInput;
+};
+
+
+export type MutationupsertConfigPropArgs = {
+  configPropRequestDTOInput: ConfigPropRequestDTOInput;
+};
+
+
+export type MutationupsertExternalArgs = {
+  convId: Scalars['Float'];
+};
+
+
+export type MutationupsertLastViewedArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  playlistParamRequestDTOInput: PlaylistParamRequestDTOInput;
+};
+
+
+export type MutationupsertLastViewed1Args = {
+  limit?: InputMaybe<Scalars['Int']>;
+  mediaClipParamRequestDTOInput: MediaClipParamRequestDTOInput;
+};
+
+
+export type MutationupsertLastViewed2Args = {
+  convParamRequestDTOInput: ConvParamRequestDTOInput;
+};
+
+export type PlaylistMediaClipRelRequestDTOInput = {
+  mediaClipId?: InputMaybe<Scalars['Float']>;
+  mediaClipRelId?: InputMaybe<Scalars['Float']>;
+  playlistId?: InputMaybe<Scalars['Float']>;
+  pos?: InputMaybe<Scalars['Int']>;
+};
+
+export type LoginRequestInput = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type KeyPhraseOccurenceContentResponseDTO = {
+  count?: Maybe<Scalars['Float']>;
+  keywordTagId?: Maybe<Scalars['Float']>;
+  keywordTagVal?: Maybe<Scalars['String']>;
+  sentiment?: Maybe<Scalars['Float']>;
+  subType?: Maybe<Scalars['String']>;
+  trend?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type AdvSearchRequestInput = {
+  criteria?: InputMaybe<Array<InputMaybe<CriterionInput>>>;
+  durationFlag?: InputMaybe<Scalars['String']>;
+  entity?: InputMaybe<Scalars['String']>;
+  pagination?: InputMaybe<PaginationInput>;
+  searchString?: InputMaybe<Scalars['String']>;
+  sort?: InputMaybe<SortInput>;
+};
+
+export type CriterionInput = {
+  name?: InputMaybe<Scalars['String']>;
+  operator?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
+  valueType?: InputMaybe<Scalars['String']>;
+};
+
+export type PaginationInput = {
+  page?: InputMaybe<Scalars['Int']>;
+  size?: InputMaybe<Scalars['Int']>;
+};
+
+export type SortInput = {
+  asc?: InputMaybe<Scalars['Boolean']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+export type UsalesTimelineInput = {
+  timeline?: InputMaybe<Array<InputMaybe<TimelineDataInput>>>;
+};
+
+export type TimelineDataInput = {
+  ts?: InputMaybe<Scalars['Float']>;
+  users?: InputMaybe<Array<InputMaybe<UserInput>>>;
+};
+
+export type UserInput = {
+  companyProfileDTO?: InputMaybe<CompanyProfileDTOInput>;
+  email?: InputMaybe<Scalars['String']>;
+  expired?: InputMaybe<Scalars['Boolean']>;
+  externalIdToken?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>;
+  firstTimeLogin?: InputMaybe<Scalars['Boolean']>;
+  firstname?: InputMaybe<Scalars['String']>;
+  fullname?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  invited?: InputMaybe<Scalars['Boolean']>;
+  invitedAt?: InputMaybe<Scalars['String']>;
+  isBlueJeansAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isCalendarAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isEmailAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isGmailAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isGoogleCalendarAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isOutlookAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isOutlookCalendarAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isPasswordResetRequired?: InputMaybe<Scalars['Boolean']>;
+  isPasswordSet?: InputMaybe<Scalars['Boolean']>;
+  isSlackAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isSsoLogin?: InputMaybe<Scalars['Boolean']>;
+  isTeamAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isWebexAuthorized?: InputMaybe<Scalars['Boolean']>;
+  isZoomAuthorized?: InputMaybe<Scalars['Boolean']>;
+  lastname?: InputMaybe<Scalars['String']>;
+  manager?: InputMaybe<UserManagerDTOInput>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  orgType?: InputMaybe<Scalars['String']>;
+  qEnabled?: InputMaybe<Scalars['Boolean']>;
+  role?: InputMaybe<Array<InputMaybe<IdNameDTOInput>>>;
+  scopes?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  userType?: InputMaybe<Scalars['String']>;
+  username?: InputMaybe<Scalars['String']>;
+  zoomToken?: InputMaybe<Scalars['String']>;
+};
+
+export type CompanyProfileDTOInput = {
+  companyName?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  externalId?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+};
+
+export type UserManagerDTOInput = {
+  email?: InputMaybe<Scalars['String']>;
+  firstname?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  lastname?: InputMaybe<Scalars['String']>;
+};
+
+export type IdNameDTOInput = {
+  id?: InputMaybe<Scalars['Float']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+export type AlertRequestDTOInput = {
+  archive?: InputMaybe<Scalars['Boolean']>;
+  description?: InputMaybe<Scalars['String']>;
+  exp?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  objId?: InputMaybe<Scalars['Float']>;
+  objSubId?: InputMaybe<Scalars['Float']>;
+  objType?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  updateBy?: InputMaybe<Scalars['Float']>;
+  userId?: InputMaybe<Scalars['Float']>;
+  version?: InputMaybe<Scalars['String']>;
+};
+
+export type ConvTopicEpisodeRequestDTOInput = {
+  conversation?: InputMaybe<Scalars['Float']>;
+  endTime?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertBy?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  keytopicCount1?: InputMaybe<Scalars['Float']>;
+  keytopicCount2?: InputMaybe<Scalars['Float']>;
+  keytopicCount3?: InputMaybe<Scalars['Float']>;
+  keytopicCount4?: InputMaybe<Scalars['Float']>;
+  keytopicId1?: InputMaybe<Scalars['String']>;
+  keytopicId2?: InputMaybe<Scalars['String']>;
+  keytopicId3?: InputMaybe<Scalars['String']>;
+  keytopicId4?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  startTime?: InputMaybe<Scalars['Float']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  unsupervisedCount1?: InputMaybe<Scalars['Float']>;
+  unsupervisedCount2?: InputMaybe<Scalars['Float']>;
+  unsupervisedCount3?: InputMaybe<Scalars['Float']>;
+  unsupervisedCount4?: InputMaybe<Scalars['Float']>;
+  unsupervisedTopic1?: InputMaybe<Scalars['String']>;
+  unsupervisedTopic2?: InputMaybe<Scalars['String']>;
+  unsupervisedTopic3?: InputMaybe<Scalars['String']>;
+  unsupervisedTopic4?: InputMaybe<Scalars['String']>;
+  updateBy?: InputMaybe<Scalars['Float']>;
+  updateTime?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
+};
+
+export type EmlEqRequestDTOInput = {
+  emlObjId?: InputMaybe<Scalars['Float']>;
+  empathy?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  senderName?: InputMaybe<Scalars['String']>;
+  sentiment?: InputMaybe<Scalars['Float']>;
+};
+
+export type CustWebLinkRequestDTOInput = {
+  company?: InputMaybe<Scalars['String']>;
+  companyProfileId?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  url?: InputMaybe<Scalars['String']>;
+  usersId?: InputMaybe<Scalars['Float']>;
+};
+
+export type CommentRequestDTOInput = {
+  comment?: InputMaybe<Scalars['String']>;
+  convID?: InputMaybe<Scalars['Float']>;
+  endTime?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  keyMomentId?: InputMaybe<Scalars['Float']>;
+  mentions?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  startTime?: InputMaybe<Scalars['Float']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
+};
+
+export type VideoSharingHistoryDTO = {
+  clipEndTimeInSeconds?: Maybe<Scalars['Int']>;
+  clipStartTimeInSeconds?: Maybe<Scalars['Int']>;
+  convId?: Maybe<Scalars['Float']>;
+  convKeymomentId?: Maybe<Scalars['Float']>;
+  fromUserId?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  orgId?: Maybe<Scalars['Float']>;
+  outputFileLocation?: Maybe<Scalars['String']>;
+  outputTinyUrl?: Maybe<Scalars['String']>;
+  sourceFileLocation?: Maybe<Scalars['String']>;
+  toUserId?: Maybe<Scalars['Float']>;
+};
+
+export type VideoCutterRequestInput = {
+  convId?: InputMaybe<Scalars['Float']>;
+  inputFile?: InputMaybe<Scalars['String']>;
+  keyMomentId?: InputMaybe<Scalars['Float']>;
+  videoLength?: InputMaybe<Scalars['Int']>;
+  videoStartTime?: InputMaybe<Scalars['Int']>;
+};
+
+export type ConvBookmarkRequestDTOInput = {
+  convID?: InputMaybe<Scalars['Float']>;
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  keyMomentId?: InputMaybe<Scalars['Float']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  timeEnd?: InputMaybe<Scalars['Float']>;
+  timeStart?: InputMaybe<Scalars['Float']>;
+  type?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
+};
+
+export type AccountRequestDTOInput = {
+  accountTeam?: InputMaybe<Scalars['Float']>;
+  crmAccountId?: InputMaybe<Scalars['String']>;
+  domain?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  sticker?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  url?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
+};
+
+export type ConvAttendeeRequestDTOInput = {
+  attendeeEmail?: InputMaybe<Scalars['String']>;
+  attendeeName?: InputMaybe<Scalars['String']>;
+  conv?: InputMaybe<Scalars['Float']>;
+  description?: InputMaybe<Scalars['String']>;
+  employeeOrContactInd?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
+};
+
+export type KeywordCategRequestDTOInput = {
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  keywordCategName2?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
+};
+
+export type KeywordTagRequestDTOInput = {
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  keywordCateg?: InputMaybe<Scalars['Float']>;
+  keywordTagVal?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
+};
+
+export type OpptyRequestDTOInput = {
+  account?: InputMaybe<Scalars['Float']>;
+  amount?: InputMaybe<Scalars['Float']>;
+  contact?: InputMaybe<Scalars['Float']>;
+  crmOpptyId?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  opptyAmount?: InputMaybe<Scalars['Float']>;
+  opptyCloseDate?: InputMaybe<Scalars['String']>;
+  opptyCreateDate?: InputMaybe<Scalars['String']>;
+  opptySource?: InputMaybe<Scalars['String']>;
+  opptyStage?: InputMaybe<Scalars['String']>;
+  opptyStatus?: InputMaybe<Scalars['String']>;
+  opptyTeam?: InputMaybe<Scalars['Float']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
+};
+
+export type OpptyTeamRequestDTOInput = {
+  endDate?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  startDate?: InputMaybe<Scalars['String']>;
+  usersId?: InputMaybe<Scalars['Float']>;
+  version?: InputMaybe<Scalars['String']>;
+};
+
+export type UserUiPreferenceResponseDto = {
+  favoriteMeetings?: Maybe<AdvSearchResponse>;
+  id?: Maybe<Scalars['Float']>;
+  preferenceType?: Maybe<Scalars['String']>;
+  savedJson?: Maybe<Scalars['String']>;
+  uiPreferenceParamMap?: Maybe<Scalars['JSON']>;
+  user?: Maybe<User>;
+};
+
+export type AdvSearchResponse = {
+  searchResults?: Maybe<Array<Maybe<SearchResult>>>;
+  totalCount?: Maybe<Scalars['Float']>;
+};
+
+export type SearchResult = {
+  entities?: Maybe<Array<Maybe<Scalars['JSON']>>>;
+  resultCount?: Maybe<Scalars['Int']>;
+  userId?: Maybe<Scalars['String']>;
+};
+
+export type UserUiPreferenceRequestDtoInput = {
+  id?: InputMaybe<Scalars['Float']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  preferenceType?: InputMaybe<Scalars['String']>;
+  savedJson?: InputMaybe<Scalars['String']>;
+  uiPreferenceParamMap?: InputMaybe<Scalars['JSON']>;
+  userId?: InputMaybe<Scalars['Float']>;
+};
+
+export type EmpathyMomentRecommendationDTO = {
+  convId?: Maybe<Scalars['Float']>;
+  description?: Maybe<Scalars['String']>;
+  detectedBehaviour?: Maybe<Scalars['String']>;
+  empathyMomentId?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  originalUtterance?: Maybe<Scalars['String']>;
+  recommendation?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  suggestedType?: Maybe<Scalars['String']>;
+  suggestedUtterance?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type EmpathyMomentRecommendationDTOInput = {
+  convId?: InputMaybe<Scalars['Float']>;
+  description?: InputMaybe<Scalars['String']>;
+  detectedBehaviour?: InputMaybe<Scalars['String']>;
+  empathyMomentId?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  originalUtterance?: InputMaybe<Scalars['String']>;
+  recommendation?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  suggestedType?: InputMaybe<Scalars['String']>;
+  suggestedUtterance?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  updateTime?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
+};
+
+export type UserRequestDTOInput = {
+  email?: InputMaybe<Scalars['String']>;
+  expired?: InputMaybe<Scalars['Boolean']>;
+  externalIdToken?: InputMaybe<Scalars['JSON']>;
+  firstTimeLogin?: InputMaybe<Scalars['Boolean']>;
+  firstname?: InputMaybe<Scalars['String']>;
+  fullname?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  lastname?: InputMaybe<Scalars['String']>;
+  managerId?: InputMaybe<Scalars['Float']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  orgType?: InputMaybe<Scalars['String']>;
+  qenabled?: InputMaybe<Scalars['Boolean']>;
+  role?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  userType?: InputMaybe<Scalars['String']>;
+  username?: InputMaybe<Scalars['String']>;
+  zoomToken?: InputMaybe<Scalars['String']>;
+};
+
+export type TeamAccountUsersStat = {
+  account?: Maybe<AccountResponseDTO>;
+  comments?: Maybe<Array<Maybe<CommentResponseDTO>>>;
+  conversations?: Maybe<Array<Maybe<ConversationRequest>>>;
+  oppties?: Maybe<Array<Maybe<OpptyDTO>>>;
+  usersStats?: Maybe<Array<Maybe<TeamUsersStat>>>;
+};
+
+export type QUsageUserPageVisitDto = {
+  avgUsageTime?: Maybe<Scalars['Float']>;
+  daysActive?: Maybe<Scalars['Int']>;
+  lastVisit?: Maybe<Scalars['String']>;
+  noOfVisits?: Maybe<Scalars['Int']>;
+  usageTimePerDay?: Maybe<Scalars['Float']>;
+  usageTrending?: Maybe<Scalars['Int']>;
+  user?: Maybe<User>;
+};
+
+export type TeamsAccountOpptyUsersStat = {
+  account?: Maybe<AccountResponseDTO>;
+  deals?: Maybe<Array<Maybe<TeamOpptyUsersStat>>>;
+};
+
+export type UsalesConvsMeetingAttendeeInput = {
+  payload: MeetingRequestInput;
+  transcript: Scalars['String'];
+};
+
+export type MeetingRequestInput = {
+  attendeeList?: InputMaybe<Array<InputMaybe<AttendeeRequestInput>>>;
+  doNotProcess?: InputMaybe<Scalars['Boolean']>;
+  externalMeetingId?: InputMaybe<Scalars['String']>;
+  meetingStartTime?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  recordingStartTime?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+};
+
+export type AttendeeRequestInput = {
+  attendeeType?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+export type AuthRequestInput = {
+  scopes?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type AnalyticsCustomerPulseDealResponse = {
+  accountId?: Maybe<ConvAccountDTO>;
+  amount?: Maybe<Scalars['Float']>;
+  opptyCloseDate?: Maybe<Scalars['String']>;
+  opptyId?: Maybe<Scalars['Float']>;
+  opptyStatus?: Maybe<Scalars['String']>;
+  sentiment?: Maybe<Scalars['Float']>;
+  trend?: Maybe<Array<Maybe<ConvEQAttr>>>;
+};
+
+export type ConvEQAttr = {
+  accountId?: Maybe<Scalars['Float']>;
+  convId?: Maybe<Scalars['Float']>;
+  emotionalScore2?: Maybe<Scalars['String']>;
+  meetingEndTime?: Maybe<Scalars['String']>;
+  meetingEngagement?: Maybe<Scalars['Float']>;
+  meetingSentiment?: Maybe<Scalars['Float']>;
+  meetingStartTime?: Maybe<Scalars['String']>;
+  opptyId?: Maybe<Scalars['Float']>;
+};
+
+export type OverallMeetingStatsResponse = {
+  cvmResponse?: Maybe<Scalars['String']>;
+  externallySharedCount?: Maybe<Scalars['Float']>;
+  fullyProcessedCount?: Maybe<Scalars['Float']>;
+  fullyProcessedVennData?: Maybe<Array<Maybe<VennDiagramData>>>;
+  internalMeetingsCount?: Maybe<Scalars['Float']>;
+  otherMeetingsCount?: Maybe<Scalars['Float']>;
+  pausedOrRemovedCount?: Maybe<Scalars['Float']>;
+  playedCount?: Maybe<Scalars['Float']>;
+  reviewedCount?: Maybe<Scalars['Float']>;
+};
+
+export type VennDiagramData = {
+  name?: Maybe<Scalars['String']>;
+  sets?: Maybe<Array<Maybe<Scalars['String']>>>;
+  value?: Maybe<Scalars['Int']>;
+};
+
+export type OverallQUsageResponse = {
+  activeUsersCount?: Maybe<Scalars['Float']>;
+  activeUsersTrend?: Maybe<Scalars['String']>;
+  activeUsersTrendPercentage?: Maybe<Scalars['Float']>;
+  authorizationTrend?: Maybe<Scalars['String']>;
+  authorizationTrendPercentage?: Maybe<Scalars['Float']>;
+  averageUsageTime?: Maybe<Scalars['Float']>;
+  averageUsageTimeTrend?: Maybe<Scalars['String']>;
+  averageUsageTimeTrendPercentage?: Maybe<Scalars['Float']>;
+  averageVisits?: Maybe<Scalars['Float']>;
+  averageVisitsTrend?: Maybe<Scalars['String']>;
+  averageVisitsTrendPercentage?: Maybe<Scalars['Float']>;
+  calendarAuthorizationCount?: Maybe<Scalars['Float']>;
+  currentUsersCount?: Maybe<Scalars['Float']>;
+  emailAuthorizationCount?: Maybe<Scalars['Float']>;
+  gmailAuthorizationCount?: Maybe<Scalars['Float']>;
+  googleCalendarAuthorizationCount?: Maybe<Scalars['Float']>;
+  invitedUsersCount?: Maybe<Scalars['Float']>;
+  invitedUsersTrend?: Maybe<Scalars['String']>;
+  invitedUsersTrendPercentage?: Maybe<Scalars['Float']>;
+  outlookAuthorizationCount?: Maybe<Scalars['Float']>;
+  outlookCalendarAuthorizationCount?: Maybe<Scalars['Float']>;
+  passwordResetRequiredUsersCount?: Maybe<Scalars['Int']>;
+  realTimeUsersCount?: Maybe<Scalars['Float']>;
+  realTimeUsersTrend?: Maybe<Scalars['String']>;
+  realTimeUsersTrendPercentage?: Maybe<Scalars['Float']>;
+  teamsAuthorizationCount?: Maybe<Scalars['Float']>;
+  usersCount?: Maybe<Scalars['Float']>;
+  usersTrend?: Maybe<Scalars['String']>;
+  usersTrendPercentage?: Maybe<Scalars['Float']>;
+  webexAuthorizationCount?: Maybe<Scalars['Float']>;
+  zoomAuthorizationCount?: Maybe<Scalars['Float']>;
+};
+
+export type AccountActivityResponseDTO = {
+  accountTeamID?: Maybe<IdNameDTO>;
+  contacts?: Maybe<Array<Maybe<ContactActivity>>>;
+  conversation?: Maybe<Scalars['Int']>;
+  conversations?: Maybe<Array<Maybe<ConversationResponseDTO>>>;
+  crmAccountId?: Maybe<Scalars['String']>;
+  domain?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  oppties?: Maybe<Array<Maybe<Oppty2>>>;
+  orgId?: Maybe<Scalars['Float']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+  source?: Maybe<Scalars['String']>;
+  standing?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  sticker?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type ConversationResponseDTO = {
+  accountID?: Maybe<ConvAccountDTO>;
+  aiViewVideoMediaLink?: Maybe<Scalars['String']>;
+  attendees?: Maybe<Array<Maybe<Attendee>>>;
+  audioMediaLink?: Maybe<Scalars['String']>;
+  confidential?: Maybe<Scalars['Boolean']>;
+  contentViewVideoMediaLink?: Maybe<Scalars['String']>;
+  cvProcDone?: Maybe<Scalars['Boolean']>;
+  dataFusionProcDone?: Maybe<Scalars['Boolean']>;
+  description?: Maybe<Scalars['String']>;
+  entity?: Maybe<Scalars['String']>;
+  externalConvId?: Maybe<Scalars['String']>;
+  externalMeetingId?: Maybe<Scalars['String']>;
+  galleryViewVideoMediaLink?: Maybe<Scalars['String']>;
+  hostID?: Maybe<ConvUsersDTO>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  keyMoments?: Maybe<Array<Maybe<KeyMoment>>>;
+  lastChunk?: Maybe<Scalars['Float']>;
+  meetingEndTime?: Maybe<Scalars['String']>;
+  meetingStartTime?: Maybe<Scalars['String']>;
+  meetingTopic?: Maybe<Scalars['String']>;
+  opptyID?: Maybe<IdNameDTO>;
+  orgId?: Maybe<Scalars['Float']>;
+  processedFlag?: Maybe<Scalars['String']>;
+  promises?: Maybe<Array<Maybe<ConvPromiseResponseDTO>>>;
+  recordingStartTime?: Maybe<Scalars['String']>;
+  score?: Maybe<Array<Maybe<Score4>>>;
+  source?: Maybe<Scalars['String']>;
+  speakerTimelineLink?: Maybe<Scalars['String']>;
+  speakerViewVideoMediaLink?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  textKmProcDone?: Maybe<Scalars['Boolean']>;
+  textMediaLink?: Maybe<Scalars['String']>;
+  textSentProcDone?: Maybe<Scalars['Boolean']>;
+  thumbnail?: Maybe<Scalars['String']>;
+  tonalProcDone?: Maybe<Scalars['Boolean']>;
+  transcriptLink?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  uuid?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  videoMediaLink?: Maybe<Scalars['String']>;
+};
+
+export type ConvUserStatDTO = {
+  allMeetingCount?: Maybe<Scalars['Int']>;
+  favoriteMeetingCount?: Maybe<Scalars['Int']>;
+  meetingAttendedCount?: Maybe<Scalars['Int']>;
+  meetingSharedWithMeCount?: Maybe<Scalars['Int']>;
+};
+
+export type DealSellerPerformanceResponse = {
+  dealValueImpactedByQ?: Maybe<Scalars['Float']>;
+  dealsImpactedByQ?: Maybe<Scalars['Int']>;
+  lostAmount?: Maybe<Scalars['Float']>;
+  lostCount?: Maybe<Scalars['Int']>;
+  performance?: Maybe<Array<Maybe<Performance4>>>;
+  wonAmount?: Maybe<Scalars['Float']>;
+  wonCount?: Maybe<Scalars['Int']>;
+};
+
+export type Performance4 = {
+  amount?: Maybe<Scalars['Float']>;
+  dealCycle?: Maybe<Scalars['Float']>;
+  lostDeals?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  sellerPerformanceScore?: Maybe<Scalars['Float']>;
+  sellerSentiment?: Maybe<Scalars['Float']>;
+  sentiment?: Maybe<Scalars['Float']>;
+  sentimentRange?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  wonDeals?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  wonPercentage?: Maybe<Scalars['Float']>;
+};
+
+export type DealActivitiesSummaryResponse = {
+  activityDate?: Maybe<Scalars['String']>;
+  attendees?: Maybe<Array<Maybe<Scalars['String']>>>;
+  attendeesName?: Maybe<Array<Maybe<Scalars['String']>>>;
+  convId?: Maybe<Scalars['Float']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type AccountDealResponse = {
+  accountId?: Maybe<Scalars['Float']>;
+  dealCount?: Maybe<Scalars['Int']>;
+  deals?: Maybe<Array<Maybe<Scalars['Float']>>>;
+};
+
+export type AccountDealRequestInput = {
+  accounts?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
+};
+
+export type DealTopicCoverageResponse = {
+  oppty?: Maybe<DealSummaryResponse>;
+  suggestions?: Maybe<Array<Maybe<Scalars['String']>>>;
+  topics?: Maybe<Array<Maybe<DealTopicData>>>;
+};
+
+export type DealTopicData = {
+  conversations?: Maybe<Array<Maybe<ConvTopicsResponse>>>;
+  currentDealTopicCoveragePercentage?: Maybe<Scalars['Float']>;
+  currentDealTopicCoverageValue?: Maybe<Scalars['Float']>;
+  idealDealStageWiningPercentage?: Maybe<Scalars['Float']>;
+  idealDealStageWiningValue?: Maybe<Scalars['Float']>;
+  idealDealWinningPercentage?: Maybe<Scalars['Float']>;
+  idealDealWinningValue?: Maybe<Scalars['Float']>;
+  topic?: Maybe<Scalars['String']>;
+  unit?: Maybe<Scalars['String']>;
+};
+
+export type ConvTopicsResponse = {
+  convId?: Maybe<Scalars['Float']>;
+  description?: Maybe<Scalars['String']>;
+  endDate?: Maybe<Scalars['String']>;
+  hostedBy?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  topic?: Maybe<Scalars['String']>;
+  totalDuration?: Maybe<Scalars['Float']>;
+};
+
+export type EmlResponseDTO = {
+  body?: Maybe<Scalars['String']>;
+  contactId?: Maybe<Scalars['Float']>;
+  from?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  sendDatetime?: Maybe<Scalars['String']>;
+  sentiment?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  subject?: Maybe<Scalars['String']>;
+  threadId?: Maybe<Scalars['String']>;
+  to?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type EmpathyAndHesitationTurnsReportForConvList = {
+  empathyAndHesitationTurnsReportMap?: Maybe<Scalars['JSON']>;
+};
+
+export type EmpathyAndHesitationSearchCriterionInput = {
+  meetingEndTime?: InputMaybe<Scalars['String']>;
+  meetingStartTime?: InputMaybe<Scalars['String']>;
+  userId?: InputMaybe<Scalars['Float']>;
+};
+
+export type MediaClipStatsResponseDTO = {
+  createdCount?: Maybe<Scalars['Float']>;
+  stats?: Maybe<Array<Maybe<MediaClipStatsAttr>>>;
+};
+
+export type MediaClipStatsAttr = {
+  convId?: Maybe<Scalars['Float']>;
+  description?: Maybe<Scalars['String']>;
+  mediaClipId?: Maybe<Scalars['Float']>;
+  meetingTopic?: Maybe<Scalars['String']>;
+  shared?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+  views?: Maybe<Scalars['Int']>;
+};
+
+export type ConversationKeywordSearchResponse = {
+  searchResult?: Maybe<SearchResult>;
+};
+
+export type MostSharedConvAttr = {
+  accountId?: Maybe<Scalars['Float']>;
+  accountName?: Maybe<Scalars['String']>;
+  accountUrl?: Maybe<Scalars['String']>;
+  amount?: Maybe<Scalars['Float']>;
+  convId?: Maybe<Scalars['Float']>;
+  convStatus?: Maybe<Scalars['String']>;
+  count?: Maybe<Scalars['Float']>;
+  description?: Maybe<Scalars['String']>;
+  meetingSentiment?: Maybe<Scalars['Float']>;
+  meetingStartTime?: Maybe<Scalars['String']>;
+  meetingTopic?: Maybe<Scalars['String']>;
+  opptyCloseDate?: Maybe<Scalars['String']>;
+  opptyId?: Maybe<Scalars['Float']>;
+  opptyName?: Maybe<Scalars['String']>;
+};
+
+export type MostViewedConvAttr = {
+  accountId?: Maybe<Scalars['Float']>;
+  accountName?: Maybe<Scalars['String']>;
+  accountUrl?: Maybe<Scalars['String']>;
+  amount?: Maybe<Scalars['Float']>;
+  convId?: Maybe<Scalars['Float']>;
+  convStatus?: Maybe<Scalars['String']>;
+  count?: Maybe<Scalars['Float']>;
+  description?: Maybe<Scalars['String']>;
+  meetingSentiment?: Maybe<Scalars['Float']>;
+  meetingStartTime?: Maybe<Scalars['String']>;
+  meetingTopic?: Maybe<Scalars['String']>;
+  opptyCloseDate?: Maybe<Scalars['String']>;
+  opptyId?: Maybe<Scalars['Float']>;
+  opptyName?: Maybe<Scalars['String']>;
+};
+
+export type PlaylistStatsResponseDTO = {
+  createdCount?: Maybe<Scalars['Float']>;
+  stats?: Maybe<Array<Maybe<PlaylistStatsAttr>>>;
+};
+
+export type PlaylistStatsAttr = {
+  description?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  fullName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  playlistId?: Maybe<Scalars['Float']>;
+  shared?: Maybe<Scalars['Float']>;
+  title?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['Float']>;
+  username?: Maybe<Scalars['String']>;
+  views?: Maybe<Scalars['Float']>;
+};
+
+export type PageVisitsDto = {
+  noOfVisits?: Maybe<Scalars['Int']>;
+  pageName?: Maybe<Scalars['String']>;
+  qUsersUsage?: Maybe<Array<Maybe<QUsageUserPageVisitDto>>>;
+  rank?: Maybe<Scalars['Int']>;
+};
+
+export type KeyphraseTotalCountAttrDTO = {
+  keywordTagId?: Maybe<Scalars['Float']>;
+  score?: Maybe<Scalars['Float']>;
+  subtype?: Maybe<Scalars['String']>;
+  tagvalue?: Maybe<Scalars['String']>;
+  totalCount?: Maybe<Scalars['Float']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type KeyPhraseOccurenceResponseDTO = {
+  companyAvgSentiment?: Maybe<Scalars['Float']>;
+  companyKeyPhraseIdealValue?: Maybe<Scalars['Float']>;
+  companyKeyPhraseTotalCount?: Maybe<Scalars['Float']>;
+  keywordTagId?: Maybe<Scalars['Float']>;
+  keywordTagVal?: Maybe<Scalars['String']>;
+  subType?: Maybe<Scalars['String']>;
+  teamAvgSentiment?: Maybe<Scalars['Float']>;
+  teamKeyPhraseIdealValue?: Maybe<Scalars['Float']>;
+  teamKeyPhraseTotalCount?: Maybe<Scalars['Float']>;
+  type?: Maybe<Scalars['String']>;
+  users?: Maybe<Array<Maybe<KeyPhraseUser>>>;
+};
+
+export type KeyPhraseUser = {
+  avgSentiment?: Maybe<Scalars['Float']>;
+  conversationId?: Maybe<Array<Maybe<Scalars['Float']>>>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  occurences?: Maybe<Array<Maybe<KeyPhraseOccurence>>>;
+  roleName?: Maybe<Scalars['String']>;
+  totalCount?: Maybe<Scalars['Float']>;
+  userId?: Maybe<Scalars['Float']>;
+};
+
+export type KeyPhraseOccurence = {
+  conversationId?: Maybe<Scalars['Float']>;
+  count?: Maybe<Scalars['Float']>;
+  sentiment?: Maybe<Scalars['Float']>;
+};
+
+export type ESPopulateRequestInput = {
+  daysToProcess?: InputMaybe<Scalars['Int']>;
+  startDate?: InputMaybe<Scalars['String']>;
+};
+
+export type MindTickleReqInput = {
+  filter?: InputMaybe<Scalars['String']>;
+  format?: InputMaybe<Scalars['String']>;
+  uri?: InputMaybe<Scalars['String']>;
+};
+
+export type CspViolationReqInput = {
+  cspReport?: InputMaybe<CspReportInput>;
+};
+
+export type CspReportInput = {
+  blockedUri?: InputMaybe<Scalars['String']>;
+  columnNumber?: InputMaybe<Scalars['String']>;
+  disposition?: InputMaybe<Scalars['String']>;
+  documentUri?: InputMaybe<Scalars['String']>;
+  effectiveDirective?: InputMaybe<Scalars['String']>;
+  lineNumber?: InputMaybe<Scalars['String']>;
+  originalPolicy?: InputMaybe<Scalars['String']>;
+  referrer?: InputMaybe<Scalars['String']>;
+  scriptSample?: InputMaybe<Scalars['String']>;
+  sourceFile?: InputMaybe<Scalars['String']>;
+  statusCode?: InputMaybe<Scalars['String']>;
+  violatedDirective?: InputMaybe<Scalars['String']>;
+};
+
+export type ESSearchInput = {
+  criteria?: InputMaybe<Scalars['String']>;
+};
+
+export type ZoomMeetingWhitelistDTO = {
+  authorizedForTeams?: Maybe<Scalars['Boolean']>;
+  authorizedForWebex?: Maybe<Scalars['Boolean']>;
+  id?: Maybe<Scalars['Float']>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  invokeBot?: Maybe<Scalars['Boolean']>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+  version?: Maybe<Scalars['String']>;
+  zoomHostEmail?: Maybe<Scalars['String']>;
+  zoomHostId?: Maybe<Scalars['String']>;
+  zoomMeetingId?: Maybe<Scalars['String']>;
+};
+
+export type KeyMomentResponseDTO = {
+  convKeyMoments?: Maybe<Array<Maybe<ConvKeyMoments2>>>;
+};
+
+export type ConvKeyMoments2 = {
+  convID?: Maybe<ConversationDTO>;
+  keyMoments6?: Maybe<Array<Maybe<KeyMoment>>>;
+};
+
+export type ConversationDTO = {
+  accountId?: Maybe<Scalars['Float']>;
+  aiViewVideoMediaLink?: Maybe<Scalars['String']>;
+  audioMediaLink?: Maybe<Scalars['String']>;
+  confidential?: Maybe<Scalars['Boolean']>;
+  contentViewVideoMediaLink?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  entity?: Maybe<Scalars['String']>;
+  externalConvId?: Maybe<Scalars['String']>;
+  externalMeetingId?: Maybe<Scalars['String']>;
+  galleryViewVideoMediaLink?: Maybe<Scalars['String']>;
+  hostId?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  meetingEndTime?: Maybe<Scalars['String']>;
+  meetingStartTime?: Maybe<Scalars['String']>;
+  meetingTopic?: Maybe<Scalars['String']>;
+  opptyId?: Maybe<Scalars['Float']>;
+  orgId?: Maybe<Scalars['Float']>;
+  recordingStartTime?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  speakerTimelineLink?: Maybe<Scalars['String']>;
+  speakerViewVideoMediaLink?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  textMediaLink?: Maybe<Scalars['String']>;
+  transcriptLink?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+  videoMediaLink?: Maybe<Scalars['String']>;
+};
+
+export type AccountContactSearchResponse = {
+  account?: Maybe<Array<Maybe<AccountContactResponse>>>;
+};
+
+export type AccountContactResponse = {
+  accountTeamID?: Maybe<IdNameDTO>;
+  contact?: Maybe<Array<Maybe<ContactResponse>>>;
+  crmAccountId?: Maybe<Scalars['String']>;
+  domain?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  opptyTeam?: Maybe<OpptyTeam>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  sticker?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type ContactSearchResponseDTO = {
+  account?: Maybe<Account>;
+  contacts?: Maybe<Array<Maybe<Contact>>>;
+  insertBy?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  oppty?: Maybe<Oppty2>;
+  orgId?: Maybe<Scalars['Float']>;
+  source?: Maybe<Scalars['String']>;
+  updateBy?: Maybe<Scalars['Float']>;
+  updateTime?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type EmailSummaryResponseDTO = {
+  from?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  sendDatetime?: Maybe<Scalars['String']>;
+  sentiment?: Maybe<Scalars['Float']>;
+  subject?: Maybe<Scalars['String']>;
+  threadId?: Maybe<Scalars['String']>;
+  to?: Maybe<Scalars['String']>;
+};
+
+export type CalenderEventSearchResponse = {
+  searchResult?: Maybe<SearchResult>;
+};
+
+export type EmpathyChangeMomentResponseDTO = {
+  convEmpathyChangeMoments?: Maybe<Array<Maybe<ConvEmpathyChangeMoments2>>>;
+};
+
+export type ConvEmpathyChangeMoments2 = {
+  convID?: Maybe<ConversationDTO>;
+  empathyChangeMoments?: Maybe<Array<Maybe<EmpathyChangeMoment>>>;
+};
+
+export type EmpathyChangeMoment = {
+  averageEmpathy?: Maybe<Scalars['Float']>;
+  convId?: Maybe<Scalars['Float']>;
+  convStartOffset?: Maybe<Scalars['Float']>;
+  empathyMomentRecs?: Maybe<Array<Maybe<EmpathyMomentRec>>>;
+  momentId?: Maybe<Scalars['Float']>;
+  polarity?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
+  usersId?: Maybe<Scalars['Float']>;
+};
+
+export type EmpathyMomentRec = {
+  description?: Maybe<Scalars['String']>;
+  detectedBehaviour?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  momentId?: Maybe<Scalars['Float']>;
+  originalUtterance?: Maybe<Scalars['String']>;
+  recommendation?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  suggestedType?: Maybe<Scalars['String']>;
+  suggestedUtterance?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type TeamEmailActivityResponseDTO = {
+  dates?: Maybe<Array<Maybe<Scalars['String']>>>;
+  emails?: Maybe<Array<Maybe<Scalars['Int']>>>;
+};
+
+export type MessageRequestDTOInput = {
+  clip?: InputMaybe<ClipRequestInput>;
+  description?: InputMaybe<Scalars['String']>;
+  emailList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  fullVideo?: InputMaybe<Scalars['Boolean']>;
+  keyMomentText?: InputMaybe<Scalars['String']>;
+  mediaClipId?: InputMaybe<Scalars['Float']>;
+  meetingUrl?: InputMaybe<Scalars['String']>;
+  subject?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+};
+
+export type ClipRequestInput = {
+  convId?: InputMaybe<Scalars['Float']>;
+  keymomentId?: InputMaybe<Scalars['Float']>;
+  startInSeconds?: InputMaybe<Scalars['Float']>;
+  stopInSeconds?: InputMaybe<Scalars['Float']>;
+};
+
+export type ShareClipDTOInput = {
+  clipLength?: InputMaybe<Scalars['Int']>;
+  clipStartTime?: InputMaybe<Scalars['Int']>;
+  clipTitle?: InputMaybe<Scalars['String']>;
+  convId?: InputMaybe<Scalars['Float']>;
+  currtime?: InputMaybe<Scalars['Float']>;
+  description?: InputMaybe<Scalars['String']>;
+  duration?: InputMaybe<Scalars['Float']>;
+  password?: InputMaybe<Scalars['String']>;
+  recipients?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ShareMeetingDTOInput = {
+  convId?: InputMaybe<Scalars['Float']>;
+  currtime?: InputMaybe<Scalars['Float']>;
+  description?: InputMaybe<Scalars['String']>;
+  duration?: InputMaybe<Scalars['Float']>;
+  mediaClipId?: InputMaybe<Scalars['Float']>;
+  password?: InputMaybe<Scalars['String']>;
+  permission?: InputMaybe<Scalars['String']>;
+  playlistId?: InputMaybe<Scalars['Float']>;
+  recipients?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  videoSharingHistoryId?: InputMaybe<Scalars['Float']>;
+};
+
+export type ThreadCountResponse = {
+  email?: Maybe<Scalars['String']>;
+  threadCount?: Maybe<Scalars['String']>;
+};
+
+export type CalendarEventRequestDTOInput = {
+  accountId?: InputMaybe<Scalars['Float']>;
+  botInstrFromCalendar?: InputMaybe<Scalars['Boolean']>;
+  calUid?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  opptyId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+};
+
+export type ConversationDTOInput = {
+  accountId?: InputMaybe<Scalars['Float']>;
+  aiViewVideoMediaLink?: InputMaybe<Scalars['String']>;
+  audioMediaLink?: InputMaybe<Scalars['String']>;
+  confidential?: InputMaybe<Scalars['Boolean']>;
+  contentViewVideoMediaLink?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  entity?: InputMaybe<Scalars['String']>;
+  externalConvId?: InputMaybe<Scalars['String']>;
+  externalMeetingId?: InputMaybe<Scalars['String']>;
+  galleryViewVideoMediaLink?: InputMaybe<Scalars['String']>;
+  hostId?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  meetingEndTime?: InputMaybe<Scalars['String']>;
+  meetingStartTime?: InputMaybe<Scalars['String']>;
+  meetingTopic?: InputMaybe<Scalars['String']>;
+  opptyId?: InputMaybe<Scalars['Float']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  recordingStartTime?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  speakerTimelineLink?: InputMaybe<Scalars['String']>;
+  speakerViewVideoMediaLink?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  textMediaLink?: InputMaybe<Scalars['String']>;
+  transcriptLink?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
+  videoMediaLink?: InputMaybe<Scalars['String']>;
+};
+
+export type ConvKeyMomentRequestDTOInput = {
+  contentImages?: InputMaybe<Scalars['String']>;
+  conversation?: InputMaybe<Scalars['Float']>;
+  downVote?: InputMaybe<Scalars['Float']>;
+  downVoteUser?: InputMaybe<Scalars['String']>;
+  endTime?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  keywordTagId1?: InputMaybe<Scalars['Float']>;
+  keywordTagId2?: InputMaybe<Scalars['Float']>;
+  keywordTagId3?: InputMaybe<Scalars['Float']>;
+  keywordTagId4?: InputMaybe<Scalars['Float']>;
+  kmEndTime?: InputMaybe<Scalars['String']>;
+  kmEndUtteranceId?: InputMaybe<Scalars['Float']>;
+  kmStartTime?: InputMaybe<Scalars['String']>;
+  kmStartUtteranceId?: InputMaybe<Scalars['Float']>;
+  polarity?: InputMaybe<Scalars['String']>;
+  score?: InputMaybe<Scalars['Float']>;
+  startTime?: InputMaybe<Scalars['Float']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  time?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  upVote?: InputMaybe<Scalars['Float']>;
+  upVoteUser?: InputMaybe<Scalars['String']>;
+};
+
+export type UserDelegateRequestDTOInput = {
+  proxyOwner?: InputMaybe<Scalars['Float']>;
+  proxyUsers?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
+};
+
+export type ZoomMeetingWhitelistRequestInput = {
+  meetingWhiteLists?: InputMaybe<Array<InputMaybe<MeetingWhiteListInput>>>;
+};
+
+export type MeetingWhiteListInput = {
+  invokeBot?: InputMaybe<Scalars['Boolean']>;
+  userId?: InputMaybe<Scalars['Float']>;
+};
+
+export type UsalesConvsExternalMeetingInput = {
+  file: Scalars['String'];
+  payload: MeetingRequestInput;
+  transcript?: InputMaybe<Scalars['String']>;
+};
+
+export type PlaylistRequestDTOInput = {
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  isPublic?: InputMaybe<Scalars['Boolean']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  updateTime?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
+};
+
+export type PlaylistParamRequestDTOInput = {
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  name?: InputMaybe<Scalars['String']>;
+  playlistId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
+};
+
+export type MediaClipRequestDTOInput = {
+  convId?: InputMaybe<Scalars['Float']>;
+  convKeymomentId?: InputMaybe<Scalars['Float']>;
+  description?: InputMaybe<Scalars['String']>;
+  endTime?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  source?: InputMaybe<Scalars['String']>;
+  startTime?: InputMaybe<Scalars['Float']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  transcript?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  updateTime?: InputMaybe<Scalars['String']>;
+  userId?: InputMaybe<Scalars['Float']>;
+  version?: InputMaybe<Scalars['String']>;
+};
+
+export type MediaClipParamRequestDTOInput = {
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  mediaClipId?: InputMaybe<Scalars['Float']>;
+  name?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
+};
+
+export type ConvPromiseRequestDTOInput = {
+  actionStatus?: InputMaybe<Scalars['String']>;
+  classification?: InputMaybe<Scalars['String']>;
+  convId?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  promiseEndTime?: InputMaybe<Scalars['String']>;
+  promiseNextAction?: InputMaybe<Scalars['String']>;
+  promiseStartTime?: InputMaybe<Scalars['String']>;
+  promiseText?: InputMaybe<Scalars['String']>;
+  score?: InputMaybe<Scalars['String']>;
+  speaker?: InputMaybe<Scalars['String']>;
+  speakerUsersId?: InputMaybe<Scalars['Float']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+};
+
+export type ConvParamResponseDTO = {
+  agentSpoken?: Maybe<Scalars['String']>;
+  convId?: Maybe<Scalars['Float']>;
+  custSpoken?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  duration?: Maybe<Scalars['Float']>;
+  engagement?: Maybe<Scalars['String']>;
+  externalMeetingId?: Maybe<Scalars['String']>;
+  frame?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Float']>;
+  introVideoMediaLink?: Maybe<Scalars['String']>;
+  messages?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  orgId?: Maybe<Scalars['Float']>;
+  performance?: Maybe<Scalars['String']>;
+  probability?: Maybe<Scalars['String']>;
+  questions?: Maybe<Scalars['String']>;
+  score?: Maybe<Scalars['String']>;
+  sentiment?: Maybe<Scalars['String']>;
+  silences?: Maybe<Scalars['String']>;
+  spoken?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  subtype?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+  version?: Maybe<Scalars['String']>;
+};
+
+export type ConvParamRequestDTOInput = {
+  agentSpoken?: InputMaybe<Scalars['String']>;
+  convId?: InputMaybe<Scalars['Float']>;
+  custSpoken?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  duration?: InputMaybe<Scalars['Float']>;
+  engagement?: InputMaybe<Scalars['String']>;
+  externalMeetingId?: InputMaybe<Scalars['String']>;
+  frame?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  introVideoMediaLink?: InputMaybe<Scalars['String']>;
+  messages?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+  performance?: InputMaybe<Scalars['String']>;
+  probability?: InputMaybe<Scalars['String']>;
+  questions?: InputMaybe<Scalars['String']>;
+  score?: InputMaybe<Scalars['String']>;
+  sentiment?: InputMaybe<Scalars['String']>;
+  silences?: InputMaybe<Scalars['String']>;
+  spoken?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
+  version?: InputMaybe<Scalars['String']>;
+};
+
+export type CompanyParamRequestDTOInput = {
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  name?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  subtype?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
+};
+
+export type CompanyProfileKeywordCategRelDTO = {
+  companyProfileId?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+  insertTime?: Maybe<Scalars['String']>;
+  keywordCategId?: Maybe<Scalars['Float']>;
+  orgId?: Maybe<Scalars['Float']>;
+};
+
+export type CompanyProfileKeywordCategRelDTOInput = {
+  companyProfileId?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['Float']>;
+  insertTime?: InputMaybe<Scalars['String']>;
+  keywordCategId?: InputMaybe<Scalars['Float']>;
+  orgId?: InputMaybe<Scalars['Float']>;
+};
+
+export type ConfigPropRequestDTOInput = {
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Float']>;
+  name?: InputMaybe<Scalars['String']>;
+  setId?: InputMaybe<Scalars['Float']>;
+  setName?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
+};
+
+    }
+    export type QueryQSalesSdk = {
+  /** 
+
+Equivalent to GET /usales/accounts/{id} **/
+  accountResponseDTO: InContextSdkMethod<QSalesTypes.Query['accountResponseDTO'], QSalesTypes.QueryaccountResponseDTOArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/accounts/{id}/team **/
+  accountTeamResponse: InContextSdkMethod<QSalesTypes.Query['accountTeamResponse'], QSalesTypes.QueryaccountTeamResponseArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/alerts/{id} **/
+  alertResponseDTO: InContextSdkMethod<QSalesTypes.Query['alertResponseDTO'], QSalesTypes.QueryalertResponseDTOArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /auth/accessToken **/
+  authAccessToken: InContextSdkMethod<QSalesTypes.Query['authAccessToken'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /auth/google **/
+  authGoogle: InContextSdkMethod<QSalesTypes.Query['authGoogle'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /auth/google/callback **/
+  authGoogleCallback: InContextSdkMethod<QSalesTypes.Query['authGoogleCallback'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /auth/outlook **/
+  authOutlook: InContextSdkMethod<QSalesTypes.Query['authOutlook'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /auth/revoke/{provider} **/
+  authRevoke: InContextSdkMethod<QSalesTypes.Query['authRevoke'], QSalesTypes.QueryauthRevokeArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /auth/social **/
+  authSocial: InContextSdkMethod<QSalesTypes.Query['authSocial'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/events/{id} **/
+  calendarEvent: InContextSdkMethod<QSalesTypes.Query['calendarEvent'], QSalesTypes.QuerycalendarEventArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/companyprofile **/
+  companyProfileDTO: InContextSdkMethod<QSalesTypes.Query['companyProfileDTO'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/analytics/company/slide-first **/
+  companySlideFirstResponse: InContextSdkMethod<QSalesTypes.Query['companySlideFirstResponse'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/contact/metrics/{contactId} **/
+  contactMetricsResponse: InContextSdkMethod<QSalesTypes.Query['contactMetricsResponse'], QSalesTypes.QuerycontactMetricsResponseArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/contact/summary/{contactId} **/
+  contactResponse: InContextSdkMethod<QSalesTypes.Query['contactResponse'], QSalesTypes.QuerycontactResponseArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/convs/attendees/{id} **/
+  convAttendeeResponseDTO: InContextSdkMethod<QSalesTypes.Query['convAttendeeResponseDTO'], QSalesTypes.QueryconvAttendeeResponseDTOArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/convs/{convId}/eqscore **/
+  convEQResponseDTO: InContextSdkMethod<QSalesTypes.Query['convEQResponseDTO'], QSalesTypes.QueryconvEQResponseDTOArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/conv/metrics/aggr/{id} **/
+  convMetricsResponse: InContextSdkMethod<QSalesTypes.Query['convMetricsResponse'], QSalesTypes.QueryconvMetricsResponseArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /conv/mod/{convId} **/
+  convMod: InContextSdkMethod<QSalesTypes.Query['convMod'], QSalesTypes.QueryconvModArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/convs/{id}/slide-first **/
+  convSlideFirstResponse: InContextSdkMethod<QSalesTypes.Query['convSlideFirstResponse'], QSalesTypes.QueryconvSlideFirstResponseArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/timeline/{conv_id} **/
+  convTimeline: InContextSdkMethod<QSalesTypes.Query['convTimeline'], QSalesTypes.QueryconvTimelineArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/conv-topic-episodes/{id} **/
+  convTopicEpisodeResponseDTO: InContextSdkMethod<QSalesTypes.Query['convTopicEpisodeResponseDTO'], QSalesTypes.QueryconvTopicEpisodeResponseDTOArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/convs/{id}/participantsWithMetrics **/
+  conversationAttendeesResponse: InContextSdkMethod<QSalesTypes.Query['conversationAttendeesResponse'], QSalesTypes.QueryconversationAttendeesResponseArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/convs/{id}/preview **/
+  conversationDetailResponse: InContextSdkMethod<QSalesTypes.Query['conversationDetailResponse'], QSalesTypes.QueryconversationDetailResponseArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/convs/{id} **/
+  conversationRequest: InContextSdkMethod<QSalesTypes.Query['conversationRequest'], QSalesTypes.QueryconversationRequestArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/convs/summary/{id} **/
+  conversationSummaryResponse: InContextSdkMethod<QSalesTypes.Query['conversationSummaryResponse'], QSalesTypes.QueryconversationSummaryResponseArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/metrics/convs/{convId}/convostats **/
+  convoStatResponse: InContextSdkMethod<QSalesTypes.Query['convoStatResponse'], QSalesTypes.QueryconvoStatResponseArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /cq/account/{crmAccountId}/trend **/
+  cqAccountTrend: InContextSdkMethod<QSalesTypes.Query['cqAccountTrend'], QSalesTypes.QuerycqAccountTrendArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /cq/contact/{crmContactId}/eq **/
+  cqContactEq: InContextSdkMethod<QSalesTypes.Query['cqContactEq'], QSalesTypes.QuerycqContactEqArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /cq/opportunity/{crmOpportunityId}/contact/{crmContactId}/eq **/
+  cqOpportunityContactEq: InContextSdkMethod<QSalesTypes.Query['cqOpportunityContactEq'], QSalesTypes.QuerycqOpportunityContactEqArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /cq/token/access **/
+  cqTokenAccess: InContextSdkMethod<QSalesTypes.Query['cqTokenAccess'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /cq/token/refresh **/
+  cqTokenRefresh: InContextSdkMethod<QSalesTypes.Query['cqTokenRefresh'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /cq/token/revoke/access **/
+  cqTokenRevokeAccess: InContextSdkMethod<QSalesTypes.Query['cqTokenRevokeAccess'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /cq/token/revoke/refresh **/
+  cqTokenRevokeRefresh: InContextSdkMethod<QSalesTypes.Query['cqTokenRevokeRefresh'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /cq/opportunity/{crmOpportunityId}/current **/
+  currentEQForOpptyResponse: InContextSdkMethod<QSalesTypes.Query['currentEQForOpptyResponse'], QSalesTypes.QuerycurrentEQForOpptyResponseArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /cq/account/{crmAccountId}/current **/
+  dealDetailResponse: InContextSdkMethod<QSalesTypes.Query['dealDetailResponse'], QSalesTypes.QuerydealDetailResponseArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/oppty/{id}/details **/
+  dealSummaryDetailResponse: InContextSdkMethod<QSalesTypes.Query['dealSummaryDetailResponse'], QSalesTypes.QuerydealSummaryDetailResponseArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/oppty/summary/{id} **/
+  dealSummaryResponse: InContextSdkMethod<QSalesTypes.Query['dealSummaryResponse'], QSalesTypes.QuerydealSummaryResponseArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/oppty/{id}/trend **/
+  dealSummaryTrendResponse: InContextSdkMethod<QSalesTypes.Query['dealSummaryTrendResponse'], QSalesTypes.QuerydealSummaryTrendResponseArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/diarization/{conv_id} **/
+  diarization: InContextSdkMethod<QSalesTypes.Query['diarization'], QSalesTypes.QuerydiarizationArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/empathyandhesitationturns/get/conv **/
+  empathyAndHesitationTurnsReport: InContextSdkMethod<QSalesTypes.Query['empathyAndHesitationTurnsReport'], QSalesTypes.QueryempathyAndHesitationTurnsReportArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /cq/opportunity/{crmOpportunityId}/contact/eq **/
+  getContactsEQForOppty: InContextSdkMethod<QSalesTypes.Query['getContactsEQForOppty'], QSalesTypes.QuerygetContactsEQForOpptyArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/convs/{id}/details **/
+  getConversationDetail: InContextSdkMethod<QSalesTypes.Query['getConversationDetail'], QSalesTypes.QuerygetConversationDetailArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/accounts/{accountId}/convtrends **/
+  getEQbyAccount: InContextSdkMethod<QSalesTypes.Query['getEQbyAccount'], QSalesTypes.QuerygetEQbyAccountArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /cq/manager/{managerEmailId}/{startMMddyyyy}/eq **/
+  getManagerEQ: InContextSdkMethod<QSalesTypes.Query['getManagerEQ'], QSalesTypes.QuerygetManagerEQArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/oppty/{id} **/
+  getOpptyById: InContextSdkMethod<QSalesTypes.Query['getOpptyById'], QSalesTypes.QuerygetOpptyByIdArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/oppty/keyMoments **/
+  getOpptyKeyMoments: InContextSdkMethod<QSalesTypes.Query['getOpptyKeyMoments'], QSalesTypes.QuerygetOpptyKeyMomentsArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /cq/seller/{sellerEmailId}/eq **/
+  getSellerEQ2: InContextSdkMethod<QSalesTypes.Query['getSellerEQ2'], QSalesTypes.QuerygetSellerEQ2Args, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/convs/{id}/keyPhrases **/
+  keyPhraseResponse: InContextSdkMethod<QSalesTypes.Query['keyPhraseResponse'], QSalesTypes.QuerykeyPhraseResponseArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/mediaclip/{id} **/
+  mediaClipResponseDTO: InContextSdkMethod<QSalesTypes.Query['mediaClipResponseDTO'], QSalesTypes.QuerymediaClipResponseDTOArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/oppty/{opptyId}/promises **/
+  opptyDTO: InContextSdkMethod<QSalesTypes.Query['opptyDTO'], QSalesTypes.QueryopptyDTOArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/{oppty_stage}/eqscore **/
+  opptyEqbyStageResponseDTO: InContextSdkMethod<QSalesTypes.Query['opptyEqbyStageResponseDTO'], QSalesTypes.QueryopptyEqbyStageResponseDTOArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/oppty/teams/{id} **/
+  opptyTeamResponseDTO: InContextSdkMethod<QSalesTypes.Query['opptyTeamResponseDTO'], QSalesTypes.QueryopptyTeamResponseDTOArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/playlists/{id} **/
+  playlistResponseDTO: InContextSdkMethod<QSalesTypes.Query['playlistResponseDTO'], QSalesTypes.QueryplaylistResponseDTOArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /slack/authurl **/
+  slackAuthurl: InContextSdkMethod<QSalesTypes.Query['slackAuthurl'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /slack/redirect **/
+  slackRedirect: InContextSdkMethod<QSalesTypes.Query['slackRedirect'], QSalesTypes.QueryslackRedirectArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/reports/summary **/
+  summaryReportDTO: InContextSdkMethod<QSalesTypes.Query['summaryReportDTO'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /cq/seller/{sellerEmailId}/{days}/eq **/
+  teamOpptyUsersStats: InContextSdkMethod<QSalesTypes.Query['teamOpptyUsersStats'], QSalesTypes.QueryteamOpptyUsersStatsArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /cq/opportunity/{crmOpportunityId}/trend **/
+  trendEQForOpptyResponse: InContextSdkMethod<QSalesTypes.Query['trendEQForOpptyResponse'], QSalesTypes.QuerytrendEQForOpptyResponseArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/accounts/{id}/oppty **/
+  usalesAccountOppty: InContextSdkMethod<QSalesTypes.Query['usalesAccountOppty'], QSalesTypes.QueryusalesAccountOpptyArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/accounts **/
+  usalesAccounts: InContextSdkMethod<QSalesTypes.Query['usalesAccounts'], QSalesTypes.QueryusalesAccountsArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/accounts/promises **/
+  usalesAccountsPromises: InContextSdkMethod<QSalesTypes.Query['usalesAccountsPromises'], QSalesTypes.QueryusalesAccountsPromisesArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/alerts **/
+  usalesAlerts: InContextSdkMethod<QSalesTypes.Query['usalesAlerts'], QSalesTypes.QueryusalesAlertsArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/bookmarks/convs/{convId} **/
+  usalesBookmarksConv: InContextSdkMethod<QSalesTypes.Query['usalesBookmarksConv'], QSalesTypes.QueryusalesBookmarksConvArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/bookmarks/keymoments/{convKeyMomentId} **/
+  usalesBookmarksKeymoment: InContextSdkMethod<QSalesTypes.Query['usalesBookmarksKeymoment'], QSalesTypes.QueryusalesBookmarksKeymomentArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/company-param **/
+  usalesCompanyParam: InContextSdkMethod<QSalesTypes.Query['usalesCompanyParam'], QSalesTypes.QueryusalesCompanyParamArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/company-params **/
+  usalesCompanyParams: InContextSdkMethod<QSalesTypes.Query['usalesCompanyParams'], QSalesTypes.QueryusalesCompanyParamsArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/companyprofile/access-consent **/
+  usalesCompanyprofileAccessConsent: InContextSdkMethod<QSalesTypes.Query['usalesCompanyprofileAccessConsent'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/companyprofile/businesscategs **/
+  usalesCompanyprofileBusinesscategs: InContextSdkMethod<QSalesTypes.Query['usalesCompanyprofileBusinesscategs'], QSalesTypes.QueryusalesCompanyprofileBusinesscategsArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/configprops **/
+  usalesConfigprops: InContextSdkMethod<QSalesTypes.Query['usalesConfigprops'], QSalesTypes.QueryusalesConfigpropsArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/contacts/{contact}/emails/count **/
+  usalesContactEmailsCount: InContextSdkMethod<QSalesTypes.Query['usalesContactEmailsCount'], QSalesTypes.QueryusalesContactEmailsCountArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/convs/{convId}/comments **/
+  usalesConvComments: InContextSdkMethod<QSalesTypes.Query['usalesConvComments'], QSalesTypes.QueryusalesConvCommentsArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/convs/{convId}/contact_eqscore **/
+  usalesConvContactEqscore: InContextSdkMethod<QSalesTypes.Query['usalesConvContactEqscore'], QSalesTypes.QueryusalesConvContactEqscoreArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/conv/metrics/{id} **/
+  usalesConvMetric: InContextSdkMethod<QSalesTypes.Query['usalesConvMetric'], QSalesTypes.QueryusalesConvMetricArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/convs/{id}/metrics **/
+  usalesConvMetrics: InContextSdkMethod<QSalesTypes.Query['usalesConvMetrics'], QSalesTypes.QueryusalesConvMetricsArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/convs **/
+  usalesConvs: InContextSdkMethod<QSalesTypes.Query['usalesConvs'], QSalesTypes.QueryusalesConvsArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/convs/attendees **/
+  usalesConvsAttendees: InContextSdkMethod<QSalesTypes.Query['usalesConvsAttendees'], QSalesTypes.QueryusalesConvsAttendeesArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/convs/status **/
+  usalesConvsStatus: InContextSdkMethod<QSalesTypes.Query['usalesConvsStatus'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/custweblinks **/
+  usalesCustweblinks: InContextSdkMethod<QSalesTypes.Query['usalesCustweblinks'], QSalesTypes.QueryusalesCustweblinksArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/deals/{opptyId}/contacts/{contactId}/eqscore **/
+  usalesDealContactEqscore: InContextSdkMethod<QSalesTypes.Query['usalesDealContactEqscore'], QSalesTypes.QueryusalesDealContactEqscoreArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/deals/{opptyId}/convtrends **/
+  usalesDealConvtrends: InContextSdkMethod<QSalesTypes.Query['usalesDealConvtrends'], QSalesTypes.QueryusalesDealConvtrendsArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/deals/{opptyId}/eqscore **/
+  usalesDealEqscore: InContextSdkMethod<QSalesTypes.Query['usalesDealEqscore'], QSalesTypes.QueryusalesDealEqscoreArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/deals/stages **/
+  usalesDealsStages: InContextSdkMethod<QSalesTypes.Query['usalesDealsStages'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/emleqs/{id} **/
+  usalesEmleq: InContextSdkMethod<QSalesTypes.Query['usalesEmleq'], QSalesTypes.QueryusalesEmleqArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/emleqs **/
+  usalesEmleqs: InContextSdkMethod<QSalesTypes.Query['usalesEmleqs'], QSalesTypes.QueryusalesEmleqsArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/keymoments/{convKeyMomentId}/comments **/
+  usalesKeymomentComments: InContextSdkMethod<QSalesTypes.Query['usalesKeymomentComments'], QSalesTypes.QueryusalesKeymomentCommentsArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/keyword/categ **/
+  usalesKeywordCateg: InContextSdkMethod<QSalesTypes.Query['usalesKeywordCateg'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/keyword/categ/{category} **/
+  usalesKeywordCateg2: InContextSdkMethod<QSalesTypes.Query['usalesKeywordCateg2'], QSalesTypes.QueryusalesKeywordCateg2Args, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/keyword/keyphrase/fetch-expert/{tagId} **/
+  usalesKeywordKeyphraseFetchExpert: InContextSdkMethod<QSalesTypes.Query['usalesKeywordKeyphraseFetchExpert'], QSalesTypes.QueryusalesKeywordKeyphraseFetchExpertArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/mediaClip/param/{mediaClipId} **/
+  usalesMediaClipParam: InContextSdkMethod<QSalesTypes.Query['usalesMediaClipParam'], QSalesTypes.QueryusalesMediaClipParamArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/mediaclip/myclips **/
+  usalesMediaclipMyclips: InContextSdkMethod<QSalesTypes.Query['usalesMediaclipMyclips'], QSalesTypes.QueryusalesMediaclipMyclipsArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/mindtickle/coursesbyemail/{email} **/
+  usalesMindtickleCoursesbyemail: InContextSdkMethod<QSalesTypes.Query['usalesMindtickleCoursesbyemail'], QSalesTypes.QueryusalesMindtickleCoursesbyemailArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/mindtickle/querybyuri/{url} **/
+  usalesMindtickleQuerybyuri: InContextSdkMethod<QSalesTypes.Query['usalesMindtickleQuerybyuri'], QSalesTypes.QueryusalesMindtickleQuerybyuriArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/oppty **/
+  usalesOppty: InContextSdkMethod<QSalesTypes.Query['usalesOppty'], QSalesTypes.QueryusalesOpptyArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/oppty/teams **/
+  usalesOpptyTeams: InContextSdkMethod<QSalesTypes.Query['usalesOpptyTeams'], QSalesTypes.QueryusalesOpptyTeamsArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/playlist/param/{playlistId} **/
+  usalesPlaylistParam: InContextSdkMethod<QSalesTypes.Query['usalesPlaylistParam'], QSalesTypes.QueryusalesPlaylistParamArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/playlists/myplaylists **/
+  usalesPlaylistsMyplaylists: InContextSdkMethod<QSalesTypes.Query['usalesPlaylistsMyplaylists'], QSalesTypes.QueryusalesPlaylistsMyplaylistsArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/playlists/shared-members **/
+  usalesPlaylistsSharedMembers: InContextSdkMethod<QSalesTypes.Query['usalesPlaylistsSharedMembers'], QSalesTypes.QueryusalesPlaylistsSharedMembersArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/playlists/sharedwithme **/
+  usalesPlaylistsSharedwithme: InContextSdkMethod<QSalesTypes.Query['usalesPlaylistsSharedwithme'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/preferences/mine **/
+  usalesPreferencesMine: InContextSdkMethod<QSalesTypes.Query['usalesPreferencesMine'], QSalesTypes.QueryusalesPreferencesMineArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/re/{code} **/
+  usalesRe: InContextSdkMethod<QSalesTypes.Query['usalesRe'], QSalesTypes.QueryusalesReArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/sharedviewdata-conv/{conv_id} **/
+  usalesSharedviewdataConv: InContextSdkMethod<QSalesTypes.Query['usalesSharedviewdataConv'], QSalesTypes.QueryusalesSharedviewdataConvArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/sharedviewdata-name/{name} **/
+  usalesSharedviewdataName: InContextSdkMethod<QSalesTypes.Query['usalesSharedviewdataName'], QSalesTypes.QueryusalesSharedviewdataNameArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/sys **/
+  usalesSys: InContextSdkMethod<QSalesTypes.Query['usalesSys'], QSalesTypes.QueryusalesSysArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/users/{receiverUserId}/comments **/
+  usalesUserComments: InContextSdkMethod<QSalesTypes.Query['usalesUserComments'], QSalesTypes.QueryusalesUserCommentsArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/users **/
+  usalesUsers: InContextSdkMethod<QSalesTypes.Query['usalesUsers'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/users/me/emails/count **/
+  usalesUsersMeEmailsCount: InContextSdkMethod<QSalesTypes.Query['usalesUsersMeEmailsCount'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/users/team/{usersId} **/
+  usalesUsersTeam: InContextSdkMethod<QSalesTypes.Query['usalesUsersTeam'], QSalesTypes.QueryusalesUsersTeamArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/users/me **/
+  user: InContextSdkMethod<QSalesTypes.Query['user'], {}, MeshContext>,
+  /** 
+
+Equivalent to GET /usales/users/{usersId}/proxy **/
+  userDelegateResponseDTO: InContextSdkMethod<QSalesTypes.Query['userDelegateResponseDTO'], QSalesTypes.QueryuserDelegateResponseDTOArgs, MeshContext>,
+  /** 
+
+Equivalent to GET /v1/transcript/populate/{convId} **/
+  v1TranscriptPopulate2: InContextSdkMethod<QSalesTypes.Query['v1TranscriptPopulate2'], QSalesTypes.Queryv1TranscriptPopulate2Args, MeshContext>
+};
+
+export type MutationQSalesSdk = {
+  /** 
+
+Equivalent to PUT /usales/playlists/media-clip-rel-bulk **/
+  addBulkPlaylistMediaClipRel: InContextSdkMethod<QSalesTypes.Mutation['addBulkPlaylistMediaClipRel'], QSalesTypes.MutationaddBulkPlaylistMediaClipRelArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /auth/login **/
+  authenticateUser: InContextSdkMethod<QSalesTypes.Mutation['authenticateUser'], QSalesTypes.MutationauthenticateUserArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /auth/login2 **/
+  authenticateUser2: InContextSdkMethod<QSalesTypes.Mutation['authenticateUser2'], QSalesTypes.MutationauthenticateUser2Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/keyphrase/occurrences **/
+  companyKeyPhraseOccurrences: InContextSdkMethod<QSalesTypes.Mutation['companyKeyPhraseOccurrences'], QSalesTypes.MutationcompanyKeyPhraseOccurrencesArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/keyphrase/sentiment **/
+  companyKeyPhraseOccurrencesBySentiment: InContextSdkMethod<QSalesTypes.Mutation['companyKeyPhraseOccurrencesBySentiment'], QSalesTypes.MutationcompanyKeyPhraseOccurrencesBySentimentArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/timeline/{conv_id} **/
+  convert: InContextSdkMethod<QSalesTypes.Mutation['convert'], QSalesTypes.MutationconvertArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/alerts **/
+  createAlert: InContextSdkMethod<QSalesTypes.Mutation['createAlert'], QSalesTypes.MutationcreateAlertArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/conv-topic-episodes **/
+  createConvTopicEpisode: InContextSdkMethod<QSalesTypes.Mutation['createConvTopicEpisode'], QSalesTypes.MutationcreateConvTopicEpisodeArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/emleqs **/
+  createEmlEq: InContextSdkMethod<QSalesTypes.Mutation['createEmlEq'], QSalesTypes.MutationcreateEmlEqArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/custweblinks **/
+  createOrUpdate: InContextSdkMethod<QSalesTypes.Mutation['createOrUpdate'], QSalesTypes.MutationcreateOrUpdateArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/comments **/
+  createOrUpdate1: InContextSdkMethod<QSalesTypes.Mutation['createOrUpdate1'], QSalesTypes.MutationcreateOrUpdate1Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/clips **/
+  createOrUpdate2: InContextSdkMethod<QSalesTypes.Mutation['createOrUpdate2'], QSalesTypes.MutationcreateOrUpdate2Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/bookmarks **/
+  createOrUpdate3: InContextSdkMethod<QSalesTypes.Mutation['createOrUpdate3'], QSalesTypes.MutationcreateOrUpdate3Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/accounts **/
+  createOrUpdateAccount: InContextSdkMethod<QSalesTypes.Mutation['createOrUpdateAccount'], QSalesTypes.MutationcreateOrUpdateAccountArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/convs/attendees **/
+  createOrUpdateConvAttendee: InContextSdkMethod<QSalesTypes.Mutation['createOrUpdateConvAttendee'], QSalesTypes.MutationcreateOrUpdateConvAttendeeArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/conv/attendees/{id} **/
+  createOrUpdateConvAttendee1: InContextSdkMethod<QSalesTypes.Mutation['createOrUpdateConvAttendee1'], QSalesTypes.MutationcreateOrUpdateConvAttendee1Args, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/keyword/categ **/
+  createOrUpdateKeywordCateg: InContextSdkMethod<QSalesTypes.Mutation['createOrUpdateKeywordCateg'], QSalesTypes.MutationcreateOrUpdateKeywordCategArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/keyword/tag **/
+  createOrUpdateKeywordTag: InContextSdkMethod<QSalesTypes.Mutation['createOrUpdateKeywordTag'], QSalesTypes.MutationcreateOrUpdateKeywordTagArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/oppty/{opptyId} **/
+  createOrUpdateOppty: InContextSdkMethod<QSalesTypes.Mutation['createOrUpdateOppty'], QSalesTypes.MutationcreateOrUpdateOpptyArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/oppty **/
+  createOrUpdateOppty1: InContextSdkMethod<QSalesTypes.Mutation['createOrUpdateOppty1'], QSalesTypes.MutationcreateOrUpdateOppty1Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/oppty/teams **/
+  createOrUpdateOpptyTeam: InContextSdkMethod<QSalesTypes.Mutation['createOrUpdateOpptyTeam'], QSalesTypes.MutationcreateOrUpdateOpptyTeamArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/preferences **/
+  createOrUpdatePreference: InContextSdkMethod<QSalesTypes.Mutation['createOrUpdatePreference'], QSalesTypes.MutationcreateOrUpdatePreferenceArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/empathy-moment-recommendation **/
+  createOrUpdateRecommendation: InContextSdkMethod<QSalesTypes.Mutation['createOrUpdateRecommendation'], QSalesTypes.MutationcreateOrUpdateRecommendationArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/users **/
+  createOrUpdateUser: InContextSdkMethod<QSalesTypes.Mutation['createOrUpdateUser'], QSalesTypes.MutationcreateOrUpdateUserArgs, MeshContext>,
+  /** 
+
+Equivalent to DELETE /usales/zoommeetingwhitelist **/
+  delete: InContextSdkMethod<QSalesTypes.Mutation['delete'], QSalesTypes.MutationdeleteArgs, MeshContext>,
+  /** 
+
+Equivalent to DELETE /usales/emleqs/{id} **/
+  delete1: InContextSdkMethod<QSalesTypes.Mutation['delete1'], QSalesTypes.Mutationdelete1Args, MeshContext>,
+  /** 
+
+Equivalent to DELETE /usales/custweblinks/{id} **/
+  delete2: InContextSdkMethod<QSalesTypes.Mutation['delete2'], QSalesTypes.Mutationdelete2Args, MeshContext>,
+  /** 
+
+Equivalent to DELETE /usales/conv-topic-episodes/{id} **/
+  delete3: InContextSdkMethod<QSalesTypes.Mutation['delete3'], QSalesTypes.Mutationdelete3Args, MeshContext>,
+  /** 
+
+Equivalent to DELETE /usales/comments/{id} **/
+  delete4: InContextSdkMethod<QSalesTypes.Mutation['delete4'], QSalesTypes.Mutationdelete4Args, MeshContext>,
+  /** 
+
+Equivalent to DELETE /usales/bookmarks/{id} **/
+  delete5: InContextSdkMethod<QSalesTypes.Mutation['delete5'], QSalesTypes.Mutationdelete5Args, MeshContext>,
+  /** 
+
+Equivalent to DELETE /usales/alerts/{id} **/
+  delete6: InContextSdkMethod<QSalesTypes.Mutation['delete6'], QSalesTypes.Mutationdelete6Args, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/playlists/delete-media-clip-rel **/
+  deletePlaylistMediaClipRel: InContextSdkMethod<QSalesTypes.Mutation['deletePlaylistMediaClipRel'], QSalesTypes.MutationdeletePlaylistMediaClipRelArgs, MeshContext>,
+  /** 
+
+Equivalent to DELETE /usales/keyword/tags **/
+  deleteTags: InContextSdkMethod<QSalesTypes.Mutation['deleteTags'], QSalesTypes.MutationdeleteTagsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/keyword/keyphrase/custom/trending **/
+  findCustomKeyphraseTrendingTopicCount: InContextSdkMethod<QSalesTypes.Mutation['findCustomKeyphraseTrendingTopicCount'], QSalesTypes.MutationfindCustomKeyphraseTrendingTopicCountArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/oppty/{id}/details **/
+  findDealDetailsByMode: InContextSdkMethod<QSalesTypes.Mutation['findDealDetailsByMode'], QSalesTypes.MutationfindDealDetailsByModeArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/keyword/keyphrase/trending **/
+  findKeyphraseTrendingTopicCount: InContextSdkMethod<QSalesTypes.Mutation['findKeyphraseTrendingTopicCount'], QSalesTypes.MutationfindKeyphraseTrendingTopicCountArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/timeline/generate/{conv_id} **/
+  generateTimeline: InContextSdkMethod<QSalesTypes.Mutation['generateTimeline'], QSalesTypes.MutationgenerateTimelineArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/teams/usersstat **/
+  getAccountTeamsUsersStats: InContextSdkMethod<QSalesTypes.Mutation['getAccountTeamsUsersStats'], QSalesTypes.MutationgetAccountTeamsUsersStatsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/teams/account/userstat **/
+  getAccountUsersStat: InContextSdkMethod<QSalesTypes.Mutation['getAccountUsersStat'], QSalesTypes.MutationgetAccountUsersStatArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/usage/active-users **/
+  getAllActiveUsers: InContextSdkMethod<QSalesTypes.Mutation['getAllActiveUsers'], QSalesTypes.MutationgetAllActiveUsersArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/teams/userstat **/
+  getAllTeamsUserStats: InContextSdkMethod<QSalesTypes.Mutation['getAllTeamsUserStats'], QSalesTypes.MutationgetAllTeamsUserStatsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/company/assessments **/
+  getAssessmentByCompany: InContextSdkMethod<QSalesTypes.Mutation['getAssessmentByCompany'], QSalesTypes.MutationgetAssessmentByCompanyArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/users/assessments **/
+  getAssessments: InContextSdkMethod<QSalesTypes.Mutation['getAssessments'], QSalesTypes.MutationgetAssessmentsArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/convs/meeting-attendee **/
+  getAttendeeByMeetingTranscript: InContextSdkMethod<QSalesTypes.Mutation['getAttendeeByMeetingTranscript'], QSalesTypes.MutationgetAttendeeByMeetingTranscriptArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /auth/outlook/callback **/
+  getAuthCodeAndGenerateToken: InContextSdkMethod<QSalesTypes.Mutation['getAuthCodeAndGenerateToken'], QSalesTypes.MutationgetAuthCodeAndGenerateTokenArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /auth/social **/
+  getAuthUrl: InContextSdkMethod<QSalesTypes.Mutation['getAuthUrl'], QSalesTypes.MutationgetAuthUrlArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /auth/outlook **/
+  getAuthUrl1: InContextSdkMethod<QSalesTypes.Mutation['getAuthUrl1'], QSalesTypes.MutationgetAuthUrl1Args, MeshContext>,
+  /** 
+
+Equivalent to POST /auth/google **/
+  getAuthUrl2: InContextSdkMethod<QSalesTypes.Mutation['getAuthUrl2'], QSalesTypes.MutationgetAuthUrl2Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/customer-pulse/closed-deals **/
+  getClosedDealDetails: InContextSdkMethod<QSalesTypes.Mutation['getClosedDealDetails'], QSalesTypes.MutationgetClosedDealDetailsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/company/deals **/
+  getCompanyDeals: InContextSdkMethod<QSalesTypes.Mutation['getCompanyDeals'], QSalesTypes.MutationgetCompanyDealsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/account-oppty-eq/company **/
+  getCompanyDealsEQOnRiskScale: InContextSdkMethod<QSalesTypes.Mutation['getCompanyDealsEQOnRiskScale'], QSalesTypes.MutationgetCompanyDealsEQOnRiskScaleArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/usage/meetingstat **/
+  getCompanyMeetingStats: InContextSdkMethod<QSalesTypes.Mutation['getCompanyMeetingStats'], QSalesTypes.MutationgetCompanyMeetingStatsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/company-params **/
+  getCompanyParams: InContextSdkMethod<QSalesTypes.Mutation['getCompanyParams'], QSalesTypes.MutationgetCompanyParamsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/usage/companystat **/
+  getCompanyQUsage: InContextSdkMethod<QSalesTypes.Mutation['getCompanyQUsage'], QSalesTypes.MutationgetCompanyQUsageArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/contacts **/
+  getContacts: InContextSdkMethod<QSalesTypes.Mutation['getContacts'], QSalesTypes.MutationgetContactsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/accounts/{id}/activities **/
+  getConversationByAccount: InContextSdkMethod<QSalesTypes.Mutation['getConversationByAccount'], QSalesTypes.MutationgetConversationByAccountArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/convs/userstat **/
+  getConversationUserStat: InContextSdkMethod<QSalesTypes.Mutation['getConversationUserStat'], QSalesTypes.MutationgetConversationUserStatArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/customer-pulse **/
+  getCustomerPulse: InContextSdkMethod<QSalesTypes.Mutation['getCustomerPulse'], QSalesTypes.MutationgetCustomerPulseArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/oppty/{id}/activities **/
+  getDealActivities: InContextSdkMethod<QSalesTypes.Mutation['getDealActivities'], QSalesTypes.MutationgetDealActivitiesArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/accounts/deals **/
+  getDealCountByAccounts: InContextSdkMethod<QSalesTypes.Mutation['getDealCountByAccounts'], QSalesTypes.MutationgetDealCountByAccountsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/account-oppty-eq **/
+  getDealEQOnRiskScale: InContextSdkMethod<QSalesTypes.Mutation['getDealEQOnRiskScale'], QSalesTypes.MutationgetDealEQOnRiskScaleArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/oppty/topics **/
+  getDealTopics: InContextSdkMethod<QSalesTypes.Mutation['getDealTopics'], QSalesTypes.MutationgetDealTopicsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/deals **/
+  getDeals: InContextSdkMethod<QSalesTypes.Mutation['getDeals'], QSalesTypes.MutationgetDealsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/emails/{emlObjId} **/
+  getEmailByEmlObjId: InContextSdkMethod<QSalesTypes.Mutation['getEmailByEmlObjId'], QSalesTypes.MutationgetEmailByEmlObjIdArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/emails **/
+  getEmails: InContextSdkMethod<QSalesTypes.Mutation['getEmails'], QSalesTypes.MutationgetEmailsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/empathyandhesitationturns/getforuserandrange **/
+  getEmpathyAndHesitationTurns: InContextSdkMethod<QSalesTypes.Mutation['getEmpathyAndHesitationTurns'], QSalesTypes.MutationgetEmpathyAndHesitationTurnsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/preferences/favorite-meeting **/
+  getFavoriteMeeting: InContextSdkMethod<QSalesTypes.Mutation['getFavoriteMeeting'], QSalesTypes.MutationgetFavoriteMeetingArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/usage/invited-users **/
+  getInvitedUsers: InContextSdkMethod<QSalesTypes.Mutation['getInvitedUsers'], QSalesTypes.MutationgetInvitedUsersArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/convs/lastmeeting **/
+  getLastMeeting: InContextSdkMethod<QSalesTypes.Mutation['getLastMeeting'], QSalesTypes.MutationgetLastMeetingArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/mediaclip/search/count **/
+  getMediaClipCount: InContextSdkMethod<QSalesTypes.Mutation['getMediaClipCount'], QSalesTypes.MutationgetMediaClipCountArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/mediaclip/stats **/
+  getMediaClipStats: InContextSdkMethod<QSalesTypes.Mutation['getMediaClipStats'], QSalesTypes.MutationgetMediaClipStatsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/usage/meetings **/
+  getMeetingListBasedOnType: InContextSdkMethod<QSalesTypes.Mutation['getMeetingListBasedOnType'], QSalesTypes.MutationgetMeetingListBasedOnTypeArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/meeting/sentiments **/
+  getMeetingSentiments: InContextSdkMethod<QSalesTypes.Mutation['getMeetingSentiments'], QSalesTypes.MutationgetMeetingSentimentsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/users/meetings/sharedwithme **/
+  getMeetingsSharedWithUser: InContextSdkMethod<QSalesTypes.Mutation['getMeetingsSharedWithUser'], QSalesTypes.MutationgetMeetingsSharedWithUserArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/convs/{id}/keyword/search **/
+  getMomentsHavingKeyword: InContextSdkMethod<QSalesTypes.Mutation['getMomentsHavingKeyword'], QSalesTypes.MutationgetMomentsHavingKeywordArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/keytopics/popular **/
+  getMostPopularKeymoments: InContextSdkMethod<QSalesTypes.Mutation['getMostPopularKeymoments'], QSalesTypes.MutationgetMostPopularKeymomentsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/meeting/most-shared **/
+  getMostSharedMeetings: InContextSdkMethod<QSalesTypes.Mutation['getMostSharedMeetings'], QSalesTypes.MutationgetMostSharedMeetingsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/meeting/mostviewed **/
+  getMostViewedMeeting: InContextSdkMethod<QSalesTypes.Mutation['getMostViewedMeeting'], QSalesTypes.MutationgetMostViewedMeetingArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/teams/oppty/userstat **/
+  getOpptyUsersStat: InContextSdkMethod<QSalesTypes.Mutation['getOpptyUsersStat'], QSalesTypes.MutationgetOpptyUsersStatArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/playlists/stats **/
+  getPlaylistStats: InContextSdkMethod<QSalesTypes.Mutation['getPlaylistStats'], QSalesTypes.MutationgetPlaylistStatsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/playlists/search/count **/
+  getPlaylistsCount: InContextSdkMethod<QSalesTypes.Mutation['getPlaylistsCount'], QSalesTypes.MutationgetPlaylistsCountArgs, MeshContext>,
+  /** 
+
+Equivalent to DELETE /usales/playlists/{id} **/
+  getPlaylistsCount1: InContextSdkMethod<QSalesTypes.Mutation['getPlaylistsCount1'], QSalesTypes.MutationgetPlaylistsCount1Args, MeshContext>,
+  /** 
+
+Equivalent to DELETE /usales/mediaclip/{id} **/
+  getPlaylistsCount2: InContextSdkMethod<QSalesTypes.Mutation['getPlaylistsCount2'], QSalesTypes.MutationgetPlaylistsCount2Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/sellereq **/
+  getSellerEQ: InContextSdkMethod<QSalesTypes.Mutation['getSellerEQ'], QSalesTypes.MutationgetSellerEQArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/configprops **/
+  getSystemProps: InContextSdkMethod<QSalesTypes.Mutation['getSystemProps'], QSalesTypes.MutationgetSystemPropsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/usage/page-visits **/
+  getTopPageVisitDetails: InContextSdkMethod<QSalesTypes.Mutation['getTopPageVisitDetails'], QSalesTypes.MutationgetTopPageVisitDetailsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/users/calldetails **/
+  getUserCallMetr: InContextSdkMethod<QSalesTypes.Mutation['getUserCallMetr'], QSalesTypes.MutationgetUserCallMetrArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/users/callmetrics **/
+  getUserCallMetrics: InContextSdkMethod<QSalesTypes.Mutation['getUserCallMetrics'], QSalesTypes.MutationgetUserCallMetricsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/analytics/usage/users-auth **/
+  getUsersAuth: InContextSdkMethod<QSalesTypes.Mutation['getUsersAuth'], QSalesTypes.MutationgetUsersAuthArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/teams/convostat **/
+  getUsersConvoStat: InContextSdkMethod<QSalesTypes.Mutation['getUsersConvoStat'], QSalesTypes.MutationgetUsersConvoStatArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/keyword/keyphrase/topic/count **/
+  keyPhras1eOccurences: InContextSdkMethod<QSalesTypes.Mutation['keyPhras1eOccurences'], QSalesTypes.MutationkeyPhras1eOccurencesArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/keyword/keyphrase/occurences **/
+  keyPhraseOccurences: InContextSdkMethod<QSalesTypes.Mutation['keyPhraseOccurences'], QSalesTypes.MutationkeyPhraseOccurencesArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /auth/logout **/
+  logout: InContextSdkMethod<QSalesTypes.Mutation['logout'], {}, MeshContext>,
+  /** 
+
+Equivalent to POST /v1/transcript/populate **/
+  populate: InContextSdkMethod<QSalesTypes.Mutation['populate'], QSalesTypes.MutationpopulateArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/mindtickle/query **/
+  postDataByUri: InContextSdkMethod<QSalesTypes.Mutation['postDataByUri'], QSalesTypes.MutationpostDataByUriArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/keyword/keyphrases **/
+  resetKeyPhrases: InContextSdkMethod<QSalesTypes.Mutation['resetKeyPhrases'], {}, MeshContext>,
+  /** 
+
+Equivalent to POST /auth/users/details **/
+  revoke: InContextSdkMethod<QSalesTypes.Mutation['revoke'], QSalesTypes.MutationrevokeArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /auth/revoke/{provider} **/
+  revoke1: InContextSdkMethod<QSalesTypes.Mutation['revoke1'], QSalesTypes.Mutationrevoke1Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/meeting/custom-disclaimer **/
+  saveMessage: InContextSdkMethod<QSalesTypes.Mutation['saveMessage'], QSalesTypes.MutationsaveMessageArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /cspviolations **/
+  saveReport: InContextSdkMethod<QSalesTypes.Mutation['saveReport'], QSalesTypes.MutationsaveReportArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /v1/transcript/search **/
+  search: InContextSdkMethod<QSalesTypes.Mutation['search'], QSalesTypes.MutationsearchArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/zoommeetingwhitelist/search **/
+  search1: InContextSdkMethod<QSalesTypes.Mutation['search1'], QSalesTypes.Mutationsearch1Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/playlists/search **/
+  search2: InContextSdkMethod<QSalesTypes.Mutation['search2'], QSalesTypes.Mutationsearch2Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/mediaclip/search **/
+  search3: InContextSdkMethod<QSalesTypes.Mutation['search3'], QSalesTypes.Mutationsearch3Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/keymoments/search **/
+  search4: InContextSdkMethod<QSalesTypes.Mutation['search4'], QSalesTypes.Mutationsearch4Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/emails/search **/
+  search5: InContextSdkMethod<QSalesTypes.Mutation['search5'], QSalesTypes.Mutationsearch5Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/custweblinks/search **/
+  search6: InContextSdkMethod<QSalesTypes.Mutation['search6'], QSalesTypes.Mutationsearch6Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/convs/promise/search **/
+  search7: InContextSdkMethod<QSalesTypes.Mutation['search7'], QSalesTypes.Mutationsearch7Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/conv-topic-episodes/search **/
+  search8: InContextSdkMethod<QSalesTypes.Mutation['search8'], QSalesTypes.Mutationsearch8Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/comments/search **/
+  search9: InContextSdkMethod<QSalesTypes.Mutation['search9'], QSalesTypes.Mutationsearch9Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/contacts/search **/
+  searchAccountAndContact: InContextSdkMethod<QSalesTypes.Mutation['searchAccountAndContact'], QSalesTypes.MutationsearchAccountAndContactArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/contacts/search/count **/
+  searchAccountAndContactCount: InContextSdkMethod<QSalesTypes.Mutation['searchAccountAndContactCount'], QSalesTypes.MutationsearchAccountAndContactCountArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/accounts/search **/
+  searchAccounts: InContextSdkMethod<QSalesTypes.Mutation['searchAccounts'], QSalesTypes.MutationsearchAccountsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/accounts/search/count **/
+  searchAccountsCount: InContextSdkMethod<QSalesTypes.Mutation['searchAccountsCount'], QSalesTypes.MutationsearchAccountsCountArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/alerts/search **/
+  searchAlerts: InContextSdkMethod<QSalesTypes.Mutation['searchAlerts'], QSalesTypes.MutationsearchAlertsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/contact/search **/
+  searchContact: InContextSdkMethod<QSalesTypes.Mutation['searchContact'], QSalesTypes.MutationsearchContactArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/emails/search-summary **/
+  searchEmailSummary: InContextSdkMethod<QSalesTypes.Mutation['searchEmailSummary'], QSalesTypes.MutationsearchEmailSummaryArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/events/search **/
+  searchEvents: InContextSdkMethod<QSalesTypes.Mutation['searchEvents'], QSalesTypes.MutationsearchEventsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/events/search/count **/
+  searchEventsCount: InContextSdkMethod<QSalesTypes.Mutation['searchEventsCount'], QSalesTypes.MutationsearchEventsCountArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/keyword/categ/search **/
+  searchKeywordCateg: InContextSdkMethod<QSalesTypes.Mutation['searchKeywordCateg'], QSalesTypes.MutationsearchKeywordCategArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/keyword/categ/search/count **/
+  searchKeywordCategCount: InContextSdkMethod<QSalesTypes.Mutation['searchKeywordCategCount'], QSalesTypes.MutationsearchKeywordCategCountArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/keyword/categ/search/notags **/
+  searchKeywordCategWithoutTags: InContextSdkMethod<QSalesTypes.Mutation['searchKeywordCategWithoutTags'], QSalesTypes.MutationsearchKeywordCategWithoutTagsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/keyword/tag/search **/
+  searchKeywordTag: InContextSdkMethod<QSalesTypes.Mutation['searchKeywordTag'], QSalesTypes.MutationsearchKeywordTagArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/keyword/tag/search/count **/
+  searchKeywordTagCount: InContextSdkMethod<QSalesTypes.Mutation['searchKeywordTagCount'], QSalesTypes.MutationsearchKeywordTagCountArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/advSearch **/
+  searchMeetings: InContextSdkMethod<QSalesTypes.Mutation['searchMeetings'], QSalesTypes.MutationsearchMeetingsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/search/meetings **/
+  searchMeetingsByAccountOrOppty: InContextSdkMethod<QSalesTypes.Mutation['searchMeetingsByAccountOrOppty'], QSalesTypes.MutationsearchMeetingsByAccountOrOpptyArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/advSearch/count **/
+  searchMeetingsCount: InContextSdkMethod<QSalesTypes.Mutation['searchMeetingsCount'], QSalesTypes.MutationsearchMeetingsCountArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/empathy-moment-recommendation/search **/
+  searchMoments: InContextSdkMethod<QSalesTypes.Mutation['searchMoments'], QSalesTypes.MutationsearchMomentsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/preferences/search **/
+  searchPreference: InContextSdkMethod<QSalesTypes.Mutation['searchPreference'], QSalesTypes.MutationsearchPreferenceArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/emails/team-activity **/
+  searchTeamActivity: InContextSdkMethod<QSalesTypes.Mutation['searchTeamActivity'], QSalesTypes.MutationsearchTeamActivityArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/users/search **/
+  searchUsers: InContextSdkMethod<QSalesTypes.Mutation['searchUsers'], QSalesTypes.MutationsearchUsersArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/companyprofile/keyword-categ-select **/
+  selectCompanyKeywordCategory: InContextSdkMethod<QSalesTypes.Mutation['selectCompanyKeywordCategory'], QSalesTypes.MutationselectCompanyKeywordCategoryArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /slack/sendmessage **/
+  sendMessage: InContextSdkMethod<QSalesTypes.Mutation['sendMessage'], QSalesTypes.MutationsendMessageArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/shares/share-clip-external **/
+  shareClipExternalUser: InContextSdkMethod<QSalesTypes.Mutation['shareClipExternalUser'], QSalesTypes.MutationshareClipExternalUserArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/shares/share-meeting-external **/
+  shareMeetingExternalUser: InContextSdkMethod<QSalesTypes.Mutation['shareMeetingExternalUser'], QSalesTypes.MutationshareMeetingExternalUserArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/shares/share-meeting-internal/{type} **/
+  shareMeetingInternalUser: InContextSdkMethod<QSalesTypes.Mutation['shareMeetingInternalUser'], QSalesTypes.MutationshareMeetingInternalUserArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/shares/playlist **/
+  sharePlaylist: InContextSdkMethod<QSalesTypes.Mutation['sharePlaylist'], QSalesTypes.MutationsharePlaylistArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/emails/threadcount **/
+  threadCount: InContextSdkMethod<QSalesTypes.Mutation['threadCount'], QSalesTypes.MutationthreadCountArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/companyprofile/access-consent **/
+  updateAccessConsent: InContextSdkMethod<QSalesTypes.Mutation['updateAccessConsent'], QSalesTypes.MutationupdateAccessConsentArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/account-oppty-eq **/
+  updateAccountOpptyEQ: InContextSdkMethod<QSalesTypes.Mutation['updateAccountOpptyEQ'], QSalesTypes.MutationupdateAccountOpptyEQArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/account-oppty-eq-1 **/
+  updateAccountOpptyEQ1: InContextSdkMethod<QSalesTypes.Mutation['updateAccountOpptyEQ1'], {}, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/alerts **/
+  updateAlert: InContextSdkMethod<QSalesTypes.Mutation['updateAlert'], QSalesTypes.MutationupdateAlertArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/events **/
+  updateCalendarEvent: InContextSdkMethod<QSalesTypes.Mutation['updateCalendarEvent'], QSalesTypes.MutationupdateCalendarEventArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/conv-topic-episodes **/
+  updateConvTopicEpisode: InContextSdkMethod<QSalesTypes.Mutation['updateConvTopicEpisode'], QSalesTypes.MutationupdateConvTopicEpisodeArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/convs **/
+  updateConversation: InContextSdkMethod<QSalesTypes.Mutation['updateConversation'], QSalesTypes.MutationupdateConversationArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/emleqs **/
+  updateEmlEq: InContextSdkMethod<QSalesTypes.Mutation['updateEmlEq'], QSalesTypes.MutationupdateEmlEqArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/keymoments **/
+  updateKeyMoment: InContextSdkMethod<QSalesTypes.Mutation['updateKeyMoment'], QSalesTypes.MutationupdateKeyMomentArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/playlists/media-clip-rel **/
+  updatePlaylistMediaClipRel: InContextSdkMethod<QSalesTypes.Mutation['updatePlaylistMediaClipRel'], QSalesTypes.MutationupdatePlaylistMediaClipRelArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/users/enable **/
+  updateQDetails: InContextSdkMethod<QSalesTypes.Mutation['updateQDetails'], QSalesTypes.MutationupdateQDetailsArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/keyword/tag/update-status **/
+  updateStatusByIds: InContextSdkMethod<QSalesTypes.Mutation['updateStatusByIds'], QSalesTypes.MutationupdateStatusByIdsArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /auth/teams **/
+  updateTeamAccess: InContextSdkMethod<QSalesTypes.Mutation['updateTeamAccess'], QSalesTypes.MutationupdateTeamAccessArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/users/{managerId}/team **/
+  updateTeamMembersManagerDetails: InContextSdkMethod<QSalesTypes.Mutation['updateTeamMembersManagerDetails'], QSalesTypes.MutationupdateTeamMembersManagerDetailsArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/users/proxy **/
+  updateUserProxy: InContextSdkMethod<QSalesTypes.Mutation['updateUserProxy'], QSalesTypes.MutationupdateUserProxyArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/zoommeetingwhitelist/invoke-bot **/
+  updateZoomMeetingInvokeBot: InContextSdkMethod<QSalesTypes.Mutation['updateZoomMeetingInvokeBot'], QSalesTypes.MutationupdateZoomMeetingInvokeBotArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/zoommeetingwhitelist/update **/
+  updateZoomMeetingWhitelist: InContextSdkMethod<QSalesTypes.Mutation['updateZoomMeetingWhitelist'], {}, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/convs/external-meeting **/
+  uploadExternalMeeting: InContextSdkMethod<QSalesTypes.Mutation['uploadExternalMeeting'], QSalesTypes.MutationuploadExternalMeetingArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/playlists **/
+  upsert: InContextSdkMethod<QSalesTypes.Mutation['upsert'], QSalesTypes.MutationupsertArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/playlist/param **/
+  upsert1: InContextSdkMethod<QSalesTypes.Mutation['upsert1'], QSalesTypes.Mutationupsert1Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/mediaclip **/
+  upsert2: InContextSdkMethod<QSalesTypes.Mutation['upsert2'], QSalesTypes.Mutationupsert2Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/mediaClip/param **/
+  upsert3: InContextSdkMethod<QSalesTypes.Mutation['upsert3'], QSalesTypes.Mutationupsert3Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/convs/promise **/
+  upsert4: InContextSdkMethod<QSalesTypes.Mutation['upsert4'], QSalesTypes.Mutationupsert4Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/convs/param **/
+  upsert5: InContextSdkMethod<QSalesTypes.Mutation['upsert5'], QSalesTypes.Mutationupsert5Args, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/company-param **/
+  upsertCompanyParam: InContextSdkMethod<QSalesTypes.Mutation['upsertCompanyParam'], QSalesTypes.MutationupsertCompanyParamArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/companyprofile **/
+  upsertCompanyProfile: InContextSdkMethod<QSalesTypes.Mutation['upsertCompanyProfile'], QSalesTypes.MutationupsertCompanyProfileArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/companyprofile/businesscategs **/
+  upsertCompanyProfileWithKeywordCategRel: InContextSdkMethod<QSalesTypes.Mutation['upsertCompanyProfileWithKeywordCategRel'], QSalesTypes.MutationupsertCompanyProfileWithKeywordCategRelArgs, MeshContext>,
+  /** 
+
+Equivalent to PUT /usales/configprops **/
+  upsertConfigProp: InContextSdkMethod<QSalesTypes.Mutation['upsertConfigProp'], QSalesTypes.MutationupsertConfigPropArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/convs/{convId}/viewed **/
+  upsertExternal: InContextSdkMethod<QSalesTypes.Mutation['upsertExternal'], QSalesTypes.MutationupsertExternalArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/playlist/param/last-viewed **/
+  upsertLastViewed: InContextSdkMethod<QSalesTypes.Mutation['upsertLastViewed'], QSalesTypes.MutationupsertLastViewedArgs, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/mediaClip/param/last-viewed **/
+  upsertLastViewed1: InContextSdkMethod<QSalesTypes.Mutation['upsertLastViewed1'], QSalesTypes.MutationupsertLastViewed1Args, MeshContext>,
+  /** 
+
+Equivalent to POST /usales/convs/param/last-viewed **/
+  upsertLastViewed2: InContextSdkMethod<QSalesTypes.Mutation['upsertLastViewed2'], QSalesTypes.MutationupsertLastViewed2Args, MeshContext>
+};
+
+export type SubscriptionQSalesSdk = {
 
 };
 
-export type WeatherbitIoContext = {
-      ["Weatherbit.io"]: { Query: QueryWeatherbitIoSdk, Mutation: MutationWeatherbitIoSdk, Subscription: SubscriptionWeatherbitIoSdk },
+export type QSalesContext = {
+      ["Q-Sales"]: { Query: QueryQSalesSdk, Mutation: MutationQSalesSdk, Subscription: SubscriptionQSalesSdk },
     };
 
-export type MeshContext = WeatherbitIoContext & BaseMeshContext;
+export type MeshContext = QSalesContext & BaseMeshContext;
 
 
-import { parse } from 'graphql';
 import { getMesh } from '@graphql-mesh/runtime';
 import { MeshStore, FsStoreStorageAdapter } from '@graphql-mesh/store';
-import { cwd } from 'process';
-import { relative, isAbsolute } from 'path';
-import ExternalModule_0 from '@graphql-mesh/cache-inmemory-lru';
-import ExternalModule_1 from '@graphql-mesh/openapi';
-import ExternalModule_2 from '@graphql-mesh/merger-stitching';
-import ExternalModule_3 from './sources/Weatherbit.io/oas-schema.js';
+import { path as pathModule } from '@graphql-mesh/cross-helpers';
+import { fileURLToPath } from '@graphql-mesh/utils';
 
 const importedModules: Record<string, any> = {
-  // @ts-ignore
-  [`@graphql-mesh/cache-inmemory-lru`]: ExternalModule_0,
-  // @ts-ignore
-  [`@graphql-mesh/openapi`]: ExternalModule_1,
-  // @ts-ignore
-  [`@graphql-mesh/merger-stitching`]: ExternalModule_2,
-  // @ts-ignore
-  [`.mesh/sources/Weatherbit.io/oas-schema.js`]: ExternalModule_3
+
 };
 
-const baseDir = cwd();
+const baseDir = pathModule.join(__dirname, '..');
 
-const syncImportFn = (moduleId: string) => {
-  const relativeModuleId = isAbsolute(moduleId) ? relative(baseDir, moduleId) : moduleId;
+const importFn = (moduleId: string) => {
+  const relativeModuleId = (pathModule.isAbsolute(moduleId) ? pathModule.relative(baseDir, moduleId) : moduleId).split('\\').join('/').replace(baseDir + '/', '');
   if (!(relativeModuleId in importedModules)) {
     throw new Error(`Cannot find module '${relativeModuleId}'.`);
   }
-  return importedModules[relativeModuleId];
+  return Promise.resolve(importedModules[relativeModuleId]);
 };
-const importFn = async (moduleId: string) => syncImportFn(moduleId);
 
 const rootStore = new MeshStore('.mesh', new FsStoreStorageAdapter({
   cwd: baseDir,
   importFn,
+  fileType: 'ts',
 }), {
   readonly: true,
   validate: false
 });
 
-import { GetMeshOptions } from '@graphql-mesh/runtime';
-import { YamlConfig } from '@graphql-mesh/types';
-import MeshCache from '@graphql-mesh/cache-inmemory-lru';
-import { PubSub } from 'graphql-subscriptions';
-import { EventEmitter } from 'events';
-import { DefaultLogger } from '@graphql-mesh/utils';
-import OpenapiHandler from '@graphql-mesh/openapi'
-import StitchingMerger from '@graphql-mesh/merger-stitching';
-import { resolveAdditionalResolvers } from '@graphql-mesh/utils';
-export const rawConfig: YamlConfig.Config = {"sources":[{"name":"Weatherbit.io","handler":{"openapi":{"source":"https://sunstone-app-alpha.q.uniphorecloud.com/v3/api-docs","baseUrl":"https://sunstone-app-alpha.q.uniphorecloud.com","operationHeaders":{"Authorization":"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b25hbEB1bmlwaG9yZS5jb20iLCJhdWQiOiJpbnRlcm5hbCIsInNjb3BlcyI6IlNFTExFUiIsInZlcnNpb24iOiIxLjUuMC4xMSIsInRlbmFudCI6ImFscGhhIiwiaWF0IjoxNjgwMTk4MTA3fQ.bpwcpYXitfPIfiIB-DgnAQRO2ZdHcVebodSpTvZRskp8YPmlO9rwzlFDjk25qQu2jGnbcx03yri-hfTwIADX_Q"}}}}]}
-export function getMeshOptions(): GetMeshOptions {
-const cache = new MeshCache({
-      ...(rawConfig.cache || {}),
-      store: rootStore.child('cache'),
-    } as any)
-const eventEmitter = new (EventEmitter as any)({ captureRejections: true });
-eventEmitter.setMaxListeners(Infinity);
-const pubsub = new PubSub({ eventEmitter });
-const sourcesStore = rootStore.child('sources');
-const logger = new DefaultLogger('Mesh');
-const sources = [];
-const transforms = [];
-const weatherbitIoTransforms = [];
-const additionalTypeDefs = [] as any[];
-const weatherbitIoHandler = new OpenapiHandler({
-              name: rawConfig.sources[0].name,
-              config: rawConfig.sources[0].handler.openapi,
-              baseDir,
-              cache,
-              pubsub,
-              store: sourcesStore.child(rawConfig.sources[0].name),
-              logger: logger.child(rawConfig.sources[0].name),
-              importFn
-            });
-sources.push({
-          name: 'Weatherbit.io',
-          handler: weatherbitIoHandler,
-          transforms: weatherbitIoTransforms
-        })
-const merger = new(StitchingMerger as any)({
-        cache,
-        pubsub,
-        logger: logger.child('StitchingMerger'),
-        store: rootStore.child('stitchingMerger')
-      })
-const additionalResolvers = resolveAdditionalResolvers(
-      baseDir,
-      rawConfig.additionalResolvers,
-      syncImportFn,
-      pubsub
-  )
-const liveQueryInvalidations = rawConfig.liveQueryInvalidations;
 
-  return {
-    sources,
-    transforms,
-    additionalTypeDefs,
-    additionalResolvers,
-    cache,
-    pubsub,
-    merger,
-    logger,
-    liveQueryInvalidations,
-  };
-}
+                import { findAndParseConfig } from '@graphql-mesh/cli';
+                function getMeshOptions() {
+                  console.warn('WARNING: These artifacts are built for development mode. Please run "mesh build" to build production artifacts');
+                  return findAndParseConfig({
+                    dir: baseDir,
+                    artifactsDir: ".mesh",
+                    configName: "mesh",
+                  });
+                }
+              
 
 export const documentsInSDL = /*#__PURE__*/ [];
 
-export function getBuiltMesh() {
-  const meshConfig = getMeshOptions();
-  return getMesh(meshConfig);
+export async function getBuiltMesh(): Promise<MeshInstance<MeshContext>> {
+  const meshConfig = await getMeshOptions();
+  return getMesh<MeshContext>(meshConfig);
 }
 
-export async function getMeshSDK() {
-  const { sdkRequester } = await getBuiltMesh();
-  return getSdk(sdkRequester);
+export async function getMeshSDK<TGlobalContext = any, TOperationContext = any>(globalContext?: TGlobalContext) {
+  const { sdkRequesterFactory } = await getBuiltMesh();
+  return getSdk<TOperationContext>(sdkRequesterFactory(globalContext));
 }
 
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>

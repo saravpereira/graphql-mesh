@@ -1,5 +1,5 @@
 sources:
-  - name: Weatherbit.io
+  - name: Q-Sales
     handler:
       openapi:
         source: https://sunstone-app-alpha.q.uniphorecloud.com/v3/api-docs
