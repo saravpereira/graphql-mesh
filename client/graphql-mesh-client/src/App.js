@@ -36,7 +36,7 @@ const POST_QUERY = gql`
     search3(
       advSearchRequestInput: {
         entity: "media-clip"
-        criteria: [{ name: "conversation", operator: "in", value: ${process.env.REACT_APP_POST_API_URL} }]
+        criteria: [{ name: "conversation", operator: "in", value: "16726035" }]
       }
     ) {
       status
@@ -85,7 +85,7 @@ function App() {
                 {
                   name: "conversation",
                   operator: "in",
-                  value: process.env.REACT_APP_POST_API_URL,
+                  value: process.env.REACT_APP_TEST_ID_POST_CALL,
                 },
               ],
             },
