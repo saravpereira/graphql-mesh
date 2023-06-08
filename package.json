@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "mesh build",
-    "dev": "mesh dev",
+    "dev": "mesh dev --port 4002",
     "start": "mesh start",
     "validate": "mesh validate",
     "devNew": "nodemon index.js"
