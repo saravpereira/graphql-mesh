@@ -559,7 +559,7 @@ type AccountResponseDTO {
   id: Float
   insertTime: String
   name: String
-  oppties: [Oppty2]
+  oppties: [Oppty3]
   orgId: Float
   score: [Score4]
   source: String
@@ -678,6 +678,7 @@ type Attendee {
   jobTitle: String
   metrics: [AttendeeMetric]
   name: String
+  persona: String
   politeness: Float
   rank: Int
   role: String
@@ -829,7 +830,7 @@ type ConvPromiseResponseDTO {
   type: String
 }
 
-type Oppty2 {
+type Oppty3 {
   account: Account
   amount: Float
   crmOpptyId: String
@@ -871,7 +872,7 @@ type MeetingMetadata {
   insertBy: Float
   insertTime: String
   meetingTopic: String
-  oppty: Oppty2
+  oppty: Oppty3
   orgId: Float
   setOfMeetingMetadataParam: [MeetingMetadataParam]
   source: String
@@ -909,8 +910,9 @@ type OpptyContactRel {
   id: Float
   insertBy: Float
   insertTime: String
-  oppty: Oppty2
+  oppty: Oppty3
   orgId: Float
+  persona: String
   source: String
   updateBy: Float
   updateTime: String
@@ -923,9 +925,9 @@ type OpptyTeam {
   id: Float
   insertBy: Float
   insertTime: String
-  listOfOppty: [Oppty2]
+  listOfOppty: [Oppty3]
   name: String
-  oppty: Oppty2
+  oppty: Oppty3
   orgId: Float
   role: String
   setOfOpptyTeamParam: [OpptyTeamParam]
@@ -933,7 +935,7 @@ type OpptyTeam {
   startDate: String
   updateBy: Float
   updateTime: String
-  users3: Users2
+  users3: Users
   version: String
 }
 
@@ -950,7 +952,7 @@ type OpptyTeamParam {
   version: String
 }
 
-type Users2 {
+type Users {
   alertList: [Alert]
   crmUserId: String
   customerDomainWhiteList: [CustomerDomainWhiteList2]
@@ -1004,7 +1006,7 @@ type Alert {
   type: String
   updateBy: Float
   updateTime: String
-  users: Users2
+  users: Users
   version: String
 }
 
@@ -1017,7 +1019,7 @@ type CustomerDomainWhiteList2 {
   source: String
   updateBy: Float
   updateTime: String
-  users: Users2
+  users: Users
   version: String
 }
 
@@ -1051,7 +1053,7 @@ type AccountTeam {
   startDate: String
   updateBy: Float
   updateTime: String
-  users3: Users2
+  users3: Users
   version: String
 }
 
@@ -1077,7 +1079,7 @@ type UsersRoleRel {
   source: String
   updateBy: Float
   updateTime: String
-  users: Users2
+  users: Users
   version: String
 }
 
@@ -1092,7 +1094,7 @@ type UserUiPreference {
   source: String
   updateBy: Float
   updateTime: String
-  users: Users2
+  users: Users
   version: String
 }
 
@@ -1119,7 +1121,7 @@ type OpptyParam {
   insertBy: Float
   insertTime: String
   name: String
-  oppty: Oppty2
+  oppty: Oppty3
   orgId: Float
   probability: Float
   product: String
@@ -1247,6 +1249,7 @@ type CalendarEvent {
   eventAttendees: [CalendarEventAttendee]
   eventEndTime: String
   eventStartTime: String
+  hostName: String
   id: Float
   lastMeeting: ConversationDetailResponse
   oppty: [IdNameDTO]
@@ -2783,7 +2786,7 @@ type Mutation {
   getPlaylistsCount1(id: Float!): JSON
 
   "\n\nEquivalent to DELETE /usales/mediaclip/{id}"
-  getPlaylistsCount2(id: Float!): JSON
+  getPlaylistsCount2(id: Float!): String
 
   "\n\nEquivalent to POST /usales/analytics/sellereq"
   getSellerEQ(usalesAnalyticsSellereqInput: JSON!): DealSellerPerformanceResponse
@@ -3124,6 +3127,9 @@ type Mutation {
     limit: Int
   ): [ThreadCountResponse]
 
+  "\n\nEquivalent to DELETE /usales/convs/{id}"
+  trashConversation(id: Float!): String
+
   "\n\nEquivalent to PUT /usales/companyprofile/access-consent"
   updateAccessConsent(consent: Boolean!): String
 
@@ -3150,6 +3156,15 @@ type Mutation {
 
   "\n\nEquivalent to PUT /usales/keymoments"
   updateKeyMoment(convKeyMomentRequestDTOInput: ConvKeyMomentRequestDTOInput!): ConvKeyMomentResponseDTO
+
+  "\n\nEquivalent to PUT /usales/contact/persona"
+  updateOpptyContact(
+    """
+    Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
+    """
+    limit: Int
+    opptyContactRequestInput: OpptyContactRequestInput!
+  ): [ContactSearchResponseDTO]
 
   "\n\nEquivalent to PUT /usales/playlists/media-clip-rel"
   updatePlaylistMediaClipRel(playlistMediaClipRelRequestDTOInput: PlaylistMediaClipRelRequestDTOInput!): JSON
@@ -3238,6 +3253,9 @@ type Mutation {
 
   "\n\nEquivalent to POST /usales/convs/param/last-viewed"
   upsertLastViewed2(convParamRequestDTOInput: ConvParamRequestDTOInput!): ConvParamResponseDTO
+
+  "\n\nEquivalent to POST /usales/mediaClip/param/{mediaClipId}/viewed"
+  upsertLastViewedExternal(mediaClipId: Float!): MediaClipParamResponseDTO
 }
 
 input PlaylistMediaClipRelRequestDTOInput {
@@ -3795,7 +3813,7 @@ type AccountActivityResponseDTO {
   id: Float
   insertTime: String
   name: String
-  oppties: [Oppty2]
+  oppties: [Oppty3]
   orgId: Float
   score: [Score4]
   source: String
@@ -3969,6 +3987,7 @@ type MediaClipStatsAttr {
   mediaClipId: Float
   meetingTopic: String
   shared: Int
+  status: String
   title: String
   views: Int
 }
@@ -4200,7 +4219,7 @@ type ContactSearchResponseDTO {
   contacts: [Contact]
   insertBy: Float
   insertTime: String
-  oppty: Oppty2
+  oppty: Oppty3
   orgId: Float
   source: String
   updateBy: Float
@@ -4283,6 +4302,7 @@ input ClipRequestInput {
 }
 
 input ShareClipDTOInput {
+  clipId: Float
   clipLength: Int
   clipStartTime: Int
   clipTitle: String
@@ -4379,6 +4399,16 @@ input ConvKeyMomentRequestDTOInput {
   type: String
   upVote: Float
   upVoteUser: String
+}
+
+input OpptyContactRequestInput {
+  contact: Float
+  email: String
+  firstName: String
+  lastName: String
+  name: String
+  oppty: Float
+  persona: String
 }
 
 input UserDelegateRequestDTOInput {

@@ -66,7 +66,7 @@ const options = {
 function App() {
   const [dataset, setDataset] = useState({});
   const [restData, setRestData] = useState({});
-  const [showGraphQL, setShowGraphQL] = useState(true);
+  const [showGraphQL, setShowGraphQL] = useState(false);
   const [showGetCall, setShowGetCall] = useState(true);
   const { loading, error, data } = useQuery(GET_QUERY);
   const [
@@ -149,7 +149,10 @@ function App() {
         <AntSwitch
           defaultChecked
           inputProps={{ "aria-label": "ant design" }}
-          onChange={(e) => setShowGetCall(e.target.checked)}
+          onChange={(e) => {
+            setShowGetCall(e.target.checked);
+            setShowGraphQL(false);
+          }}
           checked={showGetCall}
         />
         <Typography>GET Call</Typography>
@@ -157,7 +160,7 @@ function App() {
       <div
         style={{
           whiteSpace: "pre",
-          height: "500px",
+          height: "700px",
           width: "522px",
           overflow: "auto",
           border: "1px solid #1976d2",
